@@ -1,5 +1,6 @@
 import EnrollForm from './EnrollForm';
 import SaleCountdown from './SaleCountdown';
+import WhileSaleActive from './WhileSaleActive';
 
 export default function Pricing() {
   const inclusions = [
@@ -27,9 +28,11 @@ export default function Pricing() {
             Everything you need to become Yoga Alliance certified.
             At our lowest price ever.
           </p>
-          <p className="text-[11px] font-body text-akasha-gray-1 mt-3 italic">
-            Price returns to US$1190 on Jun 16.
-          </p>
+          <WhileSaleActive>
+            <p className="text-[11px] font-body text-akasha-gray-1 mt-3 italic">
+              Price returns to US$1190 on Jun 16.
+            </p>
+          </WhileSaleActive>
           <span className="gold-rule" />
         </div>
 

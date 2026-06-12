@@ -33,7 +33,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-akasha-black text-akasha-white/75">
+    <footer className="bg-akasha-black text-akasha-white/75 pb-24 lg:pb-0">
       <div className="section py-16">
         <div className="grid md:grid-cols-[1.5fr_1fr_1fr_1fr] gap-10 mb-12">
           <div>
