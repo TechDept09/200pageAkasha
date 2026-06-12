@@ -34,7 +34,7 @@ export default function Hero() {
               lead teachers with 65 years of combined experience.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-6">
               <CheckoutButton className="btn-primary">
                 Enroll Now
               </CheckoutButton>
@@ -42,6 +42,19 @@ export default function Hero() {
                 Explore Program
               </a>
             </div>
+
+            {/* Benefit microcopy */}
+            <ul className="flex flex-wrap justify-center lg:justify-start gap-x-5 gap-y-2 mb-7 text-[12px] font-body text-akasha-gray-1">
+              <li className="flex items-center gap-1.5">
+                <span className="text-akasha-green">✓</span> Yoga Alliance certified
+              </li>
+              <li className="flex items-center gap-1.5">
+                <span className="text-akasha-green">✓</span> 6-month self-paced
+              </li>
+              <li className="flex items-center gap-1.5">
+                <span className="text-akasha-green">✓</span> Learn from anywhere
+              </li>
+            </ul>
 
             {/* Social proof line */}
             <div className="flex items-center gap-3 justify-center lg:justify-start">

@@ -10,6 +10,7 @@ const links = [
   { href: '#curriculum', label: 'Curriculum' },
   { href: '#teachers', label: 'Teachers' },
   { href: '#pricing', label: 'Pricing' },
+  { href: '#testimonials', label: 'Reviews' },
   { href: '#faq', label: 'FAQ' },
 ];
 

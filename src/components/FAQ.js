@@ -9,6 +9,9 @@ export default function FAQ() {
     { q: 'How long do I have access to the materials?', a: 'As soon as you enroll, you get immediate access to our entire online platform. To complete the Yoga Alliance certification, training must be finished within 6 months of purchase.' },
     { q: 'What if I can’t finish in a few months?', a: 'Yoga Alliance certification requires you to complete the training within 6 months of purchase. The path is self-paced inside that window — the community will help you stay on track and finish on time.' },
     { q: 'Is there a money-back guarantee?', a: 'Yes — a 14-Day Money-Back Guarantee. If the program doesn’t meet your expectations, you’re entitled to an immediate, full refund within the first 14 days.' },
+    { q: 'Can I do this on my phone or tablet?', a: 'Yes. The entire platform — video lessons, training materials, and Live Zoom Classes — works on phone, tablet, laptop, or desktop. All you need is a stable internet connection.' },
+    { q: 'What technical setup do I need?', a: 'A modern web browser and a reliable internet connection. For Live Zoom Classes, a working camera and microphone are recommended so you can participate fully. No special equipment is required for the practice itself.' },
+    { q: 'Do I keep access to the videos after I finish?', a: 'You have full access to the online platform throughout your training and the 6-month Yoga Alliance certification window. We recommend downloading study materials as you go so you can keep them for your personal reference.' },
   ];
 
   const [open, setOpen] = useState(0);

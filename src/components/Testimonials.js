@@ -57,7 +57,7 @@ function Stars({ value }) {
 
 export default function Testimonials() {
   return (
-    <section className="py-20 md:py-28 bg-akasha-gray-4/30">
+    <section id="testimonials" className="py-20 md:py-28 bg-akasha-gray-4/30">
       <div className="section">
         {/* Trust banner */}
         <div className="text-center max-w-3xl mx-auto mb-12">
