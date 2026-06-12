@@ -2,14 +2,13 @@ import EnrollForm from './EnrollForm';
 
 export default function Pricing() {
   const inclusions = [
-    'Full 200-Hour Online YTTC · 4 integrated parts',
-    'Full access to all course materials',
-    'Live Zoom classes, Q&A and interactive sessions',
-    'Personal mentor teacher support',
-    'BALIWOOD studio video lessons',
+    '200+ State-of-the-Art Videos From our Bali School',
+    'Live Zoom Classes, Q&A and interactive sessions',
+    'Superb training materials',
+    'Full-fledged Yoga Alliance certificate',
     'Connection to a global yoga community',
-    'Yoga Alliance certification (RYT-200)',
-    '14-Day Money-Back Guarantee',
+    '14 Day Money Back Guarantee',
+    '14 exclusive bonuses & career starter kit',
   ];
 
   return (
