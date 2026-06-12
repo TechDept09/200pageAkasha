@@ -69,7 +69,7 @@ export default function Hero() {
               </p>
               <div className="flex items-baseline justify-center gap-3">
                 <span className="text-akasha-gray-2 line-through font-body text-sm">
-                  US$990
+                  US$1190
                 </span>
                 <span
                   className="font-heading text-akasha-orange text-3xl"

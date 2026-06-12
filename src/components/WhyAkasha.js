@@ -73,7 +73,7 @@ export default function WhyAkasha() {
         </div>
 
         <p className="text-center text-sm font-body text-akasha-gray-1 mt-14 max-w-xl mx-auto leading-relaxed">
-          Over the past decade we empowered more than{' '}
+          Over the past 15 years we empowered more than{' '}
           <strong className="text-akasha-black font-medium">1,100 yoga instructors</strong>{' '}
           — now successfully teaching on all{' '}
           <strong className="text-akasha-black font-medium">6 continents</strong>.

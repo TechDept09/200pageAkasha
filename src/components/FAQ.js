@@ -6,10 +6,10 @@ export default function FAQ() {
   const faqs = [
     { q: 'Do I need prior yoga experience?', a: 'No formal experience is required, but a regular personal practice will help you absorb the material more deeply. We welcome students from absolute beginners to seasoned practitioners.' },
     { q: 'Is the 200-hour certification internationally recognized?', a: 'Yes. Upon completion you are eligible to register as an RYT-200 with Yoga Alliance. Akasha is a Registered Yoga School (Registry ID 87485) since 2012, recognized worldwide.' },
-    { q: 'How long do I have access to the materials?', a: 'Lifetime access. You can revisit lessons, attend community Zoom calls, and continue learning at your own pace — for as long as you wish.' },
-    { q: 'How do the live Zoom calls work?', a: 'Daily live Zoom calls with the lead teachers — attend live or watch recordings later. Calls cover practice, Q&A, philosophy discussion, and adjustment training.' },
-    { q: 'What if I can’t finish in a few months?', a: 'There is no deadline. The Essential Path is self-paced with lifetime access. Take as long as you need — your mentor and the community are with you throughout.' },
-    { q: 'Is there a money-back guarantee?', a: 'Please contact our team before enrolling if you have specific concerns — we’re happy to walk through fit and answer questions, so you can enroll with confidence.' },
+    { q: 'How long do I have access to the materials?', a: 'As soon as you enroll, you get immediate access to our entire online platform. To complete the Yoga Alliance certification, training must be finished within 6 months of purchase.' },
+    { q: 'How do the live Zoom calls work?', a: 'Live Zoom classes, Q&A and interactive sessions — attend live or watch recordings later. Calls cover practice, Q&A, philosophy discussion, and adjustment training.' },
+    { q: 'What if I can’t finish in a few months?', a: 'Yoga Alliance certification requires you to complete the training within 6 months of purchase. The path is self-paced inside that window — your mentor and the community will help you stay on track and finish on time.' },
+    { q: 'Is there a money-back guarantee?', a: 'Yes — a 14-Day Money-Back Guarantee. If our premium program doesn’t meet your expectations, you’re entitled to an immediate, full refund within the first 14 days.' },
   ];
 
   const [open, setOpen] = useState(0);

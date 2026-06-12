@@ -22,7 +22,7 @@ export default function Home() {
         </title>
         <meta
           name="description"
-          content="Become Yoga Alliance certified with Akasha Yoga Academy's 200-Hour Online YTT. 75% Summer Discount — US$290 until June 15. Daily Zoom calls, lifetime access, personal mentor. 1,100+ graduates on 6 continents."
+          content="Become Yoga Alliance certified with Akasha Yoga Academy's 200-Hour Online YTT. 75% Summer Discount — US$290 (was US$1190) until June 15. Live Zoom classes, personal mentor, 14-day money-back guarantee. 1,100+ graduates on 6 continents."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

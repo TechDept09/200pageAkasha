@@ -28,7 +28,7 @@ export default function CTA() {
 
         <div className="flex items-baseline justify-center gap-4 mb-8">
           <span className="text-akasha-white/50 text-lg line-through font-body">
-            US$990
+            US$1190
           </span>
           <span className="font-heading text-akasha-white text-5xl md:text-6xl" style={{ fontWeight: 300 }}>
             US$290
@@ -40,7 +40,7 @@ export default function CTA() {
         </CheckoutButton>
 
         <p className="text-[10px] font-body text-akasha-white/50 mt-5 tracking-[0.25em] uppercase">
-          75% Summer Discount · Ends June 15 · Lifetime Access
+          75% Summer Discount · Ends June 15 · 14-Day Money-Back Guarantee
         </p>
       </div>
     </section>

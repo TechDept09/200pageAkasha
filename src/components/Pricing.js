@@ -3,12 +3,13 @@ import EnrollForm from './EnrollForm';
 export default function Pricing() {
   const inclusions = [
     'Full 200-Hour Online YTTC · 4 integrated parts',
-    'Lifetime access to all course materials',
-    'Daily live Zoom calls with lead teachers',
+    'Full access to all course materials',
+    'Live Zoom classes, Q&A and interactive sessions',
     'Personal mentor teacher support',
     'BALIWOOD studio video lessons',
-    'Lifetime international community access',
+    'Connection to a global yoga community',
     'Yoga Alliance certification (RYT-200)',
+    '14-Day Money-Back Guarantee',
   ];
 
   return (
@@ -35,7 +36,7 @@ export default function Pricing() {
             </span>
             <div className="flex items-baseline justify-center gap-4 mb-2">
               <span className="text-akasha-gray-2 text-xl line-through font-body">
-                US$990
+                US$1190
               </span>
               <span
                 className="font-heading text-akasha-black text-6xl"
@@ -45,7 +46,7 @@ export default function Pricing() {
               </span>
             </div>
             <p className="text-[11px] font-body uppercase tracking-[0.25em] text-akasha-orange">
-              Save US$700 · One-Time Payment
+              Save US$900 · One-Time Payment
             </p>
           </div>
 

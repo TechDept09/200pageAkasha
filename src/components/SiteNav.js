@@ -52,7 +52,7 @@ export default function SiteNav() {
           className="hidden lg:inline-flex items-center bg-akasha-orange text-white text-[11px] font-medium tracking-[0.12em] uppercase px-5 py-2.5 rounded-full hover:bg-akasha-orange-dark transition-colors"
           style={{ fontFamily: 'Inter, sans-serif' }}
         >
-          Enroll $290
+          Enroll US$290
         </a>
 
         <button
@@ -88,7 +88,7 @@ export default function SiteNav() {
             onClick={() => setOpen(false)}
             className="mt-2 bg-akasha-orange text-white text-center text-xs font-medium tracking-[0.12em] uppercase px-5 py-3 rounded-full"
           >
-            Enroll $290
+            Enroll US$290
           </a>
         </nav>
       </div>
