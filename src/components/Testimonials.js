@@ -44,6 +44,22 @@ const quotes = [
   { text: 'A fantastic experience. Connecting daily with instructors & participants worldwide was amazing.', author: 'Sayla', country: 'United Kingdom' },
 ];
 
+const AVATAR_BG_PALETTE = ['#F4E4C1', '#EBD9C0', '#E9D4B8', '#F0DCB6', '#EAD3B1', '#F2E1BF'];
+
+function initials(name) {
+  return name
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join('')
+    .toUpperCase();
+}
+
+function avatarBg(i) {
+  return AVATAR_BG_PALETTE[i % AVATAR_BG_PALETTE.length];
+}
+
 function Stars({ value }) {
   const full = Math.floor(value);
   const half = value - full >= 0.5;
@@ -127,6 +143,18 @@ export default function Testimonials() {
               key={i}
               className="bg-akasha-white border border-akasha-gray-4 rounded-sm p-7 text-center flex flex-col"
             >
+              <div
+                className="w-14 h-14 mx-auto mb-4 rounded-full flex items-center justify-center font-heading text-akasha-black"
+                style={{
+                  fontWeight: 400,
+                  fontSize: '1.1rem',
+                  backgroundColor: avatarBg(i),
+                  color: '#3a2a1a',
+                }}
+                aria-hidden="true"
+              >
+                {initials(q.author)}
+              </div>
               <span className="text-akasha-gold text-xs tracking-[0.2em] block mb-4">
                 ★★★★★
               </span>

@@ -4,6 +4,8 @@ export default function Teachers() {
       name: 'Burkhard',
       role: 'Founder · Lead Teacher',
       cred: 'E-RYT-500',
+      photo:
+        'https://static.wixstatic.com/media/cd7168_241779a0b2e94455a8c7fe10e05530c7~mv2.jpg/v1/fill/w_246,h_243,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Akasha-Yoga-Academy-Bali-300-Hour-2019--.jpg',
       bio: 'Master’s in Psychology from the Free University of Berlin. Over 5,000 hours of yogic study since 2001, living year-round in Asia since 2007 — including a 49-day solitary meditation retreat.',
       quote: 'The depth of his practice is brilliant. He really holds the space well, and opens from the Heart consistently.',
       attr: 'Zoran — Canada',
@@ -12,7 +14,9 @@ export default function Teachers() {
       name: 'Kirsten',
       role: 'Co-Founder · Lead Teacher',
       cred: 'E-RYT-500',
-      bio: 'From architecture & art history to a decade of travel through India & Southeast Asia. Fifteen-plus years devoted to classical breath-based Hatha, Yin Yoga, pranayama, and meditation.',
+      photo:
+        'https://static.wixstatic.com/media/c15a18_c3d07047d6e04f11ab181a9a82faff92~mv2.jpg/v1/crop/x_53,y_56,w_394,h_390/fill/w_247,h_243,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/KIRSTEN.jpg',
+      bio: 'From architecture & art history to fifteen-plus years of travel through India & Southeast Asia, devoted to classical breath-based Hatha, Yin Yoga, pranayama, and meditation.',
       quote: 'Kirsten is super clear & precise. She is motherly, but not patronizing — kind & compassionate.',
       attr: 'Anastasia — Germany',
     },
@@ -20,6 +24,8 @@ export default function Teachers() {
       name: 'Devdas',
       role: 'Lead Teacher',
       cred: 'E-RYT-500',
+      photo:
+        'https://static.wixstatic.com/media/cd7168_c55633f6fdc4442b8a354b77fab9d68f~mv2.jpg/v1/fill/w_246,h_243,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/DEVDAS.jpg',
       bio: 'Found Hatha Yoga at 16, then spent 12 years teaching meditation in India under Swami Jnanananda and Sri Mooji. Has taught across America, Europe, Bali, Thailand, and Mexico.',
       quote: 'The way Devdas holds space is amazing. I feel blessed to have had the opportunity to learn from him.',
       attr: 'Rebecca — United States',
@@ -48,6 +54,14 @@ export default function Teachers() {
               key={i}
               className="bg-akasha-white border border-akasha-gray-4 rounded-sm p-8 text-center flex flex-col"
             >
+              <div className="w-28 h-28 mx-auto mb-5 rounded-full overflow-hidden border border-akasha-gray-4 bg-akasha-gray-4/40">
+                <img
+                  src={t.photo}
+                  alt={`${t.name} — Akasha Yoga Academy lead teacher`}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
               <span className="script block mb-2" style={{ fontSize: '2.4rem' }}>
                 {t.name}
               </span>

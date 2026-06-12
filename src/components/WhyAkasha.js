@@ -1,8 +1,25 @@
+const BADGE_BASE = 'https://static.wixstatic.com/media/cd7168_';
+
 export default function WhyAkasha() {
   const ratings = [
-    { score: '4.8/5.0', count: '242 reviews' },
-    { score: '4.93/5.0', count: '359 reviews' },
-    { score: '4.9/5.0', count: '163 reviews' },
+    {
+      platform: 'Facebook',
+      logo: `${BADGE_BASE}7b6164b634b94bbe9829759473e99757~mv2.webp/v1/fill/w_232,h_88,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/72.webp`,
+      score: '4.8/5.0',
+      count: '242 reviews',
+    },
+    {
+      platform: 'Yoga Alliance',
+      logo: `${BADGE_BASE}b1d2922fd0ad4e90afe1be8f1cdc36b8~mv2.webp/v1/fill/w_210,h_88,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/71.webp`,
+      score: '4.93/5.0',
+      count: '359 reviews',
+    },
+    {
+      platform: 'Google',
+      logo: `${BADGE_BASE}609b9ef5946e43f092238e0f12fe58c6~mv2.webp/v1/fill/w_232,h_88,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/73.webp`,
+      score: '4.9/5.0',
+      count: '163 reviews',
+    },
   ];
 
   const pillars = [
@@ -36,14 +53,20 @@ export default function WhyAkasha() {
         </div>
 
         {/* Ratings trio — real numbers from the site */}
-        <div className="grid grid-cols-3 max-w-2xl mx-auto mb-16 divide-x divide-akasha-gray-3">
+        <div className="grid grid-cols-3 max-w-3xl mx-auto mb-16 divide-x divide-akasha-gray-3">
           {ratings.map((r, i) => (
-            <div key={i} className="text-center px-3 md:px-6">
+            <div key={i} className="text-center px-3 md:px-6 flex flex-col items-center">
+              <img
+                src={r.logo}
+                alt={r.platform}
+                className="h-7 md:h-8 w-auto object-contain mb-3"
+                loading="lazy"
+              />
               <span className="text-akasha-gold text-xs tracking-[0.15em] block mb-2">
                 ★★★★★
               </span>
               <div
-                className="font-heading text-akasha-black text-2xl md:text-3xl"
+                className="font-heading text-akasha-black text-xl md:text-2xl leading-tight"
                 style={{ fontWeight: 300 }}
               >
                 {r.score}
