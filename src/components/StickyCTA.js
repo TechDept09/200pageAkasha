@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import CheckoutButton from './CheckoutButton';
 
 export default function StickyCTA() {
   const [show, setShow] = useState(false);
@@ -32,9 +31,12 @@ export default function StickyCTA() {
             Ends Jun 15 · 75% Off
           </p>
         </div>
-        <CheckoutButton className="bg-akasha-orange text-white text-[12px] font-medium tracking-[0.12em] uppercase px-5 py-3 rounded-full hover:bg-akasha-orange-dark transition-colors">
+        <a
+          href="#pricing"
+          className="bg-akasha-orange text-white text-[12px] font-medium tracking-[0.12em] uppercase px-5 py-3 rounded-full hover:bg-akasha-orange-dark transition-colors whitespace-nowrap"
+        >
           Enroll
-        </CheckoutButton>
+        </a>
       </div>
     </div>
   );

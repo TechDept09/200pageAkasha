@@ -5,10 +5,11 @@ import { startWixCheckout } from '@/lib/checkout';
 import { useUtmParams, formatUtmNote } from '@/hooks/useUtmParams';
 
 /**
- * EnrollForm, collects name + email on the landing page, then opens the
- * Wix checkout with those details (and the product) already pre-filled.
- * UTM is attached the same way as CheckoutButton: customFields + buyerNote
- * on the checkout, plus utm_* params re-appended to the redirect URL.
+ * EnrollForm collects name + email on the landing page, then opens the
+ * Wix checkout with those details (and the product) already pre-filled
+ * so the buyer goes straight to payment. UTM is attached as customFields
+ * + buyerNote on the checkout, plus utm_* params re-appended to the
+ * redirect URL so attribution survives the redirect.
  */
 export default function EnrollForm() {
   const utm = useUtmParams();

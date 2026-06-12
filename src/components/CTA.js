@@ -1,5 +1,3 @@
-import CheckoutButton from './CheckoutButton';
-
 export default function CTA() {
   return (
     <section id="enroll" className="py-24 md:py-32 bg-akasha-black text-akasha-white">
@@ -35,9 +33,9 @@ export default function CTA() {
           </span>
         </div>
 
-        <CheckoutButton className="btn-action !px-14">
+        <a href="#pricing" className="btn-action !px-14 inline-block">
           Start Today
-        </CheckoutButton>
+        </a>
 
         <p className="text-[10px] font-body text-akasha-white/50 mt-5 tracking-[0.25em] uppercase">
           75% Summer Discount · Ends June 15 · 14-Day Money-Back Guarantee
