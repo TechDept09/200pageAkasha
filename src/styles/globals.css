@@ -1,0 +1,92 @@
+/* Akasha — model/tema/tone aligned to akashayogaacademy.com.
+   Jost  ≈ Futura LT W01 Light (their heading font)
+   Inter ≈ Proxima N W01 Reg   (their body font)
+   Allura ≈ "You're Invited"   (their script accent font) */
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Inter:wght@300;400;500;600&family=Allura&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+
+  body {
+    @apply font-body bg-akasha-white text-akasha-black antialiased;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* Airy, light headings — the Akasha signature (futura-light 1.4em feel) */
+  h1, h2, h3, h4 {
+    @apply font-heading text-akasha-black;
+    font-weight: 300;
+    letter-spacing: 0.01em;
+  }
+
+  h1 { line-height: 1.2; }
+  h2 { line-height: 1.25; }
+  h3 { line-height: 1.35; }
+
+  a { @apply transition-colors duration-300; }
+  ::selection { background: #ED5829; color: #fff; }
+}
+
+@layer components {
+  /* Buttons — uppercase, wide tracking, pill. Like their START TODAY / ENROLL NOW.
+     Primary action color = warm coral-orange, the visible Akasha CTA color. */
+  .btn-primary {
+    @apply inline-flex items-center justify-center
+           bg-akasha-orange text-akasha-white
+           px-10 py-4 rounded-full
+           text-[12px] font-medium uppercase tracking-[0.2em]
+           hover:bg-akasha-orange-dark hover:shadow-lg
+           transition-all duration-300;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .btn-action {
+    @apply inline-flex items-center justify-center
+           bg-akasha-orange text-akasha-white
+           px-10 py-4 rounded-full
+           text-[12px] font-medium uppercase tracking-[0.2em]
+           hover:bg-akasha-orange-dark hover:shadow-lg
+           transition-all duration-300;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center
+           bg-transparent text-akasha-black
+           px-10 py-4 rounded-full
+           text-[12px] font-medium uppercase tracking-[0.2em]
+           border border-akasha-black
+           hover:bg-akasha-black hover:text-akasha-white
+           transition-all duration-300;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .section {
+    @apply px-5 md:px-8 max-w-6xl mx-auto;
+  }
+
+  /* Eyebrow — small caps tracked label, like their section kickers */
+  .eyebrow {
+    @apply block text-[11px] tracking-[0.3em] uppercase font-medium text-akasha-gray-1 mb-4;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Script accent — their "You're Invited" moments */
+  .script {
+    font-family: 'Allura', Georgia, serif;
+    color: #ED5829;
+    font-weight: 400;
+    line-height: 1.1;
+  }
+
+  /* Thin gold rule used under centered headers */
+  .gold-rule {
+    @apply block w-14 h-px bg-akasha-gold mx-auto mt-6;
+  }
+}
