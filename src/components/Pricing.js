@@ -14,7 +14,6 @@ export default function Pricing() {
   return (
     <section id="pricing" className="py-20 md:py-28 bg-akasha-gray-4/30">
       <div className="section">
-        {/* Centered header */}
         <div className="text-center max-w-2xl mx-auto mb-14">
           <span className="eyebrow text-akasha-orange">75% Summer Discount · Ends June 15</span>
           <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 300 }}>
@@ -27,7 +26,6 @@ export default function Pricing() {
           <span className="gold-rule" />
         </div>
 
-        {/* Single centered price card */}
         <div className="max-w-xl mx-auto bg-akasha-white border border-akasha-gray-4 rounded-sm overflow-hidden">
           <div className="text-center pt-10 pb-8 px-8 border-b border-akasha-gray-4">
             <span className="script block mb-3" style={{ fontSize: '2rem' }}>
@@ -71,7 +69,6 @@ export default function Pricing() {
           </div>
         </div>
 
-        {/* Tuition with purpose */}
         <p className="text-center text-xs font-body text-akasha-gray-1 mt-8 max-w-md mx-auto leading-relaxed">
           <strong className="text-akasha-black font-medium">Tuition with purpose</strong>, your
           enrollment supports the Plastic Exchange Project, feeding Balinese

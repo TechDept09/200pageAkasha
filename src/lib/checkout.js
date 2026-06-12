@@ -2,13 +2,9 @@ import { wixClient, WIX_STORES_APP_ID } from '@/lib/wixClient';
 
 const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign'];
 
-/**
- * Attach UTM params to a Wix redirect URL.
- * Wix's createRedirectSession returns a session-cookie wrapper URL:
- *   /_api/iam/.../createSessionCookie?sessionToken=…&redirectUrl=<encoded checkout URL>
- * Params on the OUTER URL are dropped after the browser hops through it,
- * so UTM must be injected into the inner `redirectUrl` too.
- */
+// Wix createRedirectSession returns a session-cookie wrapper URL whose query
+// params are dropped on the hop through; UTM must also be injected into the
+// inner `redirectUrl` so attribution survives.
 export function attachUtmToWixRedirect(fullUrl, utm) {
   const outer = new URL(fullUrl);
 
@@ -32,16 +28,6 @@ export function attachUtmToWixRedirect(fullUrl, utm) {
   return outer.toString();
 }
 
-/**
- * Create a Wix checkout for the course product and return the redirect URL.
- *
- * @param {object} opts
- * @param {object} opts.utm   , { utm_source, utm_medium, utm_campaign }
- * @param {string} opts.utmNote, human-readable UTM summary for sales
- * @param {object} [opts.buyer], { firstName, lastName, email } to prefill
- *                                the Wix checkout form
- * @returns {string} final checkout URL (with UTM attached) to navigate to
- */
 export async function startWixCheckout({ utm, utmNote, buyer }) {
   const productId = process.env.NEXT_PUBLIC_WIX_PRODUCT_ID;
   if (!productId) {
@@ -53,8 +39,8 @@ export async function startWixCheckout({ utm, utmNote, buyer }) {
     buyerNote: utmNote,
   };
 
-  // Prefill: email lands in buyerInfo, name lands in billing contact;
-  // the Wix checkout page reads both to pre-populate its form.
+  // Wix reads buyerInfo for email and billingInfo.contactDetails for the
+  // name when pre-populating the checkout form; both must be set.
   if (buyer?.email) {
     checkoutInfo.buyerInfo = { email: buyer.email };
   }

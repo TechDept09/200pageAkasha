@@ -82,7 +82,6 @@ export default function Curriculum() {
   return (
     <section id="curriculum" className="py-20 md:py-28 bg-akasha-white">
       <div className="section">
-        {/* Centered header */}
         <div className="text-center max-w-2xl mx-auto mb-14">
           <span className="eyebrow">Program Overview</span>
           <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 300 }}>
@@ -102,7 +101,6 @@ export default function Curriculum() {
           ))}
         </div>
 
-        {/* Accreditation line */}
         <div className="text-center mt-14">
           <p className="text-[11px] font-body uppercase tracking-[0.25em] text-akasha-gray-1">
             Yoga Alliance Registered School · ID 87485 · Since 2012 · RYT-200 Eligible

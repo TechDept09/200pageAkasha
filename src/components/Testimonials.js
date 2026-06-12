@@ -75,7 +75,6 @@ export default function Testimonials() {
   return (
     <section id="testimonials" className="py-20 md:py-28 bg-akasha-gray-4/30">
       <div className="section">
-        {/* Trust banner */}
         <div className="text-center max-w-3xl mx-auto mb-12">
           <h2
             className="uppercase tracking-[0.18em]"
@@ -89,7 +88,6 @@ export default function Testimonials() {
           <span className="gold-rule" />
         </div>
 
-        {/* Primary badges row (Facebook / Yoga Alliance / Google) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-14 max-w-4xl mx-auto items-end mb-12">
           {primaryBadges.map((b) => (
             <div key={b.name} className="flex flex-col items-center text-center">
@@ -107,7 +105,6 @@ export default function Testimonials() {
           ))}
         </div>
 
-        {/* Secondary badges row (BookRetreats / BookYogaRetreats) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 max-w-2xl mx-auto items-end mb-12">
           {secondaryBadges.map((b) => (
             <div key={b.name} className="flex flex-col items-center text-center">
@@ -122,7 +119,6 @@ export default function Testimonials() {
           ))}
         </div>
 
-        {/* Closing line */}
         <p className="text-center text-sm font-body text-akasha-gray-1 max-w-2xl mx-auto leading-relaxed mb-16">
           Over the past{' '}
           <strong className="text-akasha-black font-medium">15 years</strong>, we empowered more than{' '}
@@ -133,7 +129,6 @@ export default function Testimonials() {
           <span className="italic">Countless genuine reviews speak for themselves.</span>
         </p>
 
-        {/* Customer quote tiles */}
         <div className="text-center max-w-2xl mx-auto mb-10">
           <span className="eyebrow">From the Akasha Family</span>
         </div>

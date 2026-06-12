@@ -1,7 +1,3 @@
-/**
- * Single centered testimonial interlude between sections;
- * the signature rhythm of akashayogaacademy.com.
- */
 export default function QuoteBreak({ text, author, country, dark = false }) {
   return (
     <section

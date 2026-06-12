@@ -40,7 +40,6 @@ export default function WhyAkasha() {
   return (
     <section id="why" className="py-20 md:py-28 bg-akasha-gray-4/30">
       <div className="section">
-        {/* Centered header, Akasha model */}
         <div className="text-center max-w-2xl mx-auto mb-14">
           <span className="eyebrow">Why Akasha</span>
           <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 300 }}>
@@ -52,7 +51,6 @@ export default function WhyAkasha() {
           <span className="gold-rule" />
         </div>
 
-        {/* Ratings trio, real numbers from the site */}
         <div className="grid grid-cols-3 max-w-3xl mx-auto mb-16 divide-x divide-akasha-gray-3">
           {ratings.map((r, i) => (
             <div key={i} className="text-center px-3 md:px-6 flex flex-col items-center">
@@ -78,7 +76,6 @@ export default function WhyAkasha() {
           ))}
         </div>
 
-        {/* Pillars, 3 centered columns */}
         <div className="grid md:grid-cols-3 gap-10 md:gap-8 max-w-4xl mx-auto">
           {pillars.map((p, i) => (
             <div key={i} className="text-center">

@@ -35,7 +35,6 @@ export default function Teachers() {
   return (
     <section id="teachers" className="py-20 md:py-28 bg-akasha-gray-4/30">
       <div className="section">
-        {/* Centered header */}
         <div className="text-center max-w-2xl mx-auto mb-14">
           <span className="eyebrow">Meet Your Teachers</span>
           <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 300 }}>

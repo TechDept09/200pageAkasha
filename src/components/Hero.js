@@ -6,7 +6,6 @@ export default function Hero() {
     <section className="pt-28 md:pt-36 pb-16 md:pb-24 bg-akasha-white">
       <div className="section">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* TEXT */}
           <div className="text-center lg:text-left">
             <span className="eyebrow">Yoga Teacher Training Online</span>
 
@@ -41,7 +40,6 @@ export default function Hero() {
               </a>
             </div>
 
-            {/* Benefit microcopy */}
             <ul className="flex flex-wrap justify-center lg:justify-start gap-x-5 gap-y-2 mb-7 text-[12px] font-body text-akasha-gray-1">
               <li className="flex items-center gap-1.5">
                 <span className="text-akasha-green">✓</span> Yoga Alliance certified
@@ -54,7 +52,6 @@ export default function Hero() {
               </li>
             </ul>
 
-            {/* Social proof line */}
             <div className="flex items-center gap-3 justify-center lg:justify-start">
               <span className="text-akasha-gold tracking-[0.2em]">★★★★★</span>
               <p className="text-xs font-body text-akasha-gray-1">
@@ -63,7 +60,6 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* IMAGE */}
           <div className="relative">
             <div className="aspect-[4/5] overflow-hidden rounded-sm">
               <img
@@ -73,7 +69,6 @@ export default function Hero() {
               />
             </div>
 
-            {/* Promo badge */}
             <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 lg:left-auto lg:right-8 lg:translate-x-0 bg-akasha-white shadow-lg rounded-sm px-6 py-4 text-center border border-akasha-gray-4">
               <p className="text-[10px] font-body uppercase tracking-[0.25em] text-akasha-gray-1 mb-1">
                 75% Summer Discount

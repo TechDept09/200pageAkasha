@@ -57,7 +57,6 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
 
-        {/* Open Graph */}
         <meta property="og:type" content="website" />
         <meta property="og:title" content={PAGE_TITLE} />
         <meta property="og:description" content={PAGE_DESC} />
@@ -66,13 +65,11 @@ export default function Home() {
         <meta property="og:image:height" content="630" />
         <meta property="og:site_name" content="Akasha Yoga Academy" />
 
-        {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={PAGE_TITLE} />
         <meta name="twitter:description" content={PAGE_DESC} />
         <meta name="twitter:image" content={OG_IMAGE} />
 
-        {/* JSON-LD Course schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }}
