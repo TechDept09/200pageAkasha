@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import UrgencyBanner from './UrgencyBanner';
 
 const LOGO_BLACK =
   'https://static.wixstatic.com/media/c15a18_add3f1d2dd1a4582876f0249d1a2daf3~mv2.png/v1/fill/w_376,h_320,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Akasha-Yoga-Academy-Logo-2020-BLACK-500W.png';
@@ -31,6 +32,7 @@ export default function SiteNav() {
         scrolled ? 'border-b border-akasha-gray-4' : ''
       }`}
     >
+      <UrgencyBanner />
       <div className="max-w-6xl mx-auto px-5 md:px-8 h-16 flex items-center justify-between">
         <a href="#" className="flex items-center" aria-label="Akasha Yoga Academy">
           <img src={LOGO_BLACK} alt="Akasha Yoga Academy" className="h-9 w-auto" />

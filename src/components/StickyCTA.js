@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import SaleCountdown from './SaleCountdown';
 
 export default function StickyCTA() {
   const [show, setShow] = useState(false);
@@ -28,7 +29,7 @@ export default function StickyCTA() {
             </span>
           </div>
           <p className="text-[10px] font-body uppercase tracking-[0.18em] text-akasha-orange">
-            Ends Jun 15 · 75% Off
+            Ends in <SaleCountdown variant="short" fallback={<>Jun 15</>} /> · 75% Off
           </p>
         </div>
         <a

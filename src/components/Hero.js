@@ -1,9 +1,11 @@
+import SaleCountdown from './SaleCountdown';
+
 const HERO_IMG =
   'https://static.wixstatic.com/media/c15a18_5d357dab7cec43c4879c3f12090081ce~mv2.jpg/v1/crop/x_328,y_0,w_1345,h_1334/fill/w_838,h_792,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Certified-Yoga-Instructor---Bali---Akash.jpg';
 
 export default function Hero() {
   return (
-    <section className="pt-28 md:pt-36 pb-16 md:pb-24 bg-akasha-white">
+    <section className="pt-32 md:pt-40 pb-16 md:pb-24 bg-akasha-white">
       <div className="section">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div className="text-center lg:text-left">
@@ -84,8 +86,8 @@ export default function Hero() {
                   US$290
                 </span>
               </div>
-              <p className="text-[10px] font-body uppercase tracking-[0.2em] text-akasha-gray-1 mt-1">
-                Ends June 15
+              <p className="text-[10px] font-body uppercase tracking-[0.2em] text-akasha-orange mt-1">
+                Ends in <SaleCountdown variant="short" fallback={<>June 15</>} />
               </p>
             </div>
           </div>

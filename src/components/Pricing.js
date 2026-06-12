@@ -1,4 +1,5 @@
 import EnrollForm from './EnrollForm';
+import SaleCountdown from './SaleCountdown';
 
 export default function Pricing() {
   const inclusions = [
@@ -15,13 +16,19 @@ export default function Pricing() {
     <section id="pricing" className="py-20 md:py-28 bg-akasha-gray-4/30">
       <div className="section">
         <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="eyebrow text-akasha-orange">75% Summer Discount · Ends June 15</span>
+          <span className="eyebrow text-akasha-orange">
+            75% Summer Discount · Ends in{' '}
+            <SaleCountdown variant="long" fallback={<>June 15</>} />
+          </span>
           <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 300 }}>
             Your Investment
           </h2>
           <p className="font-body text-akasha-gray-1 mt-4 leading-relaxed">
             Everything you need to become Yoga Alliance certified.
             At our lowest price ever.
+          </p>
+          <p className="text-[11px] font-body text-akasha-gray-1 mt-3 italic">
+            Price returns to US$1190 on Jun 16.
           </p>
           <span className="gold-rule" />
         </div>

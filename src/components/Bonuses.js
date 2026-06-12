@@ -1,4 +1,5 @@
 import FadeIn from './FadeIn';
+import SaleCountdown from './SaleCountdown';
 
 const bonuses = [
   { t: 'How to Teach Yoga Online', v: 99, d: 'First-hand experience bringing your Yoga classes online.' },
@@ -22,7 +23,9 @@ export default function Bonuses() {
     <section className="py-20 md:py-28 bg-akasha-white">
       <div className="section">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="eyebrow text-akasha-orange">Free Until June 15</span>
+          <span className="eyebrow text-akasha-orange">
+            Free for <SaleCountdown variant="short" fallback={<>a limited time</>} />
+          </span>
           <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 300 }}>
             14 Exclusive Bonuses &amp; Career Starter Kit
           </h2>
