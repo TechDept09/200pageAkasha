@@ -5,7 +5,7 @@ import { startWixCheckout } from '@/lib/checkout';
 import { useUtmParams, formatUtmNote } from '@/hooks/useUtmParams';
 
 /**
- * EnrollForm — collects name + email on the landing page, then opens the
+ * EnrollForm, collects name + email on the landing page, then opens the
  * Wix checkout with those details (and the product) already pre-filled.
  * UTM is attached the same way as CheckoutButton: customFields + buyerNote
  * on the checkout, plus utm_* params re-appended to the redirect URL.
@@ -87,7 +87,7 @@ export default function EnrollForm() {
         disabled={loading}
         className={`btn-action w-full ${loading ? 'opacity-70 cursor-wait' : ''}`}
       >
-        {loading ? 'Preparing your checkout…' : 'Enroll Now — US$290'}
+        {loading ? 'Preparing your checkout…' : 'Enroll Now, US$290'}
       </button>
 
       {error && (

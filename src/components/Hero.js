@@ -30,7 +30,7 @@ export default function Hero() {
 
             <p className="font-body text-akasha-gray-1 max-w-md mx-auto lg:mx-0 mb-9 leading-relaxed">
               Journey with us into the depths of authentic Yoga. Become Yoga
-              Alliance certified from anywhere in the world — guided by three
+              Alliance certified from anywhere in the world, guided by three
               lead teachers with 65 years of combined experience.
             </p>
 
@@ -70,7 +70,7 @@ export default function Hero() {
             <div className="aspect-[4/5] overflow-hidden rounded-sm">
               <img
                 src={HERO_IMG}
-                alt="Akasha Yoga Academy — certified yoga instructor in Bali"
+                alt="Akasha Yoga Academy, certified yoga instructor in Bali"
                 className="w-full h-full object-cover"
               />
             </div>

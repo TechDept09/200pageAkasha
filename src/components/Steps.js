@@ -3,7 +3,7 @@ export default function Steps() {
     {
       n: '1',
       t: 'Enroll in the Academy',
-      d: 'Secure your place in the Essential Path — one simple payment, instant access to everything.',
+      d: 'Secure your place in the Essential Path, one simple payment, instant access to everything.',
     },
     {
       n: '2',
@@ -13,7 +13,7 @@ export default function Steps() {
     {
       n: '3',
       t: 'Live Your Purpose',
-      d: 'Graduate Yoga Alliance certified — and experience how genuine Yoga benefits every area of your life.',
+      d: 'Graduate Yoga Alliance certified, and experience how genuine Yoga benefits every area of your life.',
     },
   ];
 

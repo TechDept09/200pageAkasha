@@ -23,7 +23,7 @@ export default function CTA() {
 
         <p className="font-body text-akasha-white/75 max-w-xl mx-auto mb-10 leading-relaxed">
           Turn your passion into a meaningful profession. Join over 1,100
-          graduates teaching on 6 continents — at our lowest price ever.
+          graduates teaching on 6 continents, at our lowest price ever.
         </p>
 
         <div className="flex items-baseline justify-center gap-4 mb-8">

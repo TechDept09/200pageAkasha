@@ -9,7 +9,7 @@ const STORAGE_KEY = 'akasha_utm_params';
  * Capture UTM params from the landing URL and persist to sessionStorage so
  * the values survive intra-site navigation (hero → pricing → checkout).
  *
- * Returns: { utm_source, utm_medium, utm_campaign } — strings or null.
+ * Returns: { utm_source, utm_medium, utm_campaign }, strings or null.
  *
  * Router-agnostic: reads window.location.search directly, so it works in
  * both Pages Router and App Router without changes.
@@ -33,12 +33,12 @@ export function useUtmParams() {
       try {
         sessionStorage.setItem(STORAGE_KEY, JSON.stringify(fromUrl));
       } catch {
-        // sessionStorage unavailable (private mode, etc.) — ignore.
+        // sessionStorage unavailable (private mode, etc.), ignore.
       }
       return;
     }
 
-    // No UTM in URL — try restoring from earlier visit in this tab.
+    // No UTM in URL, try restoring from earlier visit in this tab.
     try {
       const cached = sessionStorage.getItem(STORAGE_KEY);
       if (cached) setUtm(JSON.parse(cached));

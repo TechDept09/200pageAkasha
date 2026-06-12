@@ -39,7 +39,7 @@ const quotes = [
   { text: 'Literally the best month of my life! The journey of self-discovery was unbelievable!', author: 'Charlotte Heminsley', country: 'United States' },
   { text: 'No words would give true justice to the experience with these guys!', author: 'Kinga Kovacs', country: 'United Kingdom' },
   { text: 'The training has a beautiful structure and helps you feel confident to start teaching right away.', author: 'Tamara Cuypers', country: 'Belgium' },
-  { text: 'The Teacher Training is amazing — with how much love & authenticity you get prepared to be a Yoga Teacher.', author: 'Pierre Mayer', country: 'Germany' },
+  { text: 'The Teacher Training is amazing, with how much love & authenticity you get prepared to be a Yoga Teacher.', author: 'Pierre Mayer', country: 'Germany' },
   { text: 'This place showed me how to slow down, how to open up, and how to love myself with all around.', author: 'Anna Kotaba', country: 'Poland' },
   { text: 'A fantastic experience. Connecting daily with instructors & participants worldwide was amazing.', author: 'Sayla', country: 'United Kingdom' },
 ];
@@ -127,7 +127,7 @@ export default function Testimonials() {
           Over the past{' '}
           <strong className="text-akasha-black font-medium">15 years</strong>, we empowered more than{' '}
           <strong className="text-akasha-black font-medium">1,100 awesome Yoga Instructors</strong>{' '}
-          — who are now successfully teaching on all{' '}
+         , who are now successfully teaching on all{' '}
           <strong className="text-akasha-black font-medium">6 continents</strong>.
           <br />
           <span className="italic">Countless genuine reviews speak for themselves.</span>
@@ -166,7 +166,7 @@ export default function Testimonials() {
               </blockquote>
               <figcaption>
                 <p className="text-[11px] font-body text-akasha-gray-1 uppercase tracking-[0.25em]">
-                  {q.author} — {q.country}
+                  {q.author}, {q.country}
                 </p>
               </figcaption>
             </figure>

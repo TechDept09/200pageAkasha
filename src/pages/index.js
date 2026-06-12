@@ -19,14 +19,14 @@ const SITE_URL = 'https://www.akashayogaacademy.com';
 const OG_IMAGE =
   'https://static.wixstatic.com/media/c15a18_5d357dab7cec43c4879c3f12090081ce~mv2.jpg/v1/fill/w_1200,h_630,al_c,q_85,enc_avif,quality_auto/Certified-Yoga-Instructor---Bali---Akash.jpg';
 const PAGE_TITLE =
-  '200-Hour Online Yoga Teacher Training — Akasha Yoga Academy | Your Path to Purpose & Joy';
+  '200-Hour Online Yoga Teacher Training, Akasha Yoga Academy | Your Path to Purpose & Joy';
 const PAGE_DESC =
-  "Become Yoga Alliance certified with Akasha Yoga Academy's 200-Hour Online YTT. 75% Summer Discount — US$290 (was US$1190) until June 15. Live Zoom classes, 200+ Bali studio videos, 14-day money-back guarantee. 1,100+ graduates on 6 continents.";
+  "Become Yoga Alliance certified with Akasha Yoga Academy's 200-Hour Online YTT. 75% Summer Discount, US$290 (was US$1190) until June 15. Live Zoom classes, 200+ Bali studio videos, 14-day money-back guarantee. 1,100+ graduates on 6 continents.";
 
 const courseSchema = {
   '@context': 'https://schema.org',
   '@type': 'Course',
-  name: '200-Hour Online Yoga Teacher Training — Essential',
+  name: '200-Hour Online Yoga Teacher Training, Essential',
   description: PAGE_DESC,
   provider: {
     '@type': 'Organization',

@@ -21,8 +21,8 @@ export default function Pricing() {
             Your Investment
           </h2>
           <p className="font-body text-akasha-gray-1 mt-4 leading-relaxed">
-            Everything you need to become Yoga Alliance certified —
-            at our lowest price ever.
+            Everything you need to become Yoga Alliance certified.
+            At our lowest price ever.
           </p>
           <span className="gold-rule" />
         </div>
@@ -73,7 +73,7 @@ export default function Pricing() {
 
         {/* Tuition with purpose */}
         <p className="text-center text-xs font-body text-akasha-gray-1 mt-8 max-w-md mx-auto leading-relaxed">
-          <strong className="text-akasha-black font-medium">Tuition with purpose</strong> — your
+          <strong className="text-akasha-black font-medium">Tuition with purpose</strong>, your
           enrollment supports the Plastic Exchange Project, feeding Balinese
           families by turning ocean waste into nourishment.
         </p>

@@ -5,7 +5,7 @@ import { startWixCheckout } from '@/lib/checkout';
 import { useUtmParams, formatUtmNote } from '@/hooks/useUtmParams';
 
 /**
- * CheckoutButton — one-click checkout with hybrid UTM tracking.
+ * CheckoutButton, one-click checkout with hybrid UTM tracking.
  * For the variant that also collects name + email and prefills the
  * Wix checkout form, see EnrollForm.
  */

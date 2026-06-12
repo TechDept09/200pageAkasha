@@ -21,7 +21,7 @@ export function attachUtmToWixRedirect(fullUrl, utm) {
       });
       outer.searchParams.set('redirectUrl', inner.toString());
     } catch {
-      // inner is not a parseable URL — leave it alone
+      // inner is not a parseable URL, leave it alone
     }
   }
 
@@ -36,16 +36,16 @@ export function attachUtmToWixRedirect(fullUrl, utm) {
  * Create a Wix checkout for the course product and return the redirect URL.
  *
  * @param {object} opts
- * @param {object} opts.utm    — { utm_source, utm_medium, utm_campaign }
- * @param {string} opts.utmNote — human-readable UTM summary for sales
- * @param {object} [opts.buyer] — { firstName, lastName, email } to prefill
+ * @param {object} opts.utm   , { utm_source, utm_medium, utm_campaign }
+ * @param {string} opts.utmNote, human-readable UTM summary for sales
+ * @param {object} [opts.buyer], { firstName, lastName, email } to prefill
  *                                the Wix checkout form
  * @returns {string} final checkout URL (with UTM attached) to navigate to
  */
 export async function startWixCheckout({ utm, utmNote, buyer }) {
   const productId = process.env.NEXT_PUBLIC_WIX_PRODUCT_ID;
   if (!productId) {
-    throw new Error('Missing NEXT_PUBLIC_WIX_PRODUCT_ID — set it in .env.local');
+    throw new Error('Missing NEXT_PUBLIC_WIX_PRODUCT_ID, set it in .env.local');
   }
 
   const checkoutInfo = {
@@ -53,7 +53,7 @@ export async function startWixCheckout({ utm, utmNote, buyer }) {
     buyerNote: utmNote,
   };
 
-  // Prefill: email lands in buyerInfo, name lands in billing contact —
+  // Prefill: email lands in buyerInfo, name lands in billing contact;
   // the Wix checkout page reads both to pre-populate its form.
   if (buyer?.email) {
     checkoutInfo.buyerInfo = { email: buyer.email };

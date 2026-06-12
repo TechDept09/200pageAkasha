@@ -6,7 +6,7 @@ const parts = [
   {
     n: '01',
     t: 'Practice & Theory',
-    desc: 'Build your foundation through grounded asana, breath, and presence. Learn pranayama, heart-centered meditation, the chakras, and the philosophical roots that make Yoga more than physical exercise — so you grow into a confident self-practitioner.',
+    desc: 'Build your foundation through grounded asana, breath, and presence. Learn pranayama, heart-centered meditation, the chakras, and the philosophical roots that make Yoga more than physical exercise, so you grow into a confident self-practitioner.',
     items: ['Asanas & alignment', 'Breathwork (Pranayama)', 'Heart meditation', 'Yoga philosophy', 'The art of living', 'The chakras'],
   },
   {
@@ -18,7 +18,7 @@ const parts = [
   {
     n: '03',
     t: 'Yoga Physiology',
-    desc: 'Step into the scriptures — the Bhagavad Gita and the Yoga Sutras — and the inner physiology of Yoga. Learn purification practices, yogic diet, and how to sequence a class with intention. You’ll teach your own 60-minute class to put theory into practice.',
+    desc: 'Step into the scriptures, the Bhagavad Gita and the Yoga Sutras, and the inner physiology of Yoga. Learn purification practices, yogic diet, and how to sequence a class with intention. You’ll teach your own 60-minute class to put theory into practice.',
     items: ['Scripture: Bhagavad Gita', 'Scripture: Yoga Sutras', 'Purification practices', 'Yogic diet', 'Sequencing', 'Teaching a 60-minute class'],
   },
   {
@@ -90,7 +90,7 @@ export default function Curriculum() {
           </h2>
           <p className="font-body text-akasha-gray-1 mt-4 leading-relaxed">
             Learn &amp; experience a deeper level of Yoga in both philosophy
-            &amp; practice — a complete 200-hour curriculum in four integrated
+            &amp; practice. A complete 200-hour curriculum in four integrated
             parts.
           </p>
           <span className="gold-rule" />

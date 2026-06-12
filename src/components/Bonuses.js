@@ -27,8 +27,8 @@ export default function Bonuses() {
             14 Exclusive Bonuses &amp; Career Starter Kit
           </h2>
           <p className="font-body text-akasha-gray-1 mt-4 leading-relaxed">
-            A complete toolkit to start teaching with confidence —
-            included free with the Essential Path.
+            A complete toolkit to start teaching with confidence.
+            Included free with the Essential Path.
           </p>
           <p className="script text-akasha-orange mt-3" style={{ fontSize: '1.4rem' }}>
             Total value US$1,130

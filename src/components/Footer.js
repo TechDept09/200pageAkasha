@@ -93,7 +93,7 @@ export default function Footer() {
 
         <div className="pt-6 border-t border-akasha-white/10 flex flex-col md:flex-row items-center justify-between gap-3">
           <p className="text-[11px] font-body text-akasha-white/40 tracking-wide">
-            &copy; Akasha Yoga Academy 2011–{new Date().getFullYear()}
+            &copy; Akasha Yoga Academy 2011-{new Date().getFullYear()}
           </p>
           <div className="flex gap-5 text-[11px] font-body text-akasha-white/40">
             <a href="https://www.akashayogaacademy.com/privacy-policy-terms-conditions" target="_blank" rel="noreferrer" className="hover:text-akasha-gold transition-colors">

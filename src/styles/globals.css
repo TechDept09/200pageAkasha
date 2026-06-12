@@ -1,4 +1,4 @@
-/* Akasha — model/tema/tone aligned to akashayogaacademy.com.
+/* Akasha, model/tema/tone aligned to akashayogaacademy.com.
    Jost  ≈ Futura LT W01 Light (their heading font)
    Inter ≈ Proxima N W01 Reg   (their body font)
    Allura ≈ "You're Invited"   (their script accent font) */
@@ -18,7 +18,7 @@
     line-height: 1.7;
   }
 
-  /* Airy, light headings — the Akasha signature (futura-light 1.4em feel) */
+  /* Airy, light headings, the Akasha signature (futura-light 1.4em feel) */
   h1, h2, h3, h4 {
     @apply font-heading text-akasha-black;
     font-weight: 300;
@@ -34,7 +34,7 @@
 }
 
 @layer components {
-  /* Buttons — uppercase, wide tracking, pill. Like their START TODAY / ENROLL NOW.
+  /* Buttons, uppercase, wide tracking, pill. Like their START TODAY / ENROLL NOW.
      Primary action color = warm coral-orange, the visible Akasha CTA color. */
   .btn-primary {
     @apply inline-flex items-center justify-center
@@ -71,13 +71,13 @@
     @apply px-5 md:px-8 max-w-6xl mx-auto;
   }
 
-  /* Eyebrow — small caps tracked label, like their section kickers */
+  /* Eyebrow, small caps tracked label, like their section kickers */
   .eyebrow {
     @apply block text-[11px] tracking-[0.3em] uppercase font-medium text-akasha-gray-1 mb-4;
     font-family: 'Inter', sans-serif;
   }
 
-  /* Script accent — their "You're Invited" moments */
+  /* Script accent, their "You're Invited" moments */
   .script {
     font-family: 'Allura', Georgia, serif;
     color: #ED5829;

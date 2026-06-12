@@ -1,5 +1,5 @@
 /**
- * Single centered testimonial interlude between sections —
+ * Single centered testimonial interlude between sections;
  * the signature rhythm of akashayogaacademy.com.
  */
 export default function QuoteBreak({ text, author, country, dark = false }) {
@@ -30,7 +30,7 @@ export default function QuoteBreak({ text, author, country, dark = false }) {
             dark ? 'text-akasha-white/60' : 'text-akasha-gray-1'
           }`}
         >
-          {author} — {country}
+          {author}, {country}
         </cite>
       </div>
     </section>
