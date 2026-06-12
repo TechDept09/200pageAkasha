@@ -11,7 +11,7 @@ export default function FAQ() {
     { q: 'Is there a money-back guarantee?', a: 'Yes, a 14-Day Money-Back Guarantee. If the program doesn’t meet your expectations, you’re entitled to an immediate, full refund within the first 14 days.' },
     { q: 'Can I do this on my phone or tablet?', a: 'Yes. The entire platform (video lessons, training materials, and Live Zoom Classes) works on phone, tablet, laptop, or desktop. All you need is a stable internet connection.' },
     { q: 'What technical setup do I need?', a: 'A modern web browser and a reliable internet connection. For Live Zoom Classes, a working camera and microphone are recommended so you can participate fully. No special equipment is required for the practice itself.' },
-    { q: 'Do I keep access to the videos after I finish?', a: 'You have full access to the online platform throughout your training and the 6-month Yoga Alliance certification window. We recommend downloading study materials as you go so you can keep them for your personal reference.' },
+    { q: 'Do I keep access to the videos after I finish?', a: 'You get immediate access to the online platform as soon as you enroll. For details about platform access after the 6-month Yoga Alliance certification window, please contact our team before enrolling.' },
   ];
 
   const [open, setOpen] = useState(0);
