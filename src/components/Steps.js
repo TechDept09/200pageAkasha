@@ -8,7 +8,7 @@ export default function Steps() {
     {
       n: '2',
       t: 'Become Part of the Family',
-      d: 'Dive deep into authentic Yoga with daily live calls, your personal mentor, and a worldwide community.',
+      d: 'Dive deep into authentic Yoga with live Zoom classes, expert teachers, and a worldwide community.',
     },
     {
       n: '3',

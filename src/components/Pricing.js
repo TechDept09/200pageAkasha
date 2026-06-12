@@ -21,8 +21,8 @@ export default function Pricing() {
             Your Investment
           </h2>
           <p className="font-body text-akasha-gray-1 mt-4 leading-relaxed">
-            The Essential Path is our complete offering — nothing tiered,
-            nothing locked behind upgrades. At our lowest price ever.
+            Everything you need to become Yoga Alliance certified —
+            at our lowest price ever.
           </p>
           <span className="gold-rule" />
         </div>
