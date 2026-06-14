@@ -16,7 +16,7 @@ export default function CTA() {
         </h2>
 
         <p className="script mb-8" style={{ fontSize: 'clamp(1.9rem, 3.5vw, 2.6rem)', color: '#E7BC5D' }}>
-          Bring Bali Home
+          75% Summer Discount
         </p>
 
         <p className="font-body text-akasha-white/75 max-w-xl mx-auto mb-10 leading-relaxed">

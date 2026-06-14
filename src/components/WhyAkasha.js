@@ -41,7 +41,7 @@ export default function WhyAkasha() {
       d: 'Authentic, breath-based Yoga presented deep yet simple, so you grow into a confident self-practitioner, not just a credential holder.',
     },
     {
-      t: 'Bring Bali Home',
+      t: '75% Summer Discount',
       d: 'Video lessons filmed in our exclusive BALIWOOD studio, paired with live Zoom classes. Practice with us from anywhere.',
     },
     {

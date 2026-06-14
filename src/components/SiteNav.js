@@ -35,7 +35,7 @@ export default function SiteNav() {
       <UrgencyBanner />
       <div className="max-w-6xl mx-auto px-5 md:px-8 h-16 flex items-center justify-between">
         <a href="#" className="flex items-center" aria-label="Akasha Yoga Academy">
-          <img src={LOGO_BLACK} alt="Akasha Yoga Academy" className="h-9 w-auto" />
+          <img src={LOGO_BLACK} alt="Akasha Yoga Academy" className="h-12 lg:h-9 w-auto" />
         </a>
 
         <nav className="hidden lg:flex items-center gap-10">
