@@ -1,9 +1,13 @@
+'use client';
+
 import SaleCountdown from './SaleCountdown';
+import { useTier } from '@/lib/TierContext';
 
 const HERO_IMG =
   'https://static.wixstatic.com/media/c15a18_5d357dab7cec43c4879c3f12090081ce~mv2.jpg/v1/crop/x_328,y_0,w_1345,h_1334/fill/w_838,h_792,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Certified-Yoga-Instructor---Bali---Akash.jpg';
 
 export default function Hero() {
+  const tier = useTier();
   return (
     <section className="pt-32 md:pt-40 pb-16 md:pb-24 bg-akasha-white">
       <div className="section">
@@ -15,16 +19,16 @@ export default function Hero() {
               className="mb-4"
               style={{ fontSize: 'clamp(2.5rem, 5.2vw, 4.2rem)', fontWeight: 300 }}
             >
-              200-Hour Online
+              {tier.heroLine1}
               <br />
-              Yoga Teacher Training
+              {tier.heroLine2}
             </h1>
 
             <p
               className="script mb-7"
               style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}
             >
-              Your Path to Purpose &amp; Joy
+              {tier.tagline}
             </p>
 
             <p className="font-body text-akasha-gray-1 max-w-md mx-auto lg:mx-0 mb-9 leading-relaxed">
@@ -47,7 +51,7 @@ export default function Hero() {
                 <span className="text-akasha-green">✓</span> Yoga Alliance certified
               </li>
               <li className="flex items-center gap-1.5">
-                <span className="text-akasha-green">✓</span> 6-month self-paced
+                <span className="text-akasha-green">✓</span> {tier.selfPaceWindow}
               </li>
               <li className="flex items-center gap-1.5">
                 <span className="text-akasha-green">✓</span> Learn from anywhere
@@ -73,21 +77,21 @@ export default function Hero() {
 
             <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 lg:left-auto lg:right-8 lg:translate-x-0 bg-akasha-white shadow-lg rounded-sm px-6 py-4 text-center border border-akasha-gray-4">
               <p className="text-[10px] font-body uppercase tracking-[0.25em] text-akasha-gray-1 mb-1">
-                75% Summer Discount
+                {tier.discountLabel}
               </p>
               <div className="flex items-baseline justify-center gap-3">
                 <span className="text-akasha-gray-2 line-through font-body text-sm">
-                  US$1190
+                  US${tier.regularPrice}
                 </span>
                 <span
                   className="font-heading text-akasha-orange text-3xl"
                   style={{ fontWeight: 400 }}
                 >
-                  US$290
+                  US${tier.promoPrice}
                 </span>
               </div>
               <p className="text-[10px] font-body uppercase tracking-[0.2em] text-akasha-orange mt-1">
-                Ends in <SaleCountdown variant="short" fallback={<>June 15</>} />
+                Ends in <SaleCountdown variant="short" fallback={<>{tier.saleEndShort}</>} />
               </p>
             </div>
           </div>

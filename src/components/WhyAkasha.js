@@ -1,6 +1,11 @@
+'use client';
+
+import { useTier } from '@/lib/TierContext';
+
 const BADGE_BASE = 'https://static.wixstatic.com/media/cd7168_';
 
 export default function WhyAkasha() {
+  const tier = useTier();
   const primaryRatings = [
     {
       platform: 'Facebook',
@@ -41,7 +46,7 @@ export default function WhyAkasha() {
       d: 'Authentic, breath-based Yoga presented deep yet simple, so you grow into a confident self-practitioner, not just a credential holder.',
     },
     {
-      t: '75% Summer Discount',
+      t: tier.discountLabel,
       d: 'Video lessons filmed in our exclusive BALIWOOD studio, paired with live Zoom classes. Practice with us from anywhere.',
     },
     {

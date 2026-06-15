@@ -28,10 +28,16 @@ export function attachUtmToWixRedirect(fullUrl, utm) {
   return outer.toString();
 }
 
-export async function startWixCheckout({ utm, utmNote, buyer }) {
-  const productId = process.env.NEXT_PUBLIC_WIX_PRODUCT_ID;
+export function getProductIdForTier(tierSlug) {
+  if (tierSlug === 'premium') {
+    return process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_PREMIUM;
+  }
+  return process.env.NEXT_PUBLIC_WIX_PRODUCT_ID;
+}
+
+export async function startWixCheckout({ utm, utmNote, buyer, productId }) {
   if (!productId) {
-    throw new Error('Missing NEXT_PUBLIC_WIX_PRODUCT_ID, set it in .env.local');
+    throw new Error('Missing Wix product ID for this tier, set the matching NEXT_PUBLIC_WIX_PRODUCT_ID_* in .env.local');
   }
 
   const checkoutInfo = {

@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import SaleCountdown from './SaleCountdown';
+import { useTier } from '@/lib/TierContext';
 
 export default function StickyCTA() {
+  const tier = useTier();
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -23,13 +25,13 @@ export default function StickyCTA() {
       <div className="px-4 py-3 flex items-center gap-3 max-w-3xl mx-auto">
         <div className="flex-1 leading-tight">
           <div className="flex items-baseline gap-2">
-            <span className="text-akasha-gray-2 text-xs line-through font-body">US$1190</span>
+            <span className="text-akasha-gray-2 text-xs line-through font-body">US${tier.regularPrice}</span>
             <span className="font-heading text-akasha-black text-xl" style={{ fontWeight: 400 }}>
-              US$290
+              US${tier.promoPrice}
             </span>
           </div>
           <p className="text-[10px] font-body uppercase tracking-[0.18em] text-akasha-orange">
-            Ends in <SaleCountdown variant="short" fallback={<>Jun 15</>} /> · 75% Off
+            Ends in <SaleCountdown variant="short" fallback={<>{tier.saleEndShort}</>} /> · {tier.discountPercent}% Off
           </p>
         </div>
         <a

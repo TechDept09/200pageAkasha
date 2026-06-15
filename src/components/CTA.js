@@ -1,4 +1,10 @@
+'use client';
+
+import { useTier } from '@/lib/TierContext';
+
 export default function CTA() {
+  const tier = useTier();
+
   return (
     <section id="enroll" className="py-24 md:py-32 bg-akasha-black text-akasha-white">
       <div className="section max-w-3xl text-center">
@@ -16,7 +22,7 @@ export default function CTA() {
         </h2>
 
         <p className="script mb-8" style={{ fontSize: 'clamp(1.9rem, 3.5vw, 2.6rem)', color: '#E7BC5D' }}>
-          75% Summer Discount
+          {tier.discountLabel}
         </p>
 
         <p className="font-body text-akasha-white/75 max-w-xl mx-auto mb-10 leading-relaxed">
@@ -26,10 +32,10 @@ export default function CTA() {
 
         <div className="flex items-baseline justify-center gap-4 mb-8">
           <span className="text-akasha-white/50 text-lg line-through font-body">
-            US$1190
+            US${tier.regularPrice}
           </span>
           <span className="font-heading text-akasha-white text-5xl md:text-6xl" style={{ fontWeight: 300 }}>
-            US$290
+            US${tier.promoPrice}
           </span>
         </div>
 
@@ -38,7 +44,7 @@ export default function CTA() {
         </a>
 
         <p className="text-[10px] font-body text-akasha-white/50 mt-5 tracking-[0.25em] uppercase">
-          75% Summer Discount · Ends June 15 · 14-Day Money-Back Guarantee
+          {tier.discountLabel} · Ends {tier.saleEndShort} · 14-Day Money-Back Guarantee
         </p>
       </div>
     </section>

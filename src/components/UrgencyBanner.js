@@ -1,7 +1,8 @@
 'use client';
 
 import { useCountdown } from '@/hooks/useCountdown';
-import { SALE_END, SALE_SAVINGS } from '@/lib/saleConfig';
+import { useTier } from '@/lib/TierContext';
+import { getSavings } from '@/lib/tiers';
 
 function formatLong(c) {
   if (c.days > 0) return `${c.days}d ${c.hours}h ${c.minutes}m`;
@@ -11,14 +12,15 @@ function formatLong(c) {
 }
 
 export default function UrgencyBanner() {
-  const c = useCountdown(SALE_END);
+  const tier = useTier();
+  const c = useCountdown(tier.saleEnd);
   if (c.isExpired) return null;
 
   return (
     <div className="bg-akasha-orange/95 text-akasha-white text-center">
       <div className="max-w-6xl mx-auto px-5 md:px-8 py-1.5 flex items-center justify-center gap-x-2 whitespace-nowrap overflow-hidden">
         <span className="hidden sm:inline text-[11px] md:text-[12px] font-body uppercase tracking-[0.18em]">
-          75% Summer Discount ends in
+          {tier.discountLabel} ends in
         </span>
         <span className="sm:hidden text-[11px] font-body uppercase tracking-[0.15em]">
           Ends in
@@ -30,7 +32,7 @@ export default function UrgencyBanner() {
           {formatLong(c)}
         </span>
         <span className="hidden sm:inline text-[11px] md:text-[12px] font-body opacity-90">
-          · Save US${SALE_SAVINGS}
+          · Save US${getSavings(tier)}
         </span>
       </div>
     </div>

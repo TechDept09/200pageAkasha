@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import UrgencyBanner from './UrgencyBanner';
+import { useTier } from '@/lib/TierContext';
 
 const LOGO_BLACK =
   'https://static.wixstatic.com/media/c15a18_add3f1d2dd1a4582876f0249d1a2daf3~mv2.png/v1/fill/w_376,h_320,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Akasha-Yoga-Academy-Logo-2020-BLACK-500W.png';
@@ -16,6 +17,7 @@ const links = [
 ];
 
 export default function SiteNav() {
+  const tier = useTier();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -55,7 +57,7 @@ export default function SiteNav() {
           className="hidden lg:inline-flex items-center bg-akasha-orange text-white text-[11px] font-medium tracking-[0.12em] uppercase px-5 py-2.5 rounded-full hover:bg-akasha-orange-dark transition-colors"
           style={{ fontFamily: 'Inter, sans-serif' }}
         >
-          Enroll US$290
+          {tier.ctaShort}
         </a>
 
         <button
@@ -91,7 +93,7 @@ export default function SiteNav() {
             onClick={() => setOpen(false)}
             className="mt-2 bg-akasha-orange text-white text-center text-xs font-medium tracking-[0.12em] uppercase px-5 py-3 rounded-full"
           >
-            Enroll US$290
+            {tier.ctaShort}
           </a>
         </nav>
       </div>

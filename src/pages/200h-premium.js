@@ -17,7 +17,7 @@ import StickyCTA from '@/components/StickyCTA';
 import { TierProvider } from '@/lib/TierContext';
 import { TIERS } from '@/lib/tiers';
 
-const tier = TIERS.essential;
+const tier = TIERS.premium;
 
 const OG_IMAGE =
   'https://static.wixstatic.com/media/c15a18_5d357dab7cec43c4879c3f12090081ce~mv2.jpg/v1/fill/w_1200,h_630,al_c,q_85,enc_avif,quality_auto/Certified-Yoga-Instructor---Bali---Akash.jpg';
@@ -25,7 +25,7 @@ const OG_IMAGE =
 const courseSchema = {
   '@context': 'https://schema.org',
   '@type': 'Course',
-  name: '200-Hour Online Yoga Teacher Training, Essential',
+  name: '200-Hour Online Yoga Teacher Training, Premium',
   description: tier.metaDescription,
   provider: {
     '@type': 'Organization',
@@ -42,14 +42,14 @@ const courseSchema = {
     '@type': 'Offer',
     price: String(tier.promoPrice),
     priceCurrency: 'USD',
-    category: 'Essential',
+    category: 'Premium',
     availability: 'https://schema.org/InStock',
   },
 };
 
-export default function EssentialPage() {
+export default function PremiumPage() {
   return (
-    <TierProvider tier="essential">
+    <TierProvider tier="premium">
       <Head>
         <title>{tier.metaTitle}</title>
         <meta name="description" content={tier.metaDescription} />
@@ -81,18 +81,18 @@ export default function EssentialPage() {
         <Hero />
 
         <QuoteBreak
-          text="Their love & passion for a Yogic Life was out of this world. I swear my blueprint is changed because of it!"
-          author="Suzi Bloor"
-          country="Denmark"
+          text="The mentorship was the difference, having a teacher who actually saw my practice and met me where I was."
+          author="Akasha Premium Graduate"
+          country=""
         />
 
         <WhyAkasha />
         <Curriculum />
 
         <QuoteBreak
-          text="You will learn so much more than just Yoga. I truly wish that EVERY person could experience this deep dive of self-discovery."
-          author="Chandise Dasher"
-          country="United States"
+          text="Personal feedback every week meant I was teaching with confidence by month three, not month twelve."
+          author="Akasha Premium Graduate"
+          country=""
         />
 
         <Teachers />

@@ -1,10 +1,11 @@
 'use client';
 
 import { useCountdown } from '@/hooks/useCountdown';
-import { SALE_END } from '@/lib/saleConfig';
+import { useTier } from '@/lib/TierContext';
 
 export default function WhileSaleActive({ children, fallback = null }) {
-  const c = useCountdown(SALE_END);
+  const tier = useTier();
+  const c = useCountdown(tier.saleEnd);
   if (c.isExpired) return fallback;
   return children;
 }

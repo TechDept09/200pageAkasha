@@ -1,11 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { startWixCheckout } from '@/lib/checkout';
+import { startWixCheckout, getProductIdForTier } from '@/lib/checkout';
 import { useUtmParams, formatUtmNote } from '@/hooks/useUtmParams';
+import { useTier } from '@/lib/TierContext';
 
 export default function EnrollForm() {
   const utm = useUtmParams();
+  const tier = useTier();
   const [form, setForm] = useState({ firstName: '', lastName: '', email: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -30,6 +32,7 @@ export default function EnrollForm() {
       const url = await startWixCheckout({
         utm,
         utmNote: formatUtmNote(utm),
+        productId: getProductIdForTier(tier.slug),
         buyer: {
           firstName: form.firstName.trim(),
           lastName: form.lastName.trim(),
@@ -81,7 +84,7 @@ export default function EnrollForm() {
         disabled={loading}
         className={`btn-action w-full ${loading ? 'opacity-70 cursor-wait' : ''}`}
       >
-        {loading ? 'Preparing your checkout…' : 'Enroll Now, US$290'}
+        {loading ? 'Preparing your checkout…' : tier.ctaLong}
       </button>
 
       {error && (

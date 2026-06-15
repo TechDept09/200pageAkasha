@@ -1,7 +1,7 @@
 'use client';
 
 import { useCountdown } from '@/hooks/useCountdown';
-import { SALE_END } from '@/lib/saleConfig';
+import { useTier } from '@/lib/TierContext';
 
 function fmtShort(c) {
   if (c.days > 0) return `${c.days}d ${c.hours}h`;
@@ -16,7 +16,8 @@ function fmtLong(c) {
 }
 
 export default function SaleCountdown({ variant = 'long', fallback = null, className = '' }) {
-  const c = useCountdown(SALE_END);
+  const tier = useTier();
+  const c = useCountdown(tier.saleEnd);
   if (c.isExpired) return fallback;
   const text = variant === 'short' ? fmtShort(c) : fmtLong(c);
   return <span className={`tabular-nums ${className}`}>{text}</span>;
