@@ -1,5 +1,11 @@
 import Head from 'next/head';
 import CourseNav from './CourseNav';
+import CourseCurriculum from './CourseCurriculum';
+import CourseTeachers from './CourseTeachers';
+import CourseCTA from './CourseCTA';
+import CourseStickyCTA from './CourseStickyCTA';
+import QuoteBreak from '../QuoteBreak';
+import WhyAkasha from '../WhyAkasha';
 import TrustStrip from '../TrustStrip';
 import Footer from '../Footer';
 
@@ -35,6 +41,7 @@ export default function CourseLanding({ course }) {
   const ctaShort = promoPrice ? `Enroll ${price(promoPrice, currency)}` : 'Enroll';
   const metaTitle = `${title} | Akasha Yoga Academy`;
   const metaDescription = shortDescription;
+  const savings = hasDiscount ? regularPrice - promoPrice : 0;
 
   return (
     <>
@@ -154,7 +161,13 @@ export default function CourseLanding({ course }) {
           </div>
         </section>
 
-        <TrustStrip />
+        <QuoteBreak
+          text="Their love & passion for a Yogic Life was out of this world. I swear my blueprint is changed because of it!"
+          author="Suzi Bloor"
+          country="Denmark"
+        />
+
+        <WhyAkasha />
 
         {/* About */}
         {longDescription.length ? (
@@ -178,55 +191,25 @@ export default function CourseLanding({ course }) {
           </section>
         ) : null}
 
-        {/* What You'll Learn */}
-        {learningOutcomes.length ? (
-          <section className="py-16 md:py-20 bg-akasha-gray-4/30">
-            <div className="section">
-              <div className="text-center max-w-2xl mx-auto mb-10">
-                <span className="eyebrow">Curriculum</span>
-                <h2 style={{ fontSize: 'clamp(1.7rem, 3.4vw, 2.4rem)', fontWeight: 300 }}>
-                  What You&rsquo;ll Learn
-                </h2>
-                <span className="gold-rule" />
-              </div>
-              <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3 max-w-4xl mx-auto">
-                {learningOutcomes.map((item, i) => (
-                  <li
-                    key={i}
-                    className="flex items-start gap-3 text-sm font-body text-akasha-gray-1 leading-relaxed"
-                  >
-                    <span className="text-akasha-green mt-0.5 flex-none">✓</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </section>
-        ) : null}
+        <CourseCurriculum items={learningOutcomes} />
 
-        {/* Instructors */}
-        {instructors.length ? (
-          <section className="py-14 md:py-16 bg-akasha-white">
-            <div className="section text-center max-w-3xl">
-              <span className="eyebrow">Lead Instructors</span>
-              <h2 style={{ fontSize: 'clamp(1.5rem, 2.8vw, 2rem)', fontWeight: 300 }}>
-                Taught by Akasha Senior Teachers
-              </h2>
-              <span className="gold-rule" />
-              <p className="mt-6 font-body text-akasha-gray-1 leading-relaxed">
-                {instructors.join(', ')}
-              </p>
-            </div>
-          </section>
-        ) : null}
+        <QuoteBreak
+          text="You will learn so much more than just Yoga. I truly wish that EVERY person could experience this deep dive of self-discovery."
+          author="Chandise Dasher"
+          country="United States"
+        />
+
+        <CourseTeachers instructors={instructors} />
+
+        <TrustStrip />
 
         {/* What's Included */}
         {inclusions.length ? (
-          <section className="py-16 md:py-20 bg-akasha-gray-4/30">
+          <section className="py-20 md:py-28 bg-akasha-gray-4/30">
             <div className="section">
-              <div className="text-center max-w-2xl mx-auto mb-10">
+              <div className="text-center max-w-2xl mx-auto mb-12">
                 <span className="eyebrow">Inclusions</span>
-                <h2 style={{ fontSize: 'clamp(1.7rem, 3.4vw, 2.4rem)', fontWeight: 300 }}>
+                <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 300 }}>
                   What&rsquo;s Included
                 </h2>
                 <span className="gold-rule" />
@@ -265,45 +248,47 @@ export default function CourseLanding({ course }) {
           </section>
         ) : null}
 
-        {/* Pricing CTA */}
+        {/* Pricing */}
         <section id="pricing" className="py-20 md:py-28 bg-akasha-white scroll-mt-20">
           <div className="section">
-            <div className="text-center max-w-2xl mx-auto mb-10">
-              <span className="eyebrow">Your Investment</span>
-              <h2 style={{ fontSize: 'clamp(1.7rem, 3.4vw, 2.4rem)', fontWeight: 300 }}>
-                Reserve Your Place
+            <div className="text-center max-w-2xl mx-auto mb-12">
+              <span className="eyebrow text-akasha-orange">
+                {discountPercent ? `${discountPercent}% Discount` : 'Investment'}
+              </span>
+              <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 300 }}>
+                Your Investment
               </h2>
               <span className="gold-rule" />
             </div>
 
-            <div className="max-w-md mx-auto bg-akasha-white border border-akasha-gray-4 rounded-sm overflow-hidden">
+            <div className="max-w-xl mx-auto bg-akasha-white border border-akasha-gray-4 rounded-sm overflow-hidden">
               <div className="text-center pt-10 pb-8 px-8 border-b border-akasha-gray-4">
-                {discountPercent ? (
-                  <p className="text-[11px] font-body uppercase tracking-[0.25em] text-akasha-orange mb-4">
-                    {discountPercent}% Discount
-                  </p>
+                {tagline ? (
+                  <span className="script block mb-3" style={{ fontSize: '2rem' }}>
+                    {tagline}
+                  </span>
                 ) : null}
                 <div className="flex items-baseline justify-center gap-4 mb-2">
                   {hasDiscount ? (
-                    <span className="text-akasha-gray-2 text-lg line-through font-body">
+                    <span className="text-akasha-gray-2 text-xl line-through font-body">
                       {price(regularPrice, currency)}
                     </span>
                   ) : null}
                   <span
-                    className="font-heading text-akasha-black text-5xl md:text-6xl"
+                    className="font-heading text-akasha-black text-6xl"
                     style={{ fontWeight: 300 }}
                   >
                     {price(promoPrice || regularPrice, currency)}
                   </span>
                 </div>
                 {hasDiscount ? (
-                  <p className="text-[11px] font-body uppercase tracking-[0.25em] text-akasha-gray-1">
-                    Save {price(regularPrice - promoPrice, currency)}
+                  <p className="text-[11px] font-body uppercase tracking-[0.25em] text-akasha-orange">
+                    Save {price(savings, currency)}
                   </p>
                 ) : null}
               </div>
 
-              <div className="px-8 py-8 text-center">
+              <div className="px-8 md:px-12 py-8 text-center">
                 <a
                   href={wixEnrollUrl}
                   target="_blank"
@@ -320,8 +305,12 @@ export default function CourseLanding({ course }) {
           </div>
         </section>
 
+        <CourseCTA course={course} />
+
         <Footer />
       </main>
+
+      <CourseStickyCTA course={course} />
     </>
   );
 }
