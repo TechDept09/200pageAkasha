@@ -73,7 +73,7 @@ export const courses = [
     href: '/300h-ytt',
     wixEnrollUrl: 'https://www.akashayogaacademy.com/300-hour-online-teacher-training',
     isInternal: true,
-    prereq: 'RYT-200 or equivalent',
+    prereq: '200-Hour Certification',
     duration: '300 hours, self-paced',
     instructors: ['Burkhard', 'Kirsten', 'Devdas'],
     longDescription: [
@@ -119,7 +119,7 @@ export const courses = [
     href: '/80h-yin',
     wixEnrollUrl: 'https://www.akashayogaacademy.com/80-hr-online-yin-yoga-teacher-training',
     isInternal: true,
-    prereq: null,
+    prereq: '200-Hour Certification',
     duration: '80 hours, self-paced',
     instructors: ['Kirsten', 'Burkhard', 'Devdas', 'Astrid'],
     longDescription: [
@@ -165,7 +165,7 @@ export const courses = [
     href: '/80h-hatha-pranayama',
     wixEnrollUrl: 'https://www.akashayogaacademy.com/80-hr-online-hatha-and-pranayama',
     isInternal: true,
-    prereq: null,
+    prereq: '200-Hour Certification',
     duration: '80 hours, self-paced',
     instructors: ['Devdas', 'Kirsten', 'Burkhard', 'Marc'],
     longDescription: [
@@ -209,7 +209,7 @@ export const courses = [
     href: '/80h-meditation',
     wixEnrollUrl: 'https://www.akashayogaacademy.com/80-hr-online-meditation-teacher-training',
     isInternal: true,
-    prereq: null,
+    prereq: '200-Hour Certification',
     duration: '80 hours, self-paced',
     instructors: ['Burkhard', 'Kirsten', 'Devdas', 'Hareesh Christopher Wallis (guest)'],
     longDescription: [
