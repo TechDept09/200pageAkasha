@@ -3,9 +3,6 @@
 import SaleCountdown from './SaleCountdown';
 import { useTier } from '@/lib/TierContext';
 
-const HERO_IMG =
-  'https://static.wixstatic.com/media/c15a18_5d357dab7cec43c4879c3f12090081ce~mv2.jpg/v1/crop/x_328,y_0,w_1345,h_1334/fill/w_838,h_792,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Certified-Yoga-Instructor---Bali---Akash.jpg';
-
 export default function Hero() {
   const tier = useTier();
   return (
@@ -69,8 +66,8 @@ export default function Hero() {
           <div className="relative">
             <div className="aspect-[4/5] overflow-hidden rounded-sm">
               <img
-                src={HERO_IMG}
-                alt="Akasha Yoga Academy, certified yoga instructor in Bali"
+                src={tier.heroImage}
+                alt={tier.title}
                 className="w-full h-full object-cover"
               />
             </div>

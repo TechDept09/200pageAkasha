@@ -49,6 +49,8 @@ export const TIERS = {
       "Become Yoga Alliance certified with Akasha Yoga Academy's 200-Hour Online YTT. 75% Summer Discount, US$290 (was US$1190) until June 15. Live Zoom classes, 200+ Bali studio videos, 14-day money-back guarantee. 1,100+ graduates on 6 continents.",
     bullets: ESSENTIAL_BULLETS,
     accessNote: '6 months access to platform, self-paced.',
+    heroImage:
+      'https://static.wixstatic.com/media/c15a18_5d357dab7cec43c4879c3f12090081ce~mv2.jpg/v1/crop/x_328,y_0,w_1345,h_1334/fill/w_838,h_792,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Certified-Yoga-Instructor---Bali---Akash.jpg',
   },
   premium: {
     slug: 'premium',
@@ -73,6 +75,8 @@ export const TIERS = {
       "Become Yoga Alliance certified with personal mentorship, alignment coaching, and 12-month Zoom access. 200-Hour Premium YTT, 60% off (US$596, was US$1490). 1,100+ graduates on 6 continents.",
     bullets: PREMIUM_BULLETS,
     accessNote: '12 months Live Zoom access, with 1-on-1 mentorship.',
+    heroImage:
+      'https://static.wixstatic.com/media/cd7168_eea3bf63d06a4260b9e04f7bc00a255c~mv2.jpeg/v1/fill/w_900,h_900,al_c,q_85,enc_avif,quality_auto/AYA300-Dean%20Raphael-67.jpeg',
   },
 };
 
