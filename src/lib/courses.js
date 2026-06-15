@@ -104,7 +104,7 @@ export const courses = [
     shortDescription:
       'Breath-integrated Hatha, advanced Pranayama, arm balances, and bandhas. Rooted in the Hatha Yoga Pradipika, taught by E-RYT-500 teachers.',
     image:
-      'https://static.wixstatic.com/media/cd7168_e338667a9f7b45239d9686bfe7621fe9~mv2.jpg/v1/fill/w_1200,h_900,al_c,q_85,enc_avif,quality_auto/80-Hour-Advance-Hatha-%26-Pranayama-Online-TTC.jpg',
+      'https://static.wixstatic.com/media/cd7168_08b4252a1e1a44fbab5f36b9588534b3~mv2.jpg/v1/fill/w_1200,h_900,al_c,q_85,enc_avif,quality_auto/AYA300-Dean%20Raphael-W-67.jpg',
     href: 'https://www.akashayogaacademy.com/80-hr-online-hatha-and-pranayama',
     isInternal: false,
     prereq: null,
@@ -122,7 +122,7 @@ export const courses = [
     shortDescription:
       'Spiritual Heart Meditation, mantra practice, and Eastern wisdom traditions. YACEP certified, suitable for beginners and experienced practitioners.',
     image:
-      'https://static.wixstatic.com/media/cd7168_af049207a34b49a2b8cb8373993ab442_f000.jpg/v1/fill/w_1200,h_900,al_c,q_85,enc_avif,quality_auto/cd7168_af049207a34b49a2b8cb8373993ab442_f000.jpg',
+      'https://static.wixstatic.com/media/cd7168_0a05ce77a94a4310b9ef008bd9319cbc~mv2.jpg/v1/fill/w_1200,h_900,al_c,q_85,enc_avif,quality_auto/cd7168_0a05ce77a94a4310b9ef008bd9319cbc~mv2.jpg',
     href: 'https://www.akashayogaacademy.com/80-hr-online-meditation-teacher-training',
     isInternal: false,
     prereq: null,
