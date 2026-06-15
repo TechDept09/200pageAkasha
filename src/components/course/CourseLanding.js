@@ -4,7 +4,6 @@ import CourseCurriculum from './CourseCurriculum';
 import CourseTeachers from './CourseTeachers';
 import CourseCTA from './CourseCTA';
 import CourseStickyCTA from './CourseStickyCTA';
-import QuoteBreak from '../QuoteBreak';
 import WhyAkasha from '../WhyAkasha';
 import TrustStrip from '../TrustStrip';
 import Footer from '../Footer';
@@ -161,12 +160,6 @@ export default function CourseLanding({ course }) {
           </div>
         </section>
 
-        <QuoteBreak
-          text="Their love & passion for a Yogic Life was out of this world. I swear my blueprint is changed because of it!"
-          author="Suzi Bloor"
-          country="Denmark"
-        />
-
         <WhyAkasha />
 
         {/* About */}
@@ -192,12 +185,6 @@ export default function CourseLanding({ course }) {
         ) : null}
 
         <CourseCurriculum items={learningOutcomes} />
-
-        <QuoteBreak
-          text="You will learn so much more than just Yoga. I truly wish that EVERY person could experience this deep dive of self-discovery."
-          author="Chandise Dasher"
-          country="United States"
-        />
 
         <CourseTeachers instructors={instructors} />
 

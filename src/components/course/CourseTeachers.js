@@ -35,48 +35,36 @@ const TEACHER_DB = {
     role: 'Yoga Therapist, Lead Teacher',
     cred: 'C-IAYT, E-RYT-500',
     photo: null,
-    bio:
-      'Certified Yoga Therapist with a personal healing journey through yoga. Extensive ashram experience combined with urban teaching, anatomy specialist with integrated intellectual and experiential knowledge.',
   },
   'Astrid van Zon': {
     name: 'Astrid van Zon',
-    role: 'Yoga Therapist, Holistic Healing Guide',
+    role: 'Yoga Therapist',
     cred: 'C-IAYT, E-RYT-500',
     photo: null,
-    bio:
-      'Functional and subtle anatomy, Ayurveda, Traditional Chinese Medicine, and cyclical awareness, with 1,500+ certified training hours.',
   },
   Marc: {
     name: 'Marc Laws',
-    role: 'Guest Teacher, Arm Balances',
+    role: 'Guest Teacher',
     cred: 'E-RYT-500',
     photo: null,
-    bio:
-      "Famous guest teacher whose classes seamlessly blend artful body geometry with crystalline mental awareness and emotional intelligence.",
   },
   'Amanda Noga': {
     name: 'Amanda Noga',
-    role: 'Ayurveda Master',
-    cred: 'Yoga and Ayurveda Teacher',
+    role: 'Yoga and Ayurveda Teacher',
+    cred: null,
     photo: null,
-    bio:
-      "Two decades of experience in women's empowerment and natural rhythms through Ayurveda and yoga.",
   },
   'Ashley Apple': {
     name: 'Ashley Apple',
-    role: 'Holistic Wellness Guide, Sexuality Educator',
-    cred: 'Clinical Herbalist',
+    role: 'Clinical Herbalist, Sexuality Educator',
+    cred: null,
     photo: null,
-    bio:
-      'Clinical herbalist with 20 years of yoga and meditation teaching, specializing in Tantra, Kashmir Shaivism, functional medicine, and sexuality education.',
   },
   'Hareesh Christopher Wallis (guest)': {
     name: 'Hareesh Christopher Wallis',
-    role: 'Guest Teacher, Kashmir Shaivism',
+    role: 'Guest Teacher',
     cred: 'Ph.D. Sanskrit, Berkeley',
     photo: null,
-    bio:
-      'Sanskrit scholar-practitioner and teacher of Kashmir Shaivism philosophy, meditation, and practical insights.',
   },
 };
 

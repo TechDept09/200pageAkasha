@@ -5,6 +5,7 @@ function price(n, currency) {
 
 export default function CourseCTA({ course }) {
   const {
+    title,
     tagline,
     discountPercent,
     regularPrice,
@@ -24,16 +25,14 @@ export default function CourseCTA({ course }) {
 
         <h2
           className="text-akasha-white mb-3"
-          style={{ fontSize: 'clamp(2.1rem, 4.5vw, 3.4rem)', fontWeight: 300 }}
+          style={{ fontSize: 'clamp(1.9rem, 4vw, 3rem)', fontWeight: 300 }}
         >
-          Begin Your
-          <br />
-          Practice With Us
+          {title}
         </h2>
 
         {tagline ? (
           <p
-            className="script mb-8"
+            className="script mb-10"
             style={{
               fontSize: 'clamp(1.9rem, 3.5vw, 2.6rem)',
               color: '#E7BC5D',
@@ -42,11 +41,6 @@ export default function CourseCTA({ course }) {
             {tagline}
           </p>
         ) : null}
-
-        <p className="font-body text-akasha-white/75 max-w-xl mx-auto mb-10 leading-relaxed">
-          Join over 1,100 graduates teaching on 6 continents. A path that meets
-          you where you are.
-        </p>
 
         {regularPrice ? (
           <div className="flex items-baseline justify-center gap-4 mb-8">
