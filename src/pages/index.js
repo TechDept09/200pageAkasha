@@ -1,54 +1,25 @@
 import Head from 'next/head';
-import SiteNav from '@/components/SiteNav';
-import Hero from '@/components/Hero';
-import QuoteBreak from '@/components/QuoteBreak';
-import WhyAkasha from '@/components/WhyAkasha';
-import Curriculum from '@/components/Curriculum';
-import Teachers from '@/components/Teachers';
-import Steps from '@/components/Steps';
-import TrustStrip from '@/components/TrustStrip';
-import Pricing from '@/components/Pricing';
-import Bonuses from '@/components/Bonuses';
-import Testimonials from '@/components/Testimonials';
-import FAQ from '@/components/FAQ';
-import CTA from '@/components/CTA';
+import HubNav from '@/components/hub/HubNav';
+import HubHero from '@/components/hub/HubHero';
+import FeaturedCourseCard from '@/components/hub/FeaturedCourseCard';
+import CategorySection from '@/components/hub/CategorySection';
 import Footer from '@/components/Footer';
-import StickyCTA from '@/components/StickyCTA';
+import { courses, CATEGORIES, getCoursesByCategory } from '@/lib/courses';
 
 const SITE_URL = 'https://www.akashayogaacademy.com';
 const OG_IMAGE =
   'https://static.wixstatic.com/media/c15a18_5d357dab7cec43c4879c3f12090081ce~mv2.jpg/v1/fill/w_1200,h_630,al_c,q_85,enc_avif,quality_auto/Certified-Yoga-Instructor---Bali---Akash.jpg';
 const PAGE_TITLE =
-  '200-Hour Online Yoga Teacher Training, Akasha Yoga Academy | Your Path to Purpose & Joy';
+  'International Yoga Day Storewide Discount, Akasha Yoga Academy';
 const PAGE_DESC =
-  "Become Yoga Alliance certified with Akasha Yoga Academy's 200-Hour Online YTT. 75% Summer Discount, US$290 (was US$1190) until June 15. Live Zoom classes, 200+ Bali studio videos, 14-day money-back guarantee. 1,100+ graduates on 6 continents.";
+  'Storewide discount for all courses and on-site programs for International Yoga Day. Explore our 200-Hour, 300-Hour, 80-Hour modules, workshops, and retreats.';
 
-const courseSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Course',
-  name: '200-Hour Online Yoga Teacher Training, Essential',
-  description: PAGE_DESC,
-  provider: {
-    '@type': 'Organization',
-    name: 'Akasha Yoga Academy',
-    sameAs: SITE_URL,
-  },
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '4.93',
-    reviewCount: '359',
-    bestRating: '5',
-  },
-  offers: {
-    '@type': 'Offer',
-    price: '290',
-    priceCurrency: 'USD',
-    category: 'Essential',
-    availability: 'https://schema.org/InStock',
-  },
-};
+export default function HubHome() {
+  const essential = courses.find((c) => c.slug === '200h-essential');
+  const premium = courses.find((c) => c.slug === '200h-premium');
+  const advanced = getCoursesByCategory(CATEGORIES.ADVANCED);
+  const other = getCoursesByCategory(CATEGORIES.OTHER);
 
-export default function Home() {
   return (
     <>
       <Head>
@@ -69,45 +40,51 @@ export default function Home() {
         <meta name="twitter:title" content={PAGE_TITLE} />
         <meta name="twitter:description" content={PAGE_DESC} />
         <meta name="twitter:image" content={OG_IMAGE} />
-
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }}
-        />
       </Head>
 
-      <SiteNav />
+      <HubNav />
 
       <main>
-        <Hero />
+        <HubHero />
 
-        <QuoteBreak
-          text="Their love & passion for a Yogic Life was out of this world. I swear my blueprint is changed because of it!"
-          author="Suzi Bloor"
-          country="Denmark"
+        {essential ? (
+          <FeaturedCourseCard
+            course={essential}
+            anchorId="essential"
+            ctaLabel="Start Essential"
+          />
+        ) : null}
+
+        <div className="bg-akasha-gray-4/30">
+          {premium ? (
+            <FeaturedCourseCard
+              course={premium}
+              anchorId="premium"
+              ctaLabel="Start Premium"
+            />
+          ) : null}
+        </div>
+
+        <CategorySection
+          id="advanced"
+          eyebrow="For Certified Teachers"
+          heading="Advanced Courses"
+          intro="Continue your path after the 200-Hour Certification. Specialized modules to deepen your teaching."
+          courses={advanced}
+          bg="bg-akasha-white"
         />
 
-        <WhyAkasha />
-        <Curriculum />
-
-        <QuoteBreak
-          text="You will learn so much more than just Yoga. I truly wish that EVERY person could experience this deep dive of self-discovery."
-          author="Chandise Dasher"
-          country="United States"
+        <CategorySection
+          id="other"
+          eyebrow="Open to All"
+          heading="Other Courses & On-Site"
+          intro="Workshops and retreats open to everyone, no prior yoga training required."
+          courses={other}
+          bg="bg-akasha-gray-4/30"
         />
 
-        <Teachers />
-        <Steps />
-        <TrustStrip />
-        <Pricing />
-        <Bonuses />
-        <Testimonials />
-        <FAQ />
-        <CTA />
         <Footer />
       </main>
-
-      <StickyCTA />
     </>
   );
 }
