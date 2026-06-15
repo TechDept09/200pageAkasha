@@ -6,7 +6,7 @@ import { useTier } from '@/lib/TierContext';
 export default function Hero() {
   const tier = useTier();
   return (
-    <section className="pt-32 md:pt-40 pb-16 md:pb-24 bg-akasha-white">
+    <section className="pt-36 md:pt-44 pb-16 md:pb-24 bg-akasha-white">
       <div className="section">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div className="text-center lg:text-left">

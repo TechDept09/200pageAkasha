@@ -1,6 +1,6 @@
 export default function HubHero() {
   return (
-    <section className="pt-24 md:pt-32 pb-10 md:pb-14 bg-akasha-white">
+    <section className="pt-28 md:pt-36 pb-10 md:pb-14 bg-akasha-white">
       <div className="section text-center max-w-2xl">
         <span className="eyebrow" style={{ color: '#ED5829' }}>
           International Yoga Day, 21 June
