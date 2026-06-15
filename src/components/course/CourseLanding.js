@@ -19,6 +19,7 @@ export default function CourseLanding({ course }) {
     longDescription = [],
     learningOutcomes = [],
     inclusions = [],
+    notIncluded = [],
     instructors = [],
     duration,
     location,
@@ -241,6 +242,25 @@ export default function CourseLanding({ course }) {
                   </li>
                 ))}
               </ul>
+
+              {notIncluded.length ? (
+                <div className="max-w-4xl mx-auto mt-10 pt-8 border-t border-akasha-gray-4">
+                  <p className="text-center text-[11px] font-body uppercase tracking-[0.2em] text-akasha-gray-2 mb-5">
+                    Not Included
+                  </p>
+                  <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-2">
+                    {notIncluded.map((item, i) => (
+                      <li
+                        key={i}
+                        className="flex items-start gap-3 text-sm font-body text-akasha-gray-2 leading-relaxed"
+                      >
+                        <span className="text-akasha-gray-2 mt-0.5 flex-none">×</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
             </div>
           </section>
         ) : null}
