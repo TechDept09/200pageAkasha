@@ -2,9 +2,9 @@
 // Hardcoded today; designed so each entry maps cleanly to a CMS row later
 // (slug, title, category, href, discountPercent, regularPrice, promoPrice, image, shortDescription, prereq).
 //
-// Discount %, regular/promo price for Advanced and Other are placeholders
-// pending confirmation from Mbak Ayu. The Essential and Premium 200H prices
-// are the source of truth for the two main products of the Yoga Day push.
+// Prices and descriptions verified from akashayogaacademy.com. Advanced
+// course promos shown are the current summer-sale numbers (expire 30 Jun);
+// Yoga Day pricing may replace these once Mbak Ayu confirms.
 
 export const CATEGORIES = {
   MAIN: 'main',
@@ -25,8 +25,8 @@ export const courses = [
     promoPrice: 290,
     currency: 'USD',
     shortDescription:
-      'Self-paced online RYT-200 with Live Zoom classes, 200+ Bali studio videos, and a global yoga community. The complete path to Yoga Alliance certification.',
-    usp: 'No mentorship · self-guided',
+      'Self-paced online RYT-200 with Live Zoom classes, 200+ Bali studio videos, and a global yoga community. Full Yoga Alliance certification.',
+    usp: 'Self-guided · 6-month access',
     image:
       'https://static.wixstatic.com/media/c15a18_5d357dab7cec43c4879c3f12090081ce~mv2.jpg/v1/fill/w_1200,h_630,al_c,q_85,enc_avif,quality_auto/Certified-Yoga-Instructor---Bali---Akash.jpg',
     href: '/200h-essential',
@@ -40,14 +40,14 @@ export const courses = [
     category: CATEGORIES.MAIN,
     priority: 2,
     title: '200-Hour Premium Yoga Teacher Training',
-    badge: 'Includes Mentorship',
+    badge: 'With Mentorship',
     discountPercent: 60,
     regularPrice: 1490,
     promoPrice: 596,
     currency: 'USD',
     shortDescription:
-      'Everything in Essential, plus personal mentorship, individual feedback, alignment coaching, extended Zoom access, and the WhatsApp community.',
-    usp: 'Personal mentorship · individual feedback · extended Zoom access',
+      'Everything in Essential, plus 1-on-1 mentorship, alignment coaching, individual feedback, the WhatsApp community, and 12 months of Live Zoom access.',
+    usp: 'Personal mentorship · 12-month Zoom access · monthly payments',
     image: null,
     href: '/200h-premium',
     isInternal: true,
@@ -60,12 +60,12 @@ export const courses = [
     category: CATEGORIES.ADVANCED,
     priority: 1,
     title: '300-Hour Advanced Yoga Teacher Training',
-    discountPercent: 60,
-    regularPrice: null,
-    promoPrice: null,
+    discountPercent: 78,
+    regularPrice: 1800,
+    promoPrice: 399,
     currency: 'USD',
     shortDescription:
-      'Hatha, Pranayama, Yin Yoga, Mindfulness and Meditation. The natural next step after your RYT-200.',
+      'Three 100-hour modules across Hatha, Pranayama, Yin Yoga, and Spiritual Heart Meditation. Stepping stone to your RYT-500.',
     image: null,
     href: 'https://www.akashayogaacademy.com/300-hour-online-teacher-training',
     isInternal: false,
@@ -77,16 +77,16 @@ export const courses = [
     category: CATEGORIES.ADVANCED,
     priority: 2,
     title: '80-Hour Yin Yoga Teacher Training',
-    discountPercent: 60,
-    regularPrice: null,
-    promoPrice: null,
+    discountPercent: 33,
+    regularPrice: 600,
+    promoPrice: 399,
     currency: 'USD',
     shortDescription:
-      'Explore stillness, meridians, and authentic spiritual practice through Self Inquiry.',
+      'Yin postures, functional anatomy, meridian theory, and Self Inquiry. Lifetime access to recordings, monthly live Zoom with instructors.',
     image: null,
     href: 'https://www.akashayogaacademy.com/80-hr-online-yin-yoga-teacher-training',
     isInternal: false,
-    prereq: '200-Hour Certification',
+    prereq: null,
     discountConfirmed: false,
   },
   {
@@ -94,16 +94,16 @@ export const courses = [
     category: CATEGORIES.ADVANCED,
     priority: 3,
     title: '80-Hour Advanced Hatha & Pranayama Teacher Training',
-    discountPercent: 60,
-    regularPrice: null,
-    promoPrice: null,
+    discountPercent: 33,
+    regularPrice: 600,
+    promoPrice: 399,
     currency: 'USD',
     shortDescription:
-      'Deepen your practice and teaching with advanced asanas, pranayama, and bandhas.',
+      'Breath-integrated Hatha, advanced Pranayama, arm balances, and bandhas. Rooted in the Hatha Yoga Pradipika, taught by E-RYT-500 teachers.',
     image: null,
     href: 'https://www.akashayogaacademy.com/80-hr-online-hatha-and-pranayama',
     isInternal: false,
-    prereq: '200-Hour Certification',
+    prereq: null,
     discountConfirmed: false,
   },
   {
@@ -111,16 +111,16 @@ export const courses = [
     category: CATEGORIES.ADVANCED,
     priority: 4,
     title: '80-Hour Meditation Teacher Training',
-    discountPercent: 60,
-    regularPrice: null,
-    promoPrice: null,
+    discountPercent: 33,
+    regularPrice: 600,
+    promoPrice: 399,
     currency: 'USD',
     shortDescription:
-      'Develop confidence and compassion for leading meditation classes.',
+      'Spiritual Heart Meditation, mantra practice, and Eastern wisdom traditions. YACEP certified, suitable for beginners and experienced practitioners.',
     image: null,
     href: 'https://www.akashayogaacademy.com/80-hr-online-meditation-teacher-training',
     isInternal: false,
-    prereq: '200-Hour Certification',
+    prereq: null,
     discountConfirmed: false,
   },
 
@@ -131,11 +131,11 @@ export const courses = [
     priority: 1,
     title: 'Feminine Wisdom for Holistic Wellbeing',
     discountPercent: null,
-    regularPrice: null,
+    regularPrice: 229,
     promoPrice: null,
     currency: 'USD',
     shortDescription:
-      'Yoga, Ayurveda, and feminine embodiment practices aligned with cyclical rhythms. Open to all, no yoga prerequisite.',
+      'Ayurveda, embodiment, and feminine cycles. 10 YACEP hours, taught by Astrid van Zon, Amanda Noga, and Ashley Apple.',
     openToAll: true,
     image: null,
     href: 'https://www.akashayogaacademy.com/feminine',
@@ -146,13 +146,13 @@ export const courses = [
     slug: 'kundalini-india',
     category: CATEGORIES.OTHER,
     priority: 2,
-    title: 'Kundalini Awakening Retreat in India',
-    discountPercent: null,
-    regularPrice: null,
-    promoPrice: null,
+    title: 'Kundalini Awakening Retreat, India',
+    discountPercent: 40,
+    regularPrice: 2999,
+    promoPrice: 1799,
     currency: 'USD',
     shortDescription:
-      'On-site retreat in the Himalayas, 21 February to 3 March 2027. Classical Kundalini Yoga, chakra activation, and Meditative Wisdom of Oneness.',
+      '11 days in Rishikesh, 21 February to 3 March 2027. Hatha, pranayama, mudras, and Kundalini practices on the banks of the Ganga.',
     openToAll: true,
     image: null,
     href: 'https://www.akashayogaacademy.com/kundalini-india',

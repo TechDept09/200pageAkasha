@@ -2,6 +2,9 @@ export default function CourseGridCard({ course }) {
   const {
     title,
     discountPercent,
+    regularPrice,
+    promoPrice,
+    currency,
     shortDescription,
     image,
     href,
@@ -11,6 +14,9 @@ export default function CourseGridCard({ course }) {
   } = course;
 
   const external = !isInternal;
+  const price = (n) => (currency === 'USD' ? `US$${n}` : `${currency}${n}`);
+  const hasDiscount = regularPrice && promoPrice;
+  const hasPrice = regularPrice && !promoPrice;
 
   return (
     <article className="flex flex-col bg-akasha-white border border-akasha-gray-4 rounded-sm overflow-hidden hover:shadow-md transition-shadow duration-300">
@@ -47,11 +53,34 @@ export default function CourseGridCard({ course }) {
 
         {(prereq || openToAll) ? (
           <p
-            className="text-[9.5px] font-body uppercase tracking-[0.18em] text-akasha-gray-2 mb-4"
+            className="text-[9.5px] font-body uppercase tracking-[0.18em] text-akasha-gray-2 mb-3"
             style={{ fontFamily: 'Inter, sans-serif' }}
           >
             {openToAll ? 'Open to all' : `Prereq: ${prereq}`}
           </p>
+        ) : null}
+
+        {hasDiscount ? (
+          <div className="flex items-baseline gap-2 mb-4">
+            <span className="text-akasha-gray-2 line-through font-body text-xs">
+              {price(regularPrice)}
+            </span>
+            <span
+              className="font-heading text-akasha-orange text-xl"
+              style={{ fontWeight: 400 }}
+            >
+              {price(promoPrice)}
+            </span>
+          </div>
+        ) : hasPrice ? (
+          <div className="mb-4">
+            <span
+              className="font-heading text-akasha-black text-xl"
+              style={{ fontWeight: 400 }}
+            >
+              {price(regularPrice)}
+            </span>
+          </div>
         ) : null}
 
         <a
