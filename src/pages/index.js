@@ -1,10 +1,11 @@
 import Head from 'next/head';
 import HubNav from '@/components/hub/HubNav';
 import HubHero from '@/components/hub/HubHero';
-import FeaturedCourseCard from '@/components/hub/FeaturedCourseCard';
+import MainProducts from '@/components/hub/MainProducts';
 import CategorySection from '@/components/hub/CategorySection';
+import TrustStrip from '@/components/TrustStrip';
 import Footer from '@/components/Footer';
-import { courses, CATEGORIES, getCoursesByCategory } from '@/lib/courses';
+import { CATEGORIES, getCoursesByCategory } from '@/lib/courses';
 
 const SITE_URL = 'https://www.akashayogaacademy.com';
 const OG_IMAGE =
@@ -15,8 +16,6 @@ const PAGE_DESC =
   'Storewide discount for all courses and on-site programs for International Yoga Day. Explore our 200-Hour, 300-Hour, 80-Hour modules, workshops, and retreats.';
 
 export default function HubHome() {
-  const essential = courses.find((c) => c.slug === '200h-essential');
-  const premium = courses.find((c) => c.slug === '200h-premium');
   const advanced = getCoursesByCategory(CATEGORIES.ADVANCED);
   const other = getCoursesByCategory(CATEGORIES.OTHER);
 
@@ -46,32 +45,16 @@ export default function HubHome() {
 
       <main>
         <HubHero />
-
-        {essential ? (
-          <FeaturedCourseCard
-            course={essential}
-            anchorId="essential"
-            ctaLabel="Start Essential"
-          />
-        ) : null}
-
-        <div className="bg-akasha-gray-4/30">
-          {premium ? (
-            <FeaturedCourseCard
-              course={premium}
-              anchorId="premium"
-              ctaLabel="Start Premium"
-            />
-          ) : null}
-        </div>
+        <TrustStrip />
+        <MainProducts />
 
         <CategorySection
           id="advanced"
           eyebrow="For Certified Teachers"
           heading="Advanced Courses"
-          intro="Continue your path after the 200-Hour Certification. Specialized modules to deepen your teaching."
+          intro="Specialized modules to continue your path after the 200-Hour Certification."
           courses={advanced}
-          bg="bg-akasha-white"
+          bg="bg-akasha-gray-4/30"
         />
 
         <CategorySection
@@ -80,7 +63,7 @@ export default function HubHome() {
           heading="Other Courses & On-Site"
           intro="Workshops and retreats open to everyone, no prior yoga training required."
           courses={other}
-          bg="bg-akasha-gray-4/30"
+          bg="bg-akasha-white"
         />
 
         <Footer />
