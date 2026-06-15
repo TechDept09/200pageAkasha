@@ -67,12 +67,14 @@ export default function WhyAkasha() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 max-w-3xl mx-auto mb-10 items-end">
           {primaryRatings.map((r, i) => (
             <div key={i} className="text-center flex flex-col items-center">
-              <img
-                src={r.logo}
-                alt={r.platform}
-                className="h-10 md:h-12 w-auto object-contain mb-3"
-                loading="lazy"
-              />
+              <div className="h-12 md:h-14 w-full max-w-[180px] flex items-center justify-center mb-3">
+                <img
+                  src={r.logo}
+                  alt={r.platform}
+                  className="max-h-full max-w-full object-contain"
+                  loading="lazy"
+                />
+              </div>
               <span className="text-akasha-gold text-xs tracking-[0.15em] block mb-2">
                 ★★★★★
               </span>
@@ -92,12 +94,14 @@ export default function WhyAkasha() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 max-w-xl mx-auto mb-16 items-end">
           {secondaryRatings.map((r, i) => (
             <div key={i} className="text-center flex flex-col items-center">
-              <img
-                src={r.logo}
-                alt={r.platform}
-                className="h-6 md:h-7 w-auto object-contain mb-3"
-                loading="lazy"
-              />
+              <div className="h-10 md:h-12 w-full max-w-[160px] flex items-center justify-center mb-3">
+                <img
+                  src={r.logo}
+                  alt={r.platform}
+                  className="max-h-full max-w-full object-contain"
+                  loading="lazy"
+                />
+              </div>
               <span className="text-akasha-gold text-[11px] tracking-[0.15em] block">
                 {r.score === '4.5/5.0' ? '★★★★½' : '★★★★★'}
               </span>
