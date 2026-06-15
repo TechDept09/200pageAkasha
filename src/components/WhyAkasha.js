@@ -70,7 +70,7 @@ export default function WhyAkasha() {
               <img
                 src={r.logo}
                 alt={r.platform}
-                className="h-7 md:h-8 w-auto object-contain mb-3"
+                className="h-10 md:h-12 w-auto object-contain mb-3"
                 loading="lazy"
               />
               <span className="text-akasha-gold text-xs tracking-[0.15em] block mb-2">
