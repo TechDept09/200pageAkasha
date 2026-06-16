@@ -34,13 +34,15 @@ const TEACHER_DB = {
     name: 'Astrid',
     role: 'Yoga Therapist, Lead Teacher',
     cred: 'C-IAYT, E-RYT-500',
-    photo: null,
+    photo:
+      'https://static.wixstatic.com/media/cd7168_bd8bf24868cc41ccaf122ad4f57221e3~mv2.jpg/v1/crop/x_241,y_0,w_1518,h_1500/fill/w_400,h_400,al_c,q_85,enc_avif,quality_auto/P7180482.jpg',
   },
   'Astrid van Zon': {
     name: 'Astrid van Zon',
     role: 'Yoga Therapist',
     cred: 'C-IAYT, E-RYT-500',
-    photo: null,
+    photo:
+      'https://static.wixstatic.com/media/cd7168_bd8bf24868cc41ccaf122ad4f57221e3~mv2.jpg/v1/crop/x_241,y_0,w_1518,h_1500/fill/w_400,h_400,al_c,q_85,enc_avif,quality_auto/P7180482.jpg',
   },
   Marc: {
     name: 'Marc Laws',
