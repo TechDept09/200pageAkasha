@@ -48,25 +48,29 @@ const TEACHER_DB = {
     name: 'Marc Laws',
     role: 'Guest Teacher',
     cred: 'E-RYT-500',
-    photo: null,
+    photo:
+      'https://static.wixstatic.com/media/cd7168_e957799cd17e479080c14867a94de1e1~mv2.jpg/v1/fill/w_400,h_400,al_c,q_85,enc_avif,quality_auto/Marc%20300-Dean%20Raphael-13.jpg',
   },
   'Amanda Noga': {
     name: 'Amanda Noga',
     role: 'Yoga and Ayurveda Teacher',
     cred: null,
-    photo: null,
+    photo:
+      'https://static.wixstatic.com/media/cd7168_150a8e9d6d354ecaa8d3b11506281bcb~mv2.jpg/v1/fill/w_400,h_400,al_c,q_85,enc_avif,quality_auto/Amanda-Noga.jpg',
   },
   'Ashley Apple': {
     name: 'Ashley Apple',
     role: 'Clinical Herbalist, Sexuality Educator',
     cred: null,
-    photo: null,
+    photo:
+      'https://static.wixstatic.com/media/cd7168_e0af5b4367b3437ca855b9bebcbddff2~mv2.jpg/v1/fill/w_400,h_400,al_c,q_85,enc_avif,quality_auto/Ashley-Apple.jpg',
   },
   'Hareesh Christopher Wallis (guest)': {
     name: 'Hareesh Christopher Wallis',
     role: 'Guest Teacher',
     cred: 'Ph.D. Sanskrit, Berkeley',
-    photo: null,
+    photo:
+      'https://static.wixstatic.com/media/cd7168_a9480b743a744463923f6850ecb81111~mv2.jpg/v1/crop/x_0,y_0,w_2160,h_2132/fill/w_400,h_400,al_c,q_85,enc_avif,quality_auto/PA210229.jpg',
   },
 };
 
