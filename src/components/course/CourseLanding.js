@@ -18,6 +18,8 @@ export default function CourseLanding({ course }) {
     title,
     tagline,
     discountPercent,
+    discountLabel,
+    saleEndShort,
     regularPrice,
     promoPrice,
     currency,
@@ -140,7 +142,7 @@ export default function CourseLanding({ course }) {
                 {hasDiscount ? (
                   <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 lg:left-auto lg:right-8 lg:translate-x-0 bg-akasha-white shadow-lg rounded-sm px-6 py-4 text-center border border-akasha-gray-4">
                     <p className="text-[10px] font-body uppercase tracking-[0.25em] text-akasha-gray-1 mb-1">
-                      {discountPercent}% Off
+                      {discountLabel || `${discountPercent}% Off`}
                     </p>
                     <div className="flex items-baseline justify-center gap-3">
                       <span className="text-akasha-gray-2 line-through font-body text-sm">
@@ -153,6 +155,11 @@ export default function CourseLanding({ course }) {
                         {price(promoPrice, currency)}
                       </span>
                     </div>
+                    {saleEndShort ? (
+                      <p className="text-[10px] font-body uppercase tracking-[0.2em] text-akasha-orange mt-1">
+                        Ends in {saleEndShort}
+                      </p>
+                    ) : null}
                   </div>
                 ) : null}
               </div>
@@ -240,7 +247,8 @@ export default function CourseLanding({ course }) {
           <div className="section">
             <div className="text-center max-w-2xl mx-auto mb-12">
               <span className="eyebrow text-akasha-orange">
-                {discountPercent ? `${discountPercent}% Discount` : 'Investment'}
+                {discountLabel || (discountPercent ? `${discountPercent}% Discount` : 'Investment')}
+                {saleEndShort ? ` · Ends in ${saleEndShort}` : ''}
               </span>
               <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 300 }}>
                 Your Investment

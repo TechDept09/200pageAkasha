@@ -8,6 +8,8 @@ export default function CourseCTA({ course }) {
     title,
     tagline,
     discountPercent,
+    discountLabel,
+    saleEndShort,
     regularPrice,
     promoPrice,
     currency,
@@ -67,9 +69,11 @@ export default function CourseCTA({ course }) {
           Start Today
         </a>
 
-        {discountPercent ? (
+        {discountLabel || discountPercent ? (
           <p className="text-[10px] font-body text-akasha-white/50 mt-5 tracking-[0.25em] uppercase">
-            {discountPercent}% off · Secure checkout via Wix
+            {discountLabel || `${discountPercent}% off`}
+            {saleEndShort ? ` · Ends in ${saleEndShort}` : ''}
+            {' · Secure checkout via Wix'}
           </p>
         ) : null}
       </div>
