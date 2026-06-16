@@ -77,6 +77,10 @@ export const courses = [
     isInternal: true,
     prereq: '200-Hour Certification',
     duration: '300 hours, self-paced',
+    plans: [
+      { slug: 'full', label: 'Pay in Full', regularPrice: 1800, price: 399, currency: 'USD', note: 'One-time payment' },
+      { slug: 'installment', label: 'Payment Plan', regularPrice: null, price: 139, currency: 'USD', note: 'per installment, confirm with Akasha team', confirmed: false },
+    ],
     instructors: ['Burkhard', 'Kirsten', 'Devdas'],
     longDescription: [
       'This advanced certification deepens your yoga practice through three integrated modules: classical Hatha and Pranayama, restorative Yin Yoga with self-inquiry, and Spiritual Heart Meditation. Live group sessions, personal feedback, and a supportive global community transform aspiring instructors into confident master teachers grounded in authentic yogic tradition.',
@@ -125,6 +129,10 @@ export const courses = [
     isInternal: true,
     prereq: '200-Hour Certification',
     duration: '80 hours, self-paced',
+    plans: [
+      { slug: 'full', label: 'Pay in Full', regularPrice: 600, price: 399, currency: 'USD', note: 'One-time payment' },
+      { slug: 'installment', label: 'Payment Plan', regularPrice: null, price: 139, currency: 'USD', note: 'per installment' },
+    ],
     instructors: ['Kirsten', 'Burkhard', 'Devdas', 'Astrid'],
     longDescription: [
       "Akasha's online Yin certification merges classical Yin Yoga fundamentals with contemplative Self Inquiry practice. This Yoga Alliance-accredited program combines functional anatomy, meridian theory, and mindfulness, a holistic approach that extends far beyond postures into existential exploration.",
@@ -173,6 +181,10 @@ export const courses = [
     isInternal: true,
     prereq: '200-Hour Certification',
     duration: '80 hours, self-paced',
+    plans: [
+      { slug: 'full', label: 'Pay in Full', regularPrice: 600, price: 399, currency: 'USD', note: 'One-time payment' },
+      { slug: 'installment', label: 'Payment Plan', regularPrice: null, price: 139, currency: 'USD', note: 'per installment, confirm with Akasha team', confirmed: false },
+    ],
     instructors: ['Devdas', 'Kirsten', 'Burkhard', 'Marc'],
     longDescription: [
       'This comprehensive online program deepens your practice through breath-based techniques rooted in classical Hatha. Pranayama and bandhas integrate with asana to build an embodied understanding of authentic yoga that goes beyond physical alignment. The curriculum treats transformative breathwork as the foundational tool for genuine personal practice and confident teaching.',
@@ -219,6 +231,10 @@ export const courses = [
     isInternal: true,
     prereq: '200-Hour Certification',
     duration: '80 hours, self-paced',
+    plans: [
+      { slug: 'full', label: 'Pay in Full', regularPrice: 600, price: 399, currency: 'USD', note: 'One-time payment' },
+      { slug: 'installment', label: 'Payment Plan', regularPrice: null, price: 139, currency: 'USD', note: 'per installment, confirm with Akasha team', confirmed: false },
+    ],
     instructors: ['Burkhard', 'Kirsten', 'Devdas', 'Hareesh Christopher Wallis (guest)'],
     longDescription: [
       'This meditation training offers a rare integration of practices from Yoga, Advaita Vedanta, Tantrism, Kashmir Shaivism, and Buddhism. Participants dive into Spiritual Heart Meditation, mantra practices, and self-inquiry within a supportive environment built for profound inner transformation.',
@@ -267,6 +283,9 @@ export const courses = [
     wixEnrollUrl: 'https://www.akashayogaacademy.com/feminine',
     isInternal: true,
     duration: '10 YACEP hours, self-paced',
+    plans: [
+      { slug: 'full', label: 'Pay in Full', regularPrice: null, price: 229, currency: 'USD', note: 'One-time payment' },
+    ],
     instructors: ['Astrid van Zon', 'Amanda Noga', 'Ashley Apple'],
     longDescription: [
       "This course invites you to reconnect with your body's inherent wisdom and cyclical nature. Rather than pushing through exhaustion and suppressing natural rhythms, you learn to move with your body's intelligence. Through Ayurveda, gentle yoga, and feminine embodiment, you discover how aligning with your cycles generates harmony, clarity, and radiance.",
@@ -314,6 +333,10 @@ export const courses = [
     wixEnrollUrl: 'https://www.akashayogaacademy.com/kundalini-india',
     isInternal: true,
     duration: '11 days, on-site',
+    plans: [
+      { slug: 'full', label: 'Pay in Full', regularPrice: 2999, price: 1799, currency: 'USD', note: '40% Super Early Bird Discount' },
+      { slug: 'deposit', label: 'Pay Deposit', regularPrice: null, price: 499, currency: 'USD', note: 'Secures your spot, remaining balance due later' },
+    ],
     location: 'Rishikesh, India',
     dates: '21 February to 3 March 2027',
     instructors: ['Burkhard', 'Astrid'],

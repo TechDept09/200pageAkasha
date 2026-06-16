@@ -4,6 +4,7 @@ import CourseCurriculum from './CourseCurriculum';
 import CourseTeachers from './CourseTeachers';
 import CourseCTA from './CourseCTA';
 import CourseStickyCTA from './CourseStickyCTA';
+import CourseEnrollForm from './CourseEnrollForm';
 import WhyAkasha from '../WhyAkasha';
 import TrustStrip from '../TrustStrip';
 import Footer from '../Footer';
@@ -283,18 +284,11 @@ export default function CourseLanding({ course }) {
                 ) : null}
               </div>
 
-              <div className="px-8 md:px-12 py-8 text-center">
-                <a
-                  href={wixEnrollUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-primary w-full block"
-                >
-                  {ctaShort}
-                </a>
-                <p className="text-[10px] font-body uppercase tracking-[0.2em] text-akasha-gray-1 mt-4">
-                  Secure checkout via Wix
+              <div className="px-8 md:px-12 py-8">
+                <p className="text-[11px] font-body uppercase tracking-[0.25em] text-akasha-gray-1 mb-4 text-center">
+                  Reserve your seat
                 </p>
+                <CourseEnrollForm course={course} />
               </div>
             </div>
           </div>

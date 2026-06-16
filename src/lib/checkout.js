@@ -28,11 +28,32 @@ export function attachUtmToWixRedirect(fullUrl, utm) {
   return outer.toString();
 }
 
+// Static registry, Next.js needs literal process.env.NAME references at
+// build time. Add a new entry when a course gets its Wix Product ID.
+// Key format: `${courseSlug}|${planSlug}`.
+const PRODUCT_REGISTRY = {
+  'essential|full': process.env.NEXT_PUBLIC_WIX_PRODUCT_ID,
+  'premium|full': process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_PREMIUM,
+  'premium|installment': process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_PREMIUM_INSTALLMENT,
+  '300h-ytt|full': process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_300H_FULL,
+  '300h-ytt|installment': process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_300H_INSTALLMENT,
+  '80h-yin|full': process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_80H_YIN_FULL,
+  '80h-yin|installment': process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_80H_YIN_INSTALLMENT,
+  '80h-hatha-pranayama|full': process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_80H_HATHA_FULL,
+  '80h-hatha-pranayama|installment': process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_80H_HATHA_INSTALLMENT,
+  '80h-meditation|full': process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_80H_MEDITATION_FULL,
+  '80h-meditation|installment': process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_80H_MEDITATION_INSTALLMENT,
+  'feminine-wisdom|full': process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_FEMININE,
+  'kundalini-india|full': process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_KUNDALINI_FULL,
+  'kundalini-india|deposit': process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_KUNDALINI_DEPOSIT,
+};
+
 export function getProductIdForTier(tierSlug) {
-  if (tierSlug === 'premium') {
-    return process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_PREMIUM;
-  }
-  return process.env.NEXT_PUBLIC_WIX_PRODUCT_ID;
+  return PRODUCT_REGISTRY[`${tierSlug}|full`] || process.env.NEXT_PUBLIC_WIX_PRODUCT_ID;
+}
+
+export function getProductId(courseSlug, planSlug = 'full') {
+  return PRODUCT_REGISTRY[`${courseSlug}|${planSlug}`];
 }
 
 export async function startWixCheckout({ utm, utmNote, buyer, productId }) {
