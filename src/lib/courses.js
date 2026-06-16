@@ -50,7 +50,7 @@ export const courses = [
       'Everything in Essential, plus 1-on-1 mentorship, alignment coaching, individual feedback, the WhatsApp community, and 12 months of Live Zoom access.',
     usp: 'Personal mentorship, 12-month Zoom access, monthly payments',
     image:
-      'https://static.wixstatic.com/media/cd7168_eea3bf63d06a4260b9e04f7bc00a255c~mv2.jpeg/v1/fill/w_1200,h_750,al_c,q_85,enc_avif,quality_auto/AYA300-Dean%20Raphael-67.jpeg',
+      'https://static.wixstatic.com/media/cd7168_eea3bf63d06a4260b9e04f7bc00a255c~mv2.jpeg/v1/fill/w_900,h_563,al_c,q_85,enc_avif,quality_auto/AYA300-Dean%20Raphael-67.jpeg',
     href: '/200h-premium',
     isInternal: true,
     prereq: null,
@@ -69,7 +69,7 @@ export const courses = [
     shortDescription:
       'Three 100-hour modules across Hatha, Pranayama, Yin Yoga, and Spiritual Heart Meditation. Stepping stone to your RYT-500.',
     image:
-      'https://static.wixstatic.com/media/cd7168_08b4252a1e1a44fbab5f36b9588534b3~mv2.jpg/v1/fill/w_1200,h_900,al_c,q_85,enc_avif,quality_auto/AYA300-Dean%20Raphael-W-67.jpg',
+      'https://static.wixstatic.com/media/cd7168_08b4252a1e1a44fbab5f36b9588534b3~mv2.jpg/v1/fill/w_800,h_600,al_c,q_85,enc_avif,quality_auto/AYA300-Dean%20Raphael-W-67.jpg',
     href: '/300h-ytt',
     wixEnrollUrl: 'https://www.akashayogaacademy.com/300-hour-online-teacher-training',
     isInternal: true,
@@ -115,7 +115,7 @@ export const courses = [
     shortDescription:
       'Yin postures, functional anatomy, meridian theory, and Self Inquiry. Lifetime access to recordings, monthly live Zoom with instructors.',
     image:
-      'https://static.wixstatic.com/media/cd7168_ac443cf0083b47ce9eed5df7eb1d58ebf000.jpg/v1/fill/w_1200,h_900,al_c,q_85,enc_avif,quality_auto/cd7168_ac443cf0083b47ce9eed5df7eb1d58ebf000.jpg',
+      'https://static.wixstatic.com/media/cd7168_ac443cf0083b47ce9eed5df7eb1d58ebf000.jpg/v1/fill/w_800,h_600,al_c,q_85,enc_avif,quality_auto/cd7168_ac443cf0083b47ce9eed5df7eb1d58ebf000.jpg',
     href: '/80h-yin',
     wixEnrollUrl: 'https://www.akashayogaacademy.com/80-hr-online-yin-yoga-teacher-training',
     isInternal: true,
@@ -161,7 +161,7 @@ export const courses = [
     shortDescription:
       'Breath-integrated Hatha, advanced Pranayama, arm balances, and bandhas. Rooted in the Hatha Yoga Pradipika, taught by E-RYT-500 teachers.',
     image:
-      'https://static.wixstatic.com/media/cd7168_08b4252a1e1a44fbab5f36b9588534b3~mv2.jpg/v1/fill/w_1200,h_900,al_c,q_85,enc_avif,quality_auto/AYA300-Dean%20Raphael-W-67.jpg',
+      'https://static.wixstatic.com/media/cd7168_08b4252a1e1a44fbab5f36b9588534b3~mv2.jpg/v1/fill/w_800,h_600,al_c,q_85,enc_avif,quality_auto/AYA300-Dean%20Raphael-W-67.jpg',
     href: '/80h-hatha-pranayama',
     wixEnrollUrl: 'https://www.akashayogaacademy.com/80-hr-online-hatha-and-pranayama',
     isInternal: true,
@@ -205,7 +205,7 @@ export const courses = [
     shortDescription:
       'Spiritual Heart Meditation, mantra practice, and Eastern wisdom traditions. YACEP certified, suitable for beginners and experienced practitioners.',
     image:
-      'https://static.wixstatic.com/media/cd7168_0a05ce77a94a4310b9ef008bd9319cbc~mv2.jpg/v1/fill/w_1200,h_900,al_c,q_85,enc_avif,quality_auto/cd7168_0a05ce77a94a4310b9ef008bd9319cbc~mv2.jpg',
+      'https://static.wixstatic.com/media/cd7168_0a05ce77a94a4310b9ef008bd9319cbc~mv2.jpg/v1/fill/w_800,h_600,al_c,q_85,enc_avif,quality_auto/cd7168_0a05ce77a94a4310b9ef008bd9319cbc~mv2.jpg',
     href: '/80h-meditation',
     wixEnrollUrl: 'https://www.akashayogaacademy.com/80-hr-online-meditation-teacher-training',
     isInternal: true,
@@ -254,7 +254,7 @@ export const courses = [
       'Ayurveda, embodiment, and feminine cycles. 10 YACEP hours, taught by Astrid van Zon, Amanda Noga, and Ashley Apple.',
     openToAll: true,
     image:
-      'https://static.wixstatic.com/media/cd7168_da755951681c4df5a4dce2d28aa579cf~mv2.jpg/v1/fill/w_1200,h_900,al_c,q_85,enc_avif,quality_auto/feminine-wisdom.jpg',
+      'https://static.wixstatic.com/media/cd7168_da755951681c4df5a4dce2d28aa579cf~mv2.jpg/v1/fill/w_800,h_600,al_c,q_85,enc_avif,quality_auto/feminine-wisdom.jpg',
     href: '/feminine-wisdom',
     wixEnrollUrl: 'https://www.akashayogaacademy.com/feminine',
     isInternal: true,
@@ -299,7 +299,7 @@ export const courses = [
       '11 days in Rishikesh, 21 February to 3 March 2027. Hatha, pranayama, mudras, and Kundalini practices on the banks of the Ganga.',
     openToAll: true,
     image:
-      'https://static.wixstatic.com/media/cd7168_a9ae728b0a474274b2afdea6122d8f7e~mv2.jpg/v1/fill/w_1200,h_900,al_c,q_85,enc_avif,quality_auto/kundalini-india.jpg',
+      'https://static.wixstatic.com/media/cd7168_a9ae728b0a474274b2afdea6122d8f7e~mv2.jpg/v1/fill/w_800,h_600,al_c,q_85,enc_avif,quality_auto/kundalini-india.jpg',
     href: '/kundalini-india',
     wixEnrollUrl: 'https://www.akashayogaacademy.com/kundalini-india',
     isInternal: true,

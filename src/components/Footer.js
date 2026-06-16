@@ -37,7 +37,7 @@ export default function Footer() {
       <div className="section py-16">
         <div className="grid md:grid-cols-[1.5fr_1fr_1fr_1fr] gap-10 mb-12">
           <div>
-            <img src={LOGO_WHITE} alt="Akasha Yoga Academy" className="h-14 w-auto mb-4" />
+            <img src={LOGO_WHITE} alt="Akasha Yoga Academy" className="h-14 w-auto mb-4" loading="lazy" decoding="async" />
             <p className="text-xs font-body text-akasha-white/55 leading-relaxed max-w-xs">
               World&rsquo;s top-ranked yoga school. Sharing the light of Yoga
               with love &amp; wisdom since 2011.

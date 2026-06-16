@@ -22,7 +22,7 @@ export default function CourseGridCard({ course }) {
     <article className="flex flex-col bg-akasha-white border border-akasha-gray-4 rounded-sm overflow-hidden hover:shadow-md transition-shadow duration-300">
       <div className="relative aspect-[4/3] bg-akasha-gray-4">
         {image ? (
-          <img src={image} alt={title} className="w-full h-full object-cover" />
+          <img src={image} alt={title} className="w-full h-full object-cover" loading="lazy" decoding="async" />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-akasha-gray-2 font-body text-[11px]">
             Image coming soon

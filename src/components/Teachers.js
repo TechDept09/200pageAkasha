@@ -59,6 +59,7 @@ export default function Teachers() {
                   alt={`${t.name}, Akasha Yoga Academy lead teacher`}
                   className="w-full h-full object-cover"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
               <span className="script block mb-2" style={{ fontSize: '2.4rem' }}>

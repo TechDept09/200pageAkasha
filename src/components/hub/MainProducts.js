@@ -23,7 +23,7 @@ function ProductCard({ course, accent, badge }) {
     >
       <div className="relative aspect-[16/10] bg-akasha-gray-4">
         {image ? (
-          <img src={image} alt={title} className="w-full h-full object-cover" />
+          <img src={image} alt={title} className="w-full h-full object-cover" loading="lazy" decoding="async" />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-akasha-gray-2 font-body text-xs">
             Image coming soon

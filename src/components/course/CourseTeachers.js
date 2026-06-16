@@ -97,7 +97,7 @@ export default function CourseTeachers({ instructors = [] }) {
             >
               {t.photo ? (
                 <div className="aspect-square overflow-hidden bg-akasha-gray-4">
-                  <img src={t.photo} alt={t.name} className="w-full h-full object-cover" />
+                  <img src={t.photo} alt={t.name} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                 </div>
               ) : (
                 <div className="aspect-square bg-akasha-gray-4 flex items-center justify-center">
