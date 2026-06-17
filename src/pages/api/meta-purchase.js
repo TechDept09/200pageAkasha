@@ -44,11 +44,14 @@ function hash(value) {
     .digest('hex');
 }
 
-// Wix wraps order payloads in different shapes depending on the webhook
-// surface (REST app webhook, Velo trigger, automation). Try the common ones.
+// Wix wraps order/invoice payloads in different shapes depending on the
+// trigger source (Stores order, Invoices, Bookings, Automations webhook,
+// Velo onOrderPaid, app webhook). Try the common ones.
 function extractOrder(body) {
   if (body?.data?.order) return body.data.order;
+  if (body?.data?.invoice) return body.data.invoice;
   if (body?.order) return body.order;
+  if (body?.invoice) return body.invoice;
   if (body?.entity) return body.entity;
   if (body?.entityFqdn && body?.actionEvent?.body?.entity) {
     return body.actionEvent.body.entity;
@@ -74,16 +77,51 @@ function pickProductName(item) {
   if (typeof item?.productName === 'string') return item.productName;
   if (item?.productName?.original) return item.productName.original;
   if (item?.productName?.translated) return item.productName.translated;
-  return item?.name || '';
+  if (typeof item?.name === 'object') return item.name?.original || item.name?.translated || '';
+  return item?.name || item?.description || '';
 }
 
 function pickTotal(order) {
-  return (
+  // Stores order paths
+  const storesTotal =
     order?.priceSummary?.total?.amount ??
     order?.totals?.total ??
     order?.totalPrice ??
-    order?.balanceSummary?.balance?.amount ??
+    order?.balanceSummary?.balance?.amount;
+  if (storesTotal != null) return storesTotal;
+
+  // Invoice / Bookings paths
+  return (
+    order?.payments?.[0]?.amount?.amount ??
+    order?.totals?.subtotal ??
+    order?.total?.amount ??
+    order?.totalAmount ??
+    order?.grandTotal ??
     0
+  );
+}
+
+function pickEmail(order) {
+  return (
+    order?.buyerInfo?.email ||
+    order?.billingInfo?.contactDetails?.email ||
+    order?.customer?.email ||
+    order?.customerInfo?.email ||
+    order?.recipient?.email ||
+    order?.email ||
+    ''
+  );
+}
+
+function pickPhone(order) {
+  return (
+    order?.buyerInfo?.phone ||
+    order?.billingInfo?.contactDetails?.phone ||
+    order?.customer?.phone ||
+    order?.customerInfo?.phone ||
+    order?.recipient?.phone ||
+    order?.phone ||
+    ''
   );
 }
 
@@ -114,23 +152,36 @@ export default async function handler(req, res) {
     const order = extractOrder(body);
     const item  = firstLineItem(order);
 
-    const orderId     = order?._id || order?.number || order?.id;
-    const buyerEmail  = order?.buyerInfo?.email || order?.billingInfo?.contactDetails?.email;
-    const buyerPhone  = order?.buyerInfo?.phone || order?.billingInfo?.contactDetails?.phone;
-    const totalPrice  = pickTotal(order);
-    const currency    = order?.currency || order?.priceSummary?.total?.currency || 'USD';
-    const courseName  = pickProductName(item);
-    const courseId    =
+    const orderId =
+      order?._id ||
+      order?.id ||
+      order?.number ||
+      order?.invoiceNumber ||
+      order?.invoiceId;
+    const buyerEmail = pickEmail(order);
+    const buyerPhone = pickPhone(order);
+    const totalPrice = pickTotal(order);
+    const currency   =
+      order?.currency ||
+      order?.priceSummary?.total?.currency ||
+      order?.totals?.currency ||
+      order?.payments?.[0]?.amount?.currency ||
+      'USD';
+    const courseName = pickProductName(item);
+    const courseId =
       readCustomField(order, 'courseSlug') ||
       item?.catalogReference?.catalogItemId ||
       item?.productId ||
+      item?.id ||
       '';
     const fbc = readCustomField(order, 'fbc');
     const fbp = readCustomField(order, 'fbp');
 
     if (!orderId) {
-      console.error('[CAPI] Missing orderId, payload shape unknown:', JSON.stringify(body).slice(0, 500));
-      return res.status(400).json({ error: 'Missing orderId' });
+      // Print enough context to debug the payload shape next round.
+      console.error('[CAPI] Missing orderId. Raw body (first 1000 chars):');
+      console.error(JSON.stringify(body).slice(0, 1000));
+      return res.status(400).json({ error: 'Missing orderId', hint: 'Check Vercel logs for raw payload shape' });
     }
 
     const payload = {
@@ -179,7 +230,10 @@ export default async function handler(req, res) {
       return res.status(502).json({ error: result });
     }
 
-    console.log('[CAPI] Purchase sent:', orderId, 'value:', totalPrice, currency);
+    console.log('[CAPI] Purchase sent:', {
+      orderId, value: totalPrice, currency, courseName, courseId,
+      hasEmail: !!buyerEmail, hasFbc: !!fbc, hasFbp: !!fbp,
+    });
     return res.status(200).json({ success: true, eventId: String(orderId) });
   } catch (err) {
     console.error('[CAPI] Error:', err.message);
