@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { startWixCheckout, getProductIdForTier } from '@/lib/checkout';
 import { useUtmParams, formatUtmNote } from '@/hooks/useUtmParams';
 import { useTier } from '@/lib/TierContext';
-import { initiateCheckout, lead } from '@/lib/pixel';
+import { trackLead, trackInitiateCheckout } from '@/lib/pixel';
+import { getMetaCookies } from '@/lib/fbCookies';
 
 export default function EnrollForm() {
   const utm = useUtmParams();
@@ -29,8 +30,11 @@ export default function EnrollForm() {
     }
 
     setLoading(true);
-    lead({ content_name: tier.title });
+    trackLead(tier.name || tier.slug, tier.promoPrice);
+
     try {
+      trackInitiateCheckout(tier.name || tier.slug, tier.promoPrice, tier.slug);
+
       const url = await startWixCheckout({
         utm,
         utmNote: formatUtmNote(utm),
@@ -41,13 +45,12 @@ export default function EnrollForm() {
           email: form.email.trim(),
         },
       });
-      initiateCheckout({
-        value: tier.promoPrice,
-        currency: 'USD',
-        contentName: tier.title,
-        contentIds: [tier.slug],
-      });
-      window.location.href = url;
+
+      const { fbc, fbp } = getMetaCookies();
+      const finalUrl = new URL(url);
+      if (fbc) finalUrl.searchParams.set('fbc', fbc);
+      if (fbp) finalUrl.searchParams.set('fbp', fbp);
+      window.location.href = finalUrl.toString();
     } catch (err) {
       console.error('[EnrollForm] failed:', err);
       setError(err?.message || 'Could not start checkout. Please try again.');

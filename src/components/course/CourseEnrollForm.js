@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import { startWixCheckout, getProductId } from '@/lib/checkout';
 import { useUtmParams, formatUtmNote } from '@/hooks/useUtmParams';
-import { initiateCheckout, lead } from '@/lib/pixel';
+import { trackLead, trackInitiateCheckout } from '@/lib/pixel';
+import { getMetaCookies } from '@/lib/fbCookies';
 
 function price(n, currency) {
   if (!n) return null;
@@ -37,8 +38,11 @@ export default function CourseEnrollForm({ course }) {
     }
 
     setLoading(true);
-    lead({ content_name: course.title });
+    trackLead(course.title, activePlan?.price);
+
     try {
+      trackInitiateCheckout(course.title, activePlan?.price, `${courseSlug}|${selectedPlan}`);
+
       const productId = getProductId(courseSlug, selectedPlan);
       const url = await startWixCheckout({
         utm,
@@ -50,13 +54,12 @@ export default function CourseEnrollForm({ course }) {
           email: form.email.trim(),
         },
       });
-      initiateCheckout({
-        value: activePlan?.price,
-        currency: activePlan?.currency || 'USD',
-        contentName: `${course.title} (${activePlan?.label})`,
-        contentIds: [`${courseSlug}|${selectedPlan}`],
-      });
-      window.location.href = url;
+
+      const { fbc, fbp } = getMetaCookies();
+      const finalUrl = new URL(url);
+      if (fbc) finalUrl.searchParams.set('fbc', fbc);
+      if (fbp) finalUrl.searchParams.set('fbp', fbp);
+      window.location.href = finalUrl.toString();
     } catch (err) {
       console.error('[CourseEnrollForm] failed:', err);
       setError(err?.message || 'Could not start checkout. Please try again.');
