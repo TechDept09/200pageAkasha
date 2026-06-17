@@ -45,7 +45,7 @@ const PRODUCT_REGISTRY = {
   '80h-meditation|installment': process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_80H_MEDITATION_INSTALLMENT,
   'feminine-wisdom|full': process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_FEMININE,
   'kundalini-india|full': process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_KUNDALINI_FULL,
-  'kundalini-india|deposit': process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_KUNDALINI_DEPOSIT,
+  'kundalini-india|installment': process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_KUNDALINI_INSTALLMENT,
 };
 
 export function getProductIdForTier(tierSlug) {

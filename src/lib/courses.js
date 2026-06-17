@@ -1,9 +1,11 @@
 // Catalog data for the Yoga Day hub/directory and individual course landings.
 // Hardcoded today, designed to map cleanly to a CMS row later.
 //
-// Prices verified from akashayogaacademy.com. Advanced course promos shown
-// are the current summer-sale numbers (expire 30 Jun); Yoga Day pricing may
-// replace these once Mbak Ayu confirms.
+// Prices set per the Akasha Master Product Price List 2026, Yoga Day
+// 60% Store-Wide Discount campaign (21-30 June, ads until 2 July).
+// Essential stays at 75% off; every other course is 60% off the base
+// price during this window. Premium 6-month payment plan is flagged
+// "not confirmed yet" in the PDF source.
 //
 // Each course has an internal href (the Next.js landing) and a wixEnrollUrl
 // (the live Wix checkout). Until we have internal Wix product IDs for these
@@ -43,8 +45,10 @@ export const courses = [
     title: '200-Hour Premium Yoga Teacher Training',
     badge: 'With Mentorship',
     discountPercent: 60,
+    discountLabel: '60% Yoga Day Discount',
+    saleEndShort: 'July 2',
     regularPrice: 1490,
-    promoPrice: 596,
+    promoPrice: 590,
     currency: 'USD',
     shortDescription:
       'Everything in Essential, plus 1-on-1 mentorship, alignment coaching, individual feedback, the WhatsApp community, and 12 months of Live Zoom access.',
@@ -54,6 +58,10 @@ export const courses = [
     href: '/200h-premium',
     isInternal: true,
     prereq: null,
+    plans: [
+      { slug: 'full', label: 'Pay in Full', regularPrice: 1490, price: 590, currency: 'USD', note: 'One-time payment' },
+      { slug: 'installment', label: '6-Month Plan', regularPrice: null, price: 249, currency: 'USD', note: 'per month, US$1,494 total', confirmed: false },
+    ],
   },
 
   {
@@ -62,11 +70,11 @@ export const courses = [
     priority: 1,
     title: '300-Hour Advanced Yoga Teacher Training',
     tagline: 'A Life-Changing Yogic Immersion',
-    discountPercent: 78,
-    discountLabel: '33% Summer Discount',
-    saleEndShort: 'June 30',
+    discountPercent: 60,
+    discountLabel: '60% Yoga Day Discount',
+    saleEndShort: 'July 2',
     regularPrice: 1800,
-    promoPrice: 399,
+    promoPrice: 699,
     currency: 'USD',
     shortDescription:
       'Three 100-hour modules across Hatha, Pranayama, Yin Yoga, and Spiritual Heart Meditation. Stepping stone to your RYT-500.',
@@ -78,8 +86,8 @@ export const courses = [
     prereq: '200-Hour Certification',
     duration: '300 hours, self-paced',
     plans: [
-      { slug: 'full', label: 'Pay in Full', regularPrice: 1800, price: 399, currency: 'USD', note: 'One-time payment' },
-      { slug: 'installment', label: 'Payment Plan', regularPrice: null, price: 139, currency: 'USD', note: 'per installment, confirm with Akasha team', confirmed: false },
+      { slug: 'full', label: 'Pay in Full', regularPrice: 1800, price: 699, currency: 'USD', note: 'One-time payment' },
+      { slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 259, currency: 'USD', note: 'per month, US$777 total' },
     ],
     instructors: ['Burkhard', 'Kirsten', 'Devdas'],
     longDescription: [
@@ -114,11 +122,11 @@ export const courses = [
     priority: 2,
     title: '80-Hour Yin Yoga Teacher Training',
     tagline: 'Expand Your Awareness',
-    discountPercent: 33,
-    discountLabel: '33% Summer Discount',
-    saleEndShort: 'June 30',
+    discountPercent: 60,
+    discountLabel: '60% Yoga Day Discount',
+    saleEndShort: 'July 2',
     regularPrice: 600,
-    promoPrice: 399,
+    promoPrice: 239,
     currency: 'USD',
     shortDescription:
       'Yin postures, functional anatomy, meridian theory, and Self Inquiry. Lifetime access to recordings, monthly live Zoom with instructors.',
@@ -130,8 +138,8 @@ export const courses = [
     prereq: '200-Hour Certification',
     duration: '80 hours, self-paced',
     plans: [
-      { slug: 'full', label: 'Pay in Full', regularPrice: 600, price: 399, currency: 'USD', note: 'One-time payment' },
-      { slug: 'installment', label: 'Payment Plan', regularPrice: null, price: 139, currency: 'USD', note: 'per installment' },
+      { slug: 'full', label: 'Pay in Full', regularPrice: 600, price: 239, currency: 'USD', note: 'One-time payment' },
+      { slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 89, currency: 'USD', note: 'per month, US$267 total' },
     ],
     instructors: ['Kirsten', 'Burkhard', 'Devdas', 'Astrid'],
     longDescription: [
@@ -166,11 +174,11 @@ export const courses = [
     priority: 3,
     title: '80-Hour Advanced Hatha & Pranayama Teacher Training',
     tagline: 'Transform Your Practice',
-    discountPercent: 33,
-    discountLabel: '33% Summer Discount',
-    saleEndShort: 'June 30',
+    discountPercent: 60,
+    discountLabel: '60% Yoga Day Discount',
+    saleEndShort: 'July 2',
     regularPrice: 600,
-    promoPrice: 399,
+    promoPrice: 239,
     currency: 'USD',
     shortDescription:
       'Breath-integrated Hatha, advanced Pranayama, arm balances, and bandhas. Rooted in the Hatha Yoga Pradipika, taught by E-RYT-500 teachers.',
@@ -182,8 +190,8 @@ export const courses = [
     prereq: '200-Hour Certification',
     duration: '80 hours, self-paced',
     plans: [
-      { slug: 'full', label: 'Pay in Full', regularPrice: 600, price: 399, currency: 'USD', note: 'One-time payment' },
-      { slug: 'installment', label: 'Payment Plan', regularPrice: null, price: 139, currency: 'USD', note: 'per installment, confirm with Akasha team', confirmed: false },
+      { slug: 'full', label: 'Pay in Full', regularPrice: 600, price: 239, currency: 'USD', note: 'One-time payment' },
+      { slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 89, currency: 'USD', note: 'per month, US$267 total' },
     ],
     instructors: ['Devdas', 'Kirsten', 'Burkhard', 'Marc'],
     longDescription: [
@@ -216,11 +224,11 @@ export const courses = [
     priority: 4,
     title: '80-Hour Meditation Teacher Training',
     tagline: 'Find Stillness',
-    discountPercent: 33,
-    discountLabel: '33% Summer Discount',
-    saleEndShort: 'June 30',
+    discountPercent: 60,
+    discountLabel: '60% Yoga Day Discount',
+    saleEndShort: 'July 2',
     regularPrice: 600,
-    promoPrice: 399,
+    promoPrice: 239,
     currency: 'USD',
     shortDescription:
       'Spiritual Heart Meditation, mantra practice, and Eastern wisdom traditions. YACEP certified, suitable for beginners and experienced practitioners.',
@@ -232,8 +240,8 @@ export const courses = [
     prereq: '200-Hour Certification',
     duration: '80 hours, self-paced',
     plans: [
-      { slug: 'full', label: 'Pay in Full', regularPrice: 600, price: 399, currency: 'USD', note: 'One-time payment' },
-      { slug: 'installment', label: 'Payment Plan', regularPrice: null, price: 139, currency: 'USD', note: 'per installment, confirm with Akasha team', confirmed: false },
+      { slug: 'full', label: 'Pay in Full', regularPrice: 600, price: 239, currency: 'USD', note: 'One-time payment' },
+      { slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 89, currency: 'USD', note: 'per month, US$267 total' },
     ],
     instructors: ['Burkhard', 'Kirsten', 'Devdas', 'Hareesh Christopher Wallis (guest)'],
     longDescription: [
@@ -270,9 +278,11 @@ export const courses = [
     priority: 1,
     title: 'Feminine Wisdom for Holistic Wellbeing',
     tagline: 'Move with Your Rhythms',
-    discountPercent: null,
+    discountPercent: 60,
+    discountLabel: '60% Yoga Day Discount',
+    saleEndShort: 'July 2',
     regularPrice: 229,
-    promoPrice: null,
+    promoPrice: 89,
     currency: 'USD',
     shortDescription:
       'Ayurveda, embodiment, and feminine cycles. 10 YACEP hours, taught by Astrid van Zon, Amanda Noga, and Ashley Apple.',
@@ -284,7 +294,7 @@ export const courses = [
     isInternal: true,
     duration: '10 YACEP hours, self-paced',
     plans: [
-      { slug: 'full', label: 'Pay in Full', regularPrice: null, price: 229, currency: 'USD', note: 'One-time payment' },
+      { slug: 'full', label: 'Pay in Full', regularPrice: 229, price: 89, currency: 'USD', note: 'One-time payment' },
     ],
     instructors: ['Astrid van Zon', 'Amanda Noga', 'Ashley Apple'],
     longDescription: [
@@ -318,11 +328,11 @@ export const courses = [
     priority: 2,
     title: 'Kundalini Awakening Retreat, India',
     tagline: 'Awaken Your Soul in India',
-    discountPercent: 40,
-    discountLabel: '40% Super Early Bird Discount',
-    saleEndShort: null,
+    discountPercent: 60,
+    discountLabel: '60% Yoga Day Discount',
+    saleEndShort: 'July 2',
     regularPrice: 2999,
-    promoPrice: 1799,
+    promoPrice: 1199,
     currency: 'USD',
     shortDescription:
       '11 days in Rishikesh, 21 February to 3 March 2027. Hatha, pranayama, mudras, and Kundalini practices on the banks of the Ganga.',
@@ -334,8 +344,8 @@ export const courses = [
     isInternal: true,
     duration: '11 days, on-site',
     plans: [
-      { slug: 'full', label: 'Pay in Full', regularPrice: 2999, price: 1799, currency: 'USD', note: '40% Super Early Bird Discount' },
-      { slug: 'deposit', label: 'Pay Deposit', regularPrice: null, price: 499, currency: 'USD', note: 'Secures your spot, remaining balance due later' },
+      { slug: 'full', label: 'Pay in Full', regularPrice: 2999, price: 1199, currency: 'USD', note: 'One-time payment' },
+      { slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 399, currency: 'USD', note: 'per month, US$1,197 total' },
     ],
     location: 'Rishikesh, India',
     dates: '21 February to 3 March 2027',
