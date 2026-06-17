@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { startWixCheckout, getProductId } from '@/lib/checkout';
 import { useUtmParams, formatUtmNote } from '@/hooks/useUtmParams';
+import { initiateCheckout, lead } from '@/lib/pixel';
 
 function price(n, currency) {
   if (!n) return null;
@@ -36,6 +37,7 @@ export default function CourseEnrollForm({ course }) {
     }
 
     setLoading(true);
+    lead({ content_name: course.title });
     try {
       const productId = getProductId(courseSlug, selectedPlan);
       const url = await startWixCheckout({
@@ -47,6 +49,12 @@ export default function CourseEnrollForm({ course }) {
           lastName: form.lastName.trim(),
           email: form.email.trim(),
         },
+      });
+      initiateCheckout({
+        value: activePlan?.price,
+        currency: activePlan?.currency || 'USD',
+        contentName: `${course.title} (${activePlan?.label})`,
+        contentIds: [`${courseSlug}|${selectedPlan}`],
       });
       window.location.href = url;
     } catch (err) {

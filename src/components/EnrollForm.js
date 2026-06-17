@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { startWixCheckout, getProductIdForTier } from '@/lib/checkout';
 import { useUtmParams, formatUtmNote } from '@/hooks/useUtmParams';
 import { useTier } from '@/lib/TierContext';
+import { initiateCheckout, lead } from '@/lib/pixel';
 
 export default function EnrollForm() {
   const utm = useUtmParams();
@@ -28,6 +29,7 @@ export default function EnrollForm() {
     }
 
     setLoading(true);
+    lead({ content_name: tier.title });
     try {
       const url = await startWixCheckout({
         utm,
@@ -38,6 +40,12 @@ export default function EnrollForm() {
           lastName: form.lastName.trim(),
           email: form.email.trim(),
         },
+      });
+      initiateCheckout({
+        value: tier.promoPrice,
+        currency: 'USD',
+        contentName: tier.title,
+        contentIds: [tier.slug],
       });
       window.location.href = url;
     } catch (err) {
