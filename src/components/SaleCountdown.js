@@ -1,6 +1,7 @@
 'use client';
 
 import { useCountdown } from '@/hooks/useCountdown';
+import { useSaleStatus } from '@/hooks/useSaleStatus';
 import { useTier } from '@/lib/TierContext';
 
 function fmtShort(c) {
@@ -17,8 +18,9 @@ function fmtLong(c) {
 
 export default function SaleCountdown({ variant = 'long', fallback = null, className = '' }) {
   const tier = useTier();
-  const c = useCountdown(tier.saleEnd);
-  if (c.isExpired) return fallback;
+  const status = useSaleStatus(tier.saleWindows);
+  const c = useCountdown(status.currentEnd || '1970-01-01T00:00:00Z');
+  if (!status.isActive || c.isExpired) return fallback;
   const text = variant === 'short' ? fmtShort(c) : fmtLong(c);
   return <span className={`tabular-nums ${className}`}>{text}</span>;
 }

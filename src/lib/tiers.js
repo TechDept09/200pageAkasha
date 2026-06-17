@@ -38,7 +38,10 @@ export const TIERS = {
     promoPrice: 290,
     discountPercent: 75,
     discountLabel: '75% Yoga Day Discount',
-    saleEnd: '2026-07-02T12:00:00+07:00',
+    saleWindows: [
+      // Essential is EVERGREEN-2 17-30 Jun, ads alive until 2 Jul lunch (Bali).
+      { start: '2026-06-17T00:00:00+08:00', end: '2026-07-02T12:00:00+08:00' },
+    ],
     saleEndShort: 'July 2',
     ctaShort: 'Enroll US$290',
     ctaLong: 'Enroll Now, US$290',
@@ -64,7 +67,13 @@ export const TIERS = {
     promoPrice: 590,
     discountPercent: 60,
     discountLabel: '60% Yoga Day Discount',
-    saleEnd: '2026-07-02T12:00:00+07:00',
+    saleWindows: [
+      // 60% Store-Wide: active 21-24 Jun, gap 25-27 Jun, active 28-30 Jun,
+      // ads/website still showing until 2 Jul lunch (Bali). Treat the
+      // extended + ads-alive period as one window.
+      { start: '2026-06-21T00:00:00+08:00', end: '2026-06-24T23:59:59+08:00' },
+      { start: '2026-06-28T00:00:00+08:00', end: '2026-07-02T12:00:00+08:00' },
+    ],
     saleEndShort: 'July 2',
     ctaShort: 'Enroll US$590',
     ctaLong: 'Enroll Now, US$590',

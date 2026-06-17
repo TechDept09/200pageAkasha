@@ -1,6 +1,7 @@
 'use client';
 
 import { useCountdown } from '@/hooks/useCountdown';
+import { useSaleStatus } from '@/hooks/useSaleStatus';
 import { useTier } from '@/lib/TierContext';
 import { getSavings } from '@/lib/tiers';
 
@@ -13,8 +14,9 @@ function formatLong(c) {
 
 export default function UrgencyBanner() {
   const tier = useTier();
-  const c = useCountdown(tier.saleEnd);
-  if (c.isExpired) return null;
+  const status = useSaleStatus(tier.saleWindows);
+  const c = useCountdown(status.currentEnd || '1970-01-01T00:00:00Z');
+  if (!status.isActive || c.isExpired) return null;
 
   return (
     <div className="bg-akasha-orange/95 text-akasha-white text-center">

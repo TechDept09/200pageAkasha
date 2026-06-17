@@ -1,11 +1,11 @@
 'use client';
 
-import { useCountdown } from '@/hooks/useCountdown';
+import { useSaleStatus } from '@/hooks/useSaleStatus';
 import { useTier } from '@/lib/TierContext';
 
 export default function WhileSaleActive({ children, fallback = null }) {
   const tier = useTier();
-  const c = useCountdown(tier.saleEnd);
-  if (c.isExpired) return fallback;
+  const status = useSaleStatus(tier.saleWindows);
+  if (!status.isActive) return fallback;
   return children;
 }

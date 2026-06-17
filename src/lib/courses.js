@@ -17,6 +17,19 @@ export const CATEGORIES = {
   OTHER: 'other',
 };
 
+// Sale windows for the 60% Yoga Day Store-Wide campaign.
+// Active 21-24 Jun, gap 25-27 Jun, active again 28-30 Jun, ads still on
+// website until 2 Jul lunch time (Bali). All non-Essential courses use this.
+const STOREWIDE_WINDOWS = [
+  { start: '2026-06-21T00:00:00+08:00', end: '2026-06-24T23:59:59+08:00' },
+  { start: '2026-06-28T00:00:00+08:00', end: '2026-07-02T12:00:00+08:00' },
+];
+
+// Essential EVERGREEN-2: continuous 17-30 Jun, ads alive until 2 Jul lunch.
+const ESSENTIAL_WINDOWS = [
+  { start: '2026-06-17T00:00:00+08:00', end: '2026-07-02T12:00:00+08:00' },
+];
+
 export const courses = [
   {
     slug: '200h-essential',
@@ -36,6 +49,7 @@ export const courses = [
     href: '/200h-essential',
     isInternal: true,
     prereq: null,
+    saleWindows: ESSENTIAL_WINDOWS,
   },
 
   {
@@ -58,6 +72,7 @@ export const courses = [
     href: '/200h-premium',
     isInternal: true,
     prereq: null,
+    saleWindows: STOREWIDE_WINDOWS,
     plans: [
       { slug: 'full', label: 'Pay in Full', regularPrice: 1490, price: 590, currency: 'USD', note: 'One-time payment' },
       { slug: 'installment', label: '6-Month Plan', regularPrice: null, price: 249, currency: 'USD', note: 'per month, US$1,494 total', confirmed: false },
@@ -85,6 +100,7 @@ export const courses = [
     isInternal: true,
     prereq: '200-Hour Certification',
     duration: '300 hours, self-paced',
+    saleWindows: STOREWIDE_WINDOWS,
     plans: [
       { slug: 'full', label: 'Pay in Full', regularPrice: 1800, price: 699, currency: 'USD', note: 'One-time payment' },
       { slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 259, currency: 'USD', note: 'per month, US$777 total' },
@@ -137,6 +153,7 @@ export const courses = [
     isInternal: true,
     prereq: '200-Hour Certification',
     duration: '80 hours, self-paced',
+    saleWindows: STOREWIDE_WINDOWS,
     plans: [
       { slug: 'full', label: 'Pay in Full', regularPrice: 600, price: 239, currency: 'USD', note: 'One-time payment' },
       { slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 89, currency: 'USD', note: 'per month, US$267 total' },
@@ -189,6 +206,7 @@ export const courses = [
     isInternal: true,
     prereq: '200-Hour Certification',
     duration: '80 hours, self-paced',
+    saleWindows: STOREWIDE_WINDOWS,
     plans: [
       { slug: 'full', label: 'Pay in Full', regularPrice: 600, price: 239, currency: 'USD', note: 'One-time payment' },
       { slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 89, currency: 'USD', note: 'per month, US$267 total' },
@@ -239,6 +257,7 @@ export const courses = [
     isInternal: true,
     prereq: '200-Hour Certification',
     duration: '80 hours, self-paced',
+    saleWindows: STOREWIDE_WINDOWS,
     plans: [
       { slug: 'full', label: 'Pay in Full', regularPrice: 600, price: 239, currency: 'USD', note: 'One-time payment' },
       { slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 89, currency: 'USD', note: 'per month, US$267 total' },
@@ -293,6 +312,7 @@ export const courses = [
     wixEnrollUrl: 'https://www.akashayogaacademy.com/feminine',
     isInternal: true,
     duration: '10 YACEP hours, self-paced',
+    saleWindows: STOREWIDE_WINDOWS,
     plans: [
       { slug: 'full', label: 'Pay in Full', regularPrice: 229, price: 89, currency: 'USD', note: 'One-time payment' },
     ],
@@ -343,6 +363,7 @@ export const courses = [
     wixEnrollUrl: 'https://www.akashayogaacademy.com/kundalini-india',
     isInternal: true,
     duration: '11 days, on-site',
+    saleWindows: STOREWIDE_WINDOWS,
     plans: [
       { slug: 'full', label: 'Pay in Full', regularPrice: 2999, price: 1199, currency: 'USD', note: 'One-time payment' },
       { slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 399, currency: 'USD', note: 'per month, US$1,197 total' },
