@@ -33,6 +33,7 @@ export function attachUtmToWixRedirect(fullUrl, utm) {
 // Key format: `${courseSlug}|${planSlug}`.
 const PRODUCT_REGISTRY = {
   'essential|full': process.env.NEXT_PUBLIC_WIX_PRODUCT_ID,
+  'essential|installment': process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_ESSENTIAL_INSTALLMENT,
   'premium|full': process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_PREMIUM,
   'premium|installment': process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_PREMIUM_INSTALLMENT,
   '300h-ytt|full': process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_300H_FULL,

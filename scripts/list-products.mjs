@@ -20,6 +20,7 @@ const client = createClient({
 // The first product whose name includes ALL keywords for an entry wins.
 const TARGETS = [
   { env: 'NEXT_PUBLIC_WIX_PRODUCT_ID',                            keywords: ['200', 'essential'] },
+  { env: 'NEXT_PUBLIC_WIX_PRODUCT_ID_ESSENTIAL_INSTALLMENT',      keywords: ['200', 'essential', 'plan'] },
   { env: 'NEXT_PUBLIC_WIX_PRODUCT_ID_PREMIUM',                    keywords: ['200', 'premium'] },
   { env: 'NEXT_PUBLIC_WIX_PRODUCT_ID_PREMIUM_INSTALLMENT',        keywords: ['200', 'premium', 'plan'] },
   { env: 'NEXT_PUBLIC_WIX_PRODUCT_ID_300H_FULL',                  keywords: ['300'] },
