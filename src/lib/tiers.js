@@ -39,10 +39,11 @@ export const TIERS = {
     discountPercent: 75,
     discountLabel: '75% Yoga Day Discount',
     saleWindows: [
-      // Essential is EVERGREEN-2 17-30 Jun, ads alive until 2 Jul lunch (Bali).
-      { start: '2026-06-17T00:00:00+08:00', end: '2026-07-02T12:00:00+08:00' },
+      // Essential EVERGREEN-2: 17-30 Jun. Ads keep running until 2 Jul,
+      // but the actual discount stops at end-of-day 30 Jun.
+      { start: '2026-06-17T00:00:00+08:00', end: '2026-06-30T23:59:59+08:00' },
     ],
-    saleEndShort: 'July 2',
+    saleEndShort: 'June 30',
     ctaShort: 'Enroll US$290',
     ctaLong: 'Enroll Now, US$290',
     selfPaceWindow: '6-month self-paced',
@@ -68,13 +69,12 @@ export const TIERS = {
     discountPercent: 60,
     discountLabel: '60% Yoga Day Discount',
     saleWindows: [
-      // 60% Store-Wide: active 21-24 Jun, gap 25-27 Jun, active 28-30 Jun,
-      // ads/website still showing until 2 Jul lunch (Bali). Treat the
-      // extended + ads-alive period as one window.
+      // 60% Store-Wide: active 21-24 Jun, gap 25-27 Jun, active 28-30 Jun.
+      // Ads keep running until 2 Jul but the discount itself stops 30 Jun.
       { start: '2026-06-21T00:00:00+08:00', end: '2026-06-24T23:59:59+08:00' },
-      { start: '2026-06-28T00:00:00+08:00', end: '2026-07-02T12:00:00+08:00' },
+      { start: '2026-06-28T00:00:00+08:00', end: '2026-06-30T23:59:59+08:00' },
     ],
-    saleEndShort: 'July 2',
+    saleEndShort: 'June 30',
     ctaShort: 'Enroll US$590',
     ctaLong: 'Enroll Now, US$590',
     selfPaceWindow: '12-month Live Zoom access',

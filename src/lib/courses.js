@@ -2,7 +2,8 @@
 // Hardcoded today, designed to map cleanly to a CMS row later.
 //
 // Prices set per the Akasha Master Product Price List 2026, Yoga Day
-// 60% Store-Wide Discount campaign (21-30 June, ads until 2 July).
+// 60% Store-Wide Discount campaign. Discount active 21-24 + 28-30 June
+// (ads stay live until 2 July but the actual sale window closes 30 Jun).
 // Essential stays at 75% off; every other course is 60% off the base
 // price during this window. Premium 6-month payment plan is flagged
 // "not confirmed yet" in the PDF source.
@@ -18,16 +19,16 @@ export const CATEGORIES = {
 };
 
 // Sale windows for the 60% Yoga Day Store-Wide campaign.
-// Active 21-24 Jun, gap 25-27 Jun, active again 28-30 Jun, ads still on
-// website until 2 Jul lunch time (Bali). All non-Essential courses use this.
+// Active 21-24 Jun, gap 25-27 Jun, active again 28-30 Jun.
+// Ads keep running until 2 Jul but the actual discount ends 30 Jun.
 const STOREWIDE_WINDOWS = [
   { start: '2026-06-21T00:00:00+08:00', end: '2026-06-24T23:59:59+08:00' },
-  { start: '2026-06-28T00:00:00+08:00', end: '2026-07-02T12:00:00+08:00' },
+  { start: '2026-06-28T00:00:00+08:00', end: '2026-06-30T23:59:59+08:00' },
 ];
 
-// Essential EVERGREEN-2: continuous 17-30 Jun, ads alive until 2 Jul lunch.
+// Essential EVERGREEN-2: continuous 17-30 Jun.
 const ESSENTIAL_WINDOWS = [
-  { start: '2026-06-17T00:00:00+08:00', end: '2026-07-02T12:00:00+08:00' },
+  { start: '2026-06-17T00:00:00+08:00', end: '2026-06-30T23:59:59+08:00' },
 ];
 
 export const courses = [
@@ -60,7 +61,7 @@ export const courses = [
     badge: 'With Mentorship',
     discountPercent: 60,
     discountLabel: '60% Yoga Day Discount',
-    saleEndShort: 'July 2',
+    saleEndShort: 'June 30',
     regularPrice: 1490,
     promoPrice: 590,
     currency: 'USD',
@@ -87,7 +88,7 @@ export const courses = [
     tagline: 'A Life-Changing Yogic Immersion',
     discountPercent: 60,
     discountLabel: '60% Yoga Day Discount',
-    saleEndShort: 'July 2',
+    saleEndShort: 'June 30',
     regularPrice: 1800,
     promoPrice: 699,
     currency: 'USD',
@@ -140,7 +141,7 @@ export const courses = [
     tagline: 'Expand Your Awareness',
     discountPercent: 60,
     discountLabel: '60% Yoga Day Discount',
-    saleEndShort: 'July 2',
+    saleEndShort: 'June 30',
     regularPrice: 600,
     promoPrice: 239,
     currency: 'USD',
@@ -193,7 +194,7 @@ export const courses = [
     tagline: 'Transform Your Practice',
     discountPercent: 60,
     discountLabel: '60% Yoga Day Discount',
-    saleEndShort: 'July 2',
+    saleEndShort: 'June 30',
     regularPrice: 600,
     promoPrice: 239,
     currency: 'USD',
@@ -244,7 +245,7 @@ export const courses = [
     tagline: 'Find Stillness',
     discountPercent: 60,
     discountLabel: '60% Yoga Day Discount',
-    saleEndShort: 'July 2',
+    saleEndShort: 'June 30',
     regularPrice: 600,
     promoPrice: 239,
     currency: 'USD',
@@ -299,7 +300,7 @@ export const courses = [
     tagline: 'Move with Your Rhythms',
     discountPercent: 60,
     discountLabel: '60% Yoga Day Discount',
-    saleEndShort: 'July 2',
+    saleEndShort: 'June 30',
     regularPrice: 229,
     promoPrice: 89,
     currency: 'USD',
@@ -350,7 +351,7 @@ export const courses = [
     tagline: 'Awaken Your Soul in India',
     discountPercent: 60,
     discountLabel: '60% Yoga Day Discount',
-    saleEndShort: 'July 2',
+    saleEndShort: 'June 30',
     regularPrice: 2999,
     promoPrice: 1199,
     currency: 'USD',
