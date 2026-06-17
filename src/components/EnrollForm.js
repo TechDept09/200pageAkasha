@@ -35,10 +35,13 @@ export default function EnrollForm() {
     try {
       trackInitiateCheckout(tier.name || tier.slug, tier.promoPrice, tier.slug);
 
+      const { fbc, fbp } = getMetaCookies();
+
       const url = await startWixCheckout({
         utm,
         utmNote: formatUtmNote(utm),
         productId: getProductIdForTier(tier.slug),
+        meta: { fbc, fbp, courseSlug: tier.slug, planSlug: 'full' },
         buyer: {
           firstName: form.firstName.trim(),
           lastName: form.lastName.trim(),
@@ -46,7 +49,6 @@ export default function EnrollForm() {
         },
       });
 
-      const { fbc, fbp } = getMetaCookies();
       const finalUrl = new URL(url);
       if (fbc) finalUrl.searchParams.set('fbc', fbc);
       if (fbp) finalUrl.searchParams.set('fbp', fbp);

@@ -57,13 +57,21 @@ export function getProductId(courseSlug, planSlug = 'full') {
   return PRODUCT_REGISTRY[`${courseSlug}|${planSlug}`];
 }
 
-export async function startWixCheckout({ utm, utmNote, buyer, productId }) {
+export async function startWixCheckout({ utm, utmNote, buyer, productId, meta }) {
   if (!productId) {
     throw new Error('Missing Wix product ID for this tier, set the matching NEXT_PUBLIC_WIX_PRODUCT_ID_* in .env.local');
   }
 
+  // Custom fields persist into the Wix Order object, so the order-paid
+  // webhook can read fbc/fbp + UTM back when relaying Purchase to Meta CAPI.
+  const customFields = [{ title: 'UTM Tracking', value: utmNote }];
+  if (meta?.fbc) customFields.push({ title: 'fbc', value: meta.fbc });
+  if (meta?.fbp) customFields.push({ title: 'fbp', value: meta.fbp });
+  if (meta?.courseSlug) customFields.push({ title: 'courseSlug', value: meta.courseSlug });
+  if (meta?.planSlug) customFields.push({ title: 'planSlug', value: meta.planSlug });
+
   const checkoutInfo = {
-    customFields: [{ title: 'UTM Tracking', value: utmNote }],
+    customFields,
     buyerNote: utmNote,
   };
 

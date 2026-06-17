@@ -43,11 +43,14 @@ export default function CourseEnrollForm({ course }) {
     try {
       trackInitiateCheckout(course.title, activePlan?.price, `${courseSlug}|${selectedPlan}`);
 
+      const { fbc, fbp } = getMetaCookies();
+
       const productId = getProductId(courseSlug, selectedPlan);
       const url = await startWixCheckout({
         utm,
         utmNote: formatUtmNote(utm),
         productId,
+        meta: { fbc, fbp, courseSlug, planSlug: selectedPlan },
         buyer: {
           firstName: form.firstName.trim(),
           lastName: form.lastName.trim(),
@@ -55,7 +58,6 @@ export default function CourseEnrollForm({ course }) {
         },
       });
 
-      const { fbc, fbp } = getMetaCookies();
       const finalUrl = new URL(url);
       if (fbc) finalUrl.searchParams.set('fbc', fbc);
       if (fbp) finalUrl.searchParams.set('fbp', fbp);
