@@ -89,6 +89,26 @@ export async function startWixCheckout({ utm, utmNote, buyer, productId, meta })
     };
   }
 
+  // Some Wix products are flagged as "physical" even when content is online
+  // (e.g. payment-plan variants). Without a shipping destination the hosted
+  // checkout page blocks the buyer with "You cannot place this order just yet."
+  // Pre-fill a placeholder shippingInfo using the buyer's name. Wix accepts
+  // it for digital products too, so it's safe to send unconditionally.
+  checkoutInfo.shippingInfo = {
+    shippingDestination: {
+      contactDetails: {
+        firstName: buyer?.firstName || 'Online',
+        lastName: buyer?.lastName || 'Delivery',
+      },
+      address: {
+        country: 'US',
+        city: 'Online',
+        postalCode: '0',
+        addressLine: 'Digital delivery, no shipping required',
+      },
+    },
+  };
+
   const newCheckout = await wixClient.checkout.createCheckout({
     channelType: 'WEB',
     lineItems: [
