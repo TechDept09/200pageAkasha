@@ -1,20 +1,31 @@
 'use client';
 
 import { useState } from 'react';
-import { startWixCheckout, getProductIdForTier } from '@/lib/checkout';
+import { startWixCheckout, getProductId } from '@/lib/checkout';
 import { useUtmParams, formatUtmNote } from '@/hooks/useUtmParams';
 import { useTier } from '@/lib/TierContext';
 import { trackLead, trackInitiateCheckout } from '@/lib/pixel';
 import { getMetaCookies } from '@/lib/fbCookies';
 
+function price(n, currency) {
+  if (!n) return null;
+  return currency === 'USD' ? `US$${n}` : `${currency}${n}`;
+}
+
 export default function EnrollForm() {
   const utm = useUtmParams();
   const tier = useTier();
+  const plans = tier.plans || [
+    { slug: 'full', label: 'Pay in Full', price: tier.promoPrice, currency: 'USD', note: 'One-time payment' },
+  ];
+
+  const [selectedPlan, setSelectedPlan] = useState(plans[0]?.slug || 'full');
   const [form, setForm] = useState({ firstName: '', lastName: '', email: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
+  const activePlan = plans.find((p) => p.slug === selectedPlan) || plans[0];
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -30,18 +41,19 @@ export default function EnrollForm() {
     }
 
     setLoading(true);
-    trackLead(tier.name || tier.slug, tier.promoPrice);
+    trackLead(tier.title || tier.slug, activePlan?.price);
 
     try {
-      trackInitiateCheckout(tier.name || tier.slug, tier.promoPrice, tier.slug);
+      trackInitiateCheckout(tier.title || tier.slug, activePlan?.price, `${tier.slug}|${selectedPlan}`);
 
       const { fbc, fbp } = getMetaCookies();
+      const productId = getProductId(tier.slug, selectedPlan);
 
       const url = await startWixCheckout({
         utm,
         utmNote: formatUtmNote(utm),
-        productId: getProductIdForTier(tier.slug),
-        meta: { fbc, fbp, courseSlug: tier.slug, planSlug: 'full' },
+        productId,
+        meta: { fbc, fbp, courseSlug: tier.slug, planSlug: selectedPlan },
         buyer: {
           firstName: form.firstName.trim(),
           lastName: form.lastName.trim(),
@@ -65,6 +77,44 @@ export default function EnrollForm() {
 
   return (
     <form onSubmit={handleSubmit} noValidate>
+      {plans.length > 1 ? (
+        <div className="grid grid-cols-2 gap-2 mb-5">
+          {plans.map((p) => {
+            const isActive = p.slug === selectedPlan;
+            return (
+              <button
+                key={p.slug}
+                type="button"
+                onClick={() => setSelectedPlan(p.slug)}
+                className={`text-left p-3 rounded-sm border transition-colors ${
+                  isActive
+                    ? 'border-akasha-orange bg-akasha-orange/5'
+                    : 'border-akasha-gray-4 bg-akasha-white hover:border-akasha-gray-2'
+                }`}
+              >
+                <p
+                  className="text-[10px] font-body uppercase tracking-[0.18em] text-akasha-gray-1 mb-1"
+                  style={{ fontFamily: 'Inter, sans-serif' }}
+                >
+                  {p.label}
+                </p>
+                <p
+                  className="font-heading text-akasha-black text-xl leading-none"
+                  style={{ fontWeight: 400 }}
+                >
+                  {price(p.price, p.currency)}
+                </p>
+                {p.note ? (
+                  <p className="text-[10px] font-body text-akasha-gray-1 mt-1 leading-tight">
+                    {p.note}
+                  </p>
+                ) : null}
+              </button>
+            );
+          })}
+        </div>
+      ) : null}
+
       <div className="grid grid-cols-2 gap-3 mb-3">
         <input
           type="text"
@@ -97,7 +147,9 @@ export default function EnrollForm() {
         disabled={loading}
         className={`btn-action w-full ${loading ? 'opacity-70 cursor-wait' : ''}`}
       >
-        {loading ? 'Preparing your checkout…' : tier.ctaLong}
+        {loading
+          ? 'Preparing your checkout…'
+          : `Enroll Now, ${price(activePlan?.price, activePlan?.currency)}`}
       </button>
 
       {error && (
