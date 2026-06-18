@@ -91,7 +91,15 @@ export const TIERS = {
       'https://static.wixstatic.com/media/cd7168_eea3bf63d06a4260b9e04f7bc00a255c~mv2.jpeg/v1/fill/w_900,h_900,al_c,q_85,enc_avif,quality_auto/AYA300-Dean%20Raphael-67.jpeg',
     plans: [
       { slug: 'full', label: 'Pay in Full', regularPrice: 1490, price: 590, currency: 'USD', note: 'One-time payment' },
-      { slug: 'installment', label: '6-Month Plan', regularPrice: null, price: 249, currency: 'USD', note: 'per month, US$1,494 total' },
+      {
+        slug: 'installment', label: '6-Month Plan', regularPrice: null, price: 249, currency: 'USD',
+        note: 'per month, US$1,494 total',
+        // Wix Headless SDK refuses to add PP variants to the cart (silent
+        // line-item drop). Send the buyer to the native Wix product page
+        // instead and let them check out there. UTM + fb cookies tag along
+        // in the query string.
+        wixProductPageUrl: 'https://www.akashayogaacademy.com/product-page/200-hour-yoga-tttc-6-month-premium-payment-plan',
+      },
     ],
   },
 };

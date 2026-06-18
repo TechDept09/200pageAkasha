@@ -45,6 +45,20 @@ export default function CourseEnrollForm({ course }) {
 
       const { fbc, fbp } = getMetaCookies();
 
+      // Subscription/Payment-Plan variants are dropped by the Wix headless
+      // SDK, so the plan declares a wixProductPageUrl and we redirect the
+      // buyer to the native Wix product page instead. UTM + fb cookies are
+      // appended as query params so Wix-side analytics still see attribution.
+      if (activePlan?.wixProductPageUrl) {
+        const u = new URL(activePlan.wixProductPageUrl);
+        ['utm_source','utm_medium','utm_campaign'].forEach((k) => { if (utm[k]) u.searchParams.set(k, utm[k]); });
+        if (fbc) u.searchParams.set('fbc', fbc);
+        if (fbp) u.searchParams.set('fbp', fbp);
+        if (form.email) u.searchParams.set('email', form.email.trim());
+        window.location.href = u.toString();
+        return;
+      }
+
       const productId = getProductId(courseSlug, selectedPlan);
       const url = await startWixCheckout({
         utm,

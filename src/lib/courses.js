@@ -76,7 +76,11 @@ export const courses = [
     saleWindows: STOREWIDE_WINDOWS,
     plans: [
       { slug: 'full', label: 'Pay in Full', regularPrice: 1490, price: 590, currency: 'USD', note: 'One-time payment' },
-      { slug: 'installment', label: '6-Month Plan', regularPrice: null, price: 249, currency: 'USD', note: 'per month, US$1,494 total', confirmed: false },
+      {
+        slug: 'installment', label: '6-Month Plan', regularPrice: null, price: 249, currency: 'USD',
+        note: 'per month, US$1,494 total', confirmed: false,
+        wixProductPageUrl: 'https://www.akashayogaacademy.com/product-page/200-hour-yoga-tttc-6-month-premium-payment-plan',
+      },
     ],
   },
 
@@ -104,7 +108,11 @@ export const courses = [
     saleWindows: STOREWIDE_WINDOWS,
     plans: [
       { slug: 'full', label: 'Pay in Full', regularPrice: 1800, price: 699, currency: 'USD', note: 'One-time payment' },
-      { slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 259, currency: 'USD', note: 'per month, US$777 total' },
+      {
+        slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 259, currency: 'USD',
+        note: 'per month, US$777 total',
+        wixProductPageUrl: 'https://www.akashayogaacademy.com/product-page/300-hour-advanced-yoga-teacher-training',
+      },
     ],
     instructors: ['Burkhard', 'Kirsten', 'Devdas'],
     longDescription: [
@@ -157,7 +165,11 @@ export const courses = [
     saleWindows: STOREWIDE_WINDOWS,
     plans: [
       { slug: 'full', label: 'Pay in Full', regularPrice: 600, price: 239, currency: 'USD', note: 'One-time payment' },
-      { slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 89, currency: 'USD', note: 'per month, US$267 total' },
+      {
+        slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 89, currency: 'USD',
+        note: 'per month, US$267 total',
+        wixProductPageUrl: 'https://www.akashayogaacademy.com/product-page/80-hour-yin-yoga-ttc-pp',
+      },
     ],
     instructors: ['Kirsten', 'Burkhard', 'Devdas', 'Astrid'],
     longDescription: [
@@ -210,7 +222,11 @@ export const courses = [
     saleWindows: STOREWIDE_WINDOWS,
     plans: [
       { slug: 'full', label: 'Pay in Full', regularPrice: 600, price: 239, currency: 'USD', note: 'One-time payment' },
-      { slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 89, currency: 'USD', note: 'per month, US$267 total' },
+      {
+        slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 89, currency: 'USD',
+        note: 'per month, US$267 total',
+        wixProductPageUrl: 'https://www.akashayogaacademy.com/product-page/80-hour-adv-hatha-pranayama-ttc-pp',
+      },
     ],
     instructors: ['Devdas', 'Kirsten', 'Burkhard', 'Marc'],
     longDescription: [
@@ -261,7 +277,11 @@ export const courses = [
     saleWindows: STOREWIDE_WINDOWS,
     plans: [
       { slug: 'full', label: 'Pay in Full', regularPrice: 600, price: 239, currency: 'USD', note: 'One-time payment' },
-      { slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 89, currency: 'USD', note: 'per month, US$267 total' },
+      {
+        slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 89, currency: 'USD',
+        note: 'per month, US$267 total',
+        wixProductPageUrl: 'https://www.akashayogaacademy.com/product-page/80-hour-meditation-ttc',
+      },
     ],
     instructors: ['Burkhard', 'Kirsten', 'Devdas', 'Hareesh Christopher Wallis (guest)'],
     longDescription: [
@@ -367,7 +387,11 @@ export const courses = [
     saleWindows: STOREWIDE_WINDOWS,
     plans: [
       { slug: 'full', label: 'Pay in Full', regularPrice: 2999, price: 1199, currency: 'USD', note: 'One-time payment' },
-      { slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 399, currency: 'USD', note: 'per month, US$1,197 total' },
+      {
+        slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 399, currency: 'USD',
+        note: 'per month, US$1,197 total',
+        wixProductPageUrl: 'https://www.akashayogaacademy.com/product-page/kundalini-awakening-retreat-payment-plan',
+      },
     ],
     location: 'Rishikesh, India',
     dates: '21 February to 3 March 2027',
