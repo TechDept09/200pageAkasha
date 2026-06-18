@@ -28,13 +28,17 @@ export default function CourseEnrollForm({ course }) {
     e.preventDefault();
     setError(null);
 
-    if (!form.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      setError('Please enter a valid email address.');
-      return;
-    }
-    if (!form.firstName.trim()) {
-      setError('Please enter your first name.');
-      return;
+    // Skip name + email validation when redirecting to a Wix native product
+    // page; that page collects buyer info itself.
+    if (!activePlan?.wixProductPageUrl) {
+      if (!form.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+        setError('Please enter a valid email address.');
+        return;
+      }
+      if (!form.firstName.trim()) {
+        setError('Please enter your first name.');
+        return;
+      }
     }
 
     setLoading(true);
@@ -134,6 +138,8 @@ export default function CourseEnrollForm({ course }) {
         </div>
       ) : null}
 
+      {activePlan?.wixProductPageUrl ? null : (
+      <>
       <div className="grid grid-cols-2 gap-3 mb-3">
         <input
           type="text"
@@ -160,6 +166,8 @@ export default function CourseEnrollForm({ course }) {
         onChange={set('email')}
         className={`${inputCls} mb-4`}
       />
+      </>
+      )}
 
       <button
         type="submit"
@@ -168,7 +176,9 @@ export default function CourseEnrollForm({ course }) {
       >
         {loading
           ? 'Preparing your checkout…'
-          : `Enroll Now, ${price(activePlan?.price, activePlan?.currency)}`}
+          : activePlan?.wixProductPageUrl
+            ? `Continue to ${activePlan?.label || 'Checkout'}`
+            : `Enroll Now, ${price(activePlan?.price, activePlan?.currency)}`}
       </button>
 
       {error && (

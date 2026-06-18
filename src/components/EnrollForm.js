@@ -27,17 +27,24 @@ export default function EnrollForm() {
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
   const activePlan = plans.find((p) => p.slug === selectedPlan) || plans[0];
 
+  const skipBuyerForm = !!activePlan?.wixProductPageUrl;
+
   async function handleSubmit(e) {
     e.preventDefault();
     setError(null);
 
-    if (!form.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      setError('Please enter a valid email address.');
-      return;
-    }
-    if (!form.firstName.trim()) {
-      setError('Please enter your first name.');
-      return;
+    // Pay-in-Full needs name + email to pre-fill the Wix checkout. Payment-Plan
+    // routes the buyer to the native Wix product page which collects those
+    // fields itself, so we skip validation when wixProductPageUrl is set.
+    if (!skipBuyerForm) {
+      if (!form.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+        setError('Please enter a valid email address.');
+        return;
+      }
+      if (!form.firstName.trim()) {
+        setError('Please enter your first name.');
+        return;
+      }
     }
 
     setLoading(true);
@@ -129,32 +136,36 @@ export default function EnrollForm() {
         </div>
       ) : null}
 
-      <div className="grid grid-cols-2 gap-3 mb-3">
-        <input
-          type="text"
-          autoComplete="given-name"
-          placeholder="First name *"
-          value={form.firstName}
-          onChange={set('firstName')}
-          className={inputCls}
-        />
-        <input
-          type="text"
-          autoComplete="family-name"
-          placeholder="Last name"
-          value={form.lastName}
-          onChange={set('lastName')}
-          className={inputCls}
-        />
-      </div>
-      <input
-        type="email"
-        autoComplete="email"
-        placeholder="Email address *"
-        value={form.email}
-        onChange={set('email')}
-        className={`${inputCls} mb-4`}
-      />
+      {skipBuyerForm ? null : (
+        <>
+          <div className="grid grid-cols-2 gap-3 mb-3">
+            <input
+              type="text"
+              autoComplete="given-name"
+              placeholder="First name *"
+              value={form.firstName}
+              onChange={set('firstName')}
+              className={inputCls}
+            />
+            <input
+              type="text"
+              autoComplete="family-name"
+              placeholder="Last name"
+              value={form.lastName}
+              onChange={set('lastName')}
+              className={inputCls}
+            />
+          </div>
+          <input
+            type="email"
+            autoComplete="email"
+            placeholder="Email address *"
+            value={form.email}
+            onChange={set('email')}
+            className={`${inputCls} mb-4`}
+          />
+        </>
+      )}
 
       <button
         type="submit"
@@ -163,7 +174,9 @@ export default function EnrollForm() {
       >
         {loading
           ? 'Preparing your checkout…'
-          : `Enroll Now, ${price(activePlan?.price, activePlan?.currency)}`}
+          : skipBuyerForm
+            ? `Continue to ${activePlan?.label || 'Checkout'}`
+            : `Enroll Now, ${price(activePlan?.price, activePlan?.currency)}`}
       </button>
 
       {error && (
