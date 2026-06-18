@@ -5,12 +5,18 @@ import Script from 'next/script';
 import { pageview } from '@/lib/pixel';
 
 const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || '1349360126835158';
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-L76KTFBEBG';
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
 
   useEffect(() => {
-    const handleRouteChange = () => pageview();
+    const handleRouteChange = (url) => {
+      pageview();
+      if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+        window.gtag('config', GA_ID, { page_path: url });
+      }
+    };
     router.events.on('routeChangeComplete', handleRouteChange);
     return () => router.events.off('routeChangeComplete', handleRouteChange);
   }, [router.events]);
@@ -35,6 +41,25 @@ export default function App({ Component, pageProps }) {
           `,
         }}
       />
+
+      <Script
+        id="ga-loader"
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+        strategy="afterInteractive"
+      />
+      <Script
+        id="ga-init"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_ID}');
+          `,
+        }}
+      />
+
       <Component {...pageProps} />
     </>
   );
