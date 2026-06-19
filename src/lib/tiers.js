@@ -72,10 +72,11 @@ export const TIERS = {
     discountPercent: 60,
     discountLabel: '60% Yoga Day Discount',
     saleWindows: [
-      // 60% Store-Wide: active 21-24 Jun, gap 25-27 Jun, active 28-30 Jun.
-      // Ads keep running until 2 Jul but the discount itself stops 30 Jun.
-      { start: '2026-06-21T00:00:00+08:00', end: '2026-06-24T23:59:59+08:00' },
-      { start: '2026-06-28T00:00:00+08:00', end: '2026-06-30T23:59:59+08:00' },
+      // 60% Yoga Day Store-Wide. PDF describes phase 1 (21-24) + phase 2
+      // (28-30) for marketing storytelling, but operationally the discount
+      // stays on the entire 21-30 stretch, so a single continuous window
+      // is what the runtime should use.
+      { start: '2026-06-21T00:00:00+08:00', end: '2026-06-30T23:59:59+08:00' },
     ],
     saleEndShort: 'June 30',
     ctaShort: 'Enroll US$590',

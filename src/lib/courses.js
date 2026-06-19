@@ -19,11 +19,11 @@ export const CATEGORIES = {
 };
 
 // Sale windows for the 60% Yoga Day Store-Wide campaign.
-// Active 21-24 Jun, gap 25-27 Jun, active again 28-30 Jun.
-// Ads keep running until 2 Jul but the actual discount ends 30 Jun.
+// PDF tells a "phase 1 + extension" story (21-24, then 28-30) for marketing,
+// but the discount stays on through the gap, so the runtime treats the
+// whole run as one continuous window 21-30 Jun.
 const STOREWIDE_WINDOWS = [
-  { start: '2026-06-21T00:00:00+08:00', end: '2026-06-24T23:59:59+08:00' },
-  { start: '2026-06-28T00:00:00+08:00', end: '2026-06-30T23:59:59+08:00' },
+  { start: '2026-06-21T00:00:00+08:00', end: '2026-06-30T23:59:59+08:00' },
 ];
 
 // Essential EVERGREEN-2: continuous 17-30 Jun.
