@@ -426,7 +426,7 @@ export const courses = [
       'Online Preparation Kit for Kundalini Retreat',
       'Welcome Basket with gifts and goodies',
       '8 Limbs of Yoga Workshop bonus (US$99 value)',
-      'Secure your spot with a US$599 deposit; payment plan available',
+      '3-Month Payment Plan available: US$399 per month (US$1,197 total)',
     ],
     notIncluded: [
       'Flights to and from India',
