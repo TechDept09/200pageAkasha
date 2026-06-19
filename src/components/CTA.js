@@ -1,9 +1,12 @@
 'use client';
 
 import { useTier } from '@/lib/TierContext';
+import { useSaleStatus } from '@/hooks/useSaleStatus';
 
 export default function CTA() {
   const tier = useTier();
+  const sale = useSaleStatus(tier.saleWindows, tier.salePhases);
+  const dateText = sale.phase?.dateRange || (tier.saleEndShort ? `Ends ${tier.saleEndShort}` : null);
 
   return (
     <section id="enroll" className="py-24 md:py-32 bg-akasha-black text-akasha-white">
@@ -44,7 +47,9 @@ export default function CTA() {
         </a>
 
         <p className="text-[10px] font-body text-akasha-white/50 mt-5 tracking-[0.25em] uppercase">
-          {tier.discountLabel} · Ends {tier.saleEndShort} · 14-Day Money-Back Guarantee
+          {tier.discountLabel}
+          {dateText ? ` · ${dateText}` : ''}
+          {' · 14-Day Money-Back Guarantee'}
         </p>
       </div>
     </section>

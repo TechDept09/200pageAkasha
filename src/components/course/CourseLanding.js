@@ -1,3 +1,5 @@
+'use client';
+
 import Head from 'next/head';
 import CourseNav from './CourseNav';
 import CourseCurriculum from './CourseCurriculum';
@@ -8,6 +10,7 @@ import CourseEnrollForm from './CourseEnrollForm';
 import WhyAkasha from '../WhyAkasha';
 import TrustStrip from '../TrustStrip';
 import Footer from '../Footer';
+import { useSaleStatus } from '@/hooks/useSaleStatus';
 
 function price(n, currency) {
   if (!n) return null;
@@ -44,6 +47,8 @@ export default function CourseLanding({ course }) {
   const metaTitle = `${title} | Akasha Yoga Academy`;
   const metaDescription = shortDescription;
   const savings = hasDiscount ? regularPrice - promoPrice : 0;
+  const saleStatus = useSaleStatus(course.saleWindows, course.salePhases);
+  const dateText = saleStatus.phase?.dateRange || (saleEndShort ? `Ends in ${saleEndShort}` : null);
 
   return (
     <>
@@ -156,9 +161,9 @@ export default function CourseLanding({ course }) {
                         {price(promoPrice, currency)}
                       </span>
                     </div>
-                    {saleEndShort ? (
+                    {dateText ? (
                       <p className="text-[10px] font-body uppercase tracking-[0.2em] text-akasha-orange mt-1">
-                        Ends in {saleEndShort}
+                        {dateText}
                       </p>
                     ) : null}
                   </div>
@@ -249,7 +254,7 @@ export default function CourseLanding({ course }) {
             <div className="text-center max-w-2xl mx-auto mb-12">
               <span className="eyebrow text-akasha-orange">
                 {discountLabel || (discountPercent ? `${discountPercent}% Discount` : 'Investment')}
-                {saleEndShort ? ` · Ends in ${saleEndShort}` : ''}
+                {dateText ? ` · ${dateText}` : ''}
               </span>
               <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 300 }}>
                 Your Investment

@@ -78,6 +78,14 @@ export const TIERS = {
       // is what the runtime should use.
       { start: '2026-06-21T00:00:00+08:00', end: '2026-06-30T23:59:59+08:00' },
     ],
+    // Phase labels switch the date range shown to the buyer while the
+    // underlying discount keeps running. Phase 1 (21-24) is displayed
+    // through 27 Jun for the "deadline missed" framing, then phase 2
+    // (28-30) takes over at 28 Jun 00:00 Bali as the extension.
+    salePhases: [
+      { start: '2026-06-21T00:00:00+08:00', end: '2026-06-27T23:59:59+08:00', dateRange: '21-24 June' },
+      { start: '2026-06-28T00:00:00+08:00', end: '2026-06-30T23:59:59+08:00', dateRange: '28-30 June' },
+    ],
     saleEndShort: 'June 30',
     ctaShort: 'Enroll US$590',
     ctaLong: 'Enroll Now, US$590',

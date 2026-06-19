@@ -26,6 +26,14 @@ const STOREWIDE_WINDOWS = [
   { start: '2026-06-21T00:00:00+08:00', end: '2026-06-30T23:59:59+08:00' },
 ];
 
+// Display-only phase labels for the Store-Wide campaign. Phase 1 dates
+// (21-24) are shown to buyers through 27 Jun, then phase 2 (28-30) kicks
+// in at 28 Jun 00:00 Bali as the extension.
+const STOREWIDE_PHASES = [
+  { start: '2026-06-21T00:00:00+08:00', end: '2026-06-27T23:59:59+08:00', dateRange: '21-24 June' },
+  { start: '2026-06-28T00:00:00+08:00', end: '2026-06-30T23:59:59+08:00', dateRange: '28-30 June' },
+];
+
 // Essential EVERGREEN-2: continuous 17-30 Jun.
 const ESSENTIAL_WINDOWS = [
   { start: '2026-06-17T00:00:00+08:00', end: '2026-06-30T23:59:59+08:00' },
@@ -74,6 +82,7 @@ export const courses = [
     isInternal: true,
     prereq: null,
     saleWindows: STOREWIDE_WINDOWS,
+    salePhases: STOREWIDE_PHASES,
     plans: [
       { slug: 'full', label: 'Pay in Full', regularPrice: 1490, price: 590, currency: 'USD', note: 'One-time payment' },
       {
@@ -106,6 +115,7 @@ export const courses = [
     prereq: '200-Hour Certification',
     duration: '300 hours, self-paced',
     saleWindows: STOREWIDE_WINDOWS,
+    salePhases: STOREWIDE_PHASES,
     plans: [
       { slug: 'full', label: 'Pay in Full', regularPrice: 1800, price: 699, currency: 'USD', note: 'One-time payment' },
       {
@@ -163,6 +173,7 @@ export const courses = [
     prereq: '200-Hour Certification',
     duration: '80 hours, self-paced',
     saleWindows: STOREWIDE_WINDOWS,
+    salePhases: STOREWIDE_PHASES,
     plans: [
       { slug: 'full', label: 'Pay in Full', regularPrice: 600, price: 239, currency: 'USD', note: 'One-time payment' },
       {
@@ -220,6 +231,7 @@ export const courses = [
     prereq: '200-Hour Certification',
     duration: '80 hours, self-paced',
     saleWindows: STOREWIDE_WINDOWS,
+    salePhases: STOREWIDE_PHASES,
     plans: [
       { slug: 'full', label: 'Pay in Full', regularPrice: 600, price: 239, currency: 'USD', note: 'One-time payment' },
       {
@@ -275,6 +287,7 @@ export const courses = [
     prereq: '200-Hour Certification',
     duration: '80 hours, self-paced',
     saleWindows: STOREWIDE_WINDOWS,
+    salePhases: STOREWIDE_PHASES,
     plans: [
       { slug: 'full', label: 'Pay in Full', regularPrice: 600, price: 239, currency: 'USD', note: 'One-time payment' },
       {
@@ -334,6 +347,7 @@ export const courses = [
     isInternal: true,
     duration: '10 YACEP hours, self-paced',
     saleWindows: STOREWIDE_WINDOWS,
+    salePhases: STOREWIDE_PHASES,
     plans: [
       { slug: 'full', label: 'Pay in Full', regularPrice: 229, price: 89, currency: 'USD', note: 'One-time payment' },
     ],
@@ -385,6 +399,7 @@ export const courses = [
     isInternal: true,
     duration: '11 days, on-site',
     saleWindows: STOREWIDE_WINDOWS,
+    salePhases: STOREWIDE_PHASES,
     plans: [
       { slug: 'full', label: 'Pay in Full', regularPrice: 2999, price: 1199, currency: 'USD', note: 'One-time payment' },
       {

@@ -1,3 +1,7 @@
+'use client';
+
+import { useSaleStatus } from '@/hooks/useSaleStatus';
+
 function price(n, currency) {
   if (!n) return null;
   return currency === 'USD' ? `US$${n}` : `${currency}${n}`;
@@ -15,6 +19,9 @@ export default function CourseCTA({ course }) {
     currency,
     wixEnrollUrl,
   } = course;
+
+  const status = useSaleStatus(course.saleWindows, course.salePhases);
+  const dateText = status.phase?.dateRange || (saleEndShort ? `Ends in ${saleEndShort}` : null);
 
   const hasDiscount = regularPrice && promoPrice;
 
@@ -50,7 +57,7 @@ export default function CourseCTA({ course }) {
             style={{ color: '#E7BC5D', fontFamily: 'Inter, sans-serif', fontWeight: 500 }}
           >
             {discountLabel}
-            {saleEndShort ? ` · Ends in ${saleEndShort}` : ''}
+            {dateText ? ` · ${dateText}` : ''}
           </p>
         ) : null}
 
@@ -80,7 +87,9 @@ export default function CourseCTA({ course }) {
         </a>
 
         <p className="text-[10px] font-body text-akasha-white/50 mt-5 tracking-[0.25em] uppercase">
-          Secure checkout via Wix
+          {discountLabel || (discountPercent ? `${discountPercent}% off` : null)}
+          {dateText ? ` · ${dateText}` : ''}
+          {' · 14-Day Money-Back Guarantee'}
         </p>
       </div>
     </section>

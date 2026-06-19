@@ -3,9 +3,12 @@
 import { useEffect, useState } from 'react';
 import SaleCountdown from './SaleCountdown';
 import { useTier } from '@/lib/TierContext';
+import { useSaleStatus } from '@/hooks/useSaleStatus';
 
 export default function StickyCTA() {
   const tier = useTier();
+  const sale = useSaleStatus(tier.saleWindows, tier.salePhases);
+  const phaseRange = sale.phase?.dateRange;
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -31,7 +34,7 @@ export default function StickyCTA() {
             </span>
           </div>
           <p className="text-[10px] font-body uppercase tracking-[0.18em] text-akasha-orange">
-            Ends in <SaleCountdown variant="short" fallback={<>{tier.saleEndShort}</>} /> · {tier.discountPercent}% Off
+            {phaseRange ? phaseRange : <>Ends in <SaleCountdown variant="short" fallback={<>{tier.saleEndShort}</>} /></>} · {tier.discountPercent}% Off
           </p>
         </div>
         <a

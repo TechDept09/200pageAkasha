@@ -52,3 +52,16 @@ export function getCurrentWindowEnd(windows, now = new Date()) {
   if (next) return next.end;
   return null;
 }
+
+// salePhases are display-only metadata (date range text, countdown target)
+// layered on top of saleWindows. The discount itself runs the whole
+// saleWindow; the phase just controls what label / dates the buyer sees.
+// Phases must be listed in chronological order.
+export function getActivePhase(phases, now = new Date()) {
+  if (!Array.isArray(phases)) return null;
+  for (const p of phases) {
+    const end = new Date(p.end);
+    if (end >= now) return p;
+  }
+  return null;
+}

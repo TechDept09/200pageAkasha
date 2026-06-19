@@ -2,9 +2,12 @@
 
 import SaleCountdown from './SaleCountdown';
 import { useTier } from '@/lib/TierContext';
+import { useSaleStatus } from '@/hooks/useSaleStatus';
 
 export default function Hero() {
   const tier = useTier();
+  const sale = useSaleStatus(tier.saleWindows, tier.salePhases);
+  const phaseRange = sale.phase?.dateRange;
   return (
     <section className="pt-36 md:pt-44 pb-16 md:pb-24 bg-akasha-white">
       <div className="section">
@@ -88,7 +91,7 @@ export default function Hero() {
                 </span>
               </div>
               <p className="text-[10px] font-body uppercase tracking-[0.2em] text-akasha-orange mt-1">
-                Ends in <SaleCountdown variant="short" fallback={<>{tier.saleEndShort}</>} />
+                {phaseRange ? phaseRange : <>Ends in <SaleCountdown variant="short" fallback={<>{tier.saleEndShort}</>} /></>}
               </p>
             </div>
           </div>

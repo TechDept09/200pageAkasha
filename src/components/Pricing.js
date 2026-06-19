@@ -4,19 +4,26 @@ import EnrollForm from './EnrollForm';
 import SaleCountdown from './SaleCountdown';
 import WhileSaleActive from './WhileSaleActive';
 import { useTier } from '@/lib/TierContext';
+import { useSaleStatus } from '@/hooks/useSaleStatus';
 import { getSavings } from '@/lib/tiers';
 
 export default function Pricing() {
   const tier = useTier();
   const savings = getSavings(tier);
+  const sale = useSaleStatus(tier.saleWindows, tier.salePhases);
+  const phaseRange = sale.phase?.dateRange;
 
   return (
     <section id="pricing" className="py-20 md:py-28 bg-akasha-gray-4/30">
       <div className="section">
         <div className="text-center max-w-2xl mx-auto mb-14">
           <span className="eyebrow text-akasha-orange">
-            {tier.discountLabel} · Ends in{' '}
-            <SaleCountdown variant="long" fallback={<>{tier.saleEndShort}</>} />
+            {tier.discountLabel}
+            {phaseRange ? (
+              <> · {phaseRange}</>
+            ) : (
+              <> · Ends in <SaleCountdown variant="long" fallback={<>{tier.saleEndShort}</>} /></>
+            )}
           </span>
           <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 300 }}>
             Your Investment
