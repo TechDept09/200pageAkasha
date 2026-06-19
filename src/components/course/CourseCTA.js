@@ -44,6 +44,16 @@ export default function CourseCTA({ course }) {
           </p>
         ) : null}
 
+        {discountLabel ? (
+          <p
+            className="font-body uppercase tracking-[0.25em] mb-4 text-sm md:text-[15px]"
+            style={{ color: '#E7BC5D', fontFamily: 'Inter, sans-serif', fontWeight: 500 }}
+          >
+            {discountLabel}
+            {saleEndShort ? ` · Ends in ${saleEndShort}` : ''}
+          </p>
+        ) : null}
+
         {regularPrice ? (
           <div className="flex items-baseline justify-center gap-4 mb-8">
             {hasDiscount ? (
@@ -69,13 +79,9 @@ export default function CourseCTA({ course }) {
           Start Today
         </a>
 
-        {discountLabel || discountPercent ? (
-          <p className="text-[10px] font-body text-akasha-white/50 mt-5 tracking-[0.25em] uppercase">
-            {discountLabel || `${discountPercent}% off`}
-            {saleEndShort ? ` · Ends in ${saleEndShort}` : ''}
-            {' · Secure checkout via Wix'}
-          </p>
-        ) : null}
+        <p className="text-[10px] font-body text-akasha-white/50 mt-5 tracking-[0.25em] uppercase">
+          Secure checkout via Wix
+        </p>
       </div>
     </section>
   );
