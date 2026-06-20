@@ -7,14 +7,22 @@ import { getActiveWindow, isAllExpired, getActivePhase } from '@/lib/saleConfig'
 // hide their countdown / urgency UI during gaps between windows, and show the
 // fallback after the last window closes. Optional `phases` describe display
 // metadata (date range, countdown end) layered on top of the saleWindow.
+//
+// Server returns a neutral "not yet known" state so the initial HTML matches
+// across server and client (no hydration mismatch from Date.now() drift).
+// The real evaluation kicks in on the first client tick.
 export function useSaleStatus(windows = [], phases = []) {
-  const [now, setNow] = useState(() => new Date());
+  const [now, setNow] = useState(null);
 
   useEffect(() => {
     setNow(new Date());
     const id = setInterval(() => setNow(new Date()), 1000);
     return () => clearInterval(id);
   }, []);
+
+  if (now === null) {
+    return { isActive: false, isExpired: false, currentEnd: null, phase: null };
+  }
 
   const active = getActiveWindow(windows, now);
   const phase = getActivePhase(phases, now);

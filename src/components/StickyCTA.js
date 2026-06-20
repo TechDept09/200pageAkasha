@@ -18,12 +18,18 @@ export default function StickyCTA() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // When the bar is off-screen we mark it inert so the screen reader and
+  // keyboard skip it. inert is a real attribute that disables focus + clicks
+  // without resorting to aria-hidden on a container with focusable children
+  // (the combination Lighthouse rightly flags).
+  const hiddenProps = show ? {} : { inert: '', tabIndex: -1 };
+
   return (
     <div
       className={`lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-akasha-white border-t border-akasha-gray-4 shadow-[0_-4px_14px_rgba(0,0,0,0.06)] transition-transform duration-300 ${
         show ? 'translate-y-0' : 'translate-y-full'
       }`}
-      aria-hidden={!show}
+      {...hiddenProps}
     >
       <div className="px-4 py-3 flex items-center gap-3 max-w-3xl mx-auto">
         <div className="flex-1 leading-tight">
@@ -39,6 +45,7 @@ export default function StickyCTA() {
         </div>
         <a
           href="#pricing"
+          tabIndex={show ? 0 : -1}
           className="bg-akasha-orange text-white text-[12px] font-medium tracking-[0.12em] uppercase px-5 py-3 rounded-full hover:bg-akasha-orange-dark transition-colors whitespace-nowrap"
         >
           Enroll

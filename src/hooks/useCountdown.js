@@ -14,15 +14,19 @@ function compute(target) {
   return { days, hours, minutes, seconds, total, isExpired: false };
 }
 
+// Hydration-safe countdown: server renders a placeholder (isExpired: false,
+// hasMounted: false). Client computes the real values on mount, so the
+// initial HTML stays identical across server and client.
+const PLACEHOLDER = { days: 0, hours: 0, minutes: 0, seconds: 0, total: 0, isExpired: false, hasMounted: false };
+
 export function useCountdown(targetISO) {
-  const target = new Date(targetISO);
-  // Server render shows a stable snapshot, client takes over on mount.
-  const [state, setState] = useState(() => compute(target));
+  const [state, setState] = useState(PLACEHOLDER);
 
   useEffect(() => {
-    setState(compute(target));
+    const target = new Date(targetISO);
+    setState({ ...compute(target), hasMounted: true });
     const id = setInterval(() => {
-      const next = compute(target);
+      const next = { ...compute(target), hasMounted: true };
       setState(next);
       if (next.isExpired) clearInterval(id);
     }, 1000);
