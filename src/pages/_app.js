@@ -55,11 +55,6 @@ export default function App({ Component, pageProps }) {
         }
       `}</style>
 
-      {/* Meta Pixel stays on the main thread (afterInteractive). Partytown
-          was blocking the cross-origin fetch to connect.facebook.net which
-          showed up in the PSI Best Practices report. Pixel's TBT cost is
-          smaller than GA's, so we accept a small regression to keep
-          attribution rock-solid for the launch. */}
       <Script
         id="meta-pixel"
         strategy="afterInteractive"
@@ -79,10 +74,6 @@ export default function App({ Component, pageProps }) {
         }}
       />
 
-      {/* GA4 also back on the main thread for the launch window. Partytown
-          worked but Meta's Best Practices warning about deprecated APIs
-          (Shared Storage, Attribution Reporting) was uncomfortable to ship
-          a few hours before launch. Revisit Partytown post-launch. */}
       <Script
         id="ga-loader"
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}

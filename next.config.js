@@ -6,12 +6,6 @@ const nextConfig = {
       { protocol: 'https', hostname: 'static.wixstatic.com' },
     ],
   },
-  experimental: {
-    // Lets <Script strategy="worker"> offload third-party scripts (currently
-    // GA4) into a Partytown web worker, freeing the main thread.
-    nextScriptWorkers: true,
-  },
-
   // Security headers applied to every route. Lighthouse Best Practices
   // checks for these explicitly; absent ones drop the score. We pick
   // conservative values that don't break the Wix SDK, Meta Pixel, GTM,
