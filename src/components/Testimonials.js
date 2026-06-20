@@ -35,48 +35,30 @@ const secondaryBadges = [
   },
 ];
 
-// Photo hashes come from the matching student names on the live
-// 200hr-yoga-teacher-training-online page and homepage. We attach Wix's
-// square-crop transform so the browser pulls a centered 300x300 portrait
-// instead of the original landscape source.
-const PHOTO_CROP = '/v1/fill/w_300,h_300,al_c,q_85,enc_auto/portrait';
-
+// Verified portrait URLs supplied directly by Akasha. Each one already
+// carries the correct Wix crop/fill transform, so we pass them through
+// unmodified to keep the face properly centered.
 const quotes = [
   {
-    text: 'Literally the best month of my life! The journey of self-discovery was unbelievable!',
-    author: 'Charlotte Heminsley',
+    text: 'For me the course was not only inspiring, but transformative! I first got into yoga for the asana practice, but I soon realized that there was more to it. I have found so much meaning in the teachings of yoga and I am ready to apply them to my life. Moving forward, I know that I can trust in myself and in the universe. For the first time in my life, I feel connected.',
+    author: 'Arianne',
+    country: '',
+    photo:
+      'https://static.wixstatic.com/media/cd7168_9606fee6b4944df0bd317d69bda02b36~mv2.jpeg/v1/crop/x_150,y_577,w_932,h_936/fill/w_484,h_486,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Arianne-Testimonial%203.jpeg',
+  },
+  {
+    text: 'This course has inspired me more than I could have ever imagined! The training has not only given me the tools to make the transformation from yoga student to yoga teacher, but also the tools to connect with my heart, relax and be present, and it has shown me the joy & passion I have for teaching.',
+    author: 'Clarissa',
     country: 'United States',
-    photo: `https://static.wixstatic.com/media/cd7168_f9565c280e5e45d6ab281e26d2942d70~mv2.jpg${PHOTO_CROP}.jpg`,
+    photo:
+      'https://static.wixstatic.com/media/cd7168_58484436d3c24b8eb5b143ac0ff2f8ce~mv2.jpg/v1/fill/w_484,h_486,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Clarissa.jpg',
   },
   {
-    text: 'No words would give true justice to the experience with these guys!',
-    author: 'Kinga Kovacs',
-    country: 'United Kingdom',
-    photo: `https://static.wixstatic.com/media/cd7168_5daede02159240e58ad572c3845f434a~mv2.webp${PHOTO_CROP}.webp`,
-  },
-  {
-    text: 'The training has a beautiful structure and helps you to feel confident to start teaching right away.',
-    author: 'Tamara Cuypers',
-    country: 'Belgium',
-    photo: `https://static.wixstatic.com/media/cd7168_8e643b3e9b0a43f08bada7379569f4d1~mv2.webp${PHOTO_CROP}.webp`,
-  },
-  {
-    text: "It's amazing with how much love & authenticity you get prepared to be a Yoga Teacher, just AWESOME and not describable in words.",
-    author: 'Pierre Mayer',
-    country: 'Germany',
-    photo: `https://static.wixstatic.com/media/cd7168_bb542df59f024ad2baa8035ee4afb9b0~mv2.jpeg${PHOTO_CROP}.jpeg`,
-  },
-  {
-    text: 'This place showed me how to slow down, how to open up, and how to love myself with all around.',
-    author: 'Anna Kotaba',
-    country: 'Poland',
-    photo: `https://static.wixstatic.com/media/cd7168_e363df305b8e43ad8049e5a4bac074a6~mv2.jpg${PHOTO_CROP}.jpg`,
-  },
-  {
-    text: 'A fantastic experience. Connecting on a daily basis with instructors & participants from around the world was amazing.',
-    author: 'Sayla',
-    country: 'United Kingdom',
-    photo: `https://static.wixstatic.com/media/cd7168_2e292f449aa84742a22ff12072bdffc5~mv2.webp${PHOTO_CROP}.webp`,
+    text: 'I came to deepen my own practice, with no intention to teach, but I am leaving with a passion to share this energy and the lessons I have learned here. The support from the teachers and students made me abandon my fears that I held on to and gain the confidence in all areas of my life that I was lacking. I really feel like a new person ready to shine and to share what I have learned!',
+    author: 'Coral',
+    country: 'United States',
+    photo:
+      'https://static.wixstatic.com/media/cd7168_26c02626fba14355aab1913375832c55~mv2.jpeg/v1/crop/x_341,y_12,w_486,h_488/fill/w_484,h_486,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/coral%20.jpeg',
   },
 ];
 
@@ -180,7 +162,7 @@ export default function Testimonials() {
               </blockquote>
               <figcaption>
                 <p className="text-[11px] font-body text-akasha-gray-1 uppercase tracking-[0.25em]">
-                  {q.author}, {q.country}
+                  {q.author}{q.country ? `, ${q.country}` : ''}
                 </p>
               </figcaption>
             </figure>
