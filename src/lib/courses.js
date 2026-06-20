@@ -149,6 +149,14 @@ export const courses = [
       'Lifetime access to recorded content and course materials',
       'Global supportive community with buddy system',
     ],
+    testimonials: [
+      { name: 'Nici Kellerman', country: 'Australia', quote: 'From the bottom of my heart, I really like to encourage anyone to join the Akasha family. The change of my life is amazing.', photo: 'https://static.wixstatic.com/media/cd7168_a7573a60139a43de8c5e8ba03c884642~mv2.jpg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_a7573a60139a43de8c5e8ba03c884642~mv2.jpg' },
+      { name: 'Christine Stoove', country: 'Australia', quote: 'Akasha is the best family. There’s unconditional love, support, nurture & challenge. The training has been so inspiring.', photo: 'https://static.wixstatic.com/media/cd7168_dfdb09b4c0174017922fafefb52663d6~mv2.jpg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_dfdb09b4c0174017922fafefb52663d6~mv2.jpg' },
+      { name: 'Lauren Torralba', country: 'United States', quote: 'Akasha instructors are incredible people & mentors, inspiring, nurturing, and so authentic.', photo: 'https://static.wixstatic.com/media/cd7168_45e9dca9bd744e778d2b63d53f975753~mv2.jpg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_45e9dca9bd744e778d2b63d53f975753~mv2.jpg' },
+      { name: 'Lana Mazahreh', country: 'Jordan', quote: 'The true essence of family is what they bring to their teaching: passion, wisdom, love & support, mixed with knowledge.', photo: 'https://static.wixstatic.com/media/cd7168_53bb36d5314e4d22b684dcc286bbc0c1~mv2.jpg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_53bb36d5314e4d22b684dcc286bbc0c1~mv2.jpg' },
+      { name: 'Tamu', country: 'Singapore', quote: 'Akasha is a big family. You can really feel the connection as the teachers create an amazing environment.', photo: 'https://static.wixstatic.com/media/cd7168_3b7ab2300c3f47ae82fc72ccfadce406~mv2.jpg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_3b7ab2300c3f47ae82fc72ccfadce406~mv2.jpg' },
+      { name: 'Anu Anj', country: 'United Kingdom', quote: 'This program is the essence of what Yoga should be. Akasha is Home for me.', photo: 'https://static.wixstatic.com/media/cd7168_8317be1e896f4637bd4e3044a985cce1~mv2.jpg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_8317be1e896f4637bd4e3044a985cce1~mv2.jpg' },
+    ],
   },
 
   {
@@ -207,6 +215,14 @@ export const courses = [
       'Flexible self-paced learning across time zones',
       'Expert support team assistance throughout your journey',
     ],
+    testimonials: [
+      { name: 'Anna Kotaba', country: 'Poland', quote: 'They show you how to slow down, how to open up, and how to love yourself.', photo: 'https://static.wixstatic.com/media/cd7168_51660736472d4c7fb23211b0196e64ff~mv2.jpg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_51660736472d4c7fb23211b0196e64ff~mv2.jpg' },
+      { name: 'Luis', country: 'New Zealand', quote: 'The lessons were very genuine, they came from a real heartfelt place.', photo: 'https://static.wixstatic.com/media/cd7168_dd087d310c5f4b8f8c5e4fcdc09bbe77~mv2.jpg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_dd087d310c5f4b8f8c5e4fcdc09bbe77~mv2.jpg' },
+      { name: 'Anu Anj', country: 'United Kingdom', quote: 'I love Akasha Yoga Academy. Their programs are extremely comprehensive & truly get to the essence of Yoga.', photo: 'https://static.wixstatic.com/media/cd7168_292a4b76d8274db68a31d7ad3271f7fc~mv2.jpg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_292a4b76d8274db68a31d7ad3271f7fc~mv2.jpg' },
+      { name: 'Sharon', country: 'Australia', quote: 'The Akasha family is so welcoming & supportive. They create such a safe space.', photo: 'https://static.wixstatic.com/media/cd7168_31d48015a7b948b2ae07b77dc52084b8~mv2.jpg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_31d48015a7b948b2ae07b77dc52084b8~mv2.jpg' },
+      { name: 'Valerie', country: 'Curaçao', quote: 'To find teachers with so much depth, passion & dedication is quite unique.', photo: 'https://static.wixstatic.com/media/cd7168_122c4af0ec6c46b9a7c1e70bbea1ac66~mv2.jpg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_122c4af0ec6c46b9a7c1e70bbea1ac66~mv2.jpg' },
+      { name: 'Nici Kellerman', country: 'Australia', quote: 'They have taught me how to step into my own authority, how to teach what I love, and how to keep growing.', photo: 'https://static.wixstatic.com/media/cd7168_5356899bd52b4ccd9bf2603949fac275~mv2.jpg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_5356899bd52b4ccd9bf2603949fac275~mv2.jpg' },
+    ],
   },
 
   {
@@ -262,6 +278,11 @@ export const courses = [
       'Seven bonuses worth US$289: 8 Limbs of Yoga Workshop (US$99), Yoga Teacher Resume template (US$40), Meditation Collection 24 audios (US$35), Liability Waiver template (US$30), Cover Letter template (US$30), New Client Intake Form (US$25), 2026 Yearly Planner (US$25)',
       'Professional instruction from E-RYT-500 senior teachers',
       'Comprehensive support for teaching real-world yoga classes',
+    ],
+    testimonials: [
+      { name: 'Lauren', country: 'New Zealand', quote: 'Akasha instructors are incredible people, mentors, inspiring, nurturing and so authentic.', photo: 'https://static.wixstatic.com/media/cd7168_e10d14bef0b343c8b0b13b390c381c65~mv2.jpeg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_e10d14bef0b343c8b0b13b390c381c65~mv2.jpeg' },
+      { name: 'Nici', country: 'United States', quote: 'From the bottom of my heart, I really encourage anyone thinking about joining the Akasha family to do it. It’s amazing.', photo: 'https://static.wixstatic.com/media/cd7168_d31feeaf75024ae48a9f68d364b59c2d~mv2.jpeg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_d31feeaf75024ae48a9f68d364b59c2d~mv2.jpeg' },
+      { name: 'Sandra', country: 'New Zealand', quote: 'Akasha teachers live and breathe these teachings themselves. They come from a heart perspective, not just the mind.', photo: 'https://static.wixstatic.com/media/cd7168_d01bfdb4047f4179bdcf9f505f3af7a7~mv2.jpeg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_d01bfdb4047f4179bdcf9f505f3af7a7~mv2.jpeg' },
     ],
   },
 
@@ -322,6 +343,11 @@ export const courses = [
       'Lucid Dreaming playlist for supplemental practice',
       'One full-day silent meditation retreat experience',
       'Ongoing community support and access to live calls',
+    ],
+    testimonials: [
+      { name: 'Yasmin', country: '', quote: 'This meditation course transformed me into a better person, deepening my life.', photo: 'https://static.wixstatic.com/media/cd7168_61d0e60bb0de4aedaf0dabb8338cb2ab~mv2.jpg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_61d0e60bb0de4aedaf0dabb8338cb2ab~mv2.jpg' },
+      { name: 'Sunshine', country: '', quote: 'Unlike other online yoga courses, they infuse meditation throughout, even in the asana practice.', photo: 'https://static.wixstatic.com/media/cd7168_099123c5707749cf849a142b8e6dc60b~mv2.jpg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_099123c5707749cf849a142b8e6dc60b~mv2.jpg' },
+      { name: 'Teia', country: '', quote: 'Their heart-centered teaching stands out. They listen and speak from the heart.', photo: 'https://static.wixstatic.com/media/cd7168_a3250efc3194417181ec7436dbc5771d~mv2.jpg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_a3250efc3194417181ec7436dbc5771d~mv2.jpg' },
     ],
   },
 
@@ -442,6 +468,13 @@ export const courses = [
       'Welcome Basket with gifts and goodies',
       '8 Limbs of Yoga Workshop bonus (US$99 value)',
       '3-Month Payment Plan available: US$399 per month (US$1,197 total)',
+    ],
+    testimonials: [
+      { name: 'Tina', country: 'France', quote: 'I am utmost grateful, a life-saving experience. Thank you from the heart.', photo: 'https://static.wixstatic.com/media/cd7168_759b0a70c0de42c395c4cfd4762d814f~mv2.jpeg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_759b0a70c0de42c395c4cfd4762d814f~mv2.jpeg' },
+      { name: 'Sarah', country: 'United Kingdom', quote: 'I genuinely had a life-changing experience.', photo: 'https://static.wixstatic.com/media/cd7168_d47345741d464fce9df9734298fbc9a2~mv2.jpg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_d47345741d464fce9df9734298fbc9a2~mv2.jpg' },
+      { name: 'Helen', country: 'Australia', quote: 'Akasha Yoga Academy created the right environment with each element they curated.', photo: 'https://static.wixstatic.com/media/cd7168_061d9a6d4723472d80246eb325ecf5a8~mv2.jpg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_061d9a6d4723472d80246eb325ecf5a8~mv2.jpg' },
+      { name: 'Marie Celine', country: 'Switzerland', quote: 'Arriving at the Ashram near the Ganga River was a sacred experience.', photo: 'https://static.wixstatic.com/media/cd7168_2bd04e1e439d49fdb28faab64fc0f28b~mv2.jpg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_2bd04e1e439d49fdb28faab64fc0f28b~mv2.jpg' },
+      { name: 'Karen', country: 'United States', quote: 'Coming to India with fellow yogis has been an amazing journey of learning.', photo: 'https://static.wixstatic.com/media/cd7168_7758fc4ba91a48bd8130404f3f52f9d7~mv2.jpg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_7758fc4ba91a48bd8130404f3f52f9d7~mv2.jpg' },
     ],
     notIncluded: [
       'Flights to and from India',

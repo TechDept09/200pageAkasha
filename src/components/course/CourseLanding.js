@@ -7,6 +7,7 @@ import CourseTeachers from './CourseTeachers';
 import CourseCTA from './CourseCTA';
 import CourseStickyCTA from './CourseStickyCTA';
 import CourseEnrollForm from './CourseEnrollForm';
+import CourseTestimonials from './CourseTestimonials';
 import WhyAkasha from '../WhyAkasha';
 import TrustStrip from '../TrustStrip';
 import Footer from '../Footer';
@@ -298,6 +299,8 @@ export default function CourseLanding({ course }) {
             </div>
           </div>
         </section>
+
+        <CourseTestimonials testimonials={course.testimonials} />
 
         <CourseCTA course={course} />
 
