@@ -35,30 +35,23 @@ const secondaryBadges = [
   },
 ];
 
+// Real Akasha alumni with quote + profile photo sourced directly from
+// akashayogaacademy.com (200H, 80H Yin, and 300H pages). Photos use Wix
+// CDN. Order keeps the original cadence from the page.
 const quotes = [
-  { text: 'Literally the best month of my life! The journey of self-discovery was unbelievable!', author: 'Charlotte Heminsley', country: 'United States' },
-  { text: 'No words would give true justice to the experience with these guys!', author: 'Kinga Kovacs', country: 'United Kingdom' },
-  { text: 'The training has a beautiful structure and helps you feel confident to start teaching right away.', author: 'Tamara Cuypers', country: 'Belgium' },
-  { text: 'The Teacher Training is amazing, with how much love & authenticity you get prepared to be a Yoga Teacher.', author: 'Pierre Mayer', country: 'Germany' },
-  { text: 'This place showed me how to slow down, how to open up, and how to love myself with all around.', author: 'Anna Kotaba', country: 'Poland' },
-  { text: 'A fantastic experience. Connecting daily with instructors & participants worldwide was amazing.', author: 'Sayla', country: 'United Kingdom' },
+  { text: 'They show you how to slow down, how to open up, and how to love yourself.', author: 'Anna Kotaba', country: 'Poland',
+    photo: 'https://static.wixstatic.com/media/cd7168_51660736472d4c7fb23211b0196e64ff~mv2.jpg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_51660736472d4c7fb23211b0196e64ff~mv2.jpg' },
+  { text: 'It is amazing with how much love & authenticity you get prepared to be a Yoga Teacher.', author: 'Pierre Mayer', country: 'Germany',
+    photo: 'https://static.wixstatic.com/media/cd7168_6e281e03fb4e47d98065a824f79802c4~mv2.jpg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_6e281e03fb4e47d98065a824f79802c4~mv2.jpg' },
+  { text: 'A fantastic experience. Connecting on a daily basis with instructors and participants from around the world was amazing.', author: 'Sayla', country: 'United Kingdom',
+    photo: 'https://static.wixstatic.com/media/cd7168_9919c2c185274916837e14bc5bd02ac3~mv2.jpeg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_9919c2c185274916837e14bc5bd02ac3~mv2.jpeg' },
+  { text: 'From the bottom of my heart, I really like to encourage anyone to join the Akasha family. The change of my life is amazing.', author: 'Nici Kellerman', country: 'Australia',
+    photo: 'https://static.wixstatic.com/media/cd7168_a7573a60139a43de8c5e8ba03c884642~mv2.jpg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_a7573a60139a43de8c5e8ba03c884642~mv2.jpg' },
+  { text: 'Akasha instructors are incredible people & mentors, inspiring, nurturing, and so authentic.', author: 'Lauren Torralba', country: 'United States',
+    photo: 'https://static.wixstatic.com/media/cd7168_45e9dca9bd744e778d2b63d53f975753~mv2.jpg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_45e9dca9bd744e778d2b63d53f975753~mv2.jpg' },
+  { text: 'It is amazing how they share their resources & knowledge with you to find your own calling.', author: 'Mohit Jain', country: 'India/Dubai',
+    photo: 'https://static.wixstatic.com/media/cd7168_fca73a6208a14626ad04d55ceb4157cb~mv2.jpg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_fca73a6208a14626ad04d55ceb4157cb~mv2.jpg' },
 ];
-
-const AVATAR_BG_PALETTE = ['#F4E4C1', '#EBD9C0', '#E9D4B8', '#F0DCB6', '#EAD3B1', '#F2E1BF'];
-
-function initials(name) {
-  return name
-    .split(' ')
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((w) => w[0])
-    .join('')
-    .toUpperCase();
-}
-
-function avatarBg(i) {
-  return AVATAR_BG_PALETTE[i % AVATAR_BG_PALETTE.length];
-}
 
 function Stars({ value }) {
   const full = Math.floor(value);
@@ -138,17 +131,14 @@ export default function Testimonials() {
               key={i}
               className="bg-akasha-white border border-akasha-gray-4 rounded-sm p-7 text-center flex flex-col"
             >
-              <div
-                className="w-14 h-14 mx-auto mb-4 rounded-full flex items-center justify-center font-heading text-akasha-black"
-                style={{
-                  fontWeight: 400,
-                  fontSize: '1.1rem',
-                  backgroundColor: avatarBg(i),
-                  color: '#3a2a1a',
-                }}
-                aria-hidden="true"
-              >
-                {initials(q.author)}
+              <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden bg-akasha-gray-4">
+                <img
+                  src={q.photo}
+                  alt={q.author}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
               <span className="text-akasha-gold text-xs tracking-[0.2em] block mb-4">
                 ★★★★★
