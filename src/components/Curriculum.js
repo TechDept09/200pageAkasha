@@ -100,12 +100,6 @@ export default function Curriculum() {
             <PartCard key={i} p={p} i={i} />
           ))}
         </div>
-
-        <div className="text-center mt-14">
-          <p className="text-[11px] font-body uppercase tracking-[0.25em] text-akasha-gray-1">
-            Yoga Alliance Registered School · ID 87485 · Since 2012 · RYT-200 Eligible
-          </p>
-        </div>
       </div>
     </section>
   );

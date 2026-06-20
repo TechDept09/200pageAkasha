@@ -33,7 +33,7 @@
     @apply inline-flex items-center justify-center
            bg-akasha-orange text-akasha-white
            px-10 py-4 rounded-full
-           text-[12px] font-medium uppercase tracking-[0.2em]
+           text-[14px] md:text-[15px] font-semibold uppercase tracking-[0.12em]
            hover:bg-akasha-orange-dark hover:shadow-lg
            transition-all duration-300;
     font-family: 'Inter', sans-serif;
@@ -42,8 +42,8 @@
   .btn-action {
     @apply inline-flex items-center justify-center
            bg-akasha-orange text-akasha-white
-           px-10 py-4 rounded-full
-           text-[12px] font-medium uppercase tracking-[0.2em]
+           px-10 py-5 rounded-full
+           text-[15px] md:text-[16px] font-semibold uppercase tracking-[0.12em]
            hover:bg-akasha-orange-dark hover:shadow-lg
            transition-all duration-300;
     font-family: 'Inter', sans-serif;
