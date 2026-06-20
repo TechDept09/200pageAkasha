@@ -23,9 +23,14 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
+      {/* Meta Pixel stays on the main thread (afterInteractive). Partytown
+          was blocking the cross-origin fetch to connect.facebook.net which
+          showed up in the PSI Best Practices report. Pixel's TBT cost is
+          smaller than GA's, so we accept a small regression to keep
+          attribution rock-solid for the launch. */}
       <Script
         id="meta-pixel"
-        strategy="worker"
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
             !function(f,b,e,v,n,t,s)
