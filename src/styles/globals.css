@@ -37,7 +37,7 @@
            text-[14px] md:text-[15px] font-semibold uppercase tracking-[0.12em]
            hover:bg-akasha-orange-dark hover:shadow-lg
            transition-all duration-300;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-inter), 'Inter', sans-serif;
   }
 
   .btn-action {
@@ -47,7 +47,7 @@
            text-[15px] md:text-[16px] font-semibold uppercase tracking-[0.12em]
            hover:bg-akasha-orange-dark hover:shadow-lg
            transition-all duration-300;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-inter), 'Inter', sans-serif;
   }
 
   .btn-ghost {
@@ -58,7 +58,7 @@
            border border-akasha-black
            hover:bg-akasha-black hover:text-akasha-white
            transition-all duration-300;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-inter), 'Inter', sans-serif;
   }
 
   .section {
@@ -67,11 +67,11 @@
 
   .eyebrow {
     @apply block text-[11px] tracking-[0.3em] uppercase font-medium text-akasha-gray-1 mb-4;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-inter), 'Inter', sans-serif;
   }
 
   .script {
-    font-family: 'Allura', Georgia, serif;
+    font-family: var(--font-allura), 'Allura', Georgia, serif;
     color: #ED5829;
     font-weight: 400;
     line-height: 1.1;
