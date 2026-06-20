@@ -35,30 +35,50 @@ const secondaryBadges = [
   },
 ];
 
+// Photo hashes come from the matching student names on the live
+// 200hr-yoga-teacher-training-online page and homepage. We attach Wix's
+// square-crop transform so the browser pulls a centered 300x300 portrait
+// instead of the original landscape source.
+const PHOTO_CROP = '/v1/fill/w_300,h_300,al_c,q_85,enc_auto/portrait';
+
 const quotes = [
-  { text: 'Literally the best month of my life! The journey of self-discovery was unbelievable!', author: 'Charlotte Heminsley', country: 'United States' },
-  { text: 'No words would give true justice to the experience with these guys!', author: 'Kinga Kovacs', country: 'United Kingdom' },
-  { text: 'The training has a beautiful structure and helps you to feel confident to start teaching right away.', author: 'Tamara Cuypers', country: 'Belgium' },
-  { text: "It's amazing with how much love & authenticity you get prepared to be a Yoga Teacher, just AWESOME and not describable in words.", author: 'Pierre Mayer', country: 'Germany' },
-  { text: 'This place showed me how to slow down, how to open up, and how to love myself with all around.', author: 'Anna Kotaba', country: 'Poland' },
-  { text: 'A fantastic experience. Connecting on a daily basis with instructors & participants from around the world was amazing.', author: 'Sayla', country: 'United Kingdom' },
+  {
+    text: 'Literally the best month of my life! The journey of self-discovery was unbelievable!',
+    author: 'Charlotte Heminsley',
+    country: 'United States',
+    photo: `https://static.wixstatic.com/media/cd7168_f9565c280e5e45d6ab281e26d2942d70~mv2.jpg${PHOTO_CROP}.jpg`,
+  },
+  {
+    text: 'No words would give true justice to the experience with these guys!',
+    author: 'Kinga Kovacs',
+    country: 'United Kingdom',
+    photo: `https://static.wixstatic.com/media/cd7168_5daede02159240e58ad572c3845f434a~mv2.webp${PHOTO_CROP}.webp`,
+  },
+  {
+    text: 'The training has a beautiful structure and helps you to feel confident to start teaching right away.',
+    author: 'Tamara Cuypers',
+    country: 'Belgium',
+    photo: `https://static.wixstatic.com/media/cd7168_8e643b3e9b0a43f08bada7379569f4d1~mv2.webp${PHOTO_CROP}.webp`,
+  },
+  {
+    text: "It's amazing with how much love & authenticity you get prepared to be a Yoga Teacher, just AWESOME and not describable in words.",
+    author: 'Pierre Mayer',
+    country: 'Germany',
+    photo: `https://static.wixstatic.com/media/cd7168_bb542df59f024ad2baa8035ee4afb9b0~mv2.jpeg${PHOTO_CROP}.jpeg`,
+  },
+  {
+    text: 'This place showed me how to slow down, how to open up, and how to love myself with all around.',
+    author: 'Anna Kotaba',
+    country: 'Poland',
+    photo: `https://static.wixstatic.com/media/cd7168_e363df305b8e43ad8049e5a4bac074a6~mv2.jpg${PHOTO_CROP}.jpg`,
+  },
+  {
+    text: 'A fantastic experience. Connecting on a daily basis with instructors & participants from around the world was amazing.',
+    author: 'Sayla',
+    country: 'United Kingdom',
+    photo: `https://static.wixstatic.com/media/cd7168_2e292f449aa84742a22ff12072bdffc5~mv2.webp${PHOTO_CROP}.webp`,
+  },
 ];
-
-const AVATAR_BG_PALETTE = ['#F4E4C1', '#EBD9C0', '#E9D4B8', '#F0DCB6', '#EAD3B1', '#F2E1BF'];
-
-function initials(name) {
-  return name
-    .split(' ')
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((w) => w[0])
-    .join('')
-    .toUpperCase();
-}
-
-function avatarBg(i) {
-  return AVATAR_BG_PALETTE[i % AVATAR_BG_PALETTE.length];
-}
 
 function Stars({ value }) {
   const full = Math.floor(value);
@@ -138,17 +158,16 @@ export default function Testimonials() {
               key={i}
               className="bg-akasha-white border border-akasha-gray-4 rounded-sm p-7 text-center flex flex-col"
             >
-              <div
-                className="w-14 h-14 mx-auto mb-4 rounded-full flex items-center justify-center font-heading text-akasha-black"
-                style={{
-                  fontWeight: 400,
-                  fontSize: '1.1rem',
-                  backgroundColor: avatarBg(i),
-                  color: '#3a2a1a',
-                }}
-                aria-hidden="true"
-              >
-                {initials(q.author)}
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden bg-akasha-gray-4">
+                <img
+                  src={q.photo}
+                  alt={q.author}
+                  width="64"
+                  height="64"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
               <span className="text-akasha-gold text-xs tracking-[0.2em] block mb-4">
                 ★★★★★
