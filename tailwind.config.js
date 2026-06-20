@@ -37,12 +37,12 @@ module.exports = {
         },
       },
       fontFamily: {
-        // Heading: Jost = best free clone of Futura LT W01 Light
-        // Body:    Inter = closest free analog to Proxima N W01 Reg
-        // Script: kept available but used very sparingly in modern layout
-        heading: ['Jost', '"Futura LT W01 Light"', 'Futura', 'sans-serif'],
-        body:    ['Inter', '"Proxima Nova"', 'Helvetica Neue', 'sans-serif'],
-        script:  ['Allura', 'Georgia', 'serif'],
+        // Fonts are now self-hosted via next/font (see src/pages/_app.js).
+        // The CSS variables below resolve to the locally-served font with
+        // a system fallback if it hasn't downloaded yet.
+        heading: ['var(--font-jost)', '"Futura LT W01 Light"', 'Futura', 'sans-serif'],
+        body:    ['var(--font-inter)', '"Proxima Nova"', 'Helvetica Neue', 'sans-serif'],
+        script:  ['var(--font-allura)', 'Georgia', 'serif'],
       },
       letterSpacing: {
         wide: '0.05em',

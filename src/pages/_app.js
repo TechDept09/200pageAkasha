@@ -2,10 +2,34 @@ import '@/styles/globals.css';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
+import { Inter, Jost, Allura } from 'next/font/google';
 import { pageview } from '@/lib/pixel';
 
 const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || '1349360126835158';
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-L76KTFBEBG';
+
+// Self-hosted Google Fonts via next/font: the font files ship from the
+// same origin as the rest of the bundle, so there's no render-blocking
+// request to fonts.googleapis.com and the cross-origin DNS hop is gone.
+// The CSS variables get plugged into tailwind.config.js fontFamily.
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+const jost = Jost({
+  subsets: ['latin'],
+  weight: ['300', '400', '500'],
+  variable: '--font-jost',
+  display: 'swap',
+});
+const allura = Allura({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-allura',
+  display: 'swap',
+});
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -23,6 +47,14 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
+      <style jsx global>{`
+        html {
+          --font-inter: ${inter.style.fontFamily};
+          --font-jost: ${jost.style.fontFamily};
+          --font-allura: ${allura.style.fontFamily};
+        }
+      `}</style>
+
       {/* Meta Pixel stays on the main thread (afterInteractive). Partytown
           was blocking the cross-origin fetch to connect.facebook.net which
           showed up in the PSI Best Practices report. Pixel's TBT cost is
@@ -47,14 +79,18 @@ export default function App({ Component, pageProps }) {
         }}
       />
 
+      {/* GA4 also back on the main thread for the launch window. Partytown
+          worked but Meta's Best Practices warning about deprecated APIs
+          (Shared Storage, Attribution Reporting) was uncomfortable to ship
+          a few hours before launch. Revisit Partytown post-launch. */}
       <Script
         id="ga-loader"
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-        strategy="worker"
+        strategy="afterInteractive"
       />
       <Script
         id="ga-init"
-        strategy="worker"
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
             window.dataLayer = window.dataLayer || [];
@@ -65,7 +101,9 @@ export default function App({ Component, pageProps }) {
         }}
       />
 
-      <Component {...pageProps} />
+      <div className={`${inter.variable} ${jost.variable} ${allura.variable}`}>
+        <Component {...pageProps} />
+      </div>
     </>
   );
 }
