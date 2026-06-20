@@ -35,22 +35,47 @@ const secondaryBadges = [
   },
 ];
 
-// Real Akasha alumni with quote + profile photo sourced directly from
-// akashayogaacademy.com (200H, 80H Yin, and 300H pages). Photos use Wix
-// CDN. Order keeps the original cadence from the page.
+// Quote + photo pairs sourced directly from akashayogaacademy.com
+// (200hr-yoga-teacher-training-online and homepage). Each photo URL is
+// the one Akasha publishes alongside the same student's name on the
+// public Wix page, so we don't risk misattribution.
 const quotes = [
-  { text: 'They show you how to slow down, how to open up, and how to love yourself.', author: 'Anna Kotaba', country: 'Poland',
-    photo: 'https://static.wixstatic.com/media/cd7168_51660736472d4c7fb23211b0196e64ff~mv2.jpg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_51660736472d4c7fb23211b0196e64ff~mv2.jpg' },
-  { text: 'It is amazing with how much love & authenticity you get prepared to be a Yoga Teacher.', author: 'Pierre Mayer', country: 'Germany',
-    photo: 'https://static.wixstatic.com/media/cd7168_6e281e03fb4e47d98065a824f79802c4~mv2.jpg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_6e281e03fb4e47d98065a824f79802c4~mv2.jpg' },
-  { text: 'A fantastic experience. Connecting on a daily basis with instructors and participants from around the world was amazing.', author: 'Sayla', country: 'United Kingdom',
-    photo: 'https://static.wixstatic.com/media/cd7168_9919c2c185274916837e14bc5bd02ac3~mv2.jpeg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_9919c2c185274916837e14bc5bd02ac3~mv2.jpeg' },
-  { text: 'From the bottom of my heart, I really like to encourage anyone to join the Akasha family. The change of my life is amazing.', author: 'Nici Kellerman', country: 'Australia',
-    photo: 'https://static.wixstatic.com/media/cd7168_a7573a60139a43de8c5e8ba03c884642~mv2.jpg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_a7573a60139a43de8c5e8ba03c884642~mv2.jpg' },
-  { text: 'Akasha instructors are incredible people & mentors, inspiring, nurturing, and so authentic.', author: 'Lauren Torralba', country: 'United States',
-    photo: 'https://static.wixstatic.com/media/cd7168_45e9dca9bd744e778d2b63d53f975753~mv2.jpg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_45e9dca9bd744e778d2b63d53f975753~mv2.jpg' },
-  { text: 'It is amazing how they share their resources & knowledge with you to find your own calling.', author: 'Mohit Jain', country: 'India/Dubai',
-    photo: 'https://static.wixstatic.com/media/cd7168_fca73a6208a14626ad04d55ceb4157cb~mv2.jpg/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_fca73a6208a14626ad04d55ceb4157cb~mv2.jpg' },
+  {
+    text: 'Literally the best month of my life! The journey of self-discovery was unbelievable!',
+    author: 'Charlotte Heminsley',
+    country: 'United States',
+    photo: 'https://static.wixstatic.com/media/cd7168_f9565c280e5e45d6ab281e26d2942d70~mv2.jpg',
+  },
+  {
+    text: 'No words would give true justice to the experience with these guys!',
+    author: 'Kinga Kovacs',
+    country: 'United Kingdom',
+    photo: 'https://static.wixstatic.com/media/cd7168_5daede02159240e58ad572c3845f434a~mv2.webp',
+  },
+  {
+    text: 'The training has a beautiful structure and helps you to feel confident to start teaching right away.',
+    author: 'Tamara Cuypers',
+    country: 'Belgium',
+    photo: 'https://static.wixstatic.com/media/cd7168_8e643b3e9b0a43f08bada7379569f4d1~mv2.webp',
+  },
+  {
+    text: "It's amazing with how much love & authenticity you get prepared to be a Yoga Teacher, just AWESOME and not describable in words.",
+    author: 'Pierre Mayer',
+    country: 'Germany',
+    photo: 'https://static.wixstatic.com/media/cd7168_bb542df59f024ad2baa8035ee4afb9b0~mv2.jpeg',
+  },
+  {
+    text: 'This place showed me how to slow down, how to open up, and how to love myself with all around.',
+    author: 'Anna Kotaba',
+    country: 'Poland',
+    photo: 'https://static.wixstatic.com/media/cd7168_e363df305b8e43ad8049e5a4bac074a6~mv2.jpg',
+  },
+  {
+    text: 'A fantastic experience. Connecting on a daily basis with instructors & participants from around the world was amazing.',
+    author: 'Sayla',
+    country: 'United Kingdom',
+    photo: 'https://static.wixstatic.com/media/cd7168_2e292f449aa84742a22ff12072bdffc5~mv2.webp',
+  },
 ];
 
 function Stars({ value }) {
@@ -131,7 +156,7 @@ export default function Testimonials() {
               key={i}
               className="bg-akasha-white border border-akasha-gray-4 rounded-sm p-7 text-center flex flex-col"
             >
-              <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden bg-akasha-gray-4">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden bg-akasha-gray-4">
                 <img
                   src={q.photo}
                   alt={q.author}
