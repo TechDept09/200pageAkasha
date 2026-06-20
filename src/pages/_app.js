@@ -25,7 +25,7 @@ export default function App({ Component, pageProps }) {
     <>
       <Script
         id="meta-pixel"
-        strategy="afterInteractive"
+        strategy="worker"
         dangerouslySetInnerHTML={{
           __html: `
             !function(f,b,e,v,n,t,s)
@@ -45,11 +45,11 @@ export default function App({ Component, pageProps }) {
       <Script
         id="ga-loader"
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-        strategy="afterInteractive"
+        strategy="worker"
       />
       <Script
         id="ga-init"
-        strategy="afterInteractive"
+        strategy="worker"
         dangerouslySetInnerHTML={{
           __html: `
             window.dataLayer = window.dataLayer || [];

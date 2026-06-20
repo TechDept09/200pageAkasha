@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@builder.io/partytown": "^0.10.3",
     "@wix/ecom": "^1.0.2107",
     "@wix/redirects": "^1.0.116",
     "@wix/sdk": "^1.21.12",
