@@ -10,7 +10,6 @@ function price(n, currency) {
 export default function CourseCTA({ course }) {
   const {
     title,
-    tagline,
     discountPercent,
     discountLabel,
     saleEndShort,
@@ -39,7 +38,7 @@ export default function CourseCTA({ course }) {
           {title}
         </h2>
 
-        {tagline ? (
+        {discountLabel ? (
           <p
             className="script mb-10"
             style={{
@@ -47,17 +46,7 @@ export default function CourseCTA({ course }) {
               color: '#E7BC5D',
             }}
           >
-            {tagline}
-          </p>
-        ) : null}
-
-        {discountLabel ? (
-          <p
-            className="font-body uppercase tracking-[0.25em] mb-4 text-sm md:text-[15px]"
-            style={{ color: '#E7BC5D', fontFamily: 'Inter, sans-serif', fontWeight: 500 }}
-          >
             {discountLabel}
-            {dateText ? ` · ${dateText}` : ''}
           </p>
         ) : null}
 
