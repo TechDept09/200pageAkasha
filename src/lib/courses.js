@@ -150,9 +150,24 @@ export const courses = [
       'Global supportive community with buddy system',
     ],
     testimonials: [
-      { name: 'Nici Kellerman', country: 'Australia', quote: "From the bottom of my heart, I really like to encourage anyone to join the Akasha family. The change of my life is amazing. I'm a completely different person.", photo: 'https://static.wixstatic.com/media/cd7168_3b0c1b5bd81947e6bd4533939ec8c125~mv2.jpg/v1/fill/w_300,h_300,al_c,q_85,enc_avif,quality_auto/portrait.jpg' },
-      { name: 'Sanusi', country: 'Singapore', quote: "Akasha doesn't just train people to become yoga instructors. They train you to be a Yoga Master.", photo: 'https://static.wixstatic.com/media/cd7168_13e272d4b6184beb9f7bfef53aa8e421~mv2.jpg/v1/fill/w_300,h_300,al_c,q_85,enc_avif,quality_auto/portrait.jpg' },
-      { name: 'Christine Stoove', country: 'Australia', quote: "Akasha is the best family. There's unconditional love, support, nurture & challenge. The training has been so inspiring and I would recommend it to anyone.", photo: 'https://static.wixstatic.com/media/cd7168_dfdb09b4c0174017922fafefb52663d6~mv2.jpg/v1/fill/w_300,h_300,al_c,q_85,enc_avif,quality_auto/portrait.jpg' },
+      {
+        name: 'Martina',
+        country: 'Germany',
+        quote: 'I really appreciate everything they taught here. We went into every bio-physical detail, from the cardiovascular system, hormones, anatomy, and everything else involved. All was explained in a way that helps a lot to understand why we do certain things in Yoga & the effect we will have on us.',
+        photo: 'https://static.wixstatic.com/media/cd7168_154ac401d63d41149a925b22b5866eb0~mv2.jpeg/v1/crop/x_0,y_236,w_720,h_724/fill/w_508,h_502,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Martina.jpeg',
+      },
+      {
+        name: 'Nici',
+        country: 'Australia',
+        quote: "The main thing that I love about the Akasha family is that it's all about connecting to the heart. There is also a lot of academic coverage, it's everything, the heart and the knowledge supplied. It's amazing the difference between myself before and now after the 300-Hour TTC.",
+        photo: 'https://static.wixstatic.com/media/cd7168_d31feeaf75024ae48a9f68d364b59c2d~mv2.jpeg/v1/crop/x_0,y_58,w_540,h_543/fill/w_500,h_502,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Nici.jpeg',
+      },
+      {
+        name: 'Sandra',
+        country: 'New Zealand',
+        quote: "Akasha teachers, they're very knowledgeable, they live and breathe these teachings themselves. Therefore they're not coming from a mind perspective, they're coming from a heart perspective. Those principles that you can use in your daily life.",
+        photo: 'https://static.wixstatic.com/media/cd7168_d01bfdb4047f4179bdcf9f505f3af7a7~mv2.jpeg/v1/fill/w_500,h_502,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Sandra.jpeg',
+      },
     ],
   },
 
