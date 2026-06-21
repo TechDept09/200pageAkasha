@@ -11,9 +11,9 @@ const SITE_URL = 'https://www.akashayogaacademy.com';
 const OG_IMAGE =
   'https://static.wixstatic.com/media/c15a18_5d357dab7cec43c4879c3f12090081ce~mv2.jpg/v1/fill/w_1200,h_630,al_c,q_85,enc_avif,quality_auto/Certified-Yoga-Instructor---Bali---Akash.jpg';
 const PAGE_TITLE =
-  'International Yoga Day Storewide Discount, Akasha Yoga Academy';
+  'Big Yoga Day Discounts, Akasha Yoga Academy';
 const PAGE_DESC =
-  'Storewide discount for all courses and on-site programs for International Yoga Day. Explore our 200-Hour, 300-Hour, 80-Hour modules, workshops, and retreats.';
+  'Big Yoga Day discounts on all our courses and on-site programs for International Yoga Day. Explore our 200-Hour, 300-Hour, 80-Hour modules, workshops, and retreats.';
 
 export default function HubHome() {
   const advanced = getCoursesByCategory(CATEGORIES.ADVANCED);
