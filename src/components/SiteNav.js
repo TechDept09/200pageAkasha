@@ -36,11 +36,17 @@ export default function SiteNav() {
     >
       <UrgencyBanner />
       <div className="max-w-6xl mx-auto px-5 md:px-8 h-20 flex items-center justify-between">
-        <a href="#" className="flex items-center" aria-label="Akasha Yoga Academy">
+        <a href="/" className="flex items-center" aria-label="Akasha Yoga Academy, all courses">
           <img src={LOGO_BLACK} alt="Akasha Yoga Academy" className="h-14 w-auto" />
         </a>
 
         <nav className="hidden lg:flex items-center gap-10">
+          <a
+            href="/"
+            className="text-[12px] font-body uppercase tracking-[0.2em] text-akasha-black/70 hover:text-akasha-orange transition-colors"
+          >
+            All Courses
+          </a>
           {links.map((l) => (
             <a
               key={l.href}
@@ -78,6 +84,13 @@ export default function SiteNav() {
         }`}
       >
         <nav className="px-5 py-6 flex flex-col gap-5">
+          <a
+            href="/"
+            onClick={() => setOpen(false)}
+            className="text-sm font-body uppercase tracking-[0.2em] text-akasha-black/80 hover:text-akasha-orange"
+          >
+            All Courses
+          </a>
           {links.map((l) => (
             <a
               key={l.href}
