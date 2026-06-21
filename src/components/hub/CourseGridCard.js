@@ -20,9 +20,20 @@ export default function CourseGridCard({ course }) {
 
   return (
     <article className="flex flex-col bg-akasha-white border border-akasha-gray-4 rounded-sm overflow-hidden hover:shadow-md transition-shadow duration-300">
-      <div className="relative aspect-[4/3] bg-akasha-gray-4">
+      <a
+        href={href}
+        {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+        className="relative aspect-[4/3] bg-akasha-gray-4 block group"
+        aria-label={`Learn more about ${title}`}
+      >
         {image ? (
-          <img src={image} alt={title} className="w-full h-full object-cover" loading="lazy" decoding="async" />
+          <img
+            src={image}
+            alt={title}
+            className="w-full h-full object-cover group-hover:opacity-95 transition-opacity"
+            loading="lazy"
+            decoding="async"
+          />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-akasha-gray-2 font-body text-[11px]">
             Image coming soon
@@ -31,13 +42,13 @@ export default function CourseGridCard({ course }) {
 
         {discountPercent ? (
           <span
-            className="absolute top-2.5 left-2.5 bg-akasha-orange text-akasha-white text-[10px] font-medium tracking-[0.15em] uppercase px-2.5 py-1 rounded-sm"
+            className="absolute top-2.5 left-2.5 bg-akasha-orange text-akasha-white text-[12px] md:text-[13px] font-semibold tracking-[0.15em] uppercase px-3 py-1.5 rounded-sm shadow-md"
             style={{ fontFamily: 'Inter, sans-serif' }}
           >
             {discountPercent}% off
           </span>
         ) : null}
-      </div>
+      </a>
 
       <div className="flex flex-col flex-1 p-5">
         <h3

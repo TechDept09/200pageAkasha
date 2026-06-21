@@ -13,12 +13,12 @@ export default function CategorySection({
       <div className="section">
         <div className="text-center max-w-2xl mx-auto mb-10">
           {eyebrow ? <span className="eyebrow">{eyebrow}</span> : null}
-          <h2 style={{ fontSize: 'clamp(1.7rem, 3.4vw, 2.4rem)', fontWeight: 300 }}>
+          <h2 style={{ fontSize: 'clamp(2.3rem, 4.8vw, 3.4rem)', fontWeight: 300 }}>
             {heading}
           </h2>
           <span className="gold-rule" />
           {intro ? (
-            <p className="font-body text-akasha-gray-1 mt-4 text-sm md:text-base leading-relaxed">
+            <p className="font-body text-akasha-gray-1 mt-4 text-base md:text-lg leading-relaxed">
               {intro}
             </p>
           ) : null}

@@ -8,7 +8,7 @@ export default function HubHero() {
 
         <h1
           className="mb-3"
-          style={{ fontSize: 'clamp(2.1rem, 4.6vw, 3.4rem)', fontWeight: 300 }}
+          style={{ fontSize: 'clamp(2.6rem, 6vw, 4.2rem)', fontWeight: 300 }}
         >
           Storewide Discount
           <br />
@@ -17,12 +17,12 @@ export default function HubHero() {
 
         <p
           className="script mb-5"
-          style={{ fontSize: 'clamp(1.6rem, 3vw, 2.2rem)' }}
+          style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)' }}
         >
           Celebrate Yoga, Anywhere
         </p>
 
-        <p className="font-body text-akasha-gray-1 max-w-lg mx-auto text-sm md:text-base leading-relaxed">
+        <p className="font-body text-akasha-gray-1 max-w-lg mx-auto text-base md:text-lg leading-relaxed">
           Our trainings, workshops, and retreats. Choose the path that fits you,
           continue your journey with us.
         </p>

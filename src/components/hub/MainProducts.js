@@ -21,9 +21,20 @@ function ProductCard({ course, accent, badge }) {
     <article
       className={`flex flex-col bg-akasha-white border ${accent.border} rounded-sm overflow-hidden hover:shadow-xl transition-shadow duration-300 h-full`}
     >
-      <div className="relative aspect-[16/10] bg-akasha-gray-4">
+      <a
+        href={href}
+        {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+        className="relative aspect-[16/10] bg-akasha-gray-4 block group"
+        aria-label={`Explore ${title}`}
+      >
         {image ? (
-          <img src={image} alt={title} className="w-full h-full object-cover" loading="lazy" decoding="async" />
+          <img
+            src={image}
+            alt={title}
+            className="w-full h-full object-cover group-hover:opacity-95 transition-opacity"
+            loading="lazy"
+            decoding="async"
+          />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-akasha-gray-2 font-body text-xs">
             Image coming soon
@@ -31,9 +42,9 @@ function ProductCard({ course, accent, badge }) {
         )}
 
         {discountPercent ? (
-          <div className={`absolute top-3 left-3 ${accent.badgeBg} ${accent.badgeText} px-3 py-1.5 rounded-sm`}>
+          <div className={`absolute top-3 left-3 ${accent.badgeBg} ${accent.badgeText} px-4 py-2 rounded-sm shadow-md`}>
             <span
-              className="text-[10px] font-medium uppercase tracking-[0.18em]"
+              className="text-[13px] md:text-[14px] font-semibold uppercase tracking-[0.18em]"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
               {discountPercent}% off
@@ -43,13 +54,13 @@ function ProductCard({ course, accent, badge }) {
 
         {badge ? (
           <span
-            className={`absolute top-3 right-3 bg-akasha-white ${accent.text} text-[10px] font-medium tracking-[0.18em] uppercase px-3 py-1.5 rounded-sm border ${accent.border}`}
+            className={`absolute top-3 right-3 bg-akasha-white ${accent.text} text-[11px] md:text-[12px] font-semibold tracking-[0.18em] uppercase px-3.5 py-1.5 rounded-sm border ${accent.border}`}
             style={{ fontFamily: 'Inter, sans-serif' }}
           >
             {badge}
           </span>
         ) : null}
-      </div>
+      </a>
 
       <div className="flex flex-col flex-1 p-6 md:p-7">
         <h3
@@ -108,11 +119,11 @@ export default function MainProducts() {
       <div className="section">
         <div className="text-center max-w-2xl mx-auto mb-10">
           <span className="eyebrow">200-Hour Yoga Teacher Training</span>
-          <h2 style={{ fontSize: 'clamp(1.8rem, 3.6vw, 2.6rem)', fontWeight: 300 }}>
+          <h2 style={{ fontSize: 'clamp(2.4rem, 5vw, 3.6rem)', fontWeight: 300 }}>
             Choose Your Path
           </h2>
           <span className="gold-rule" />
-          <p className="font-body text-akasha-gray-1 mt-5 text-sm md:text-base leading-relaxed">
+          <p className="font-body text-akasha-gray-1 mt-5 text-base md:text-lg leading-relaxed">
             Self-guided or mentored, both lead to Yoga Alliance certification.
             Pick the format that fits your season of life.
           </p>
