@@ -39,18 +39,25 @@ export const TIERS = {
     discountPercent: 75,
     discountLabel: '75% Yoga Day Discount',
     saleWindows: [
-      // Essential EVERGREEN-2: 17-30 Jun. Ads keep running until 2 Jul,
-      // but the actual discount stops at end-of-day 30 Jun.
-      { start: '2026-06-17T00:00:00+08:00', end: '2026-06-30T23:59:59+08:00' },
+      // Essential follows the storewide campaign cadence: phase 1 sits on
+      // the calendar 21-24 Jun, then phase 2 reopens 28-30 Jun. Splitting
+      // into two real windows makes the countdown clock target the visible
+      // phase deadline (e.g. June 24) instead of the final June 30 stop.
+      { start: '2026-06-21T00:00:00+08:00', end: '2026-06-24T23:59:59+08:00' },
+      { start: '2026-06-28T00:00:00+08:00', end: '2026-06-30T23:59:59+08:00' },
     ],
-    saleEndShort: 'June 30',
+    salePhases: [
+      { start: '2026-06-21T00:00:00+08:00', end: '2026-06-24T23:59:59+08:00', dateRange: '21-24 June' },
+      { start: '2026-06-28T00:00:00+08:00', end: '2026-06-30T23:59:59+08:00', dateRange: '28-30 June' },
+    ],
+    saleEndShort: 'June 24',
     ctaShort: 'Enroll US$290',
     ctaLong: 'Enroll Now, US$290',
     selfPaceWindow: '6-month self-paced',
     metaTitle:
       '200-Hour Online Yoga Teacher Training, Akasha Yoga Academy | Your Path to Purpose & Joy',
     metaDescription:
-      "Become Yoga Alliance certified with Akasha Yoga Academy's 200-Hour Online YTT. 75% Yoga Day Discount, US$290 (was US$1190) until July 2. Live Zoom classes, 200+ Bali studio videos, 14-day money-back guarantee. 1,100+ graduates on 6 continents.",
+      "Become Yoga Alliance certified with Akasha Yoga Academy's 200-Hour Online YTT. 75% Yoga Day Discount, US$290 (was US$1190), 21-24 June. Live Zoom classes, 200+ Bali studio videos, 14-day money-back guarantee. 1,100+ graduates on 6 continents.",
     bullets: ESSENTIAL_BULLETS,
     accessNote: '6 months access to platform, self-paced.',
     heroImage:
