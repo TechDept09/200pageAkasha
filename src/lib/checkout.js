@@ -138,7 +138,11 @@ export async function startWixCheckout({ utm, utmNote, buyer, productId, meta })
     ecomCheckout: { checkoutId: newCheckout._id },
     callbacks: {
       postFlowUrl: window.location.origin,
-      thankYouPageUrl: `${window.location.origin}/?status=thank-you`,
+      // Dedicated /thank-you route loads a thin page so the Pixel script
+      // is ready before our Purchase fire logic kicks in. Wira's marketing
+      // test on /?status=thank-you saw the event dropped (likely race
+      // with the heavier hub home page), this fixes it.
+      thankYouPageUrl: `${window.location.origin}/thank-you`,
     },
   });
 

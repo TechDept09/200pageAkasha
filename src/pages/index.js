@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
 import Head from 'next/head';
 import HubNav from '@/components/hub/HubNav';
 import HubHero from '@/components/hub/HubHero';
@@ -8,11 +6,6 @@ import CategorySection from '@/components/hub/CategorySection';
 import TrustStrip from '@/components/TrustStrip';
 import Footer from '@/components/Footer';
 import { CATEGORIES, getCoursesByCategory } from '@/lib/courses';
-import { trackPurchase } from '@/lib/pixel';
-
-// Two-hour ceiling on stale Purchase data sitting in localStorage,
-// in case the buyer abandoned mid-checkout and only returned much later.
-const PENDING_TTL_MS = 2 * 60 * 60 * 1000;
 
 const SITE_URL = 'https://www.akashayogaacademy.com';
 const OG_IMAGE =
@@ -23,61 +16,8 @@ const PAGE_DESC =
   'Big Yoga Day discounts on all our courses and on-site programs for International Yoga Day. Explore our 200-Hour, 300-Hour, 80-Hour modules, workshops, and retreats.';
 
 export default function HubHome() {
-  const router = useRouter();
   const advanced = getCoursesByCategory(CATEGORIES.ADVANCED);
   const other = getCoursesByCategory(CATEGORIES.OTHER);
-
-  // Wix Headless redirects post-payment to /?status=thank-you (set in
-  // src/lib/checkout.js). The query string carries no order detail, so
-  // we read the data the form staged in localStorage right before the
-  // redirect and fire a browser-side Purchase event. The same event_id
-  // is also forwarded to Wix as a customField, so when CAPI fires from
-  // /api/meta-purchase Meta dedupes the two hits into one conversion.
-  useEffect(() => {
-    if (!router.isReady) return;
-    if (typeof window === 'undefined') return;
-    if (router.query?.status !== 'thank-you') return;
-    // Refresh-proof guard.
-    if (sessionStorage.getItem('purchase_fired')) return;
-
-    let courseName, courseId, price, eventId, timestamp;
-    try {
-      courseName = localStorage.getItem('pendingPurchase_courseName') || 'Course Enrollment';
-      courseId = localStorage.getItem('pendingPurchase_courseId') || 'unknown_course';
-      price = localStorage.getItem('pendingPurchase_price') || '0';
-      eventId = localStorage.getItem('pendingPurchase_eventId') || null;
-      timestamp = localStorage.getItem('pendingPurchase_timestamp');
-    } catch (_) {
-      return;
-    }
-
-    if (timestamp && Date.now() - parseInt(timestamp, 10) > PENDING_TTL_MS) {
-      return;
-    }
-
-    let attempts = 0;
-    const interval = setInterval(() => {
-      attempts += 1;
-      if (typeof window.fbq !== 'undefined') {
-        clearInterval(interval);
-        trackPurchase(courseName, price, courseId, eventId);
-        sessionStorage.setItem('purchase_fired', 'true');
-        try {
-          localStorage.removeItem('pendingPurchase_courseName');
-          localStorage.removeItem('pendingPurchase_courseId');
-          localStorage.removeItem('pendingPurchase_price');
-          localStorage.removeItem('pendingPurchase_eventId');
-          localStorage.removeItem('pendingPurchase_timestamp');
-        } catch (_) {}
-        router.replace('/', undefined, { shallow: true });
-      } else if (attempts > 25) {
-        // Give up after ~5s if the Pixel script never loaded.
-        clearInterval(interval);
-      }
-    }, 200);
-
-    return () => clearInterval(interval);
-  }, [router.isReady, router.query?.status, router]);
 
   return (
     <>
