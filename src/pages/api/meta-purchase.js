@@ -23,7 +23,10 @@ async function readRawBody(req) {
 }
 
 function verifyWixSignature(rawBody, headerSig) {
-  if (!WIX_SECRET) return true; // signing not configured, skip
+  // TODO(security): flip to fail-closed once WIX_WEBHOOK_SECRET is wired
+  // up in Wix Automations + Vercel. Currently fail-open so that unsigned
+  // Wix webhooks still reach Meta. Tracking issue: see Mas Chris.
+  if (!WIX_SECRET) return true;
   if (!headerSig) return false;
   const expected = crypto
     .createHmac('sha256', WIX_SECRET)
@@ -34,6 +37,26 @@ function verifyWixSignature(rawBody, headerSig) {
   const b = Buffer.from(String(headerSig), 'utf8');
   if (a.length !== b.length) return false;
   return crypto.timingSafeEqual(a, b);
+}
+
+// Strip PII before writing arbitrary Wix payloads to the Vercel logs.
+function redactPII(obj) {
+  const seen = new WeakSet();
+  const SENSITIVE = /^(email|phone|firstName|lastName|fullName|address|ssn|cardNumber|cvv|password)$/i;
+  const walk = (v) => {
+    if (v && typeof v === 'object') {
+      if (seen.has(v)) return '[circular]';
+      seen.add(v);
+      if (Array.isArray(v)) return v.map(walk);
+      const out = {};
+      for (const [k, val] of Object.entries(v)) {
+        out[k] = SENSITIVE.test(k) ? '[redacted]' : walk(val);
+      }
+      return out;
+    }
+    return v;
+  };
+  return walk(obj);
 }
 
 function hash(value) {
@@ -178,10 +201,11 @@ export default async function handler(req, res) {
     const fbp = readCustomField(order, 'fbp');
 
     if (!orderId) {
-      // Print enough context to debug the payload shape next round.
-      console.error('[CAPI] Missing orderId. Raw body (first 1000 chars):');
-      console.error(JSON.stringify(body).slice(0, 1000));
-      return res.status(400).json({ error: 'Missing orderId', hint: 'Check Vercel logs for raw payload shape' });
+      // Print enough context to debug the payload shape next round, with
+      // PII fields redacted so emails/phones don't end up in Vercel logs.
+      console.error('[CAPI] Missing orderId. Raw body (PII redacted, first 1000 chars):');
+      console.error(JSON.stringify(redactPII(body)).slice(0, 1000));
+      return res.status(400).json({ error: 'Missing orderId' });
     }
 
     const payload = {
@@ -227,7 +251,7 @@ export default async function handler(req, res) {
     const result = await r.json();
     if (!r.ok) {
       console.error('[CAPI] Meta error:', JSON.stringify(result));
-      return res.status(502).json({ error: result });
+      return res.status(502).json({ error: 'Upstream rejected event' });
     }
 
     console.log('[CAPI] Purchase sent:', {
@@ -237,6 +261,6 @@ export default async function handler(req, res) {
     return res.status(200).json({ success: true, eventId: String(orderId) });
   } catch (err) {
     console.error('[CAPI] Error:', err.message);
-    return res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: 'Internal error' });
   }
 }

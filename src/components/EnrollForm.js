@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { startWixCheckout, getProductId } from '@/lib/checkout';
 import { useUtmParams, formatUtmNote } from '@/hooks/useUtmParams';
 import { useTier } from '@/lib/TierContext';
@@ -28,6 +28,20 @@ export default function EnrollForm() {
   const activePlan = plans.find((p) => p.slug === selectedPlan) || plans[0];
 
   const skipBuyerForm = !!activePlan?.wixProductPageUrl;
+
+  // BB: if the buyer hits Back from the Wix checkout, the browser restores
+  // this page from bfcache with loading still true and the submit button
+  // permanently disabled. Reset on pageshow when persisted is true.
+  useEffect(() => {
+    const onShow = (e) => {
+      if (e.persisted) {
+        setLoading(false);
+        setError(null);
+      }
+    };
+    window.addEventListener('pageshow', onShow);
+    return () => window.removeEventListener('pageshow', onShow);
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
