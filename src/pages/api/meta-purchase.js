@@ -23,18 +23,32 @@ async function readRawBody(req) {
 }
 
 function verifyWixSignature(rawBody, headerSig) {
-  // TODO(security): flip to fail-closed once WIX_WEBHOOK_SECRET is wired
-  // up in Wix Automations + Vercel. Currently fail-open so that unsigned
-  // Wix webhooks still reach Meta. Tracking issue: see Mas Chris.
+  // HMAC signature path. Wix's Automations "Send HTTP request" action
+  // does not actually expose HMAC signing in the UI today, so this branch
+  // is only here for future-proofing in case Wix adds the feature.
   if (!WIX_SECRET) return true;
   if (!headerSig) return false;
   const expected = crypto
     .createHmac('sha256', WIX_SECRET)
     .update(rawBody)
     .digest('hex');
-  // Constant-time compare to dodge timing attacks
   const a = Buffer.from(expected, 'utf8');
   const b = Buffer.from(String(headerSig), 'utf8');
+  if (a.length !== b.length) return false;
+  return crypto.timingSafeEqual(a, b);
+}
+
+// Workaround for Wix Automations not supporting custom headers or HMAC:
+// the webhook URL carries a shared-secret query param (?wh=...) that we
+// compare against WIX_WEBHOOK_SECRET in constant time. The check is
+// additive on top of the HMAC path, so once Wix is sending the right
+// query param we no longer need to fall through to fail-open.
+function verifySharedSecret(req) {
+  if (!WIX_SECRET) return false;
+  const supplied = req.query?.wh;
+  if (typeof supplied !== 'string' || !supplied) return false;
+  const a = Buffer.from(supplied, 'utf8');
+  const b = Buffer.from(WIX_SECRET, 'utf8');
   if (a.length !== b.length) return false;
   return crypto.timingSafeEqual(a, b);
 }
@@ -159,9 +173,20 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Could not read body' });
   }
 
+  // Two-mode auth, backward-compatible:
+  //   1. HMAC signature header (future-proofing, Wix doesn't support yet)
+  //   2. Shared-secret query param ?wh=<token> (the workable path today)
+  // If neither secret is configured server-side, we fail-open. Once both
+  // sides are configured (env var + Wix URL carries the param), flip the
+  // last fallback to a hard reject.
   const sigHeader = req.headers['x-wix-webhook-signature'] || req.headers['x-signature'];
-  if (!verifyWixSignature(raw, sigHeader)) {
-    return res.status(401).json({ error: 'Invalid signature' });
+  const sharedOk = verifySharedSecret(req);
+  const hmacOk = sigHeader ? verifyWixSignature(raw, sigHeader) : false;
+  if (!sharedOk && !hmacOk) {
+    if (WIX_SECRET) {
+      return res.status(401).json({ error: 'Invalid signature' });
+    }
+    // Secret unset, fail-open until Wix Automation is wired up.
   }
 
   let body;
