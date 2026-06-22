@@ -112,12 +112,6 @@ export default function ThankYou() {
               <li className="flex items-start gap-3">
                 <span className="text-akasha-green flex-none mt-0.5">✓</span>
                 <span>
-                  Our team will reach out within 24 hours to introduce you to your training schedule.
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-akasha-green flex-none mt-0.5">✓</span>
-                <span>
                   Didn&rsquo;t receive an email? Check your spam folder or contact us at{' '}
                   <a href="mailto:support@akashayogaacademy.com" className="text-akasha-orange underline">
                     support@akashayogaacademy.com
