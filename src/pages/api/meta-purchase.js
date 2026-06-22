@@ -224,6 +224,12 @@ export default async function handler(req, res) {
       '';
     const fbc = readCustomField(order, 'fbc');
     const fbp = readCustomField(order, 'fbp');
+    // The browser fires Purchase with a generated UUID; we relay the
+    // same ID via the Wix customField so Meta sees one conversion, not
+    // two. If the field is missing (e.g. Payment Plan path that doesn't
+    // go through Headless SDK), fall back to orderId so server-only
+    // events still get a stable, deduplicable identifier.
+    const metaEventId = readCustomField(order, 'metaEventId');
 
     if (!orderId) {
       // Print enough context to debug the payload shape next round, with
@@ -238,9 +244,9 @@ export default async function handler(req, res) {
         {
           event_name: 'Purchase',
           event_time: Math.floor(Date.now() / 1000),
-          // Dedup with the client-side InitiateCheckout fired earlier; Meta uses
-          // event_id to collapse browser + server hits for the same order.
-          event_id: String(orderId),
+          // Same event_id as the browser Purchase fired on the thank-you
+          // page when available, so Meta dedupes browser + server hits.
+          event_id: String(metaEventId || orderId),
           action_source: 'website',
           user_data: {
             em: hash(buyerEmail),

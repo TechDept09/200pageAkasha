@@ -69,6 +69,11 @@ export async function startWixCheckout({ utm, utmNote, buyer, productId, meta })
   if (meta?.fbp) customFields.push({ title: 'fbp', value: meta.fbp });
   if (meta?.courseSlug) customFields.push({ title: 'courseSlug', value: meta.courseSlug });
   if (meta?.planSlug) customFields.push({ title: 'planSlug', value: meta.planSlug });
+  // Shared Meta event_id for dedupe between the browser Purchase event
+  // (fired on /?status=thank-you) and the CAPI Purchase event (fired by
+  // /api/meta-purchase from the Wix Order Paid webhook). Same ID on both
+  // sources means Meta counts the conversion once.
+  if (meta?.eventId) customFields.push({ title: 'metaEventId', value: meta.eventId });
 
   const checkoutInfo = {
     customFields,

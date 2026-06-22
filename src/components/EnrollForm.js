@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { startWixCheckout, getProductId } from '@/lib/checkout';
 import { useUtmParams, formatUtmNote } from '@/hooks/useUtmParams';
 import { useTier } from '@/lib/TierContext';
-import { trackLead, trackInitiateCheckout } from '@/lib/pixel';
+import { trackLead, trackInitiateCheckout, newEventId } from '@/lib/pixel';
 import { getMetaCookies } from '@/lib/fbCookies';
 
 function price(n, currency) {
@@ -69,6 +69,25 @@ export default function EnrollForm() {
 
       const { fbc, fbp } = getMetaCookies();
 
+      // Pre-stage browser Purchase event data. The thank-you redirect
+      // from Wix lands on /?status=thank-you with no query context, so
+      // index.js needs to read these values from localStorage to fire
+      // Purchase. eventId is shared with the CAPI side via Wix
+      // customField so Meta dedupes both hits.
+      const eventId = newEventId();
+      const courseLabel = tier.title || tier.slug;
+      const contentId = `${tier.slug}|${selectedPlan}`;
+      try {
+        localStorage.setItem('pendingPurchase_courseName', courseLabel);
+        localStorage.setItem('pendingPurchase_courseId', contentId);
+        localStorage.setItem('pendingPurchase_price', String(activePlan?.price || 0));
+        localStorage.setItem('pendingPurchase_eventId', eventId);
+        localStorage.setItem('pendingPurchase_timestamp', Date.now().toString());
+      } catch (_) {
+        // Private mode or quota: continue without browser-side Purchase,
+        // CAPI still tracks the order via the Wix Order Paid webhook.
+      }
+
       // Subscription/Payment-Plan variants are dropped by the Wix headless
       // SDK, so the plan declares a wixProductPageUrl and we redirect the
       // buyer to the native Wix product page. UTM + fb cookies travel as
@@ -88,7 +107,7 @@ export default function EnrollForm() {
         utm,
         utmNote: formatUtmNote(utm),
         productId,
-        meta: { fbc, fbp, courseSlug: tier.slug, planSlug: selectedPlan },
+        meta: { fbc, fbp, courseSlug: tier.slug, planSlug: selectedPlan, eventId },
         buyer: {
           firstName: form.firstName.trim(),
           lastName: form.lastName.trim(),

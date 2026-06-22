@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { startWixCheckout, getProductId } from '@/lib/checkout';
 import { useUtmParams, formatUtmNote } from '@/hooks/useUtmParams';
-import { trackLead, trackInitiateCheckout } from '@/lib/pixel';
+import { trackLead, trackInitiateCheckout, newEventId } from '@/lib/pixel';
 import { getMetaCookies } from '@/lib/fbCookies';
 
 function price(n, currency) {
@@ -63,6 +63,21 @@ export default function CourseEnrollForm({ course }) {
 
       const { fbc, fbp } = getMetaCookies();
 
+      // Pre-stage Purchase data so the thank-you handler in index.js can
+      // fire a browser-side Purchase with the same eventId we forward
+      // to Wix below. Meta dedupes browser + CAPI hits by event_id.
+      const eventId = newEventId();
+      const contentId = `${courseSlug}|${selectedPlan}`;
+      try {
+        localStorage.setItem('pendingPurchase_courseName', course.title || courseSlug);
+        localStorage.setItem('pendingPurchase_courseId', contentId);
+        localStorage.setItem('pendingPurchase_price', String(activePlan?.price || 0));
+        localStorage.setItem('pendingPurchase_eventId', eventId);
+        localStorage.setItem('pendingPurchase_timestamp', Date.now().toString());
+      } catch (_) {
+        // Private mode or quota: CAPI still tracks via Wix Order webhook.
+      }
+
       // Subscription/Payment-Plan variants are dropped by the Wix headless
       // SDK, so the plan declares a wixProductPageUrl and we redirect the
       // buyer to the native Wix product page instead. UTM + fb cookies are
@@ -82,7 +97,7 @@ export default function CourseEnrollForm({ course }) {
         utm,
         utmNote: formatUtmNote(utm),
         productId,
-        meta: { fbc, fbp, courseSlug, planSlug: selectedPlan },
+        meta: { fbc, fbp, courseSlug, planSlug: selectedPlan, eventId },
         buyer: {
           firstName: form.firstName.trim(),
           lastName: form.lastName.trim(),
