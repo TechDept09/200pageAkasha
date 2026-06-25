@@ -441,15 +441,13 @@ export const courses = [
     plans: [
       { slug: 'full', label: 'Pay in Full', regularPrice: 2999, price: 1199, currency: 'USD', note: 'One-time payment' },
       {
-        // Pilot: with the Digital PP shipping profile live in Wix, route
-        // Kundalini installment through the Headless SDK so attribution
-        // (fbc/fbp/eventId customFields) stays clean, the buyer never
-        // leaves course.akashayogaacademy.com, and the post-payment
-        // redirect lands on our /thank-you. Drop wixProductPageUrl to
-        // opt back into SDK flow. If Wix SDK still drops the PP variant
-        // from the cart, re-add the URL to fall back to the native page.
+        // Headless SDK pilot still hits "You can't place your order just
+        // yet" even with the Digital PP shipping profile live in Wix, so
+        // we route the buyer to the native Wix product page where the
+        // hosted checkout knows how to handle the PP variant directly.
         slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 399, currency: 'USD',
         note: 'per month, US$1,197 total',
+        wixProductPageUrl: 'https://www.akashayogaacademy.com/product-page/kundalini-awakening-retreat-payment-plan',
       },
     ],
     location: 'Rishikesh, India',
