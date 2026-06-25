@@ -39,15 +39,18 @@ export const TIERS = {
     discountPercent: 75,
     discountLabel: '75% Yoga Day Discount',
     saleWindows: [
-      // Essential follows the storewide campaign cadence: phase 1 sits on
-      // the calendar 21-24 Jun, then phase 2 reopens 28-30 Jun. Splitting
-      // into two real windows makes the countdown clock target the visible
-      // phase deadline (e.g. June 24) instead of the final June 30 stop.
+      // Sale windows control when the discount is actually live + drive
+      // the countdown clock target. Phase 1 ends Jun 24 23:59, phase 2
+      // reopens Jun 28 00:00 with a real gap on 25-27 Jun.
       { start: '2026-06-21T00:00:00+08:00', end: '2026-06-24T23:59:59+08:00' },
       { start: '2026-06-28T00:00:00+08:00', end: '2026-06-30T23:59:59+08:00' },
     ],
     salePhases: [
-      { start: '2026-06-21T00:00:00+08:00', end: '2026-06-24T23:59:59+08:00', dateRange: '21-24 June' },
+      // Phase labels are display-only and intentionally extend past the
+      // sale window end. Phase 1 dateRange ("21-24 June") keeps showing
+      // through 27 Jun for the "deadline missed" framing; phase 2 takes
+      // over at 28 Jun 00:00 WITA. Mirrors STOREWIDE_PHASES in courses.js.
+      { start: '2026-06-21T00:00:00+08:00', end: '2026-06-27T23:59:59+08:00', dateRange: '21-24 June' },
       { start: '2026-06-28T00:00:00+08:00', end: '2026-06-30T23:59:59+08:00', dateRange: '28-30 June' },
     ],
     saleEndShort: 'June 24',
