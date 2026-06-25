@@ -97,10 +97,8 @@ export async function startWixCheckout({ utm, utmNote, buyer, productId, meta })
   // Some Wix products are flagged as "physical" even when content is online
   // (e.g. payment-plan variants). Without a shipping destination the hosted
   // checkout page blocks the buyer with "You cannot place this order just yet."
-  // Pre-fill a placeholder shippingInfo using the buyer's name. The address
-  // uses Akasha's home country (Indonesia / Bali) so it lines up with the
-  // Digital PP shipping profile Wira set up in the Wix Dashboard, which
-  // refused the previous US dummy because the rule didn't cover that region.
+  // Pre-fill a placeholder shippingInfo using the buyer's name. Wix accepts
+  // it for digital products too, so it's safe to send unconditionally.
   checkoutInfo.shippingInfo = {
     shippingDestination: {
       contactDetails: {
@@ -108,9 +106,9 @@ export async function startWixCheckout({ utm, utmNote, buyer, productId, meta })
         lastName: buyer?.lastName || 'Delivery',
       },
       address: {
-        country: 'ID',
-        city: 'Singaraja',
-        postalCode: '81111',
+        country: 'US',
+        city: 'Online',
+        postalCode: '0',
         addressLine: 'Digital delivery, no shipping required',
       },
     },
