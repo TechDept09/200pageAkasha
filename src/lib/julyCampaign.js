@@ -10,7 +10,7 @@ export const JULY_PHASES = {
     end: '2026-07-17T23:59:59+08:00', // active through Jul 17 (live until 17th)
     label: 'Summer Self-Care Journey',
     publicName: 'Summer Self-Care',
-    dateRange: 'July 3-15',
+    dateRange: 'Offer until 15th of July',
     headline: 'Summer Self-Care Journey',
     sub: 'Save over 70% on 200hr Essential this July',
     scriptTagline: 'This summer, choose yourself',
@@ -36,7 +36,7 @@ export const JULY_PHASES = {
     end: '2026-08-02T23:59:59+08:00', // active through Aug 2 (live until 2 Aug)
     label: 'Summer Wellness Discount',
     publicName: 'Summer Wellness',
-    dateRange: 'July 16-31',
+    dateRange: 'Offer until 31st of July',
     headline: 'Summer Wellness Discount',
     sub: 'Final July offer: save over 70% on 200hr Essential',
     scriptTagline: 'Before July ends, reset your journey',
