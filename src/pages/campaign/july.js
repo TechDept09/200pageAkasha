@@ -238,65 +238,99 @@ function CampaignContent({ phase }) {
           </div>
         </section>
 
-        {/* Bundle value */}
+        {/* Side-by-side comparison */}
         <section className="py-14 md:py-20 bg-akasha-white">
-          <div className="section max-w-4xl">
-            <div className="text-center mb-10">
-              <span className="eyebrow">Bundle Transparency</span>
-              <h2 style={{ fontSize: 'clamp(1.7rem, 3.4vw, 2.4rem)', fontWeight: 300 }}>
-                Full Bundle Value &amp; Savings
+          <div className="section max-w-5xl">
+            <div className="text-center mb-12 max-w-2xl mx-auto">
+              <span className="eyebrow">Side by side</span>
+              <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 300 }}>
+                Both trainings, less than the 80hr Yin alone
               </h2>
               <span className="gold-rule" />
+              <p className="font-body text-akasha-gray-1 mt-5 text-base md:text-lg leading-relaxed">
+                One summer, two certifications. Here is what each path costs,
+                broken down so the value is obvious.
+              </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-6">
-              <div className="bg-akasha-gray-4/30 border border-akasha-gray-4 rounded-sm p-6">
-                <p className="text-[11px] font-body uppercase tracking-[0.2em] text-akasha-gray-1 mb-3">
-                  Normal Price
+              <div className="bg-akasha-gray-4/40 border border-akasha-gray-4 rounded-sm p-6 md:p-7 flex flex-col">
+                <p className="text-[11px] font-body uppercase tracking-[0.22em] text-akasha-gray-1 mb-4">
+                  Buying separately
                 </p>
-                <p className="font-body text-akasha-gray-1 leading-relaxed">
-                  200hr Essential <span className="float-right text-akasha-black">US$1,190</span>
-                </p>
-                <p className="font-body text-akasha-gray-1 leading-relaxed">
-                  80hr Yin Training <span className="float-right text-akasha-black">US$600</span>
-                </p>
-                <p className="font-body text-akasha-black mt-4 pt-3 border-t border-akasha-gray-4 font-medium">
-                  Total Value <span className="float-right">US$1,790</span>
+                <ul className="space-y-2 font-body text-akasha-gray-1 text-[15px] leading-relaxed flex-1">
+                  <li className="flex justify-between">
+                    <span>200hr Essential</span>
+                    <span className="text-akasha-black line-through">US$1,190</span>
+                  </li>
+                  <li className="flex justify-between">
+                    <span>80hr Yin Training</span>
+                    <span className="text-akasha-black line-through">US$600</span>
+                  </li>
+                </ul>
+                <p className="mt-5 pt-4 border-t border-akasha-gray-4 font-body text-akasha-black flex justify-between">
+                  <span className="text-[11px] uppercase tracking-[0.22em] text-akasha-gray-1 self-end">
+                    You would pay
+                  </span>
+                  <span className="font-heading text-akasha-black text-2xl" style={{ fontWeight: 400 }}>
+                    US$1,790
+                  </span>
                 </p>
               </div>
 
-              <div className="bg-akasha-gray-4/30 border border-akasha-orange/40 rounded-sm p-6">
-                <p className="text-[11px] font-body uppercase tracking-[0.2em] text-akasha-orange mb-3">
-                  Campaign Price
+              <div className="bg-akasha-orange/5 border-2 border-akasha-orange rounded-sm p-6 md:p-7 flex flex-col relative shadow-md">
+                <span
+                  className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center bg-akasha-orange text-akasha-white px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-[0.22em] whitespace-nowrap"
+                  style={{ fontFamily: 'Inter, sans-serif' }}
+                >
+                  Your bundle
+                </span>
+                <p className="text-[11px] font-body uppercase tracking-[0.22em] text-akasha-orange mb-4 mt-1">
+                  Summer Self-Care bundle
                 </p>
-                <p className="font-body text-akasha-gray-1 leading-relaxed">
-                  200hr Essential <span className="float-right text-akasha-black">US${bundle.essential}</span>
-                </p>
-                <p className="font-body text-akasha-gray-1 leading-relaxed">
-                  80hr Yin Training <span className="float-right text-akasha-black">US${bundle.yin}</span>
-                </p>
-                <p className="font-body text-akasha-orange mt-4 pt-3 border-t border-akasha-gray-4 font-medium">
-                  Bundle Price <span className="float-right">US${bundle.total}</span>
+                <ul className="space-y-2 font-body text-akasha-gray-1 text-[15px] leading-relaxed flex-1">
+                  <li className="flex justify-between">
+                    <span>200hr Essential</span>
+                    <span className="text-akasha-black">US${bundle.essential}</span>
+                  </li>
+                  <li className="flex justify-between">
+                    <span>80hr Yin Training</span>
+                    <span className="text-akasha-black">US${bundle.yin}</span>
+                  </li>
+                </ul>
+                <p className="mt-5 pt-4 border-t border-akasha-orange/30 font-body flex justify-between">
+                  <span className="text-[11px] uppercase tracking-[0.22em] text-akasha-orange self-end">
+                    You pay
+                  </span>
+                  <span className="font-heading text-akasha-orange text-3xl" style={{ fontWeight: 400 }}>
+                    US${bundle.total}
+                  </span>
                 </p>
                 {showWellnessNote ? (
-                  <p className="text-[11px] font-body text-akasha-orange mt-2 leading-snug">
-                    With {phase.couponCode}: bundle drops to US${bundle.popUpTotal}.
+                  <p className="text-[11px] font-body text-akasha-orange/90 mt-3 leading-snug">
+                    Apply {phase.couponCode} at checkout and the bundle drops
+                    to US${bundle.popUpTotal}.
                   </p>
                 ) : null}
               </div>
 
-              <div className="bg-akasha-white border border-akasha-orange/40 rounded-sm p-6 text-center flex flex-col justify-center">
-                <p className="text-[11px] font-body uppercase tracking-[0.2em] text-akasha-orange mb-3">
-                  Total Savings
+              <div className="bg-akasha-black text-akasha-white rounded-sm p-6 md:p-7 flex flex-col justify-center text-center">
+                <p className="text-[11px] font-body uppercase tracking-[0.25em] text-akasha-gold mb-3">
+                  You keep
                 </p>
                 <p
-                  className="font-heading text-akasha-orange text-4xl md:text-5xl"
+                  className="font-heading text-akasha-white text-4xl md:text-5xl mb-2"
                   style={{ fontWeight: 400 }}
                 >
                   US${bundle.savings}
                 </p>
-                <p className="text-[11px] font-body uppercase tracking-[0.2em] text-akasha-gray-1 mt-3">
-                  Available until {phase.key === 'phase1' ? 'July 15' : 'July 31'}
+                <p className="font-body text-akasha-gray-4 text-sm leading-relaxed">
+                  {Math.round((bundle.savings / 1790) * 100)}% less than buying
+                  the two trainings separately, both certifications still
+                  yours.
+                </p>
+                <p className="text-[10px] font-body uppercase tracking-[0.25em] text-akasha-gold/80 mt-4">
+                  Offer ends {phase.key === 'phase1' ? 'July 15' : 'July 31'}
                 </p>
               </div>
             </div>
