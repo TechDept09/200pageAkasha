@@ -71,7 +71,24 @@ export default function CourseGridCard({ course }) {
           </p>
         ) : null}
 
-        {hasDiscount ? (
+        {course.priceLabel ? (
+          <div className="mb-4">
+            <span
+              className="font-heading text-akasha-black text-xl block"
+              style={{ fontWeight: 400 }}
+            >
+              {course.priceLabel}
+            </span>
+            {course.priceSubLabel ? (
+              <span
+                className="block text-[10.5px] font-body text-akasha-gray-1 mt-1 leading-snug"
+                style={{ fontFamily: 'Inter, sans-serif' }}
+              >
+                {course.priceSubLabel}
+              </span>
+            ) : null}
+          </div>
+        ) : hasDiscount ? (
           <div className="flex items-baseline gap-2 mb-4">
             <span className="text-akasha-gray-2 line-through font-body text-xs">
               {price(regularPrice)}
