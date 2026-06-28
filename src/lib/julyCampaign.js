@@ -13,8 +13,9 @@ export const JULY_PHASES = {
     dateRange: 'July 3-15',
     headline: 'Summer Self-Care Journey',
     sub: 'Save over 70% on 200hr Essential this July',
+    scriptTagline: 'This summer, choose yourself',
     intro:
-      "This summer, choose yourself. Begin your 200hr Yoga Teacher Training and unlock a special Yin Yoga add-on to deepen your practice.",
+      'Begin your 200hr Yoga Teacher Training and unlock a special Yin Yoga add-on to deepen your practice.',
     couponCode: 'CARE320',
     couponNote: 'Use coupon CARE320 for the bundle savings.',
     bundle: {
@@ -38,8 +39,9 @@ export const JULY_PHASES = {
     dateRange: 'July 16-31',
     headline: 'Summer Wellness Discount',
     sub: 'Final July offer: save over 70% on 200hr Essential',
+    scriptTagline: 'Before July ends, reset your journey',
     intro:
-      "Before July ends, reset your yoga journey. Transform your practice this summer with our 200hr Essential Yoga Teacher Training.",
+      'Transform your practice this summer with our 200hr Essential Yoga Teacher Training.',
     couponCode: 'WELLNESS50',
     couponNote: 'Use coupon WELLNESS50 for an additional $50 off, bringing the bundle to $249 at checkout.',
     bundle: {
