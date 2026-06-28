@@ -246,14 +246,15 @@ function CampaignContent({ phase }) {
         <section className="py-14 md:py-20 bg-akasha-white">
           <div className="section max-w-5xl">
             <div className="text-center mb-12 max-w-2xl mx-auto">
-              <span className="eyebrow">Side by side</span>
+              <span className="eyebrow">Look closer</span>
               <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 300 }}>
-                Both trainings, less than the 80hr Yin alone
+                When two journeys cost less than one
               </h2>
               <span className="gold-rule" />
               <p className="font-body text-akasha-gray-1 mt-5 text-base md:text-lg leading-relaxed">
-                One summer, two certifications. Here is what each path costs,
-                broken down so the value is obvious.
+                Step into the 200hr Essential and 80hr Yin together this
+                summer. The numbers below show how the bundle holds both
+                certifications, gently, with breathing room to spare.
               </p>
             </div>
 
