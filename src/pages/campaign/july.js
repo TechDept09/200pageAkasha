@@ -18,30 +18,12 @@ const CAMPAIGN_DISCOUNT_KEEP = new Set(['200h-essential', '80h-yin']);
 function stripCampaignDiscount(course) {
   if (!course) return course;
   if (CAMPAIGN_DISCOUNT_KEEP.has(course.slug)) return course;
-
-  // When the course offers a payment plan, surface the monthly rate as
-  // the headline price so the card feels accessible ("From US$89/mo")
-  // instead of broadcasting the four-digit lump sum. The supporting
-  // small line preserves the total so the framing stays honest.
-  const installment = course.plans?.find((p) => p.slug === 'installment');
-  let priceLabel = null;
-  let priceSubLabel = null;
-  if (installment?.price) {
-    const sym = course.currency === 'USD' ? 'US$' : course.currency || '';
-    priceLabel = `From ${sym}${installment.price}/mo`;
-    if (installment.note) {
-      priceSubLabel = installment.note.replace(/^per month,\s*/i, '');
-    }
-  }
-
   return {
     ...course,
     discountPercent: null,
     discountLabel: null,
     promoPrice: null,
     saleEndShort: null,
-    priceLabel,
-    priceSubLabel,
   };
 }
 import { startWixCheckout } from '@/lib/checkout';
