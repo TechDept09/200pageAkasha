@@ -83,10 +83,10 @@ export const JULY_PRODUCTS = {
   yinAddOn: process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_YIN_ADDON,
 };
 
-// Placeholder for the marketing-supplied promo video. Swap the YouTube
-// ID once the asset is uploaded. Leaving null hides the video block so
-// the page never shows a broken iframe.
-export const JULY_VIDEO_ID = process.env.NEXT_PUBLIC_JULY_VIDEO_ID || null;
+// Promo video for the campaign. Mas Chris picked this YouTube ID from
+// the existing Akasha library; override via NEXT_PUBLIC_JULY_VIDEO_ID
+// in Vercel if marketing swaps to a different cut later.
+export const JULY_VIDEO_ID = process.env.NEXT_PUBLIC_JULY_VIDEO_ID || 'FRYD3yYEuxU';
 
 // Testimonial set borrowed from the live 200hr-yoga-teacher-training-online
 // + homepage scrapes we already verified. These are real Akasha graduates
