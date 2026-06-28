@@ -7,7 +7,25 @@ import MainProducts from '@/components/hub/MainProducts';
 import CategorySection from '@/components/hub/CategorySection';
 import TrustStrip from '@/components/TrustStrip';
 import Footer from '@/components/Footer';
-import { CATEGORIES, getCoursesByCategory } from '@/lib/courses';
+import { CATEGORIES, courses, getCoursesByCategory } from '@/lib/courses';
+
+// Campaign preview: only Essential and 80hr Yin are part of the Summer
+// Self-Care offer. Every other course card on this page should render
+// at its regular price so the visual story doesn't confuse the Yoga Day
+// 60% promo (which ended on 30 Jun) with the July bundle.
+const CAMPAIGN_DISCOUNT_KEEP = new Set(['200h-essential', '80h-yin']);
+
+function stripCampaignDiscount(course) {
+  if (!course) return course;
+  if (CAMPAIGN_DISCOUNT_KEEP.has(course.slug)) return course;
+  return {
+    ...course,
+    discountPercent: null,
+    discountLabel: null,
+    promoPrice: null,
+    saleEndShort: null,
+  };
+}
 import { startWixCheckout } from '@/lib/checkout';
 import { useUtmParams, formatUtmNote } from '@/hooks/useUtmParams';
 import { trackLead, trackInitiateCheckout, newEventId } from '@/lib/pixel';
@@ -357,17 +375,22 @@ function CampaignContent({ phase }) {
 
         {/* Mirror the hub homepage card grids so marketing can preview how
             the campaign reads alongside the rest of the catalog. The same
-            shared components render here, no live page is touched. */}
+            shared components render here, no live page is touched. Cards
+            outside the Summer Self-Care offer (Essential + Yin) have their
+            60% Yoga Day badge + promo price stripped via
+            stripCampaignDiscount() so the page visual stays on-message. */}
         <TrustStrip />
 
-        <MainProducts />
+        <MainProducts
+          premiumOverride={stripCampaignDiscount(courses.find((c) => c.slug === '200h-premium'))}
+        />
 
         <CategorySection
           id="advanced"
           eyebrow="For Certified Teachers"
           heading="Advanced Courses"
           intro="Specialized modules to continue your path after the 200-Hour Certification."
-          courses={getCoursesByCategory(CATEGORIES.ADVANCED)}
+          courses={getCoursesByCategory(CATEGORIES.ADVANCED).map(stripCampaignDiscount)}
           bg="bg-akasha-gray-4/30"
         />
 
@@ -376,7 +399,7 @@ function CampaignContent({ phase }) {
           eyebrow="Open to All"
           heading="Other Courses & On-Site"
           intro="Workshops and retreats open to everyone, no prior yoga training required."
-          courses={getCoursesByCategory(CATEGORIES.OTHER)}
+          courses={getCoursesByCategory(CATEGORIES.OTHER).map(stripCampaignDiscount)}
           bg="bg-akasha-white"
         />
 

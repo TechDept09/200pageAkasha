@@ -95,6 +95,15 @@ function ProductCard({ course, accent, badge }) {
               {price(promoPrice)}
             </span>
           </div>
+        ) : regularPrice ? (
+          <div className="mb-6">
+            <span
+              className="font-heading text-akasha-black text-3xl md:text-4xl"
+              style={{ fontWeight: 400 }}
+            >
+              {price(regularPrice)}
+            </span>
+          </div>
         ) : null}
 
         <a
@@ -110,9 +119,14 @@ function ProductCard({ course, accent, badge }) {
   );
 }
 
-export default function MainProducts() {
-  const essential = courses.find((c) => c.slug === '200h-essential');
-  const premium = courses.find((c) => c.slug === '200h-premium');
+export default function MainProducts({
+  essentialOverride,
+  premiumOverride,
+} = {}) {
+  const essential =
+    essentialOverride || courses.find((c) => c.slug === '200h-essential');
+  const premium =
+    premiumOverride || courses.find((c) => c.slug === '200h-premium');
 
   return (
     <section id="main" className="py-14 md:py-20 bg-akasha-white">
