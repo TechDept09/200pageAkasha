@@ -141,7 +141,7 @@ function CampaignContent({ phase }) {
               className="july-hero-anim inline-block text-[11px] tracking-[0.3em] uppercase font-medium mb-4"
               style={{ fontFamily: 'Inter, sans-serif', color: '#F5B872', animationDelay: '0.15s' }}
             >
-              July Campaign 2026 · {phase.dateRange}
+              {phase.publicName} · {phase.dateRange}
             </span>
             <h1
               className="july-hero-anim mb-4"
