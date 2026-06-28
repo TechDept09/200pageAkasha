@@ -113,56 +113,71 @@ function CampaignContent({ phase }) {
       <HubNav />
 
       <main className="bg-akasha-white">
-        {/* Hero */}
-        <section className="pt-28 md:pt-36 pb-12 md:pb-16">
-          <div className="section text-center max-w-3xl">
-            <span className="eyebrow text-akasha-orange">
+        {/* Hero with YouTube video as full-bleed background. Autoplay
+            requires muted (browser policy). loop wants playlist=ID set
+            to itself; controls/modestbranding/rel/iv_load_policy strip
+            the YouTube chrome and end-card branding so the background
+            stays clean. pointer-events:none keeps clicks falling through
+            to whatever overlays the player. */}
+        <section className="relative overflow-hidden bg-akasha-black min-h-[88vh] flex items-center">
+          {JULY_VIDEO_ID ? (
+            <div className="absolute inset-0 pointer-events-none">
+              <iframe
+                src={`https://www.youtube.com/embed/${JULY_VIDEO_ID}?autoplay=1&mute=1&loop=1&playlist=${JULY_VIDEO_ID}&controls=0&showinfo=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3&disablekb=1`}
+                title=""
+                allow="autoplay; encrypted-media; picture-in-picture"
+                frameBorder="0"
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[180vw] h-[180vw] md:w-[110vw] md:h-[62vw] min-h-full pointer-events-none"
+                style={{ border: 0 }}
+              />
+            </div>
+          ) : null}
+
+          {/* Darken + gradient for legibility */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/65" />
+
+          <div className="relative z-10 section text-center max-w-3xl text-akasha-white py-20 md:py-28">
+            <span
+              className="inline-block text-[11px] tracking-[0.3em] uppercase font-medium mb-4"
+              style={{ fontFamily: 'Inter, sans-serif', color: '#F5B872' }}
+            >
               July Campaign 2026 · {phase.dateRange}
             </span>
             <h1
-              className="mb-3"
-              style={{ fontSize: 'clamp(2.4rem, 5.5vw, 4rem)', fontWeight: 300 }}
+              className="mb-4"
+              style={{
+                fontSize: 'clamp(2.6rem, 6.4vw, 4.6rem)',
+                fontWeight: 300,
+                lineHeight: 1.05,
+                color: '#FFFFFF',
+              }}
             >
               {phase.headline}
             </h1>
             <p
-              className="script mb-5"
-              style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.4rem)' }}
+              className="script mb-6"
+              style={{
+                fontSize: 'clamp(2rem, 4vw, 2.8rem)',
+                color: '#F5B872',
+              }}
             >
               This summer, choose yourself
             </p>
-            <p className="font-body text-akasha-gray-1 max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
+            <p
+              className="font-body max-w-2xl mx-auto text-base md:text-lg leading-relaxed mb-8"
+              style={{ color: 'rgba(255,255,255,0.92)' }}
+            >
               {phase.intro}
             </p>
+            <a
+              href="#enroll"
+              className="inline-flex items-center justify-center bg-akasha-orange text-akasha-white px-10 py-4 rounded-full text-[13px] font-semibold uppercase tracking-[0.2em] hover:bg-akasha-orange-dark transition-colors shadow-lg"
+              style={{ fontFamily: 'Inter, sans-serif' }}
+            >
+              See Your Bundle
+            </a>
           </div>
         </section>
-
-        {/* Video block */}
-        {JULY_VIDEO_ID ? (
-          <section className="pb-12 md:pb-16">
-            <div className="section max-w-3xl">
-              <div className="aspect-video bg-akasha-gray-4 rounded-sm overflow-hidden shadow-md">
-                <iframe
-                  src={`https://www.youtube.com/embed/${JULY_VIDEO_ID}`}
-                  title="Akasha Yoga Academy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="w-full h-full"
-                />
-              </div>
-            </div>
-          </section>
-        ) : (
-          <section className="pb-12 md:pb-16">
-            <div className="section max-w-3xl">
-              <div className="aspect-video bg-akasha-gray-4/40 border border-dashed border-akasha-gray-3 rounded-sm flex items-center justify-center">
-                <p className="font-body text-akasha-gray-2 text-sm uppercase tracking-[0.2em] text-center px-6">
-                  Promo video placeholder, set NEXT_PUBLIC_JULY_VIDEO_ID once Wira sends the YouTube ID
-                </p>
-              </div>
-            </div>
-          </section>
-        )}
 
         {/* Two checkout options */}
         <section className="py-14 md:py-20 bg-akasha-gray-4/30" id="enroll">
@@ -247,49 +262,45 @@ function CampaignContent({ phase }) {
           </div>
         </section>
 
-        {/* Testimonials */}
-        <section className="py-14 md:py-20 bg-akasha-gray-4/30">
+        {/* Testimonials, modern photo-first grid */}
+        <section className="py-16 md:py-24 bg-akasha-white">
           <div className="section">
-            <div className="text-center max-w-2xl mx-auto mb-10">
+            <div className="text-center max-w-2xl mx-auto mb-12 md:mb-16">
               <span className="eyebrow">From the Akasha Family</span>
-              <h2 style={{ fontSize: 'clamp(1.7rem, 3.4vw, 2.4rem)', fontWeight: 300 }}>
+              <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 300 }}>
                 Real stories from real graduates
               </h2>
               <span className="gold-rule" />
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 max-w-6xl mx-auto">
               {JULY_TESTIMONIALS.map((t) => (
-                <figure
+                <article
                   key={t.name}
-                  className="bg-akasha-white border border-akasha-gray-4 rounded-sm p-7 text-center flex flex-col"
+                  className="group flex flex-col"
                 >
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden bg-akasha-gray-4">
+                  <div className="relative aspect-[4/5] overflow-hidden rounded-sm bg-akasha-gray-4 mb-6 shadow-sm">
                     <img
                       src={t.photo}
                       alt={t.name}
-                      width="64"
-                      height="64"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                       loading="lazy"
                       decoding="async"
                     />
+                    <span className="absolute bottom-3 left-3 inline-flex items-center bg-akasha-white/95 backdrop-blur-sm text-akasha-gold text-[11px] tracking-[0.25em] px-3 py-1 rounded-full shadow">
+                      ★★★★★
+                    </span>
                   </div>
-                  <span className="text-akasha-gold text-xs tracking-[0.2em] block mb-4">
-                    ★★★★★
-                  </span>
                   <blockquote
-                    className="font-heading text-akasha-black/85 text-[15px] leading-relaxed mb-6 flex-1"
+                    className="font-heading text-akasha-black text-[15px] md:text-base leading-relaxed mb-4 italic"
                     style={{ fontWeight: 300 }}
                   >
                     &ldquo;{t.quote}&rdquo;
                   </blockquote>
-                  <figcaption>
-                    <p className="text-[11px] font-body text-akasha-gray-1 uppercase tracking-[0.25em]">
-                      {t.name}, {t.country}
-                    </p>
-                  </figcaption>
-                </figure>
+                  <p className="text-[11px] font-body text-akasha-gray-1 uppercase tracking-[0.28em]">
+                    {t.name}{t.country ? ` · ${t.country}` : ''}
+                  </p>
+                </article>
               ))}
             </div>
           </div>

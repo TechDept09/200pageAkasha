@@ -88,25 +88,35 @@ export const JULY_PRODUCTS = {
 // in Vercel if marketing swaps to a different cut later.
 export const JULY_VIDEO_ID = process.env.NEXT_PUBLIC_JULY_VIDEO_ID || 'FRYD3yYEuxU';
 
-// Testimonial set borrowed from the live 200hr-yoga-teacher-training-online
-// + homepage scrapes we already verified. These are real Akasha graduates
-// with the photo hash matching the name on akashayogaacademy.com.
+// Testimonial set mirrors the live 200hr Essential page (Arianne, Clarissa,
+// Coral) plus three additional graduates from the
+// 200hr-yoga-teacher-training-online + homepage scrapes we previously
+// verified. Each photo URL is the one Akasha publishes alongside the same
+// name, so name-to-face attribution stays correct.
 export const JULY_TESTIMONIALS = [
+  {
+    name: 'Arianne',
+    country: '',
+    quote:
+      'For me the course was not only inspiring, but transformative! I first got into yoga for the asana practice, but I soon realized that there was more to it. I have found so much meaning in the teachings of yoga and I am ready to apply them to my life.',
+    photo:
+      'https://static.wixstatic.com/media/cd7168_9606fee6b4944df0bd317d69bda02b36~mv2.jpeg/v1/crop/x_150,y_577,w_932,h_936/fill/w_484,h_486,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Arianne-Testimonial%203.jpeg',
+  },
   {
     name: 'Charlotte Heminsley',
     country: 'United States',
     quote:
       'Literally the best month of my life! The journey of self-discovery was unbelievable!',
     photo:
-      'https://static.wixstatic.com/media/cd7168_f9565c280e5e45d6ab281e26d2942d70~mv2.jpg/v1/fill/w_300,h_300,al_c,q_85,enc_auto/portrait.jpg',
+      'https://static.wixstatic.com/media/cd7168_f9565c280e5e45d6ab281e26d2942d70~mv2.jpg/v1/fill/w_400,h_400,al_c,q_85,enc_avif,quality_auto/portrait.jpg',
   },
   {
-    name: 'Kinga Kovacs',
-    country: 'United Kingdom',
+    name: 'Clarissa',
+    country: 'United States',
     quote:
-      'No words would give true justice to the experience with these guys!',
+      'This course has inspired me more than I could have ever imagined! The training has not only given me the tools to make the transformation from yoga student to yoga teacher, but also the tools to connect with my heart, relax and be present.',
     photo:
-      'https://static.wixstatic.com/media/cd7168_5daede02159240e58ad572c3845f434a~mv2.webp/v1/fill/w_300,h_300,al_c,q_85,enc_auto/portrait.webp',
+      'https://static.wixstatic.com/media/cd7168_58484436d3c24b8eb5b143ac0ff2f8ce~mv2.jpg/v1/fill/w_484,h_486,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Clarissa.jpg',
   },
   {
     name: 'Anna Kotaba',
@@ -114,6 +124,22 @@ export const JULY_TESTIMONIALS = [
     quote:
       'This place showed me how to slow down, how to open up, and how to love myself with all around.',
     photo:
-      'https://static.wixstatic.com/media/cd7168_e363df305b8e43ad8049e5a4bac074a6~mv2.jpg/v1/fill/w_300,h_300,al_c,q_85,enc_auto/portrait.jpg',
+      'https://static.wixstatic.com/media/cd7168_e363df305b8e43ad8049e5a4bac074a6~mv2.jpg/v1/fill/w_400,h_400,al_c,q_85,enc_avif,quality_auto/portrait.jpg',
+  },
+  {
+    name: 'Coral',
+    country: 'United States',
+    quote:
+      'I came to deepen my own practice, with no intention to teach, but I am leaving with a passion to share this energy and the lessons I have learned here. I really feel like a new person ready to shine and to share what I have learned!',
+    photo:
+      'https://static.wixstatic.com/media/cd7168_26c02626fba14355aab1913375832c55~mv2.jpeg/v1/crop/x_341,y_12,w_486,h_488/fill/w_484,h_486,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/coral%20.jpeg',
+  },
+  {
+    name: 'Kinga Kovacs',
+    country: 'United Kingdom',
+    quote:
+      'No words would give true justice to the experience with these guys!',
+    photo:
+      'https://static.wixstatic.com/media/cd7168_5daede02159240e58ad572c3845f434a~mv2.webp/v1/fill/w_400,h_400,al_c,q_85,enc_avif,quality_auto/portrait.webp',
   },
 ];
