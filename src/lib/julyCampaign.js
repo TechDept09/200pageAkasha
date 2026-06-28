@@ -78,13 +78,17 @@ export const JULY_ACCESS_KEY =
 
 // Wix product IDs the campaign checkout will reference.
 // - Essential reuses the existing live product.
-// - Yin Add-on at the discounted bundle price is a NEW Wix product that
-//   Wira needs to publish and drop into Vercel as NEXT_PUBLIC_WIX_PRODUCT_ID_YIN_ADDON.
-//   Until that env var is set, the bundle button stays disabled with a
-//   friendly "coming soon" message instead of failing at checkout.
+// - Yin Add-on: until Wira publishes a dedicated $199 add-on product,
+//   reuse the live $239 standalone 80H Yin product so the bundle button
+//   is testable end-to-end now. The campaign coupon (CARE320 / WELLNESS50)
+//   set on the Wix Dashboard absorbs the price gap. Once a dedicated
+//   add-on lands, set NEXT_PUBLIC_WIX_PRODUCT_ID_YIN_ADDON in Vercel and
+//   it takes over without code changes.
 export const JULY_PRODUCTS = {
   essential: process.env.NEXT_PUBLIC_WIX_PRODUCT_ID,
-  yinAddOn: process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_YIN_ADDON,
+  yinAddOn:
+    process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_YIN_ADDON ||
+    process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_80H_YIN_FULL,
 };
 
 // Promo video for the campaign. Direct MP4 hosted on wixstatic so the
