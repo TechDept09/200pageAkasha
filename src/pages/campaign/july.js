@@ -13,7 +13,7 @@ import {
   getActiveJulyPhase,
   JULY_PHASES,
   JULY_PRODUCTS,
-  JULY_VIDEO_ID,
+  JULY_BG_VIDEO,
   JULY_TESTIMONIALS,
 } from '@/lib/julyCampaign';
 
@@ -113,24 +113,24 @@ function CampaignContent({ phase }) {
       <HubNav />
 
       <main className="bg-akasha-white">
-        {/* Hero with YouTube video as full-bleed background. Autoplay
-            requires muted (browser policy). loop wants playlist=ID set
-            to itself; controls/modestbranding/rel/iv_load_policy strip
-            the YouTube chrome and end-card branding so the background
-            stays clean. pointer-events:none keeps clicks falling through
-            to whatever overlays the player. */}
+        {/* Hero with a Wix-hosted MP4 looping in the background. HTML5
+            video gives us no third-party branding (vs YouTube iframe)
+            and lets us truly mute + autoplay + loop with a one-liner.
+            object-cover keeps it cropped to the section regardless of
+            viewport ratio. pointer-events:none means taps still hit the
+            CTA overlay above. */}
         <section className="relative overflow-hidden bg-akasha-black min-h-[88vh] flex items-center">
-          {JULY_VIDEO_ID ? (
-            <div className="absolute inset-0 pointer-events-none">
-              <iframe
-                src={`https://www.youtube.com/embed/${JULY_VIDEO_ID}?autoplay=1&mute=1&loop=1&playlist=${JULY_VIDEO_ID}&controls=0&showinfo=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3&disablekb=1`}
-                title=""
-                allow="autoplay; encrypted-media; picture-in-picture"
-                frameBorder="0"
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[180vw] h-[180vw] md:w-[110vw] md:h-[62vw] min-h-full pointer-events-none"
-                style={{ border: 0 }}
-              />
-            </div>
+          {JULY_BG_VIDEO ? (
+            <video
+              src={JULY_BG_VIDEO}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              aria-hidden="true"
+              className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+            />
           ) : null}
 
           {/* Darken + gradient for legibility */}

@@ -83,10 +83,13 @@ export const JULY_PRODUCTS = {
   yinAddOn: process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_YIN_ADDON,
 };
 
-// Promo video for the campaign. Mas Chris picked this YouTube ID from
-// the existing Akasha library; override via NEXT_PUBLIC_JULY_VIDEO_ID
-// in Vercel if marketing swaps to a different cut later.
-export const JULY_VIDEO_ID = process.env.NEXT_PUBLIC_JULY_VIDEO_ID || 'FRYD3yYEuxU';
+// Promo video for the campaign. Direct MP4 hosted on wixstatic so the
+// hero can use a plain HTML5 video tag (no YouTube branding, no iframe
+// overhead, and the host is already preconnected from elsewhere on the
+// site). Override via NEXT_PUBLIC_JULY_BG_VIDEO if marketing swaps cuts.
+export const JULY_BG_VIDEO =
+  process.env.NEXT_PUBLIC_JULY_BG_VIDEO ||
+  'https://video.wixstatic.com/video/cd7168_ac443cf0083b47ce9eed5df7eb1d58eb/480p/mp4/file.mp4';
 
 // Testimonial set mirrors the live 200hr Essential page (Arianne, Clarissa,
 // Coral) plus three additional graduates from the
