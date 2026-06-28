@@ -14,23 +14,27 @@ export default function HubHero() {
           Big Yoga Day Discounts
         </h1>
 
-        <p
-          className="font-body mb-5"
-          style={{
-            fontSize: 'clamp(0.7rem, 1.4vw, 0.9rem)',
-            letterSpacing: '0.28em',
-            color: '#ED5829',
-            textTransform: 'uppercase',
-          }}
-        >
-          International Yoga Day, 21 June
-        </p>
+        <div className="flex justify-center mb-5">
+          <span
+            className="inline-flex items-center gap-2 bg-akasha-orange text-akasha-white rounded-full px-5 py-2 shadow-md"
+            style={{
+              fontFamily: 'Inter, sans-serif',
+              fontSize: 'clamp(0.78rem, 1.4vw, 0.95rem)',
+              fontWeight: 600,
+              letterSpacing: '0.18em',
+              textTransform: 'uppercase',
+            }}
+          >
+            <span aria-hidden="true">⏳</span>
+            Final 3 Days · Ends June 30
+          </span>
+        </div>
 
         <h2
           className="mb-3"
           style={{ fontSize: 'clamp(1.8rem, 3.4vw, 2.5rem)', fontWeight: 300 }}
         >
-          Storewide Offer on All Courses
+          Extended Storewide Offer on All Courses
         </h2>
 
         <p
