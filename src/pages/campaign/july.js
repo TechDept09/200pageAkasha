@@ -3,7 +3,11 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import HubNav from '@/components/hub/HubNav';
+import MainProducts from '@/components/hub/MainProducts';
+import CategorySection from '@/components/hub/CategorySection';
+import TrustStrip from '@/components/TrustStrip';
 import Footer from '@/components/Footer';
+import { CATEGORIES, getCoursesByCategory } from '@/lib/courses';
 import { startWixCheckout } from '@/lib/checkout';
 import { useUtmParams, formatUtmNote } from '@/hooks/useUtmParams';
 import { trackLead, trackInitiateCheckout, newEventId } from '@/lib/pixel';
@@ -380,6 +384,31 @@ function CampaignContent({ phase }) {
             </div>
           </div>
         </section>
+
+        {/* Mirror the hub homepage card grids so marketing can preview how
+            the campaign reads alongside the rest of the catalog. The same
+            shared components render here, no live page is touched. */}
+        <TrustStrip />
+
+        <MainProducts />
+
+        <CategorySection
+          id="advanced"
+          eyebrow="For Certified Teachers"
+          heading="Advanced Courses"
+          intro="Specialized modules to continue your path after the 200-Hour Certification."
+          courses={getCoursesByCategory(CATEGORIES.ADVANCED)}
+          bg="bg-akasha-gray-4/30"
+        />
+
+        <CategorySection
+          id="other"
+          eyebrow="Open to All"
+          heading="Other Courses & On-Site"
+          intro="Workshops and retreats open to everyone, no prior yoga training required."
+          courses={getCoursesByCategory(CATEGORIES.OTHER)}
+          bg="bg-akasha-white"
+        />
 
         {/* Tracking hook placeholder. When Wira sends the post-pay tracking
             snippet, drop it inside this div so it only ever runs on the
