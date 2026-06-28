@@ -224,9 +224,9 @@ function CampaignContent({ phase }) {
         <section className="py-14 md:py-20 bg-akasha-gray-4/30" id="enroll">
           <div className="section">
             <div className="text-center max-w-2xl mx-auto mb-10">
-              <span className="eyebrow">Choose your path</span>
+              <span className="eyebrow">Begin your journey</span>
               <h2 style={{ fontSize: 'clamp(1.8rem, 3.6vw, 2.6rem)', fontWeight: 300 }}>
-                200hr Essential, with or without Yin
+                Two ways to step in this summer
               </h2>
               <span className="gold-rule" />
             </div>
@@ -640,8 +640,8 @@ function StandaloneCard({ phase }) {
         200hr Essential Training
       </h3>
       <p className="font-body text-akasha-gray-1 text-sm leading-relaxed mb-5">
-        Prefer to start without the Yin add-on? Continue with the standard
-        Yoga Day sale price, no coupon required.
+        Prefer to begin with the 200hr Essential alone? Same training, same
+        promotional rate, no coupon required.
       </p>
 
       <div className="flex items-baseline gap-3 mb-2">
@@ -656,7 +656,7 @@ function StandaloneCard({ phase }) {
         </span>
       </div>
       <p className="text-[11px] font-body uppercase tracking-[0.2em] text-akasha-gray-1 mb-6">
-        Existing Yoga Day price
+        Summer Self-Care price
       </p>
 
       <form onSubmit={handleBuy} className="mt-auto" noValidate>

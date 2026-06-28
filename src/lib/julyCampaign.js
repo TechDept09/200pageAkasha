@@ -25,8 +25,8 @@ export const JULY_PHASES = {
       savings: 1271, // regular total 1790, bundle 519
     },
     standalone: {
-      // Buyer who skips Yin falls back to the existing Essential Yoga Day
-      // landing page where the $290 sale price is already plumbed in.
+      // Buyer who skips Yin falls back to the live Essential checkout
+      // where the $290 promotional price is already plumbed in.
       essential: 290,
     },
   },
