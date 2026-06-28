@@ -138,8 +138,15 @@ function CampaignContent({ phase }) {
 
           <div className="relative z-10 section text-center max-w-3xl text-akasha-white py-20 md:py-28">
             <span
-              className="july-hero-anim inline-block text-[11px] tracking-[0.3em] uppercase font-medium mb-4"
-              style={{ fontFamily: 'Inter, sans-serif', color: '#F5B872', animationDelay: '0.15s' }}
+              className="july-hero-anim inline-block uppercase mb-5"
+              style={{
+                fontFamily: 'Inter, sans-serif',
+                color: '#F5B872',
+                animationDelay: '0.15s',
+                fontSize: 'clamp(0.95rem, 1.7vw, 1.2rem)',
+                letterSpacing: '0.32em',
+                fontWeight: 600,
+              }}
             >
               {phase.publicName} · {phase.dateRange}
             </span>
