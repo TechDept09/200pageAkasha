@@ -71,3 +71,49 @@ export function getActiveJulyPhase(now = new Date()) {
 // NEXT_PUBLIC_JULY_CAMPAIGN_KEY in .env.local for stricter rotation.
 export const JULY_ACCESS_KEY =
   process.env.NEXT_PUBLIC_JULY_CAMPAIGN_KEY || 'AKASHA-JULY-2026';
+
+// Wix product IDs the campaign checkout will reference.
+// - Essential reuses the existing live product.
+// - Yin Add-on at the discounted bundle price is a NEW Wix product that
+//   Wira needs to publish and drop into Vercel as NEXT_PUBLIC_WIX_PRODUCT_ID_YIN_ADDON.
+//   Until that env var is set, the bundle button stays disabled with a
+//   friendly "coming soon" message instead of failing at checkout.
+export const JULY_PRODUCTS = {
+  essential: process.env.NEXT_PUBLIC_WIX_PRODUCT_ID,
+  yinAddOn: process.env.NEXT_PUBLIC_WIX_PRODUCT_ID_YIN_ADDON,
+};
+
+// Placeholder for the marketing-supplied promo video. Swap the YouTube
+// ID once the asset is uploaded. Leaving null hides the video block so
+// the page never shows a broken iframe.
+export const JULY_VIDEO_ID = process.env.NEXT_PUBLIC_JULY_VIDEO_ID || null;
+
+// Testimonial set borrowed from the live 200hr-yoga-teacher-training-online
+// + homepage scrapes we already verified. These are real Akasha graduates
+// with the photo hash matching the name on akashayogaacademy.com.
+export const JULY_TESTIMONIALS = [
+  {
+    name: 'Charlotte Heminsley',
+    country: 'United States',
+    quote:
+      'Literally the best month of my life! The journey of self-discovery was unbelievable!',
+    photo:
+      'https://static.wixstatic.com/media/cd7168_f9565c280e5e45d6ab281e26d2942d70~mv2.jpg/v1/fill/w_300,h_300,al_c,q_85,enc_auto/portrait.jpg',
+  },
+  {
+    name: 'Kinga Kovacs',
+    country: 'United Kingdom',
+    quote:
+      'No words would give true justice to the experience with these guys!',
+    photo:
+      'https://static.wixstatic.com/media/cd7168_5daede02159240e58ad572c3845f434a~mv2.webp/v1/fill/w_300,h_300,al_c,q_85,enc_auto/portrait.webp',
+  },
+  {
+    name: 'Anna Kotaba',
+    country: 'Poland',
+    quote:
+      'This place showed me how to slow down, how to open up, and how to love myself with all around.',
+    photo:
+      'https://static.wixstatic.com/media/cd7168_e363df305b8e43ad8049e5a4bac074a6~mv2.jpg/v1/fill/w_300,h_300,al_c,q_85,enc_auto/portrait.jpg',
+  },
+];

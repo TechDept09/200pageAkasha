@@ -57,7 +57,7 @@ export function getProductId(courseSlug, planSlug = 'full') {
   return PRODUCT_REGISTRY[`${courseSlug}|${planSlug}`];
 }
 
-export async function startWixCheckout({ utm, utmNote, buyer, productId, meta }) {
+export async function startWixCheckout({ utm, utmNote, buyer, productId, meta, couponCode, extraLineItems }) {
   if (!productId) {
     throw new Error('Missing Wix product ID for this tier, set the matching NEXT_PUBLIC_WIX_PRODUCT_ID_* in .env.local');
   }
@@ -114,19 +114,45 @@ export async function startWixCheckout({ utm, utmNote, buyer, productId, meta })
     },
   };
 
-  const newCheckout = await wixClient.checkout.createCheckout({
-    channelType: 'WEB',
-    lineItems: [
-      {
-        quantity: 1,
-        catalogReference: {
-          catalogItemId: productId,
-          appId: WIX_STORES_APP_ID,
-        },
+  // Compose lineItems: the primary product plus any extras the caller
+  // wants (e.g. campaign bundle pairing a course with the Yin add-on).
+  // Extras are filtered for valid IDs so a partially-configured campaign
+  // doesn't crash legitimate single-item checkouts.
+  const lineItems = [
+    {
+      quantity: 1,
+      catalogReference: {
+        catalogItemId: productId,
+        appId: WIX_STORES_APP_ID,
       },
-    ],
+    },
+    ...(Array.isArray(extraLineItems)
+      ? extraLineItems
+          .filter((i) => i && i.productId)
+          .map((i) => ({
+            quantity: i.quantity || 1,
+            catalogReference: {
+              catalogItemId: i.productId,
+              appId: WIX_STORES_APP_ID,
+            },
+          }))
+      : []),
+  ];
+
+  const createPayload = {
+    channelType: 'WEB',
+    lineItems,
     checkoutInfo,
-  });
+  };
+
+  // Pre-apply campaign coupon so 40+ buyers don't have to type it at the
+  // Wix cart step. Only set when the caller passes a code (existing
+  // callers omit it, so behaviour is unchanged for them).
+  if (couponCode && typeof couponCode === 'string' && couponCode.trim()) {
+    createPayload.couponCode = couponCode.trim();
+  }
+
+  const newCheckout = await wixClient.checkout.createCheckout(createPayload);
 
   if (!newCheckout?._id) {
     throw new Error(

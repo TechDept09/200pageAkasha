@@ -4,7 +4,18 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import HubNav from '@/components/hub/HubNav';
 import Footer from '@/components/Footer';
-import { JULY_ACCESS_KEY, getActiveJulyPhase, JULY_PHASES } from '@/lib/julyCampaign';
+import { startWixCheckout } from '@/lib/checkout';
+import { useUtmParams, formatUtmNote } from '@/hooks/useUtmParams';
+import { trackLead, trackInitiateCheckout, newEventId } from '@/lib/pixel';
+import { getMetaCookies } from '@/lib/fbCookies';
+import {
+  JULY_ACCESS_KEY,
+  getActiveJulyPhase,
+  JULY_PHASES,
+  JULY_PRODUCTS,
+  JULY_VIDEO_ID,
+  JULY_TESTIMONIALS,
+} from '@/lib/julyCampaign';
 
 const STORAGE_KEY = 'akasha_july_2026_access';
 
@@ -14,15 +25,12 @@ export default function JulyCampaign() {
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
   const [phase, setPhase] = useState(null);
-  const [selectedOption, setSelectedOption] = useState('bundle');
 
   useEffect(() => {
     setMounted(true);
     if (typeof window !== 'undefined' && sessionStorage.getItem(STORAGE_KEY) === 'true') {
       setAuthorized(true);
     }
-    // Detect active phase. Default to phase1 if outside the window so the
-    // preview content still renders for marketing review.
     setPhase(getActiveJulyPhase() || JULY_PHASES.phase1);
   }, []);
 
@@ -37,9 +45,7 @@ export default function JulyCampaign() {
     }
   };
 
-  if (!mounted) {
-    return null;
-  }
+  if (!mounted) return null;
 
   if (!authorized) {
     return (
@@ -89,10 +95,10 @@ export default function JulyCampaign() {
     );
   }
 
-  return <CampaignContent phase={phase} selectedOption={selectedOption} setSelectedOption={setSelectedOption} />;
+  return <CampaignContent phase={phase} />;
 }
 
-function CampaignContent({ phase, selectedOption, setSelectedOption }) {
+function CampaignContent({ phase }) {
   const bundle = phase.bundle;
   const standalone = phase.standalone;
   const showWellnessNote = phase.key === 'phase2';
@@ -131,8 +137,35 @@ function CampaignContent({ phase, selectedOption, setSelectedOption }) {
           </div>
         </section>
 
-        {/* Plan selector */}
-        <section className="py-14 md:py-20 bg-akasha-gray-4/30">
+        {/* Video block */}
+        {JULY_VIDEO_ID ? (
+          <section className="pb-12 md:pb-16">
+            <div className="section max-w-3xl">
+              <div className="aspect-video bg-akasha-gray-4 rounded-sm overflow-hidden shadow-md">
+                <iframe
+                  src={`https://www.youtube.com/embed/${JULY_VIDEO_ID}`}
+                  title="Akasha Yoga Academy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-full"
+                />
+              </div>
+            </div>
+          </section>
+        ) : (
+          <section className="pb-12 md:pb-16">
+            <div className="section max-w-3xl">
+              <div className="aspect-video bg-akasha-gray-4/40 border border-dashed border-akasha-gray-3 rounded-sm flex items-center justify-center">
+                <p className="font-body text-akasha-gray-2 text-sm uppercase tracking-[0.2em] text-center px-6">
+                  Promo video placeholder, set NEXT_PUBLIC_JULY_VIDEO_ID once Wira sends the YouTube ID
+                </p>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Two checkout options */}
+        <section className="py-14 md:py-20 bg-akasha-gray-4/30" id="enroll">
           <div className="section">
             <div className="text-center max-w-2xl mx-auto mb-10">
               <span className="eyebrow">Choose your path</span>
@@ -142,198 +175,14 @@ function CampaignContent({ phase, selectedOption, setSelectedOption }) {
               <span className="gold-rule" />
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
-              {/* Bundle */}
-              <button
-                type="button"
-                onClick={() => setSelectedOption('bundle')}
-                className={`text-left bg-akasha-white border rounded-sm p-7 md:p-8 transition-shadow ${
-                  selectedOption === 'bundle'
-                    ? 'border-akasha-orange shadow-md'
-                    : 'border-akasha-gray-4 hover:shadow-md'
-                }`}
-              >
-                <p
-                  className="text-[11px] font-body uppercase tracking-[0.25em] text-akasha-orange mb-2"
-                  style={{ fontFamily: 'Inter, sans-serif' }}
-                >
-                  Recommended Bundle
-                </p>
-                <h3
-                  className="font-heading text-akasha-black text-xl md:text-2xl mb-3"
-                  style={{ fontWeight: 400 }}
-                >
-                  200hr Essential + 80hr Yin
-                </h3>
-                <p className="font-body text-akasha-gray-1 text-sm leading-relaxed mb-5">
-                  Begin your certification and deepen your practice with the Yin
-                  Yoga add-on. Stack both for the full Summer Self-Care path.
-                </p>
-
-                <div className="flex items-baseline gap-3 mb-2">
-                  <span className="text-akasha-gray-2 line-through font-body text-base">
-                    US$1,790
-                  </span>
-                  <span
-                    className="font-heading text-akasha-orange text-3xl md:text-4xl"
-                    style={{ fontWeight: 400 }}
-                  >
-                    US${bundle.total}
-                  </span>
-                </div>
-                <p className="text-[11px] font-body uppercase tracking-[0.2em] text-akasha-orange mb-5">
-                  Save US${bundle.savings}
-                </p>
-
-                <ul className="space-y-2 text-sm font-body text-akasha-gray-1 mb-6">
-                  <li className="flex justify-between">
-                    <span>200hr Essential Training</span>
-                    <span className="text-akasha-black">US${bundle.essential}</span>
-                  </li>
-                  <li className="flex justify-between">
-                    <span>80hr Yin Yoga Add-On</span>
-                    <span className="text-akasha-black">US${bundle.yin}</span>
-                  </li>
-                </ul>
-
-                {showWellnessNote ? (
-                  <div className="border border-akasha-orange/30 bg-akasha-orange/5 rounded-sm p-3 mb-5">
-                    <p
-                      className="text-[10px] font-body uppercase tracking-[0.2em] text-akasha-orange mb-1"
-                      style={{ fontFamily: 'Inter, sans-serif' }}
-                    >
-                      Use coupon code
-                    </p>
-                    <p className="font-heading text-akasha-black text-lg mb-1" style={{ fontWeight: 400 }}>
-                      {phase.couponCode}
-                    </p>
-                    <p className="text-[11px] font-body text-akasha-gray-1 leading-snug">
-                      Brings the Essential portion down to US$249 at checkout.
-                    </p>
-                  </div>
-                ) : (
-                  <div className="border border-akasha-orange/30 bg-akasha-orange/5 rounded-sm p-3 mb-5">
-                    <p
-                      className="text-[10px] font-body uppercase tracking-[0.2em] text-akasha-orange mb-1"
-                      style={{ fontFamily: 'Inter, sans-serif' }}
-                    >
-                      Use coupon code
-                    </p>
-                    <p className="font-heading text-akasha-black text-lg" style={{ fontWeight: 400 }}>
-                      {phase.couponCode}
-                    </p>
-                  </div>
-                )}
-
-                <span
-                  className={`inline-flex items-center justify-center w-full px-6 py-3 rounded-full text-[12px] font-medium uppercase tracking-[0.2em] transition-colors ${
-                    selectedOption === 'bundle'
-                      ? 'bg-akasha-orange text-akasha-white'
-                      : 'border border-akasha-black text-akasha-black'
-                  }`}
-                  style={{ fontFamily: 'Inter, sans-serif' }}
-                >
-                  {selectedOption === 'bundle' ? 'Selected' : 'Select Bundle'}
-                </span>
-              </button>
-
-              {/* Standalone */}
-              <button
-                type="button"
-                onClick={() => setSelectedOption('standalone')}
-                className={`text-left bg-akasha-white border rounded-sm p-7 md:p-8 transition-shadow ${
-                  selectedOption === 'standalone'
-                    ? 'border-akasha-gold shadow-md'
-                    : 'border-akasha-gray-4 hover:shadow-md'
-                }`}
-              >
-                <p
-                  className="text-[11px] font-body uppercase tracking-[0.25em] text-akasha-gold mb-2"
-                  style={{ fontFamily: 'Inter, sans-serif' }}
-                >
-                  200hr Only
-                </p>
-                <h3
-                  className="font-heading text-akasha-black text-xl md:text-2xl mb-3"
-                  style={{ fontWeight: 400 }}
-                >
-                  200hr Essential Training
-                </h3>
-                <p className="font-body text-akasha-gray-1 text-sm leading-relaxed mb-5">
-                  Prefer to start without the Yin add-on? Continue with the
-                  standard Yoga Day sale price already running on the Essential
-                  landing page.
-                </p>
-
-                <div className="flex items-baseline gap-3 mb-2">
-                  <span className="text-akasha-gray-2 line-through font-body text-base">
-                    US$1,190
-                  </span>
-                  <span
-                    className="font-heading text-akasha-black text-3xl md:text-4xl"
-                    style={{ fontWeight: 400 }}
-                  >
-                    US${standalone.essential}
-                  </span>
-                </div>
-                <p className="text-[11px] font-body uppercase tracking-[0.2em] text-akasha-gray-1 mb-6">
-                  Existing Yoga Day price
-                </p>
-
-                <span
-                  className={`inline-flex items-center justify-center w-full px-6 py-3 rounded-full text-[12px] font-medium uppercase tracking-[0.2em] transition-colors ${
-                    selectedOption === 'standalone'
-                      ? 'bg-akasha-black text-akasha-white'
-                      : 'border border-akasha-black text-akasha-black'
-                  }`}
-                  style={{ fontFamily: 'Inter, sans-serif' }}
-                >
-                  {selectedOption === 'standalone' ? 'Selected' : 'Select 200hr Only'}
-                </span>
-              </button>
-            </div>
-
-            {/* CTA bar */}
-            <div className="max-w-3xl mx-auto mt-12 text-center">
-              {selectedOption === 'bundle' ? (
-                <>
-                  <p className="text-[11px] font-body uppercase tracking-[0.25em] text-akasha-gray-1 mb-4">
-                    Ready to enrol with the bundle
-                  </p>
-                  <p className="font-body text-akasha-gray-1 max-w-xl mx-auto mb-6 leading-relaxed">
-                    Bundle checkout is being wired into Wix. For testing,
-                    continue to the 200hr Essential checkout and apply{' '}
-                    <strong className="text-akasha-black font-medium">
-                      {phase.couponCode}
-                    </strong>{' '}
-                    plus the 80hr Yin add-on at the Wix cart step.
-                  </p>
-                  <a
-                    href={`/200h-essential?coupon=${phase.couponCode}`}
-                    className="btn-action"
-                  >
-                    Continue to Essential Checkout
-                  </a>
-                </>
-              ) : (
-                <>
-                  <p className="text-[11px] font-body uppercase tracking-[0.25em] text-akasha-gray-1 mb-4">
-                    Ready to enrol with 200hr only
-                  </p>
-                  <p className="font-body text-akasha-gray-1 max-w-xl mx-auto mb-6 leading-relaxed">
-                    No coupon required, the existing Essential sale page handles
-                    the US$290 price.
-                  </p>
-                  <a href="/200h-essential" className="btn-primary">
-                    Continue to Essential Checkout
-                  </a>
-                </>
-              )}
+            <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto items-stretch">
+              <BundleCard phase={phase} showWellnessNote={showWellnessNote} />
+              <StandaloneCard phase={phase} />
             </div>
           </div>
         </section>
 
-        {/* Value breakdown */}
+        {/* Bundle value */}
         <section className="py-14 md:py-20 bg-akasha-white">
           <div className="section max-w-4xl">
             <div className="text-center mb-10">
@@ -397,9 +246,410 @@ function CampaignContent({ phase, selectedOption, setSelectedOption }) {
             </div>
           </div>
         </section>
+
+        {/* Testimonials */}
+        <section className="py-14 md:py-20 bg-akasha-gray-4/30">
+          <div className="section">
+            <div className="text-center max-w-2xl mx-auto mb-10">
+              <span className="eyebrow">From the Akasha Family</span>
+              <h2 style={{ fontSize: 'clamp(1.7rem, 3.4vw, 2.4rem)', fontWeight: 300 }}>
+                Real stories from real graduates
+              </h2>
+              <span className="gold-rule" />
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {JULY_TESTIMONIALS.map((t) => (
+                <figure
+                  key={t.name}
+                  className="bg-akasha-white border border-akasha-gray-4 rounded-sm p-7 text-center flex flex-col"
+                >
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden bg-akasha-gray-4">
+                    <img
+                      src={t.photo}
+                      alt={t.name}
+                      width="64"
+                      height="64"
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  <span className="text-akasha-gold text-xs tracking-[0.2em] block mb-4">
+                    ★★★★★
+                  </span>
+                  <blockquote
+                    className="font-heading text-akasha-black/85 text-[15px] leading-relaxed mb-6 flex-1"
+                    style={{ fontWeight: 300 }}
+                  >
+                    &ldquo;{t.quote}&rdquo;
+                  </blockquote>
+                  <figcaption>
+                    <p className="text-[11px] font-body text-akasha-gray-1 uppercase tracking-[0.25em]">
+                      {t.name}, {t.country}
+                    </p>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Tracking hook placeholder. When Wira sends the post-pay tracking
+            snippet, drop it inside this div so it only ever runs on the
+            campaign page, never on live course pages. */}
+        <div data-akasha-tracking="post-pay-placeholder" />
       </main>
 
       <Footer />
     </>
+  );
+}
+
+function BundleCard({ phase, showWellnessNote }) {
+  const bundle = phase.bundle;
+  const utm = useUtmParams();
+  const [form, setForm] = useState({ firstName: '', lastName: '', email: '' });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
+
+  const bundleReady = Boolean(JULY_PRODUCTS.essential && JULY_PRODUCTS.yinAddOn);
+
+  useEffect(() => {
+    const onShow = (e) => {
+      if (e.persisted) {
+        setLoading(false);
+        setError(null);
+      }
+    };
+    window.addEventListener('pageshow', onShow);
+    return () => window.removeEventListener('pageshow', onShow);
+  }, []);
+
+  async function handleBuy(e) {
+    e.preventDefault();
+    setError(null);
+    if (!form.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+    if (!form.firstName.trim()) {
+      setError('Please enter your first name.');
+      return;
+    }
+
+    setLoading(true);
+    const courseLabel = `July ${phase.label} Bundle`;
+    const contentId = `july-${phase.key}|bundle`;
+    trackLead(courseLabel, bundle.total);
+    try {
+      trackInitiateCheckout(courseLabel, bundle.total, contentId);
+      const { fbc, fbp } = getMetaCookies();
+      const eventId = newEventId();
+      try {
+        localStorage.setItem('pendingPurchase_courseName', courseLabel);
+        localStorage.setItem('pendingPurchase_courseId', contentId);
+        localStorage.setItem('pendingPurchase_price', String(bundle.total));
+        localStorage.setItem('pendingPurchase_eventId', eventId);
+        localStorage.setItem('pendingPurchase_timestamp', Date.now().toString());
+      } catch (_) {}
+
+      const url = await startWixCheckout({
+        utm,
+        utmNote: formatUtmNote(utm),
+        productId: JULY_PRODUCTS.essential,
+        extraLineItems: [{ productId: JULY_PRODUCTS.yinAddOn, quantity: 1 }],
+        couponCode: phase.couponCode,
+        meta: { fbc, fbp, courseSlug: 'july-bundle', planSlug: phase.key, eventId },
+        buyer: {
+          firstName: form.firstName.trim(),
+          lastName: form.lastName.trim(),
+          email: form.email.trim(),
+        },
+      });
+
+      const finalUrl = new URL(url);
+      if (fbc) finalUrl.searchParams.set('fbc', fbc);
+      if (fbp) finalUrl.searchParams.set('fbp', fbp);
+      window.location.href = finalUrl.toString();
+    } catch (err) {
+      console.error('[JulyBundle] checkout failed:', err);
+      setError(err?.message || 'Could not start checkout. Please try again.');
+      setLoading(false);
+    }
+  }
+
+  const inputCls =
+    'w-full border border-akasha-gray-3 rounded-full px-5 py-3 text-sm font-body text-akasha-black placeholder:text-akasha-gray-2 focus:outline-none focus:border-akasha-orange transition-colors bg-akasha-white';
+
+  return (
+    <div className="bg-akasha-white border-2 border-akasha-orange rounded-sm p-7 md:p-8 flex flex-col">
+      <p
+        className="text-[11px] font-body uppercase tracking-[0.25em] text-akasha-orange mb-2"
+        style={{ fontFamily: 'Inter, sans-serif' }}
+      >
+        Recommended Bundle
+      </p>
+      <h3
+        className="font-heading text-akasha-black text-xl md:text-2xl mb-3"
+        style={{ fontWeight: 400 }}
+      >
+        200hr Essential + 80hr Yin
+      </h3>
+      <p className="font-body text-akasha-gray-1 text-sm leading-relaxed mb-5">
+        Begin your certification and deepen your practice with the Yin Yoga
+        add-on. Stack both for the full Summer Self-Care path.
+      </p>
+
+      <div className="flex items-baseline gap-3 mb-2">
+        <span className="text-akasha-gray-2 line-through font-body text-base">
+          US$1,790
+        </span>
+        <span
+          className="font-heading text-akasha-orange text-3xl md:text-4xl"
+          style={{ fontWeight: 400 }}
+        >
+          US${bundle.total}
+        </span>
+      </div>
+      <p className="text-[11px] font-body uppercase tracking-[0.2em] text-akasha-orange mb-5">
+        Save US${bundle.savings}
+      </p>
+
+      <ul className="space-y-2 text-sm font-body text-akasha-gray-1 mb-6">
+        <li className="flex justify-between">
+          <span>200hr Essential Training</span>
+          <span className="text-akasha-black">US${bundle.essential}</span>
+        </li>
+        <li className="flex justify-between">
+          <span>80hr Yin Yoga Add-On</span>
+          <span className="text-akasha-black">US${bundle.yin}</span>
+        </li>
+      </ul>
+
+      <div className="border border-akasha-orange/30 bg-akasha-orange/5 rounded-sm p-3 mb-5">
+        <p
+          className="text-[10px] font-body uppercase tracking-[0.2em] text-akasha-orange mb-1"
+          style={{ fontFamily: 'Inter, sans-serif' }}
+        >
+          Auto-applied at checkout
+        </p>
+        <p className="font-heading text-akasha-black text-lg mb-1" style={{ fontWeight: 400 }}>
+          {phase.couponCode}
+        </p>
+        <p className="text-[11px] font-body text-akasha-gray-1 leading-snug">
+          {showWellnessNote
+            ? `Brings the Essential portion down to US$249 at checkout, bundle total US$${bundle.popUpTotal}.`
+            : 'Pre-applied automatically, no manual code entry required.'}
+        </p>
+      </div>
+
+      {bundleReady ? (
+        <form onSubmit={handleBuy} className="mt-auto" noValidate>
+          <div className="grid grid-cols-2 gap-3 mb-3">
+            <input
+              type="text"
+              autoComplete="given-name"
+              placeholder="First name *"
+              value={form.firstName}
+              onChange={set('firstName')}
+              className={inputCls}
+            />
+            <input
+              type="text"
+              autoComplete="family-name"
+              placeholder="Last name"
+              value={form.lastName}
+              onChange={set('lastName')}
+              className={inputCls}
+            />
+          </div>
+          <input
+            type="email"
+            autoComplete="email"
+            placeholder="Email address *"
+            value={form.email}
+            onChange={set('email')}
+            className={`${inputCls} mb-4`}
+          />
+          <button
+            type="submit"
+            disabled={loading}
+            className={`btn-action w-full ${loading ? 'opacity-70 cursor-wait' : ''}`}
+          >
+            {loading ? 'Preparing your checkout…' : `Enrol in Bundle, US$${bundle.total}`}
+          </button>
+          {error && (
+            <p className="text-xs text-akasha-orange-dark mt-3 font-body text-center">
+              {error}
+            </p>
+          )}
+        </form>
+      ) : (
+        <div className="mt-auto bg-akasha-gray-4/40 border border-dashed border-akasha-gray-3 rounded-sm p-4">
+          <p className="text-[11px] font-body uppercase tracking-[0.2em] text-akasha-gray-1 mb-1">
+            Bundle checkout pending
+          </p>
+          <p className="text-xs font-body text-akasha-gray-1 leading-relaxed">
+            Waiting on the US$199 Yin Add-on product ID from Wix. Set
+            NEXT_PUBLIC_WIX_PRODUCT_ID_YIN_ADDON in Vercel to unlock.
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function StandaloneCard({ phase }) {
+  const utm = useUtmParams();
+  const [form, setForm] = useState({ firstName: '', lastName: '', email: '' });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
+
+  useEffect(() => {
+    const onShow = (e) => {
+      if (e.persisted) {
+        setLoading(false);
+        setError(null);
+      }
+    };
+    window.addEventListener('pageshow', onShow);
+    return () => window.removeEventListener('pageshow', onShow);
+  }, []);
+
+  async function handleBuy(e) {
+    e.preventDefault();
+    setError(null);
+    if (!form.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+    if (!form.firstName.trim()) {
+      setError('Please enter your first name.');
+      return;
+    }
+
+    setLoading(true);
+    const courseLabel = `July ${phase.label} Essential Only`;
+    const contentId = `july-${phase.key}|essential-only`;
+    trackLead(courseLabel, phase.standalone.essential);
+    try {
+      trackInitiateCheckout(courseLabel, phase.standalone.essential, contentId);
+      const { fbc, fbp } = getMetaCookies();
+      const eventId = newEventId();
+      try {
+        localStorage.setItem('pendingPurchase_courseName', courseLabel);
+        localStorage.setItem('pendingPurchase_courseId', contentId);
+        localStorage.setItem('pendingPurchase_price', String(phase.standalone.essential));
+        localStorage.setItem('pendingPurchase_eventId', eventId);
+        localStorage.setItem('pendingPurchase_timestamp', Date.now().toString());
+      } catch (_) {}
+
+      const url = await startWixCheckout({
+        utm,
+        utmNote: formatUtmNote(utm),
+        productId: JULY_PRODUCTS.essential,
+        meta: { fbc, fbp, courseSlug: 'july-essential-only', planSlug: phase.key, eventId },
+        buyer: {
+          firstName: form.firstName.trim(),
+          lastName: form.lastName.trim(),
+          email: form.email.trim(),
+        },
+      });
+
+      const finalUrl = new URL(url);
+      if (fbc) finalUrl.searchParams.set('fbc', fbc);
+      if (fbp) finalUrl.searchParams.set('fbp', fbp);
+      window.location.href = finalUrl.toString();
+    } catch (err) {
+      console.error('[JulyStandalone] checkout failed:', err);
+      setError(err?.message || 'Could not start checkout. Please try again.');
+      setLoading(false);
+    }
+  }
+
+  const inputCls =
+    'w-full border border-akasha-gray-3 rounded-full px-5 py-3 text-sm font-body text-akasha-black placeholder:text-akasha-gray-2 focus:outline-none focus:border-akasha-orange transition-colors bg-akasha-white';
+
+  return (
+    <div className="bg-akasha-white border border-akasha-gray-4 rounded-sm p-7 md:p-8 flex flex-col">
+      <p
+        className="text-[11px] font-body uppercase tracking-[0.25em] text-akasha-gold mb-2"
+        style={{ fontFamily: 'Inter, sans-serif' }}
+      >
+        200hr Only
+      </p>
+      <h3
+        className="font-heading text-akasha-black text-xl md:text-2xl mb-3"
+        style={{ fontWeight: 400 }}
+      >
+        200hr Essential Training
+      </h3>
+      <p className="font-body text-akasha-gray-1 text-sm leading-relaxed mb-5">
+        Prefer to start without the Yin add-on? Continue with the standard
+        Yoga Day sale price, no coupon required.
+      </p>
+
+      <div className="flex items-baseline gap-3 mb-2">
+        <span className="text-akasha-gray-2 line-through font-body text-base">
+          US$1,190
+        </span>
+        <span
+          className="font-heading text-akasha-black text-3xl md:text-4xl"
+          style={{ fontWeight: 400 }}
+        >
+          US${phase.standalone.essential}
+        </span>
+      </div>
+      <p className="text-[11px] font-body uppercase tracking-[0.2em] text-akasha-gray-1 mb-6">
+        Existing Yoga Day price
+      </p>
+
+      <form onSubmit={handleBuy} className="mt-auto" noValidate>
+        <div className="grid grid-cols-2 gap-3 mb-3">
+          <input
+            type="text"
+            autoComplete="given-name"
+            placeholder="First name *"
+            value={form.firstName}
+            onChange={set('firstName')}
+            className={inputCls}
+          />
+          <input
+            type="text"
+            autoComplete="family-name"
+            placeholder="Last name"
+            value={form.lastName}
+            onChange={set('lastName')}
+            className={inputCls}
+          />
+        </div>
+        <input
+          type="email"
+          autoComplete="email"
+          placeholder="Email address *"
+          value={form.email}
+          onChange={set('email')}
+          className={`${inputCls} mb-4`}
+        />
+        <button
+          type="submit"
+          disabled={loading}
+          className={`inline-flex items-center justify-center w-full bg-akasha-black text-akasha-white px-8 py-3.5 rounded-full text-[12px] font-medium uppercase tracking-[0.2em] hover:bg-akasha-gray-1 transition-colors ${
+            loading ? 'opacity-70 cursor-wait' : ''
+          }`}
+          style={{ fontFamily: 'Inter, sans-serif' }}
+        >
+          {loading ? 'Preparing your checkout…' : `Enrol in 200hr Only, US$${phase.standalone.essential}`}
+        </button>
+        {error && (
+          <p className="text-xs text-akasha-orange-dark mt-3 font-body text-center">
+            {error}
+          </p>
+        )}
+      </form>
+    </div>
   );
 }
