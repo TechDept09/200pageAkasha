@@ -138,45 +138,77 @@ function CampaignContent({ phase }) {
 
           <div className="relative z-10 section text-center max-w-3xl text-akasha-white py-20 md:py-28">
             <span
-              className="inline-block text-[11px] tracking-[0.3em] uppercase font-medium mb-4"
-              style={{ fontFamily: 'Inter, sans-serif', color: '#F5B872' }}
+              className="july-hero-anim inline-block text-[11px] tracking-[0.3em] uppercase font-medium mb-4"
+              style={{ fontFamily: 'Inter, sans-serif', color: '#F5B872', animationDelay: '0.15s' }}
             >
               July Campaign 2026 · {phase.dateRange}
             </span>
             <h1
-              className="mb-4"
+              className="july-hero-anim mb-4"
               style={{
                 fontSize: 'clamp(2.6rem, 6.4vw, 4.6rem)',
                 fontWeight: 300,
                 lineHeight: 1.05,
                 color: '#FFFFFF',
+                animationDelay: '0.3s',
               }}
             >
               {phase.headline}
             </h1>
             <p
-              className="script mb-6"
+              className="july-hero-anim script mb-6"
               style={{
                 fontSize: 'clamp(2rem, 4vw, 2.8rem)',
                 color: '#F5B872',
+                animationDelay: '0.55s',
               }}
             >
               This summer, choose yourself
             </p>
             <p
-              className="font-body max-w-2xl mx-auto text-base md:text-lg leading-relaxed mb-8"
-              style={{ color: 'rgba(255,255,255,0.92)' }}
+              className="july-hero-anim font-body max-w-2xl mx-auto text-base md:text-lg leading-relaxed mb-8"
+              style={{ color: 'rgba(255,255,255,0.92)', animationDelay: '0.75s' }}
             >
               {phase.intro}
             </p>
             <a
               href="#enroll"
-              className="inline-flex items-center justify-center bg-akasha-orange text-akasha-white px-10 py-4 rounded-full text-[13px] font-semibold uppercase tracking-[0.2em] hover:bg-akasha-orange-dark transition-colors shadow-lg"
-              style={{ fontFamily: 'Inter, sans-serif' }}
+              className="july-hero-anim inline-flex items-center justify-center bg-akasha-orange text-akasha-white px-10 py-4 rounded-full text-[13px] font-semibold uppercase tracking-[0.2em] hover:bg-akasha-orange-dark transition-colors shadow-lg"
+              style={{ fontFamily: 'Inter, sans-serif', animationDelay: '0.95s' }}
             >
               See Your Bundle
             </a>
           </div>
+
+          <style jsx>{`
+            .july-hero-anim {
+              opacity: 0;
+              animation: julyFadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            }
+            @keyframes julyFadeUp {
+              0% {
+                opacity: 0;
+                transform: translate3d(0, 28px, 0);
+                filter: blur(4px);
+              }
+              60% {
+                filter: blur(0);
+              }
+              100% {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+                filter: blur(0);
+              }
+            }
+            @media (prefers-reduced-motion: reduce) {
+              .july-hero-anim {
+                opacity: 1;
+                animation: none;
+                transform: none;
+                filter: none;
+              }
+            }
+          `}</style>
         </section>
 
         {/* Two checkout options */}
