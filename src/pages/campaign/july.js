@@ -9,15 +9,31 @@ import TrustStrip from '@/components/TrustStrip';
 import Footer from '@/components/Footer';
 import { CATEGORIES, courses, getCoursesByCategory } from '@/lib/courses';
 
-// Campaign preview: only Essential and 80hr Yin are part of the Summer
-// Self-Care offer. Every other course card on this page should render
-// at its regular price so the visual story doesn't confuse the Yoga Day
-// 60% promo (which ended on 30 Jun) with the July bundle.
+// Campaign preview: only Essential and 80hr Yin sit inside the Summer
+// Self-Care bundle and keep the full Yoga Day display. The advanced
+// modules drop back to their everyday-display rate (the lighter ~33%
+// markdown Akasha runs all year), and the remaining cards strip the
+// 60% Yoga Day badge entirely so the visual story stays clean.
 const CAMPAIGN_DISCOUNT_KEEP = new Set(['200h-essential', '80h-yin']);
+
+const CAMPAIGN_PRICE_OVERRIDES = {
+  '300h-ytt': { promoPrice: 1190, discountPercent: 33 },
+  '80h-hatha-pranayama': { promoPrice: 239, discountPercent: 33 },
+  '80h-meditation': { promoPrice: 239, discountPercent: 33 },
+};
 
 function stripCampaignDiscount(course) {
   if (!course) return course;
   if (CAMPAIGN_DISCOUNT_KEEP.has(course.slug)) return course;
+  const override = CAMPAIGN_PRICE_OVERRIDES[course.slug];
+  if (override) {
+    return {
+      ...course,
+      ...override,
+      discountLabel: null,
+      saleEndShort: null,
+    };
+  }
   return {
     ...course,
     discountPercent: null,
