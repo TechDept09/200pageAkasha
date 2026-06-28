@@ -252,13 +252,9 @@ function CampaignContent({ phase }) {
               </h2>
               <span className="gold-rule" />
               <p className="font-body text-akasha-gray-1 mt-6 text-base md:text-lg leading-relaxed">
-                This summer, self-care can become your new path. Both options
-                begin with the 200hr Essential Yoga Teacher Training, the
-                foundation of your certification and the place where the
-                practice of choosing yourself starts. The bundle then opens
-                into the 80hr Yin methodology, a slower, deeper layer of the
-                journey, a practice of stillness, of letting the breath lead.
-                Choose the path that calls.
+                This summer, self-care can become your new path. Begin with
+                the 200hr Essential, or open the journey deeper with the
+                80hr Yin. Choose the path that calls.
               </p>
             </div>
 
