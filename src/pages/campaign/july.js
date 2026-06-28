@@ -582,7 +582,7 @@ function TestimonialCarousel() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIdx((i) => (i + 1) % JULY_TESTIMONIALS.length);
-    }, 10000);
+    }, 5000);
     return () => clearInterval(interval);
   }, [currentIdx]);
 
