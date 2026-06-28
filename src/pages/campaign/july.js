@@ -144,7 +144,7 @@ function CampaignContent({ phase }) {
               {phase.publicName} · {phase.dateRange}
             </span>
             <h1
-              className="july-hero-anim mb-4"
+              className="july-hero-anim mb-6"
               style={{
                 fontSize: 'clamp(2.6rem, 6.4vw, 4.6rem)',
                 fontWeight: 300,
@@ -156,25 +156,15 @@ function CampaignContent({ phase }) {
               {phase.headline}
             </h1>
             <p
-              className="july-hero-anim script mb-6"
-              style={{
-                fontSize: 'clamp(2rem, 4vw, 2.8rem)',
-                color: '#F5B872',
-                animationDelay: '0.55s',
-              }}
-            >
-              This summer, choose yourself
-            </p>
-            <p
               className="july-hero-anim font-body max-w-2xl mx-auto text-base md:text-lg leading-relaxed mb-8"
-              style={{ color: 'rgba(255,255,255,0.92)', animationDelay: '0.75s' }}
+              style={{ color: 'rgba(255,255,255,0.92)', animationDelay: '0.55s' }}
             >
               {phase.intro}
             </p>
             <a
               href="#enroll"
               className="july-hero-anim inline-flex items-center justify-center bg-akasha-orange text-akasha-white px-10 py-4 rounded-full text-[13px] font-semibold uppercase tracking-[0.2em] hover:bg-akasha-orange-dark transition-colors shadow-lg"
-              style={{ fontFamily: 'Inter, sans-serif', animationDelay: '0.95s' }}
+              style={{ fontFamily: 'Inter, sans-serif', animationDelay: '0.75s' }}
             >
               See Your Bundle
             </a>
