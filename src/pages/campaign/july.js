@@ -341,49 +341,9 @@ function CampaignContent({ phase }) {
           </div>
         </section>
 
-        {/* Testimonials, modern photo-first grid */}
-        <section className="py-16 md:py-24 bg-akasha-white">
-          <div className="section">
-            <div className="text-center max-w-2xl mx-auto mb-12 md:mb-16">
-              <span className="eyebrow">From the Akasha Family</span>
-              <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 300 }}>
-                Real stories from real graduates
-              </h2>
-              <span className="gold-rule" />
-            </div>
+        {/* Testimonials, one-at-a-time fade carousel */}
+        <TestimonialCarousel />
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 max-w-6xl mx-auto">
-              {JULY_TESTIMONIALS.map((t) => (
-                <article
-                  key={t.name}
-                  className="group flex flex-col"
-                >
-                  <div className="relative aspect-[4/5] overflow-hidden rounded-sm bg-akasha-gray-4 mb-6 shadow-sm">
-                    <img
-                      src={t.photo}
-                      alt={t.name}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    <span className="absolute bottom-3 left-3 inline-flex items-center bg-akasha-white/95 backdrop-blur-sm text-akasha-gold text-[11px] tracking-[0.25em] px-3 py-1 rounded-full shadow">
-                      ★★★★★
-                    </span>
-                  </div>
-                  <blockquote
-                    className="font-heading text-akasha-black text-[15px] md:text-base leading-relaxed mb-4 italic"
-                    style={{ fontWeight: 300 }}
-                  >
-                    &ldquo;{t.quote}&rdquo;
-                  </blockquote>
-                  <p className="text-[11px] font-body text-akasha-gray-1 uppercase tracking-[0.28em]">
-                    {t.name}{t.country ? ` · ${t.country}` : ''}
-                  </p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
 
         {/* Mirror the hub homepage card grids so marketing can preview how
             the campaign reads alongside the rest of the catalog. The same
@@ -613,6 +573,93 @@ function BundleCard({ phase, showWellnessNote }) {
         </div>
       )}
     </div>
+  );
+}
+
+function TestimonialCarousel() {
+  const [currentIdx, setCurrentIdx] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIdx((i) => (i + 1) % JULY_TESTIMONIALS.length);
+    }, 10000);
+    return () => clearInterval(interval);
+  }, [currentIdx]);
+
+  return (
+    <section className="py-16 md:py-24 bg-akasha-gray-4/30">
+      <div className="section">
+        <header className="text-center max-w-2xl mx-auto mb-12 md:mb-16">
+          <span className="eyebrow">From the Akasha Family</span>
+          <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 300 }}>
+            Real stories from real graduates
+          </h2>
+          <span className="gold-rule" />
+        </header>
+
+        <div className="max-w-4xl mx-auto">
+          <div className="grid">
+            {JULY_TESTIMONIALS.map((t, i) => (
+              <article
+                key={t.name}
+                aria-hidden={i !== currentIdx}
+                style={{
+                  gridArea: '1 / 1',
+                  opacity: i === currentIdx ? 1 : 0,
+                  transition: 'opacity 1s ease',
+                  pointerEvents: i === currentIdx ? 'auto' : 'none',
+                }}
+                className="bg-akasha-white border border-akasha-gray-4 rounded-sm p-8 md:p-12 shadow-sm"
+              >
+                <div className="grid md:grid-cols-[260px,1fr] gap-8 md:gap-12 items-center">
+                  <div className="aspect-square overflow-hidden rounded-sm bg-akasha-gray-4 mx-auto md:mx-0 max-w-[260px] w-full shadow-sm">
+                    <img
+                      src={t.photo}
+                      alt={t.name}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  <div>
+                    <span className="text-akasha-gold text-sm tracking-[0.25em] block mb-4">
+                      ★★★★★
+                    </span>
+                    <blockquote
+                      className="font-heading text-akasha-black text-lg md:text-xl leading-relaxed italic mb-6"
+                      style={{ fontWeight: 300 }}
+                    >
+                      &ldquo;{t.quote}&rdquo;
+                    </blockquote>
+                    <p className="text-[12px] font-body text-akasha-gray-1 uppercase tracking-[0.28em]">
+                      {t.name}{t.country ? ` · ${t.country}` : ''}
+                    </p>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div className="flex justify-center gap-2 mt-8 md:mt-10" role="tablist" aria-label="Testimonial selector">
+            {JULY_TESTIMONIALS.map((t, i) => (
+              <button
+                key={t.name}
+                type="button"
+                role="tab"
+                aria-selected={i === currentIdx}
+                aria-label={`Show testimonial ${i + 1} of ${JULY_TESTIMONIALS.length}`}
+                onClick={() => setCurrentIdx(i)}
+                className={`h-2 rounded-full transition-all duration-500 ease-out ${
+                  i === currentIdx
+                    ? 'w-10 bg-akasha-orange'
+                    : 'w-2 bg-akasha-gray-3 hover:bg-akasha-gray-2'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
