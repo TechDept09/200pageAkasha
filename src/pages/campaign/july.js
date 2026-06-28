@@ -148,7 +148,7 @@ function CampaignContent({ phase }) {
                 fontWeight: 600,
               }}
             >
-              {phase.publicName} · {phase.dateRange}
+              {phase.dateRange}
             </span>
             <h1
               className="july-hero-anim mb-4"
