@@ -841,20 +841,14 @@ function SoftEnrollNudge({ label = 'Ready when you are' }) {
 }
 
 // Verbatim from akashayogaacademy.com/200hr-yoga-teacher-training-online
-// "WHY CHOOSE OUR YOGA ACADEMY" block. Titles and body paragraphs are
-// not reworded. The Personalized Guidance card carries Akasha's own
-// "*Only Available with Our Premium Plan" footnote.
+// "WHY CHOOSE OUR YOGA ACADEMY" block, minus the Personalized Guidance
+// card because that benefit is Premium-only and this campaign sells
+// Essential. Titles and body paragraphs are not reworded.
 const WHY_CHOOSE = [
   {
     title: 'Ready to Teach Yoga',
     body:
       "Our training program is not only about learning yoga; it's also about preparing you for a successful teaching career. We cover every aspect of yoga, from basic to advanced techniques, to give you a deep understanding and strong practical skills. Many of our students have gone on to build successful businesses after graduation. When you complete our course, you'll have the knowledge, confidence, and foundation to start teaching yoga professionally and even establish your own yoga business.",
-  },
-  {
-    title: 'Personalized Guidance from Expert Mentors',
-    body:
-      'At Akasha Yoga Academy, we believe in a personalized approach to learning. Each student is paired with a dedicated mentor who provides tailored support and guidance. These mentors help you navigate through the course with customized assignments and interactive sessions, catering to your individual learning style and needs. This one-on-one attention ensures that your journey into yoga teaching is as unique as you are.',
-    footnote: '*Only Available with Our Premium Plan',
   },
   {
     title: 'Highly Rated and Experienced Experts',
@@ -886,7 +880,7 @@ function WhyChooseAkasha() {
           <span className="gold-rule" />
         </header>
 
-        <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+        <div className="grid md:grid-cols-3 gap-6 md:gap-8">
           {WHY_CHOOSE.map((c) => (
             <article
               key={c.title}
@@ -901,11 +895,6 @@ function WhyChooseAkasha() {
               <p className="font-body text-akasha-gray-1 text-sm md:text-[15px] leading-relaxed">
                 {c.body}
               </p>
-              {c.footnote ? (
-                <p className="text-[11px] font-body italic text-akasha-gray-2 mt-3">
-                  {c.footnote}
-                </p>
-              ) : null}
             </article>
           ))}
         </div>
