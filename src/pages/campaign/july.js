@@ -140,8 +140,14 @@ export default function JulyCampaign() {
 function CampaignContent({ phase }) {
   const bundle = phase.bundle;
   const standalone = phase.standalone;
-  const showWellnessNote = phase.key === 'phase2';
   const isBackup = phase.key === 'backup';
+  // Bundle drives whether the two-card layout + comparison block show.
+  // Without a bundle (phase2 simplified to Essential-only, backup mode)
+  // the page collapses to a single centred Standalone card.
+  const hasBundle = !!bundle;
+  // showWellnessNote is now legacy, kept only because BundleCard reads
+  // it; with phase2 dropping the bundle, this never evaluates true.
+  const showWellnessNote = phase.key === 'phase2' && hasBundle;
 
   return (
     <>
@@ -313,33 +319,35 @@ function CampaignContent({ phase }) {
                 {isBackup ? 'A final invitation' : 'Begin your journey'}
               </span>
               <h2 style={{ fontSize: 'clamp(1.8rem, 3.6vw, 2.6rem)', fontWeight: 300 }}>
-                {isBackup
-                  ? 'Step into the 200hr Essential'
-                  : 'Two ways to step in this summer'}
+                {hasBundle
+                  ? 'Two ways to step in this summer'
+                  : 'Step into the 200hr Essential'}
               </h2>
               <span className="gold-rule" />
               <p className="font-body text-akasha-gray-1 mt-6 text-base md:text-lg leading-relaxed">
                 {isBackup
                   ? 'This is a final, quiet offer for the 200hr Essential. The voucher below brings the price to US$249 at checkout, no manual code entry required.'
-                  : 'This summer, self-care can become your new path. Begin with the 200hr Essential, or open the journey deeper with the 80hr Yin. Choose the path that calls.'}
+                  : hasBundle
+                    ? 'This summer, self-care can become your new path. Begin with the 200hr Essential, or open the journey deeper with the 80hr Yin. Choose the path that calls.'
+                    : 'A focused way in. The 200hr Essential Yoga Teacher Training at our summer rate, with the voucher applied automatically at checkout.'}
               </p>
             </div>
 
-            {isBackup ? (
-              <div className="max-w-xl mx-auto">
+            {hasBundle ? (
+              <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto items-stretch">
+                <BundleCard phase={phase} showWellnessNote={showWellnessNote} />
                 <StandaloneCard phase={phase} />
               </div>
             ) : (
-              <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto items-stretch">
-                <BundleCard phase={phase} showWellnessNote={showWellnessNote} />
+              <div className="max-w-xl mx-auto">
                 <StandaloneCard phase={phase} />
               </div>
             )}
           </div>
         </section>
 
-        {/* Side-by-side comparison, hidden in backup mode (no bundle to compare) */}
-        {isBackup ? null : (
+        {/* Side-by-side comparison only when a bundle exists. */}
+        {hasBundle ? (
         <section className="py-14 md:py-20 bg-akasha-white">
           <div className="section max-w-5xl">
             <div className="text-center mb-12 max-w-2xl mx-auto">
@@ -438,14 +446,14 @@ function CampaignContent({ phase }) {
             </div>
           </div>
         </section>
-        )}
+        ) : null}
 
         {/* Second soft nudge after the comparison so the math leads
-            directly to the offer. Hidden in backup mode because the
-            comparison itself was hidden. */}
-        {isBackup ? null : (
+            directly to the offer. Only shown when the comparison block
+            was also rendered (bundle phases). */}
+        {hasBundle ? (
           <SoftEnrollNudge label="The numbers led you here" />
-        )}
+        ) : null}
 
         {/* Catalog tail: the rest of the Akasha programs after the
             campaign offer. Shared hub components render here; cards
@@ -743,17 +751,22 @@ function CampaignStickyCTA({ phase }) {
             >
               {price}
               {countdown && !countdown.expired ? (
-                <span className="text-akasha-white/70 normal-case tracking-normal ml-2">
+                <span className="hidden sm:inline text-akasha-white/70 normal-case tracking-normal ml-2">
                   · ends in {countdown.days}d {countdown.hours}h {countdown.minutes}m
                 </span>
               ) : null}
             </p>
             <p
-              className="text-xs md:text-sm font-heading text-akasha-white leading-snug truncate"
+              className="hidden sm:block text-xs md:text-sm font-heading text-akasha-white leading-snug truncate"
               style={{ fontWeight: 300 }}
             >
               {phase.headline}
             </p>
+            {countdown && !countdown.expired ? (
+              <p className="sm:hidden text-[10px] font-body text-akasha-white/70 leading-tight mt-0.5">
+                ends in {countdown.days}d {countdown.hours}h
+              </p>
+            ) : null}
           </div>
           <a
             href="#enroll"

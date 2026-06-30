@@ -43,16 +43,13 @@ export const JULY_PHASES = {
     intro:
       'Transform your practice this summer with our 200hr Essential Yoga Teacher Training.',
     couponCode: 'WELLNESS50',
-    couponNote: 'Use coupon WELLNESS50 for an additional $50 off, bringing the bundle to $249 at checkout.',
-    bundle: {
-      essential: 299,
-      yin: 199,
-      total: 498,
-      popUpTotal: 249, // WELLNESS50 coupon brings essential to $249
-      savings: 1292,
-    },
+    couponNote: 'Use coupon WELLNESS50 for an additional US$41 off, bringing the Essential to US$249 at checkout.',
+    // Phase 2 simplifies to Essential only at US$290, with WELLNESS50
+    // bringing it to US$249 at checkout. No bundle in this phase.
+    bundle: null,
     standalone: {
       essential: 290,
+      voucherPrice: 249,
     },
   },
 };
