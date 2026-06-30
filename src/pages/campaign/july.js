@@ -300,8 +300,14 @@ function CampaignContent({ phase }) {
           `}</style>
         </section>
 
-        {/* Benefits overview, the campaign's value props first so the
-            buyer sees why before they see how much. */}
+        {/* Emotional Why: leads with Akasha's own 'Why Choose Our Yoga
+            Academy' block so the buyer feels the value before the hour
+            breakdown shows up. Verbatim from the live 200hr page. */}
+        <WhyChooseAkasha />
+
+        {/* Technical What: Akasha's 'COURSE CONTENT' hour breakdown,
+            verbatim. Sits under WhyChoose so analytical buyers can still
+            validate the syllabus. */}
         <CampaignBenefits />
 
         {/* Testimonials, social proof before the checkout. */}
@@ -831,6 +837,80 @@ function SoftEnrollNudge({ label = 'Ready when you are' }) {
         <span aria-hidden="true" className="text-base">↓</span>
       </a>
     </div>
+  );
+}
+
+// Verbatim from akashayogaacademy.com/200hr-yoga-teacher-training-online
+// "WHY CHOOSE OUR YOGA ACADEMY" block. Titles and body paragraphs are
+// not reworded. The Personalized Guidance card carries Akasha's own
+// "*Only Available with Our Premium Plan" footnote.
+const WHY_CHOOSE = [
+  {
+    title: 'Ready to Teach Yoga',
+    body:
+      "Our training program is not only about learning yoga; it's also about preparing you for a successful teaching career. We cover every aspect of yoga, from basic to advanced techniques, to give you a deep understanding and strong practical skills. Many of our students have gone on to build successful businesses after graduation. When you complete our course, you'll have the knowledge, confidence, and foundation to start teaching yoga professionally and even establish your own yoga business.",
+  },
+  {
+    title: 'Personalized Guidance from Expert Mentors',
+    body:
+      'At Akasha Yoga Academy, we believe in a personalized approach to learning. Each student is paired with a dedicated mentor who provides tailored support and guidance. These mentors help you navigate through the course with customized assignments and interactive sessions, catering to your individual learning style and needs. This one-on-one attention ensures that your journey into yoga teaching is as unique as you are.',
+    footnote: '*Only Available with Our Premium Plan',
+  },
+  {
+    title: 'Highly Rated and Experienced Experts',
+    body:
+      'With a 4.93-star rating and over 200 reviews, Akasha Yoga Academy stands out as a top-tier yoga school. Our program, established in 2011, is backed by 12 years of educational excellence. We bring a deep-rooted history and expertise in yoga education, offering a curriculum that is both comprehensive and deeply transformative. This high ranking is a testament to our commitment to providing exceptional yoga training.',
+  },
+  {
+    title: 'Join a Supportive Global Yoga Community',
+    body:
+      "At Akasha Yoga Academy, you'll be part of a worldwide family of yoga practitioners, learning from diverse experiences and cultures. Our program includes interactive online training with direct communication with teachers and peers. You'll get real-time guidance and participate in daily live sessions, addressing all your questions. This supportive environment not only helps you learn yoga but also connects you with friends globally. It prepares you with the skills and confidence to teach yoga anywhere in the world.",
+  },
+];
+
+function WhyChooseAkasha() {
+  return (
+    <section
+      className="py-16 md:py-24 bg-akasha-white"
+      aria-labelledby="july-why-choose-heading"
+    >
+      <div className="section max-w-5xl">
+        <header className="text-center max-w-2xl mx-auto mb-12 md:mb-14">
+          <span className="eyebrow">Why this training</span>
+          <h2
+            id="july-why-choose-heading"
+            style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 300 }}
+          >
+            Why Choose Our Yoga Academy
+          </h2>
+          <span className="gold-rule" />
+        </header>
+
+        <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+          {WHY_CHOOSE.map((c) => (
+            <article
+              key={c.title}
+              className="bg-akasha-gray-4/30 border border-akasha-gray-4 rounded-sm p-7 md:p-8 flex flex-col"
+            >
+              <h3
+                className="font-heading text-akasha-black text-lg md:text-xl mb-3 leading-snug"
+                style={{ fontWeight: 400 }}
+              >
+                {c.title}
+              </h3>
+              <p className="font-body text-akasha-gray-1 text-sm md:text-[15px] leading-relaxed">
+                {c.body}
+              </p>
+              {c.footnote ? (
+                <p className="text-[11px] font-body italic text-akasha-gray-2 mt-3">
+                  {c.footnote}
+                </p>
+              ) : null}
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
