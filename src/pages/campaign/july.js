@@ -300,15 +300,9 @@ function CampaignContent({ phase }) {
           `}</style>
         </section>
 
-        {/* Emotional Why: leads with Akasha's own 'Why Choose Our Yoga
-            Academy' block so the buyer feels the value before the hour
-            breakdown shows up. Verbatim from the live 200hr page. */}
+        {/* Why this training: Akasha's own 'Why Choose Our Yoga Academy'
+            block, verbatim from the live 200hr page. */}
         <WhyChooseAkasha />
-
-        {/* Technical What: Akasha's 'COURSE CONTENT' hour breakdown,
-            verbatim. Sits under WhyChoose so analytical buyers can still
-            validate the syllabus. */}
-        <CampaignBenefits />
 
         {/* Testimonials, social proof before the checkout. */}
         <TestimonialCarousel />
@@ -903,96 +897,6 @@ function WhyChooseAkasha() {
   );
 }
 
-// Verbatim from akashayogaacademy.com/200hr-yoga-teacher-training-online
-// "COURSE CONTENT" section. Titles and bullets are not reworded.
-const COURSE_CONTENT = [
-  {
-    title: 'PRACTICE',
-    items: [
-      '60 Hours of Asana',
-      '20 Hours of Pranayama',
-      '15 Hours of Meditation',
-    ],
-  },
-  {
-    title: 'THEORY',
-    items: [
-      '40 Hours of Yoga Anatomy & Posture Study',
-      '50 Hours of Lectures on Applied Philosophy & History',
-      'Teaching Techniques & Instructor Skills',
-    ],
-  },
-  {
-    title: 'TEACHER EDUCATION',
-    items: [
-      'Personally Supervised Practicum Assignments',
-      'Guided Prep, Video Recording & One-on-One Feedback',
-      'Marketing, Networking & How to Get Started',
-    ],
-  },
-  {
-    title: 'PERSONAL GUIDANCE & FUN',
-    items: [
-      'Daily Live Q&As',
-      'Community Forums, Private Facebook Group & Chats',
-      'Bhajan Chanting & so much more',
-    ],
-  },
-];
-
-function CampaignBenefits() {
-  return (
-    <section
-      className="py-16 md:py-24 bg-akasha-white"
-      aria-labelledby="july-benefits-heading"
-    >
-      <div className="section max-w-5xl">
-        <header className="text-center max-w-2xl mx-auto mb-12 md:mb-14">
-          <span className="eyebrow">Course Content</span>
-          <h2
-            id="july-benefits-heading"
-            style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 300 }}
-          >
-            Everything you receive
-          </h2>
-          <span className="gold-rule" />
-          <p className="font-body text-akasha-gray-1 mt-5 text-base md:text-lg leading-relaxed">
-            Sign-up for our Yoga Alliance certified 200-Hour Online Yoga
-            Teacher Training today, and immediately access:
-          </p>
-        </header>
-
-        <ul className="grid sm:grid-cols-2 gap-5 md:gap-6">
-          {COURSE_CONTENT.map((block) => (
-            <li
-              key={block.title}
-              className="bg-akasha-gray-4/30 border border-akasha-gray-4 rounded-sm p-6 md:p-7 flex flex-col"
-            >
-              <h3
-                className="text-[11px] font-body uppercase tracking-[0.25em] text-akasha-orange mb-4"
-                style={{ fontFamily: 'Inter, sans-serif' }}
-              >
-                {block.title}
-              </h3>
-              <ul className="space-y-2.5 font-body text-akasha-gray-1 text-sm md:text-[15px] leading-relaxed">
-                {block.items.map((it) => (
-                  <li key={it} className="flex items-start gap-3">
-                    <span className="text-akasha-green mt-0.5 flex-none">✓</span>
-                    <span>{it}</span>
-                  </li>
-                ))}
-              </ul>
-            </li>
-          ))}
-        </ul>
-
-        <p className="text-center text-[12px] font-body text-akasha-gray-1 italic mt-8">
-          *Mentor Support only Available with Our Premium Plan
-        </p>
-      </div>
-    </section>
-  );
-}
 
 function IntroVideos() {
   if (!JULY_INTRO_VIDEOS?.length) return null;
