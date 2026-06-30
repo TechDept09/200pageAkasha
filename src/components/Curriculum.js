@@ -2,30 +2,61 @@
 
 import { useState } from 'react';
 
+// Curriculum text copied verbatim from
+// akashayogaacademy.com/200-hour-online-curriculum so the page mirrors
+// what Akasha already publishes. Item lists are the same content broken
+// out per line for scannability; the desc field keeps the original
+// comma-separated sentence.
 const parts = [
   {
     n: '01',
     t: 'Practice & Theory',
-    desc: 'Build your foundation through grounded asana, breath, and presence. Learn pranayama, heart-centered meditation, the chakras, and the philosophical roots that make Yoga more than physical exercise, so you grow into a confident self-practitioner.',
-    items: ['Asanas & alignment', 'Breathwork (Pranayama)', 'Heart meditation', 'Yoga philosophy', 'The art of living', 'The chakras'],
+    desc: 'Asanas & alignment training, cleansing breathwork, heart meditation, practical philosophy, art of living, chakras.',
+    items: [
+      'Asanas & alignment training',
+      'Cleansing breathwork',
+      'Heart meditation',
+      'Practical philosophy',
+      'Art of living',
+      'Chakras',
+    ],
   },
   {
     n: '02',
     t: 'Anatomy & Posture',
-    desc: 'Go deeper into advanced asanas, pranayama, and the energetic bandhas. Study applied yoga anatomy and posture refinement so you can teach safely, observe with precision, and offer hands-on adjustments with care.',
-    items: ['Advanced asanas & pranayama', 'Bandha', 'Yoga anatomy', 'Teaching skills', 'Adjustment training'],
+    desc: 'Advanced asanas & pranayama, bandha, applied Yoga anatomy, teaching skills, adjustment training & posture study.',
+    items: [
+      'Advanced asanas & pranayama',
+      'Bandha',
+      'Applied Yoga anatomy',
+      'Teaching skills',
+      'Adjustment training',
+      'Posture study',
+    ],
   },
   {
     n: '03',
     t: 'Yoga Physiology',
-    desc: 'Step into the scriptures, the Bhagavad Gita and the Yoga Sutras, and the inner physiology of Yoga. Learn purification practices, yogic diet, and how to sequence a class with intention. You’ll teach your own 60-minute class to put theory into practice.',
-    items: ['Scripture: Bhagavad Gita', 'Scripture: Yoga Sutras', 'Purification practices', 'Yogic diet', 'Sequencing', 'Teaching a 60-minute class'],
+    desc: 'Scripture Study: Bhagavad Gita, Yoga Sutras, purification, Yogic diet, sequencing, teaching of own 60-minute Yoga class.',
+    items: [
+      'Scripture Study: Bhagavad Gita',
+      'Scripture Study: Yoga Sutras',
+      'Purification',
+      'Yogic diet',
+      'Sequencing',
+      'Teaching of own 60-minute Yoga class',
+    ],
   },
   {
     n: '04',
-    t: 'Practicum & Getting Started',
-    desc: 'Trace Yoga’s lineage from its roots to your own teaching voice. Build a personal practice that sustains you, teach a full 90-minute class, and finish with the marketing and networking know-how to share Yoga with the world.',
-    items: ['Yoga history', 'Self-practice', 'Teaching a 90-minute class', 'Marketing & networking'],
+    t: 'Practicum & How to Get Started',
+    desc: 'History of Yoga, self practice, own teaching of a 90-minute Yoga class, marketing & networking.',
+    items: [
+      'History of Yoga',
+      'Self practice',
+      'Own teaching of a 90-minute Yoga class',
+      'Marketing & networking',
+    ],
   },
 ];
 
@@ -83,14 +114,16 @@ export default function Curriculum() {
     <section id="curriculum" className="py-20 md:py-28 bg-akasha-white">
       <div className="section">
         <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="eyebrow">Program Overview</span>
+          <span className="eyebrow">The Curriculum</span>
           <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 300 }}>
             Deepen your Knowledge &amp; Practice
           </h2>
           <p className="font-body text-akasha-gray-1 mt-4 leading-relaxed">
-            Learn &amp; experience a deeper level of Yoga in both philosophy
-            &amp; practice. A complete 200-hour curriculum in four integrated
-            parts.
+            Learn the essence of breath-based Hatha Yoga in the Vinyasa
+            Krama style of Krishnamacharya. Receive access to this
+            authentic classical approach in our truly systematic syllabus,
+            which is based on decades of committed research, study &amp;
+            practice under reputable masters.
           </p>
           <span className="gold-rule" />
         </div>

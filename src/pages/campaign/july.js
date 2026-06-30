@@ -52,6 +52,7 @@ import {
   JULY_PHASES,
   JULY_PRODUCTS,
   JULY_BG_VIDEO,
+  JULY_INTRO_VIDEOS,
   JULY_TESTIMONIALS,
 } from '@/lib/julyCampaign';
 
@@ -146,7 +147,39 @@ function CampaignContent({ phase }) {
     <>
       <Head>
         <title>{phase.headline}, Akasha Yoga Academy</title>
+        <meta name="description" content={phase.intro} />
+        {/* Stays gated while it's a confidential preview. Drop the
+            noindex when marketing decides to take this page public. */}
         <meta name="robots" content="noindex, nofollow" />
+        {/* Course schema so AI agents and search engines can describe
+            the offer with structured data even before the page is public. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Course',
+              name: '200-Hour Essential Yoga Teacher Training',
+              description: phase.intro,
+              provider: {
+                '@type': 'Organization',
+                name: 'Akasha Yoga Academy',
+                url: 'https://www.akashayogaacademy.com',
+              },
+              hasCourseInstance: {
+                '@type': 'CourseInstance',
+                courseMode: 'Online',
+                inLanguage: 'en',
+              },
+              offers: {
+                '@type': 'Offer',
+                price: phase.standalone?.voucherPrice || phase.standalone?.essential,
+                priceCurrency: 'USD',
+                availability: 'https://schema.org/InStock',
+              },
+            }),
+          }}
+        />
       </Head>
 
       <HubNav />
@@ -258,6 +291,15 @@ function CampaignContent({ phase }) {
             }
           `}</style>
         </section>
+
+        {/* Intro videos, breath room between the hero and the ask. */}
+        <IntroVideos />
+
+        {/* Testimonials, social proof before the checkout. */}
+        <TestimonialCarousel />
+
+        {/* Certified badges so the credibility signal sits next to the offer. */}
+        <TrustStrip />
 
         {/* Checkout block: two cards normally, one centred card in backup mode */}
         <section className="py-14 md:py-20 bg-akasha-gray-4/30" id="enroll">
@@ -394,18 +436,11 @@ function CampaignContent({ phase }) {
         </section>
         )}
 
-        {/* Testimonials, one-at-a-time fade carousel */}
-        <TestimonialCarousel />
-
-
-        {/* Mirror the hub homepage card grids so marketing can preview how
-            the campaign reads alongside the rest of the catalog. The same
-            shared components render here, no live page is touched. Cards
-            outside the Summer Self-Care offer (Essential + Yin) have their
-            60% Yoga Day badge + promo price stripped via
-            stripCampaignDiscount() so the page visual stays on-message. */}
-        <TrustStrip />
-
+        {/* Catalog tail: the rest of the Akasha programs after the
+            campaign offer. Shared hub components render here; cards
+            outside the Summer Self-Care offer have their 60% Yoga Day
+            badge + promo price stripped via stripCampaignDiscount() so
+            the page visual stays on-message. */}
         <MainProducts
           premiumOverride={stripCampaignDiscount(courses.find((c) => c.slug === '200h-premium'))}
         />
@@ -631,6 +666,64 @@ function BundleCard({ phase, showWellnessNote }) {
         </div>
       )}
     </div>
+  );
+}
+
+function IntroVideos() {
+  if (!JULY_INTRO_VIDEOS?.length) return null;
+  return (
+    <section
+      className="py-16 md:py-24 bg-akasha-white"
+      aria-labelledby="july-intro-videos-heading"
+    >
+      <div className="section max-w-5xl">
+        <header className="text-center max-w-2xl mx-auto mb-12 md:mb-14">
+          <span className="eyebrow">Meet Akasha</span>
+          <h2
+            id="july-intro-videos-heading"
+            style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 300 }}
+          >
+            A quiet look inside
+          </h2>
+          <span className="gold-rule" />
+          <p className="font-body text-akasha-gray-1 mt-5 text-base md:text-lg leading-relaxed">
+            Hear from the founders and step into the space where this
+            training lives before deciding anything.
+          </p>
+        </header>
+
+        <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+          {JULY_INTRO_VIDEOS.map((v) => (
+            <figure key={v.id} className="flex flex-col">
+              <div className="aspect-video bg-akasha-gray-4 rounded-sm overflow-hidden shadow-sm">
+                <iframe
+                  src={`https://www.youtube-nocookie.com/embed/${v.id}?rel=0&modestbranding=1&iv_load_policy=3&playsinline=1`}
+                  title={v.title}
+                  allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  loading="lazy"
+                  className="w-full h-full"
+                  style={{ border: 0 }}
+                />
+              </div>
+              <figcaption className="mt-4 text-center">
+                <p
+                  className="font-heading text-akasha-black text-base md:text-lg"
+                  style={{ fontWeight: 400 }}
+                >
+                  {v.title}
+                </p>
+                {v.caption ? (
+                  <p className="font-body text-akasha-gray-1 text-sm mt-1 leading-relaxed">
+                    {v.caption}
+                  </p>
+                ) : null}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 

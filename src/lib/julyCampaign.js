@@ -130,6 +130,23 @@ export const JULY_BG_VIDEO =
   process.env.NEXT_PUBLIC_JULY_BG_VIDEO ||
   'https://video.wixstatic.com/video/cd7168_ac443cf0083b47ce9eed5df7eb1d58eb/480p/mp4/file.mp4';
 
+// Intro videos surfaced between the hero and the checkout block so the
+// buyer hears from Akasha before being asked to enrol. Embedded via
+// youtube-nocookie + lazy iframe so they cost nothing until scrolled
+// into view.
+export const JULY_INTRO_VIDEOS = [
+  {
+    id: '6wsHASyBkc0',
+    title: 'A welcome from Akasha Yoga Academy',
+    caption: 'Meet the founders and feel the space where this training lives.',
+  },
+  {
+    id: 'uqwvmmmnenY',
+    title: 'A look inside the 200hr training',
+    caption: 'Inside the practice: asana, breath, philosophy, and community.',
+  },
+];
+
 // Testimonial set mirrors the live 200hr Essential page (Arianne, Clarissa,
 // Coral) plus three additional graduates from the
 // 200hr-yoga-teacher-training-online + homepage scrapes we previously
