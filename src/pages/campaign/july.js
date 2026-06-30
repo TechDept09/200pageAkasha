@@ -140,6 +140,7 @@ function CampaignContent({ phase }) {
   const bundle = phase.bundle;
   const standalone = phase.standalone;
   const showWellnessNote = phase.key === 'phase2';
+  const isBackup = phase.key === 'backup';
 
   return (
     <>
@@ -258,30 +259,41 @@ function CampaignContent({ phase }) {
           `}</style>
         </section>
 
-        {/* Two checkout options */}
+        {/* Checkout block: two cards normally, one centred card in backup mode */}
         <section className="py-14 md:py-20 bg-akasha-gray-4/30" id="enroll">
           <div className="section">
             <div className="text-center max-w-2xl mx-auto mb-10">
-              <span className="eyebrow">Begin your journey</span>
+              <span className="eyebrow">
+                {isBackup ? 'A final invitation' : 'Begin your journey'}
+              </span>
               <h2 style={{ fontSize: 'clamp(1.8rem, 3.6vw, 2.6rem)', fontWeight: 300 }}>
-                Two ways to step in this summer
+                {isBackup
+                  ? 'Step into the 200hr Essential'
+                  : 'Two ways to step in this summer'}
               </h2>
               <span className="gold-rule" />
               <p className="font-body text-akasha-gray-1 mt-6 text-base md:text-lg leading-relaxed">
-                This summer, self-care can become your new path. Begin with
-                the 200hr Essential, or open the journey deeper with the
-                80hr Yin. Choose the path that calls.
+                {isBackup
+                  ? 'This is a final, quiet offer for the 200hr Essential. The voucher below brings the price to US$249 at checkout, no manual code entry required.'
+                  : 'This summer, self-care can become your new path. Begin with the 200hr Essential, or open the journey deeper with the 80hr Yin. Choose the path that calls.'}
               </p>
             </div>
 
-            <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto items-stretch">
-              <BundleCard phase={phase} showWellnessNote={showWellnessNote} />
-              <StandaloneCard phase={phase} />
-            </div>
+            {isBackup ? (
+              <div className="max-w-xl mx-auto">
+                <StandaloneCard phase={phase} />
+              </div>
+            ) : (
+              <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto items-stretch">
+                <BundleCard phase={phase} showWellnessNote={showWellnessNote} />
+                <StandaloneCard phase={phase} />
+              </div>
+            )}
           </div>
         </section>
 
-        {/* Side-by-side comparison */}
+        {/* Side-by-side comparison, hidden in backup mode (no bundle to compare) */}
+        {isBackup ? null : (
         <section className="py-14 md:py-20 bg-akasha-white">
           <div className="section max-w-5xl">
             <div className="text-center mb-12 max-w-2xl mx-auto">
@@ -380,6 +392,7 @@ function CampaignContent({ phase }) {
             </div>
           </div>
         </section>
+        )}
 
         {/* Testimonials, one-at-a-time fade carousel */}
         <TestimonialCarousel />
@@ -715,6 +728,13 @@ function StandaloneCard({ phase }) {
   const [error, setError] = useState(null);
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
+  const isBackup = phase.key === 'backup';
+  const voucherPrice = phase.standalone.voucherPrice;
+  // Displayed price = the voucher price when a voucher is configured,
+  // otherwise the base Essential price. Tracking + Wix line item still
+  // reference the base price so the cart matches the live product.
+  const displayPrice = voucherPrice || phase.standalone.essential;
+
   useEffect(() => {
     const onShow = (e) => {
       if (e.persisted) {
@@ -741,15 +761,15 @@ function StandaloneCard({ phase }) {
     setLoading(true);
     const courseLabel = `July ${phase.label} Essential Only`;
     const contentId = `july-${phase.key}|essential-only`;
-    trackLead(courseLabel, phase.standalone.essential);
+    trackLead(courseLabel, displayPrice);
     try {
-      trackInitiateCheckout(courseLabel, phase.standalone.essential, contentId);
+      trackInitiateCheckout(courseLabel, displayPrice, contentId);
       const { fbc, fbp } = getMetaCookies();
       const eventId = newEventId();
       try {
         localStorage.setItem('pendingPurchase_courseName', courseLabel);
         localStorage.setItem('pendingPurchase_courseId', contentId);
-        localStorage.setItem('pendingPurchase_price', String(phase.standalone.essential));
+        localStorage.setItem('pendingPurchase_price', String(displayPrice));
         localStorage.setItem('pendingPurchase_eventId', eventId);
         localStorage.setItem('pendingPurchase_timestamp', Date.now().toString());
       } catch (_) {}
@@ -758,6 +778,7 @@ function StandaloneCard({ phase }) {
         utm,
         utmNote: formatUtmNote(utm),
         productId: JULY_PRODUCTS.essential,
+        couponCode: voucherPrice ? phase.couponCode : undefined,
         meta: { fbc, fbp, courseSlug: 'july-essential-only', planSlug: phase.key, eventId },
         buyer: {
           firstName: form.firstName.trim(),
@@ -786,7 +807,7 @@ function StandaloneCard({ phase }) {
         className="text-[11px] font-body uppercase tracking-[0.25em] text-akasha-gold mb-2"
         style={{ fontFamily: 'Inter, sans-serif' }}
       >
-        200hr Only
+        {isBackup ? 'Final Offer' : '200hr Only'}
       </p>
       <h3
         className="font-heading text-akasha-black text-xl md:text-2xl mb-3"
@@ -795,23 +816,26 @@ function StandaloneCard({ phase }) {
         200hr Essential Training
       </h3>
       <p className="font-body text-akasha-gray-1 text-sm leading-relaxed mb-5">
-        Prefer to begin with the 200hr Essential alone? Same training, same
-        promotional rate, no coupon required.
+        {isBackup
+          ? 'The 200hr Essential at its closing summer price, voucher applied automatically at checkout.'
+          : 'Prefer to begin with the 200hr Essential alone? Same training, same promotional rate, no coupon required.'}
       </p>
 
       <div className="flex items-baseline gap-3 mb-2">
         <span className="text-akasha-gray-2 line-through font-body text-base">
-          US$1,190
+          US${voucherPrice ? phase.standalone.essential : '1,190'}
         </span>
         <span
           className="font-heading text-akasha-black text-3xl md:text-4xl"
           style={{ fontWeight: 400 }}
         >
-          US${phase.standalone.essential}
+          US${displayPrice}
         </span>
       </div>
       <p className="text-[11px] font-body uppercase tracking-[0.2em] text-akasha-gray-1 mb-6">
-        Summer Self-Care price
+        {voucherPrice
+          ? `Voucher ${phase.couponCode} auto-applied`
+          : 'Summer Self-Care price'}
       </p>
 
       <form onSubmit={handleBuy} className="mt-auto" noValidate>
@@ -849,7 +873,7 @@ function StandaloneCard({ phase }) {
           }`}
           style={{ fontFamily: 'Inter, sans-serif' }}
         >
-          {loading ? 'Preparing your checkout…' : `Enrol in 200hr Only, US$${phase.standalone.essential}`}
+          {loading ? 'Preparing your checkout…' : `Enrol in 200hr Only, US$${displayPrice}`}
         </button>
         {error && (
           <p className="text-xs text-akasha-orange-dark mt-3 font-body text-center">

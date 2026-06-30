@@ -57,16 +57,47 @@ export const JULY_PHASES = {
   },
 };
 
+// Emergency Reset / Backup plan from the brief, deployed manually if
+// Phase 1 underperforms in the first week. Only Essential goes live;
+// Yin is dropped, bundle is dropped, and a single voucher coupon takes
+// the Essential price down to US$249 at the Wix checkout. The coupon
+// code is env-tunable so marketing can rotate the voucher name without
+// a redeploy.
+const BACKUP_COUPON =
+  process.env.NEXT_PUBLIC_JULY_BACKUP_COUPON || 'FINAL41';
+
+JULY_PHASES.backup = {
+  key: 'backup',
+  label: 'Final Self-Care Offer',
+  publicName: 'Final Self-Care',
+  dateRange: 'Final offer',
+  headline: 'Last chance, 200hr Essential',
+  scriptTagline: 'A quiet, final invitation',
+  intro:
+    'A final way in. The 200hr Essential Yoga Teacher Training at an exclusive closing price, for those who feel the call now.',
+  couponCode: BACKUP_COUPON,
+  couponNote: `Use voucher ${BACKUP_COUPON} for an additional US$41 off, bringing the Essential to US$249 at checkout.`,
+  bundle: null,
+  standalone: {
+    essential: 290,
+    voucherPrice: 249,
+  },
+};
+
+// Manual switch so marketing decides when the backup goes live. Set
+// NEXT_PUBLIC_JULY_BACKUP_MODE=true in Vercel and the campaign page
+// flips to the Essential-only voucher view.
+export const JULY_BACKUP_MODE =
+  process.env.NEXT_PUBLIC_JULY_BACKUP_MODE === 'true';
+
 export function getActiveJulyPhase(now = new Date()) {
+  if (JULY_BACKUP_MODE) return JULY_PHASES.backup;
   const candidates = [JULY_PHASES.phase1, JULY_PHASES.phase2];
   for (const p of candidates) {
     if (now >= new Date(p.start) && now <= new Date(p.end)) {
       return p;
     }
   }
-  // Outside both windows. During PDF gap (Jul 16-17 both windows overlap)
-  // phase1 wins because it comes first in the list, which matches "Phase 1
-  // active until 17th, Phase 2 starts 16th" overlap rule from the brief.
   return null;
 }
 
