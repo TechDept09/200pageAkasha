@@ -857,43 +857,129 @@ const WHY_CHOOSE = [
 ];
 
 function WhyChooseAkasha() {
-  return (
-    <section
-      className="py-16 md:py-24 bg-akasha-white"
-      aria-labelledby="july-why-choose-heading"
-    >
-      <div className="section max-w-5xl">
-        <header className="text-center max-w-2xl mx-auto mb-12 md:mb-14">
-          <span className="eyebrow">Why this training</span>
-          <h2
-            id="july-why-choose-heading"
-            style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 300 }}
-          >
-            Why Choose Our Yoga Academy
-          </h2>
-          <span className="gold-rule" />
-        </header>
+  const [openCard, setOpenCard] = useState(null);
 
-        <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-          {WHY_CHOOSE.map((c) => (
-            <article
-              key={c.title}
-              className="bg-akasha-gray-4/30 border border-akasha-gray-4 rounded-sm p-7 md:p-8 flex flex-col"
+  // Lock body scroll while the modal is open + close on ESC.
+  useEffect(() => {
+    if (!openCard) return undefined;
+    const onKey = (e) => {
+      if (e.key === 'Escape') setOpenCard(null);
+    };
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [openCard]);
+
+  return (
+    <>
+      <section
+        className="py-16 md:py-24 bg-akasha-white"
+        aria-labelledby="july-why-choose-heading"
+      >
+        <div className="section max-w-5xl">
+          <header className="text-center max-w-2xl mx-auto mb-12 md:mb-14">
+            <span className="eyebrow">Why this training</span>
+            <h2
+              id="july-why-choose-heading"
+              style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 300 }}
             >
-              <h3
-                className="font-heading text-akasha-black text-lg md:text-xl mb-3 leading-snug"
-                style={{ fontWeight: 400 }}
+              Why Choose Our Yoga Academy
+            </h2>
+            <span className="gold-rule" />
+          </header>
+
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+            {WHY_CHOOSE.map((c) => (
+              <article
+                key={c.title}
+                className="bg-akasha-gray-4/30 border border-akasha-gray-4 rounded-sm p-7 md:p-8 flex flex-col"
               >
-                {c.title}
-              </h3>
-              <p className="font-body text-akasha-gray-1 text-sm md:text-[15px] leading-relaxed">
-                {c.body}
-              </p>
-            </article>
-          ))}
+                <h3
+                  className="font-heading text-akasha-black text-lg md:text-xl mb-3 leading-snug"
+                  style={{ fontWeight: 400 }}
+                >
+                  {c.title}
+                </h3>
+                <p
+                  className="font-body text-akasha-gray-1 text-sm md:text-[15px] leading-relaxed mb-4 flex-1"
+                  style={{
+                    display: '-webkit-box',
+                    WebkitLineClamp: 4,
+                    WebkitBoxOrient: 'vertical',
+                    overflow: 'hidden',
+                  }}
+                >
+                  {c.body}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setOpenCard(c)}
+                  className="self-start mt-auto text-[11px] font-body uppercase tracking-[0.25em] text-akasha-orange hover:text-akasha-orange-dark transition-colors inline-flex items-center gap-2"
+                  style={{ fontFamily: 'Inter, sans-serif' }}
+                  aria-haspopup="dialog"
+                  aria-label={`Read more about ${c.title}`}
+                >
+                  Read more
+                  <span aria-hidden="true">→</span>
+                </button>
+              </article>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {openCard ? (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center px-4 py-8 bg-black/60 backdrop-blur-sm animate-[fadeIn_0.2s_ease]"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="why-choose-modal-title"
+          onClick={() => setOpenCard(null)}
+        >
+          <div
+            className="bg-akasha-white rounded-sm shadow-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-7 md:p-10 relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setOpenCard(null)}
+              aria-label="Close"
+              className="absolute top-4 right-4 w-9 h-9 flex items-center justify-center rounded-full text-akasha-gray-2 hover:text-akasha-black hover:bg-akasha-gray-4 transition-colors text-2xl leading-none"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+            <span
+              className="block text-[11px] font-body uppercase tracking-[0.3em] text-akasha-orange mb-3"
+              style={{ fontFamily: 'Inter, sans-serif' }}
+            >
+              Why this training
+            </span>
+            <h3
+              id="why-choose-modal-title"
+              className="font-heading text-akasha-black text-2xl md:text-3xl mb-5 leading-snug pr-8"
+              style={{ fontWeight: 400 }}
+            >
+              {openCard.title}
+            </h3>
+            <span className="gold-rule mb-5" />
+            <p className="font-body text-akasha-gray-1 text-base leading-relaxed whitespace-pre-line">
+              {openCard.body}
+            </p>
+          </div>
+        </div>
+      ) : null}
+
+      <style jsx global>{`
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+      `}</style>
+    </>
   );
 }
 
