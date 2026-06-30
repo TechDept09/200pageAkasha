@@ -670,7 +670,7 @@ function BundleCard({ phase, showWellnessNote }) {
             disabled={loading}
             className={`btn-action w-full ${loading ? 'opacity-70 cursor-wait' : ''}`}
           >
-            {loading ? 'Preparing your checkout…' : `Enrol in Bundle, US$${bundle.total}`}
+            {loading ? 'Preparing your checkout…' : `Enroll in Bundle, US$${bundle.total}`}
           </button>
           {error && (
             <p className="text-xs text-akasha-orange-dark mt-3 font-body text-center">
@@ -733,7 +733,7 @@ function CampaignStickyCTA({ phase }) {
       ? `Bundle US$${phase.bundle.total}`
       : `US$${phase.standalone.essential}`;
 
-  const ctaLabel = isBackup ? 'Claim Voucher' : phase.bundle ? 'Enrol in Bundle' : 'Enrol Now';
+  const ctaLabel = isBackup ? 'Claim Voucher' : phase.bundle ? 'Enroll in Bundle' : 'Enroll Now';
 
   return (
     <div
@@ -1104,7 +1104,7 @@ function StandaloneCard({ phase }) {
           }`}
           style={{ fontFamily: 'Inter, sans-serif' }}
         >
-          {loading ? 'Preparing your checkout…' : `Enrol in 200hr Only, US$${displayPrice}`}
+          {loading ? 'Preparing your checkout…' : `Enroll in 200hr Only, US$${displayPrice}`}
         </button>
         {error && (
           <p className="text-xs text-akasha-orange-dark mt-3 font-body text-center">
