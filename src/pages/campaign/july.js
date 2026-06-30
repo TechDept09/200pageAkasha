@@ -213,8 +213,19 @@ function CampaignContent({ phase }) {
             />
           ) : null}
 
-          {/* Darken + gradient for legibility */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/65" />
+          {/* Two-layer overlay for legibility no matter what frame of
+              the video is showing. First a flat darken so text always
+              has a base contrast floor, then a radial vignette that
+              concentrates extra darkness behind the headline. */}
+          <div className="absolute inset-0 bg-black/55" aria-hidden="true" />
+          <div
+            className="absolute inset-0"
+            aria-hidden="true"
+            style={{
+              background:
+                'radial-gradient(ellipse at center, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0.2) 100%)',
+            }}
+          />
 
           <div className="relative z-10 section text-center max-w-3xl text-akasha-white py-20 md:py-28">
             <span
@@ -238,6 +249,7 @@ function CampaignContent({ phase }) {
                 lineHeight: 1.05,
                 color: '#FFFFFF',
                 animationDelay: '0.3s',
+                textShadow: '0 2px 18px rgba(0,0,0,0.55)',
               }}
             >
               {phase.headline}
@@ -249,6 +261,7 @@ function CampaignContent({ phase }) {
                   fontSize: 'clamp(2rem, 4vw, 2.8rem)',
                   color: '#F5B872',
                   animationDelay: '0.55s',
+                  textShadow: '0 2px 14px rgba(0,0,0,0.5)',
                 }}
               >
                 {phase.scriptTagline}
@@ -256,7 +269,11 @@ function CampaignContent({ phase }) {
             ) : null}
             <p
               className="july-hero-anim font-body max-w-2xl mx-auto text-base md:text-lg leading-relaxed mb-8"
-              style={{ color: 'rgba(255,255,255,0.92)', animationDelay: '0.75s' }}
+              style={{
+                color: 'rgba(255,255,255,0.95)',
+                animationDelay: '0.75s',
+                textShadow: '0 1px 10px rgba(0,0,0,0.55)',
+              }}
             >
               {phase.intro}
             </p>
