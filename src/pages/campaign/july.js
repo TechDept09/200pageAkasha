@@ -190,7 +190,9 @@ function CampaignContent({ phase }) {
 
       <HubNav />
 
-      <main className="bg-akasha-white">
+      {/* pb gives the sticky CTA room to sit above the footer without
+          overlapping the last paragraph. */}
+      <main className="bg-akasha-white pb-24 md:pb-20">
         {/* Hero with a Wix-hosted MP4 looping in the background. HTML5
             video gives us no third-party branding (vs YouTube iframe)
             and lets us truly mute + autoplay + loop with a one-liner.
@@ -263,7 +265,7 @@ function CampaignContent({ phase }) {
               className="july-hero-anim inline-flex items-center justify-center bg-akasha-orange text-akasha-white px-10 py-4 rounded-full text-[13px] font-semibold uppercase tracking-[0.2em] hover:bg-akasha-orange-dark transition-colors shadow-lg"
               style={{ fontFamily: 'Inter, sans-serif', animationDelay: '0.95s' }}
             >
-              See Your Bundle
+              {phase.bundle ? 'See Your Bundle' : phase.key === 'backup' ? 'Claim the Offer' : 'See the Offer'}
             </a>
           </div>
 
@@ -312,7 +314,7 @@ function CampaignContent({ phase }) {
         <TrustStrip />
 
         {/* Checkout block: two cards normally, one centred card in backup mode */}
-        <section className="py-14 md:py-20 bg-akasha-gray-4/30" id="enroll">
+        <section className="py-14 md:py-20 bg-akasha-gray-4/30 scroll-mt-24" id="enroll">
           <div className="section">
             <div className="text-center max-w-2xl mx-auto mb-10">
               <span className="eyebrow">
