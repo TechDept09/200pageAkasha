@@ -298,6 +298,10 @@ function CampaignContent({ phase }) {
         {/* Testimonials, social proof before the checkout. */}
         <TestimonialCarousel />
 
+        {/* Soft nudge so a buyer convinced by the social proof has a clear
+            way down without scrolling past the trust strip first. */}
+        <SoftEnrollNudge label="Their journey could be yours" />
+
         {/* Certified badges so the credibility signal sits next to the offer. */}
         <TrustStrip />
 
@@ -436,6 +440,13 @@ function CampaignContent({ phase }) {
         </section>
         )}
 
+        {/* Second soft nudge after the comparison so the math leads
+            directly to the offer. Hidden in backup mode because the
+            comparison itself was hidden. */}
+        {isBackup ? null : (
+          <SoftEnrollNudge label="The numbers led you here" />
+        )}
+
         {/* Catalog tail: the rest of the Akasha programs after the
             campaign offer. Shared hub components render here; cards
             outside the Summer Self-Care offer have their 60% Yoga Day
@@ -470,6 +481,11 @@ function CampaignContent({ phase }) {
       </main>
 
       <Footer />
+
+      {/* Sticky urgency bar appears once the buyer scrolls past the hero,
+          carries the price + live countdown, and links straight back to
+          the checkout block. Dismissable so it never blocks reading. */}
+      <CampaignStickyCTA phase={phase} />
     </>
   );
 }
@@ -665,6 +681,115 @@ function BundleCard({ phase, showWellnessNote }) {
           </p>
         </div>
       )}
+    </div>
+  );
+}
+
+function useCountdownTo(endIso) {
+  const [now, setNow] = useState(null);
+  useEffect(() => {
+    setNow(Date.now());
+    const id = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(id);
+  }, []);
+  if (!endIso || now === null) return null;
+  const end = new Date(endIso).getTime();
+  const diff = Math.max(0, end - now);
+  const days = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const minutes = Math.floor((diff % 3600000) / 60000);
+  return { days, hours, minutes, expired: diff === 0 };
+}
+
+function CampaignStickyCTA({ phase }) {
+  const [visible, setVisible] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
+  const isBackup = phase.key === 'backup';
+  const countdown = useCountdownTo(isBackup ? null : phase.end);
+
+  useEffect(() => {
+    const onScroll = () => {
+      // Reveal once the buyer has scrolled past roughly the hero height.
+      setVisible(window.scrollY > window.innerHeight * 0.7);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  if (dismissed) return null;
+
+  const price = isBackup
+    ? `US$${phase.standalone.voucherPrice || phase.standalone.essential}`
+    : phase.bundle
+      ? `Bundle US$${phase.bundle.total}`
+      : `US$${phase.standalone.essential}`;
+
+  const ctaLabel = isBackup ? 'Claim Voucher' : phase.bundle ? 'Enrol in Bundle' : 'Enrol Now';
+
+  return (
+    <div
+      aria-hidden={!visible}
+      className={`fixed bottom-0 inset-x-0 z-40 transition-transform duration-500 ease-out ${
+        visible ? 'translate-y-0' : 'translate-y-full'
+      }`}
+    >
+      <div className="bg-akasha-black text-akasha-white border-t border-akasha-gold/30 shadow-2xl">
+        <div className="section max-w-6xl flex items-center gap-3 md:gap-5 py-3 md:py-4">
+          <div className="flex-1 min-w-0">
+            <p
+              className="text-[10px] md:text-[11px] font-body uppercase tracking-[0.22em] text-akasha-gold leading-tight"
+              style={{ fontFamily: 'Inter, sans-serif' }}
+            >
+              {price}
+              {countdown && !countdown.expired ? (
+                <span className="text-akasha-white/70 normal-case tracking-normal ml-2">
+                  · ends in {countdown.days}d {countdown.hours}h {countdown.minutes}m
+                </span>
+              ) : null}
+            </p>
+            <p
+              className="text-xs md:text-sm font-heading text-akasha-white leading-snug truncate"
+              style={{ fontWeight: 300 }}
+            >
+              {phase.headline}
+            </p>
+          </div>
+          <a
+            href="#enroll"
+            className="inline-flex items-center bg-akasha-orange text-akasha-white px-5 md:px-7 py-2.5 md:py-3 rounded-full text-[10.5px] md:text-[12px] font-semibold uppercase tracking-[0.2em] hover:bg-akasha-orange-dark transition-colors whitespace-nowrap"
+            style={{ fontFamily: 'Inter, sans-serif' }}
+          >
+            {ctaLabel}
+          </a>
+          <button
+            type="button"
+            onClick={() => setDismissed(true)}
+            aria-label="Dismiss"
+            className="text-akasha-white/60 hover:text-akasha-white transition-colors w-7 h-7 flex items-center justify-center rounded-full hover:bg-akasha-white/10"
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SoftEnrollNudge({ label = 'Ready when you are' }) {
+  return (
+    <div className="text-center py-10 md:py-12 bg-akasha-white">
+      <p className="text-[11px] font-body uppercase tracking-[0.28em] text-akasha-gray-1 mb-3">
+        {label}
+      </p>
+      <a
+        href="#enroll"
+        className="inline-flex items-center text-akasha-orange hover:text-akasha-orange-dark transition-colors font-heading text-lg md:text-xl gap-2"
+        style={{ fontWeight: 400 }}
+      >
+        Step into the offer
+        <span aria-hidden="true" className="text-base">↓</span>
+      </a>
     </div>
   );
 }
