@@ -300,8 +300,9 @@ function CampaignContent({ phase }) {
           `}</style>
         </section>
 
-        {/* Intro videos, breath room between the hero and the ask. */}
-        <IntroVideos />
+        {/* Benefits overview, the campaign's value props first so the
+            buyer sees why before they see how much. */}
+        <CampaignBenefits phase={phase} />
 
         {/* Testimonials, social proof before the checkout. */}
         <TestimonialCarousel />
@@ -457,11 +458,35 @@ function CampaignContent({ phase }) {
           <SoftEnrollNudge label="The numbers led you here" />
         ) : null}
 
-        {/* Catalog tail: the rest of the Akasha programs after the
-            campaign offer. Shared hub components render here; cards
-            outside the Summer Self-Care offer have their 60% Yoga Day
-            badge + promo price stripped via stripCampaignDiscount() so
-            the page visual stays on-message. */}
+        {/* Meet Akasha videos sit after the math instead of between the
+            hero and the ask. By this point, the on-the-fence buyer wants
+            to see who they'd be learning from before scrolling further. */}
+        <IntroVideos />
+
+        {/* Recommended tail: positioned as 'continue exploring' rather
+            than a standalone catalog. Same shared hub components, just
+            wrapped with a softer header so the campaign offer stays the
+            page's primary focus. */}
+        <section
+          className="py-12 md:py-16 bg-akasha-white text-center"
+          aria-labelledby="july-recommended-heading"
+        >
+          <div className="section max-w-2xl">
+            <span className="eyebrow">Recommended for you</span>
+            <h2
+              id="july-recommended-heading"
+              style={{ fontSize: 'clamp(1.7rem, 3.4vw, 2.4rem)', fontWeight: 300 }}
+            >
+              If this resonates, also consider
+            </h2>
+            <span className="gold-rule" />
+            <p className="font-body text-akasha-gray-1 mt-5 text-base md:text-lg leading-relaxed">
+              The rest of the Akasha catalog, kept here in case a different
+              path calls. Each one stands on its own.
+            </p>
+          </div>
+        </section>
+
         <MainProducts
           premiumOverride={stripCampaignDiscount(courses.find((c) => c.slug === '200h-premium'))}
         />
@@ -809,6 +834,92 @@ function SoftEnrollNudge({ label = 'Ready when you are' }) {
   );
 }
 
+function CampaignBenefits({ phase }) {
+  const hasBundle = !!phase.bundle;
+  const items = [
+    {
+      title: 'Yoga Alliance RYT-200',
+      body:
+        'Internationally recognised certification. Teach anywhere in the world once you complete the training.',
+    },
+    {
+      title: '200+ Bali Studio HD Videos',
+      body:
+        'Filmed in our Bali studio. Self-paced lifetime access so the practice fits your schedule, not the other way around.',
+    },
+    {
+      title: 'Live Zoom Classes & Q&A',
+      body:
+        'Weekly interactive sessions and 1-on-1 guidance with master teachers Kirsten, Burkhard, and the Akasha team.',
+    },
+    hasBundle
+      ? {
+          title: '80hr Yin Methodology Included',
+          body:
+            'Bundle opens the second training: stillness, fascia, meridian theory. A slower, deeper layer of the journey.',
+        }
+      : {
+          title: 'Full 4-Part Curriculum',
+          body:
+            'Asana, pranayama, anatomy, philosophy, scripture study, sequencing, teaching practice. Everything in one syllabus.',
+        },
+    {
+      title: 'Global Akasha Community',
+      body:
+        'Buddy system, accountability network, and 1,100+ graduates on six continents you can lean into as you grow.',
+    },
+    {
+      title: '14-Day Money-Back Guarantee',
+      body:
+        'Step in without pressure. If the training does not resonate within fourteen days, full refund, no questions.',
+    },
+  ];
+
+  return (
+    <section
+      className="py-16 md:py-24 bg-akasha-white"
+      aria-labelledby="july-benefits-heading"
+    >
+      <div className="section max-w-5xl">
+        <header className="text-center max-w-2xl mx-auto mb-12 md:mb-14">
+          <span className="eyebrow">Why this training</span>
+          <h2
+            id="july-benefits-heading"
+            style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 300 }}
+          >
+            Everything you receive
+          </h2>
+          <span className="gold-rule" />
+          <p className="font-body text-akasha-gray-1 mt-5 text-base md:text-lg leading-relaxed">
+            Six commitments that make this training worth choosing, even
+            before the discount.
+          </p>
+        </header>
+
+        <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+          {items.map((it) => (
+            <li
+              key={it.title}
+              className="bg-akasha-gray-4/30 border border-akasha-gray-4 rounded-sm p-6 md:p-7 flex flex-col"
+            >
+              <span className="text-akasha-gold text-base mb-3" aria-hidden="true">●</span>
+              <h3
+                className="font-heading text-akasha-black text-lg md:text-xl mb-2 leading-snug"
+                style={{ fontWeight: 400 }}
+              >
+                {it.title}
+              </h3>
+              <p className="font-body text-akasha-gray-1 text-sm md:text-[15px] leading-relaxed">
+                {it.body}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 function IntroVideos() {
   if (!JULY_INTRO_VIDEOS?.length) return null;
   return (
@@ -869,16 +980,24 @@ function IntroVideos() {
 
 function TestimonialCarousel() {
   const [currentIdx, setCurrentIdx] = useState(0);
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
+    if (paused) return undefined;
     const interval = setInterval(() => {
       setCurrentIdx((i) => (i + 1) % JULY_TESTIMONIALS.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, [currentIdx]);
+  }, [currentIdx, paused]);
 
   return (
-    <section className="py-16 md:py-24 bg-akasha-gray-4/30">
+    <section
+      className="py-16 md:py-24 bg-akasha-gray-4/30"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+    >
       <div className="section">
         <header className="text-center max-w-2xl mx-auto mb-12 md:mb-16">
           <span className="eyebrow">From the Akasha Family</span>
