@@ -126,34 +126,22 @@ function JulyCountdown() {
   );
 }
 
-function UrgencyLine() {
+function UrgencyCta() {
   return (
-    <div className="flex flex-col items-center gap-3 mb-8 max-w-xl mx-auto">
-      <p
-        className="font-body text-akasha-gray-1 leading-relaxed"
-        style={{
-          fontSize: 'clamp(0.88rem, 1.4vw, 1rem)',
-          fontStyle: 'italic',
-        }}
-      >
-        Today's Yoga Day pricing rests only until this countdown ends.
-        Step in now, hold your place before the door quietly closes.
-      </p>
-      <a
-        href="#essential"
-        className="inline-flex items-center gap-2 text-akasha-orange hover:text-akasha-orange-dark transition-colors"
-        style={{
-          fontFamily: 'Inter, sans-serif',
-          fontSize: 'clamp(0.72rem, 1.1vw, 0.82rem)',
-          fontWeight: 600,
-          letterSpacing: '0.24em',
-          textTransform: 'uppercase',
-        }}
-      >
-        Enroll before the door closes
-        <span aria-hidden="true">→</span>
-      </a>
-    </div>
+    <a
+      href="#essential"
+      className="inline-flex items-center gap-2 text-akasha-orange hover:text-akasha-orange-dark transition-colors mb-8"
+      style={{
+        fontFamily: 'Inter, sans-serif',
+        fontSize: 'clamp(0.72rem, 1.1vw, 0.82rem)',
+        fontWeight: 600,
+        letterSpacing: '0.24em',
+        textTransform: 'uppercase',
+      }}
+    >
+      Enroll before the door closes
+      <span aria-hidden="true">→</span>
+    </a>
   );
 }
 
@@ -169,26 +157,20 @@ export default function HubHero() {
         <JulyCountdown />
 
         <h2
-          className="mb-3"
+          className="mb-5"
           style={{ fontSize: 'clamp(1.8rem, 3.6vw, 2.6rem)', fontWeight: 300 }}
         >
           Yoga Day pricing holds only until the new drop opens
         </h2>
 
         <p
-          className="script mb-5"
+          className="script mb-6"
           style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)' }}
         >
           Choose your path while the door is open
         </p>
 
-        <p className="font-body text-akasha-gray-1 max-w-xl mx-auto text-base md:text-lg leading-relaxed mb-8">
-          Every training, workshop, and retreat sits at its Yoga Day rate
-          until the countdown above reaches zero. Step in now, secure your
-          place before the new July offer takes over.
-        </p>
-
-        <UrgencyLine />
+        <UrgencyCta />
       </div>
     </section>
   );
