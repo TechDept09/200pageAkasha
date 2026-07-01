@@ -428,6 +428,43 @@ function CampaignContent({ phase }) {
                 />
               </div>
             )}
+
+            {/* Reassurance links: for the buyer who's still hesitating,
+                a soft prompt to read the full Akasha detail page in a
+                new tab. Bundle phases show both trainings; single-card
+                phases show 200hr only. */}
+            <div className="mt-12 md:mt-16 text-center max-w-2xl mx-auto">
+              <p className="text-[11px] md:text-[12px] font-body uppercase tracking-[0.28em] text-akasha-gray-1 mb-4">
+                Still on the fence?
+              </p>
+              <p className="font-body text-akasha-gray-1 mb-6 text-sm md:text-base leading-relaxed">
+                Read the full details of each training on Akasha's site.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
+                <a
+                  href="https://www.akashayogaacademy.com/200hr-yoga-teacher-training-online"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-akasha-black text-akasha-black hover:bg-akasha-black hover:text-akasha-white text-[11.5px] font-medium uppercase tracking-[0.22em] transition-colors"
+                  style={{ fontFamily: 'Inter, sans-serif' }}
+                >
+                  More on 200hr Essential
+                  <span aria-hidden="true">↗</span>
+                </a>
+                {hasBundle ? (
+                  <a
+                    href="https://www.akashayogaacademy.com/80hr-yin-ytt-enroll-now"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-akasha-black text-akasha-black hover:bg-akasha-black hover:text-akasha-white text-[11.5px] font-medium uppercase tracking-[0.22em] transition-colors"
+                    style={{ fontFamily: 'Inter, sans-serif' }}
+                  >
+                    More on 80hr Yin
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                ) : null}
+              </div>
+            </div>
           </div>
         </section>
 
