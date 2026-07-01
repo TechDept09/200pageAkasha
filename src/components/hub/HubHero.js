@@ -45,7 +45,7 @@ function JulyCountdown() {
   return (
     <div className="flex flex-col items-center gap-5 md:gap-6 mb-6">
       <span
-        className="inline-flex items-center gap-3 text-akasha-orange"
+        className="inline-flex items-center text-akasha-orange"
         style={{
           fontFamily: 'Inter, sans-serif',
           fontSize: 'clamp(0.72rem, 1.3vw, 0.85rem)',
@@ -54,9 +54,7 @@ function JulyCountdown() {
           textTransform: 'uppercase',
         }}
       >
-        <span aria-hidden="true">✧</span>
         A new promo drops in
-        <span aria-hidden="true">✧</span>
       </span>
 
       {/* Dramatic hero-scale numbers. No tile boxes: the numbers themselves
