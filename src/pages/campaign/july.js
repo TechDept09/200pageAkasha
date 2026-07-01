@@ -1285,14 +1285,16 @@ function CertifiedTeacherIntro() {
       className="py-14 md:py-24 bg-akasha-white"
       aria-labelledby="july-certified-heading"
     >
-      <div className="section max-w-6xl">
-        <div className="grid md:grid-cols-2 gap-8 md:gap-14 items-center">
+      <div className="section max-w-5xl">
+        <div className="grid md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-8 md:gap-14 items-center">
           {/* Portrait photo, from the 200hr Essential hero (Akasha's own
-              certified graduate mark on the source page). */}
+              certified graduate mark on the source page). Constrained
+              to a max width so it reads as a supporting portrait, not
+              a full-column banner. */}
           <div className="order-2 md:order-1">
-            <div className="relative aspect-[4/5] rounded-sm overflow-hidden bg-akasha-gray-4 shadow-sm">
+            <div className="relative aspect-[4/5] max-w-[240px] md:max-w-[300px] mx-auto rounded-sm overflow-hidden bg-akasha-gray-4 shadow-sm">
               <img
-                src="https://static.wixstatic.com/media/c15a18_5d357dab7cec43c4879c3f12090081ce~mv2.jpg/v1/fill/w_800,h_1000,al_c,q_85,enc_avif,quality_auto/certified-yoga-teacher.jpg"
+                src="https://static.wixstatic.com/media/c15a18_5d357dab7cec43c4879c3f12090081ce~mv2.jpg/v1/fill/w_600,h_750,al_c,q_85,enc_avif,quality_auto/certified-yoga-teacher.jpg"
                 alt="Certified Yoga Instructor at Akasha Yoga Academy"
                 loading="lazy"
                 decoding="async"
