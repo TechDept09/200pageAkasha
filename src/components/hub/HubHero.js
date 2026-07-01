@@ -120,9 +120,8 @@ function JulyCountdown() {
 
 function UrgencyCta() {
   return (
-    <a href="#essential" className="btn-primary gap-2 mb-8 shadow-md hover:shadow-lg">
-      Enroll before the door closes
-      <span aria-hidden="true">→</span>
+    <a href="#essential" className="btn-primary mb-8 shadow-md hover:shadow-lg">
+      Enroll at Yoga Day pricing
     </a>
   );
 }
