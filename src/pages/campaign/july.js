@@ -884,21 +884,21 @@ function FeaturedIn() {
           />
         </div>
 
-        {/* Fixed-slot grid keeps each of the twelve marks at the same
-            visual weight, and the mid-grey lets Akasha's original
-            white-on-transparent logos read without any filter. */}
-        <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-4 gap-y-6 md:gap-x-6 md:gap-y-8 place-items-center">
+        {/* Strict height rule: every logo renders at exactly the same
+            pixel height (32px mobile, 44px desktop) and its width flows
+            from that. A max-width guardrail keeps the very wide marks
+            from dominating a row. Flex-wrap centres the whole cluster
+            so short rows still look balanced. */}
+        <ul className="flex flex-wrap items-center justify-center gap-x-8 gap-y-6 md:gap-x-10 md:gap-y-8">
           {FEATURED_LOGOS.map((src) => (
-            <li
-              key={src}
-              className="flex items-center justify-center h-11 md:h-14 w-32 md:w-40"
-            >
+            <li key={src} className="flex items-center justify-center">
               <img
                 src={src}
                 alt="Media outlet Akasha Yoga Academy has been featured in"
                 loading="lazy"
                 decoding="async"
-                className="max-h-full max-w-full object-contain opacity-95 hover:opacity-100 transition-opacity duration-300"
+                className="h-8 md:h-11 w-auto opacity-95 hover:opacity-100 transition-opacity duration-300"
+                style={{ maxWidth: 'clamp(120px, 22vw, 180px)' }}
               />
             </li>
           ))}
