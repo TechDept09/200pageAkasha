@@ -1303,7 +1303,7 @@ function CertifiedTeacherIntro() {
             </div>
           </div>
 
-          <div className="order-1 md:order-2">
+          <div className="order-1 md:order-2 text-center md:text-left">
             <span className="eyebrow text-akasha-orange">Akasha's Courses</span>
             <h2
               id="july-certified-heading"
@@ -1312,14 +1312,14 @@ function CertifiedTeacherIntro() {
             >
               Become a Certified Yoga Teacher Online
             </h2>
-            <span className="gold-rule" />
+            <span className="gold-rule mx-auto md:mx-0" />
             <p className="font-body text-akasha-gray-1 mt-5 mb-8 text-base md:text-lg leading-relaxed">
               Turn your passion into a meaningful profession with our Yoga
               Alliance certified courses.
             </p>
 
             <ul
-              className="flex flex-wrap items-center gap-6 md:gap-8"
+              className="flex flex-wrap items-center justify-center md:justify-start gap-6 md:gap-8"
               aria-label="Yoga Alliance registered school badges"
             >
               <li className="flex items-center">
