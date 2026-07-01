@@ -31,8 +31,8 @@ function JulyCountdown() {
   const t = useCountdown(JULY_LAUNCH_ISO);
   // Hide until mounted so the SSR HTML doesn't ship a stale timer.
   if (!t) return null;
-  // Once the campaign is live, drop the badge entirely (marketing can
-  // swap the hero copy in a follow-up commit).
+  // Once the campaign is live, drop the whole hero block (marketing can
+  // swap the surrounding copy to the live campaign in a follow-up).
   if (t.diff === 0) return null;
 
   const units = [
@@ -43,14 +43,14 @@ function JulyCountdown() {
   ];
 
   return (
-    <div className="flex flex-col items-center gap-3 mb-6">
+    <div className="flex flex-col items-center gap-5 md:gap-6 mb-6">
       <span
-        className="inline-flex items-center gap-2 text-akasha-orange"
+        className="inline-flex items-center gap-3 text-akasha-orange"
         style={{
           fontFamily: 'Inter, sans-serif',
-          fontSize: 'clamp(0.7rem, 1.2vw, 0.8rem)',
+          fontSize: 'clamp(0.72rem, 1.3vw, 0.85rem)',
           fontWeight: 600,
-          letterSpacing: '0.28em',
+          letterSpacing: '0.3em',
           textTransform: 'uppercase',
         }}
       >
@@ -59,48 +59,58 @@ function JulyCountdown() {
         <span aria-hidden="true">✧</span>
       </span>
 
+      {/* Dramatic hero-scale numbers. No tile boxes: the numbers themselves
+          are the statement, colons breathe between them, gold labels ground
+          the whole line so it still reads as a timer. Acts as the visual
+          h1 of the hub hero now. */}
       <div
-        className="inline-flex items-center gap-2 md:gap-3"
+        className="w-full flex items-end justify-center gap-3 sm:gap-5 md:gap-8"
         role="timer"
         aria-live="polite"
-        aria-label={`New July campaign launches in ${t.days} days ${t.hours} hours ${t.minutes} minutes ${t.seconds} seconds`}
+        aria-label={`New July promo drops in ${t.days} days ${t.hours} hours ${t.minutes} minutes ${t.seconds} seconds`}
       >
         {units.map((u, i) => (
-          <span key={u.label} className="flex items-center gap-2 md:gap-3">
-            <span className="flex flex-col items-center bg-akasha-black text-akasha-white rounded-md px-3 md:px-4 py-2 md:py-2.5 min-w-[52px] md:min-w-[62px] shadow-sm">
+          <div key={u.label} className="flex items-end gap-3 sm:gap-5 md:gap-8">
+            <div className="flex flex-col items-center">
               <span
-                className="font-heading leading-none"
+                className="font-heading text-akasha-black leading-none"
                 style={{
-                  fontSize: 'clamp(1.4rem, 3vw, 1.9rem)',
-                  fontWeight: 400,
+                  fontSize: 'clamp(3rem, 10vw, 6rem)',
+                  fontWeight: 300,
+                  letterSpacing: '-0.01em',
                   fontVariantNumeric: 'tabular-nums',
                 }}
               >
                 {pad(u.value)}
               </span>
               <span
-                className="text-akasha-gold mt-1"
+                className="text-akasha-gold mt-2 md:mt-3"
                 style={{
                   fontFamily: 'Inter, sans-serif',
-                  fontSize: 'clamp(0.55rem, 0.9vw, 0.65rem)',
+                  fontSize: 'clamp(0.6rem, 1vw, 0.72rem)',
                   fontWeight: 500,
-                  letterSpacing: '0.22em',
+                  letterSpacing: '0.28em',
                   textTransform: 'uppercase',
                 }}
               >
                 {u.label}
               </span>
-            </span>
+            </div>
             {i < units.length - 1 ? (
               <span
                 aria-hidden="true"
-                className="text-akasha-gold/60 font-heading"
-                style={{ fontSize: 'clamp(1rem, 2vw, 1.4rem)', fontWeight: 300 }}
+                className="text-akasha-gold/50 font-heading self-start"
+                style={{
+                  fontSize: 'clamp(2rem, 7vw, 4rem)',
+                  fontWeight: 300,
+                  lineHeight: 1,
+                  marginTop: 'clamp(0.5rem, 1vw, 0.8rem)',
+                }}
               >
                 :
               </span>
             ) : null}
-          </span>
+          </div>
         ))}
       </div>
 
@@ -108,7 +118,7 @@ function JulyCountdown() {
         className="font-body text-akasha-gray-1"
         style={{
           fontSize: 'clamp(0.72rem, 1.1vw, 0.82rem)',
-          letterSpacing: '0.18em',
+          letterSpacing: '0.2em',
           textTransform: 'uppercase',
         }}
       >
@@ -153,37 +163,31 @@ export default function HubHero() {
   return (
     <section className="pt-28 md:pt-36 pb-10 md:pb-14 bg-akasha-white">
       <div className="section text-center max-w-3xl">
+        {/* Countdown replaces the old 'Big Yoga Day Discounts' headline so
+            the first thing a visitor sees is the shift, a new promo is on
+            the way. Two mindsets in one block: (1) something new is
+            coming, (2) the current Yoga Day offer only holds until the
+            timer runs out. */}
         <JulyCountdown />
-
-        <h1
-          className="mb-4 uppercase"
-          style={{
-            fontSize: 'clamp(3.2rem, 8.5vw, 6rem)',
-            fontWeight: 300,
-            lineHeight: 1.05,
-            letterSpacing: '0.01em',
-          }}
-        >
-          Big Yoga Day Discounts
-        </h1>
 
         <h2
           className="mb-3"
-          style={{ fontSize: 'clamp(1.8rem, 3.4vw, 2.5rem)', fontWeight: 300 }}
+          style={{ fontSize: 'clamp(1.8rem, 3.6vw, 2.6rem)', fontWeight: 300 }}
         >
-          Extended Storewide Offer on All Courses
+          Yoga Day pricing holds only until the new drop opens
         </h2>
 
         <p
           className="script mb-5"
           style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)' }}
         >
-          Celebrate Yoga, Anywhere
+          Choose your path while the door is open
         </p>
 
-        <p className="font-body text-akasha-gray-1 max-w-lg mx-auto text-base md:text-lg leading-relaxed mb-8">
-          Our trainings, workshops, and retreats. Choose the path that fits you,
-          continue your journey with us.
+        <p className="font-body text-akasha-gray-1 max-w-xl mx-auto text-base md:text-lg leading-relaxed mb-8">
+          Every training, workshop, and retreat sits at its Yoga Day rate
+          until the countdown above reaches zero. Step in now, secure your
+          place before the new July offer takes over.
         </p>
 
         <UrgencyLine />
