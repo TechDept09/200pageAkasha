@@ -318,17 +318,18 @@ function CampaignContent({ phase }) {
           `}</style>
         </section>
 
-        {/* Featured in: press/media logos lifted from the Akasha
-            homepage so the buyer sees third-party trust the moment
-            they scroll past the hero. */}
-        <FeaturedIn />
-
         {/* Why this training: Akasha's own 'Why Choose Our Yoga Academy'
             block, verbatim from the live 200hr page. */}
         <WhyChooseAkasha />
 
         {/* Testimonials, social proof before the checkout. */}
         <TestimonialCarousel />
+
+        {/* Featured in: press/media logos lifted from the Akasha
+            homepage. Sits right after the testimonials so the trust
+            cluster reads real graduates -> real media coverage before
+            the checkout ask. */}
+        <FeaturedIn />
 
         {/* Soft nudge so a buyer convinced by the social proof has a clear
             way down without scrolling past the trust strip first. */}
