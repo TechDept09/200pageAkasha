@@ -118,6 +118,37 @@ function JulyCountdown() {
   );
 }
 
+function UrgencyLine() {
+  return (
+    <div className="flex flex-col items-center gap-3 mb-8 max-w-xl mx-auto">
+      <p
+        className="font-body text-akasha-gray-1 leading-relaxed"
+        style={{
+          fontSize: 'clamp(0.88rem, 1.4vw, 1rem)',
+          fontStyle: 'italic',
+        }}
+      >
+        Today's Yoga Day pricing rests only until this countdown ends.
+        Step in now, hold your place before the door quietly closes.
+      </p>
+      <a
+        href="#essential"
+        className="inline-flex items-center gap-2 text-akasha-orange hover:text-akasha-orange-dark transition-colors"
+        style={{
+          fontFamily: 'Inter, sans-serif',
+          fontSize: 'clamp(0.72rem, 1.1vw, 0.82rem)',
+          fontWeight: 600,
+          letterSpacing: '0.24em',
+          textTransform: 'uppercase',
+        }}
+      >
+        Enroll before the door closes
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  );
+}
+
 export default function HubHero() {
   return (
     <section className="pt-28 md:pt-36 pb-10 md:pb-14 bg-akasha-white">
@@ -150,10 +181,12 @@ export default function HubHero() {
           Celebrate Yoga, Anywhere
         </p>
 
-        <p className="font-body text-akasha-gray-1 max-w-lg mx-auto text-base md:text-lg leading-relaxed">
+        <p className="font-body text-akasha-gray-1 max-w-lg mx-auto text-base md:text-lg leading-relaxed mb-8">
           Our trainings, workshops, and retreats. Choose the path that fits you,
           continue your journey with us.
         </p>
+
+        <UrgencyLine />
       </div>
     </section>
   );
