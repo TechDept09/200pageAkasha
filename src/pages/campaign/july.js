@@ -1071,10 +1071,6 @@ function WhatYouGetModal({ variant, onClose }) {
             <WhatYouGetSection data={WHAT_YOU_GET['80yin']} />
           </>
         ) : null}
-
-        <p className="text-[11px] font-body italic text-akasha-gray-2 mt-4 text-center">
-          {WHAT_YOU_GET['200hr'].footnote || '*Mentor Support only Available with Our Premium Plan'}
-        </p>
       </div>
     </div>
   );
