@@ -35,9 +35,11 @@ function JulyCountdown() {
   // swap the surrounding copy to the live campaign in a follow-up).
   if (t.diff === 0) return null;
 
+  // Launch is under 24h away, so days would sit at 00 the whole time.
+  // Roll days into hours instead so the countdown reads Hrs : Min : Sec.
+  const totalHours = t.days * 24 + t.hours;
   const units = [
-    { label: 'Days', value: t.days },
-    { label: 'Hrs', value: t.hours },
+    { label: 'Hrs', value: totalHours },
     { label: 'Min', value: t.minutes },
     { label: 'Sec', value: t.seconds },
   ];
@@ -65,7 +67,7 @@ function JulyCountdown() {
         className="w-full flex items-end justify-center gap-3 sm:gap-5 md:gap-8"
         role="timer"
         aria-live="polite"
-        aria-label={`New July promo drops in ${t.days} days ${t.hours} hours ${t.minutes} minutes ${t.seconds} seconds`}
+        aria-label={`New July promo drops in ${totalHours} hours ${t.minutes} minutes ${t.seconds} seconds`}
       >
         {units.map((u, i) => (
           <div key={u.label} className="flex items-end gap-3 sm:gap-5 md:gap-8">
