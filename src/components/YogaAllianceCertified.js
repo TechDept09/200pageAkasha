@@ -3,23 +3,18 @@
 // Alliance badges (RYS-200, RYS-300, ERYT-500, YACEP) plus the two
 // verbatim credibility paragraphs Akasha publishes on the live page.
 
+// The four badges verbatim from
+// akashayogaacademy.com/200hr-yoga-teacher-training-online. Order and
+// asset IDs match the live source so what shows here is what shows
+// there. Only the first (977ee408) has a labelled filename on Wix
+// (RYS-200); the others are stored under hash-only names. Alt text
+// stays generic ('Yoga Alliance credential') so we don't mislabel a
+// badge we can't visually verify.
 const BADGES = [
-  {
-    src: 'https://static.wixstatic.com/media/cd7168_977ee408f17b46a29edd503ef69e6617~mv2.png/v1/fill/w_308,h_300,al_c,q_85,enc_avif,quality_auto/RYS-200-Yoga-Alliance.png',
-    alt: 'Yoga Alliance RYS-200 Registered Yoga School',
-  },
-  {
-    src: 'https://static.wixstatic.com/media/cd7168_b0002e34d2324f19aa47e198f769d01c~mv2.png/v1/fill/w_314,h_300,al_c,q_85,enc_avif,quality_auto/RYS-300-Yoga-Alliance.png',
-    alt: 'Yoga Alliance RYS-300 Registered Yoga School',
-  },
-  {
-    src: 'https://static.wixstatic.com/media/cd7168_c00f00faf1c442759dff116c1d8acaf0~mv2.png/v1/fill/w_300,h_300,al_c,q_85,enc_avif,quality_auto/cd7168_c00f00faf1c442759dff116c1d8acaf0~mv2.png',
-    alt: 'Yoga Alliance E-RYT-500 Experienced Registered Yoga Teacher',
-  },
-  {
-    src: 'https://static.wixstatic.com/media/cd7168_24994c4ef3af4e9585efa50e9c37c8eb~mv2.png/v1/fill/w_300,h_300,al_c,q_85,enc_avif,quality_auto/cd7168_24994c4ef3af4e9585efa50e9c37c8eb~mv2.png',
-    alt: 'Yoga Alliance YACEP Continuing Education Provider',
-  },
+  'https://static.wixstatic.com/media/cd7168_977ee408f17b46a29edd503ef69e6617~mv2.png/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_977ee408f17b46a29edd503ef69e6617~mv2.png',
+  'https://static.wixstatic.com/media/cd7168_c00f00faf1c442759dff116c1d8acaf0~mv2.png/v1/fill/w_200,h_200,al_c,q_85,enc_avif,quality_auto/cd7168_c00f00faf1c442759dff116c1d8acaf0~mv2.png',
+  'https://static.wixstatic.com/media/cd7168_24994c4ef3af4e9585efa50e9c37c8eb~mv2.png/v1/fill/w_180,h_178,al_c,q_85,enc_avif,quality_auto/cd7168_24994c4ef3af4e9585efa50e9c37c8eb~mv2.png',
+  'https://static.wixstatic.com/media/cd7168_bfe8b6337c45401bac9708fcaf7c99ad~mv2.png/v1/fill/w_180,h_178,al_c,q_85,enc_avif,quality_auto/cd7168_bfe8b6337c45401bac9708fcaf7c99ad~mv2.png',
 ];
 
 export default function YogaAllianceCertified() {
@@ -61,11 +56,11 @@ export default function YogaAllianceCertified() {
           className="mt-10 md:mt-12 flex flex-wrap items-center justify-center gap-6 md:gap-10"
           aria-label="Yoga Alliance registered credentials"
         >
-          {BADGES.map((b) => (
-            <li key={b.src} className="flex items-center">
+          {BADGES.map((src) => (
+            <li key={src} className="flex items-center">
               <img
-                src={b.src}
-                alt={b.alt}
+                src={src}
+                alt="Yoga Alliance credential"
                 loading="lazy"
                 decoding="async"
                 className="h-20 md:h-24 w-auto"

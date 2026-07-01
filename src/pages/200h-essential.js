@@ -3,6 +3,7 @@ import SiteNav from '@/components/SiteNav';
 import Hero from '@/components/Hero';
 import QuoteBreak from '@/components/QuoteBreak';
 import CertifiedTeacherIntro from '@/components/CertifiedTeacherIntro';
+import IntroVideo from '@/components/IntroVideo';
 import WhyAkasha from '@/components/WhyAkasha';
 import Curriculum from '@/components/Curriculum';
 import Teachers from '@/components/Teachers';
@@ -80,9 +81,27 @@ export default function EssentialPage() {
       <SiteNav />
 
       <main>
+        {/* Ordering follows the buyer's arc: pitch, meet, learn, verify,
+            price. Hero states the offer, then we humanise (video), open
+            up the training (Why / Curriculum / Teachers), stack the
+            trust signals (Alliance / TrustStrip), and only then ask
+            for the sale. Testimonials sit just before pricing so the
+            last thing read before the price is another graduate's
+            voice. */}
         <Hero />
 
-        <CertifiedTeacherIntro headingId="essential-certified-heading" />
+        <CertifiedTeacherIntro
+          headingId="essential-certified-heading"
+          showPhoto={false}
+        />
+
+        <IntroVideo
+          videoId="RkAZ2x5kWP8"
+          title="Inside Akasha's 200-Hour Online Yoga Teacher Training"
+          eyebrow="Meet Akasha"
+          headline="A quiet look inside the training"
+          description="Hear from the founders and step into the space where this training lives, before deciding anything."
+        />
 
         <QuoteBreak
           text="Their love & passion for a Yogic Life was out of this world. I swear my blueprint is changed because of it!"
@@ -92,6 +111,7 @@ export default function EssentialPage() {
 
         <WhyAkasha />
         <Curriculum />
+        <Teachers />
 
         <QuoteBreak
           text="You will learn so much more than just Yoga. I truly wish that EVERY person could experience this deep dive of self-discovery."
@@ -99,13 +119,12 @@ export default function EssentialPage() {
           country="United States"
         />
 
-        <Teachers />
-        <Steps />
-        <TrustStrip />
         <YogaAllianceCertified />
+        <TrustStrip />
+        <Steps />
+        <Testimonials />
         <Pricing />
         <Bonuses />
-        <Testimonials />
         <FAQ />
         <CTA />
         <Footer />
