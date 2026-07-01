@@ -169,7 +169,7 @@ export default function HubHero() {
           className="script mb-6"
           style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)' }}
         >
-          Choose your path while the door is open
+          For a very limited time
         </p>
 
         <UrgencyCta />
