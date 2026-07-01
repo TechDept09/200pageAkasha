@@ -2,11 +2,13 @@ import Head from 'next/head';
 import SiteNav from '@/components/SiteNav';
 import Hero from '@/components/Hero';
 import QuoteBreak from '@/components/QuoteBreak';
+import CertifiedTeacherIntro from '@/components/CertifiedTeacherIntro';
 import WhyAkasha from '@/components/WhyAkasha';
 import Curriculum from '@/components/Curriculum';
 import Teachers from '@/components/Teachers';
 import Steps from '@/components/Steps';
 import TrustStrip from '@/components/TrustStrip';
+import YogaAllianceCertified from '@/components/YogaAllianceCertified';
 import Pricing from '@/components/Pricing';
 import Bonuses from '@/components/Bonuses';
 import Testimonials from '@/components/Testimonials';
@@ -80,6 +82,8 @@ export default function EssentialPage() {
       <main>
         <Hero />
 
+        <CertifiedTeacherIntro headingId="essential-certified-heading" />
+
         <QuoteBreak
           text="Their love & passion for a Yogic Life was out of this world. I swear my blueprint is changed because of it!"
           author="Suzi Bloor"
@@ -98,6 +102,7 @@ export default function EssentialPage() {
         <Teachers />
         <Steps />
         <TrustStrip />
+        <YogaAllianceCertified />
         <Pricing />
         <Bonuses />
         <Testimonials />

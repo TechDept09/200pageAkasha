@@ -53,7 +53,7 @@ export const TIERS = {
       { start: '2026-06-21T00:00:00+08:00', end: '2026-06-27T23:59:59+08:00', dateRange: '21-24 June' },
       { start: '2026-06-28T00:00:00+08:00', end: '2026-06-30T23:59:59+08:00', dateRange: '28-30 June' },
     ],
-    saleEndShort: 'June 24',
+    saleEndShort: 'June 30',
     ctaShort: 'Enroll US$290',
     ctaLong: 'Enroll Now, US$290',
     selfPaceWindow: '6-month self-paced',
