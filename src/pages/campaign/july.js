@@ -3,45 +3,13 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import HubNav from '@/components/hub/HubNav';
-import MainProducts from '@/components/hub/MainProducts';
-import CategorySection from '@/components/hub/CategorySection';
 import TrustStrip from '@/components/TrustStrip';
 import Footer from '@/components/Footer';
-import { CATEGORIES, courses, getCoursesByCategory } from '@/lib/courses';
+import { courses } from '@/lib/courses';
 
-// Campaign preview: only Essential and 80hr Yin sit inside the Summer
-// Self-Care bundle and keep the full Yoga Day display. The advanced
-// modules drop back to their everyday-display rate (the lighter ~33%
-// markdown Akasha runs all year), and the remaining cards strip the
-// 60% Yoga Day badge entirely so the visual story stays clean.
+// Essential and 80hr Yin sit inside the Summer Self-Care bundle offer,
+// so they are not shown again in the recommendation list at the bottom.
 const CAMPAIGN_DISCOUNT_KEEP = new Set(['200h-essential', '80h-yin']);
-
-const CAMPAIGN_PRICE_OVERRIDES = {
-  '300h-ytt': { promoPrice: 1190, discountPercent: 33 },
-  '80h-hatha-pranayama': { promoPrice: 239, discountPercent: 33 },
-  '80h-meditation': { promoPrice: 239, discountPercent: 33 },
-};
-
-function stripCampaignDiscount(course) {
-  if (!course) return course;
-  if (CAMPAIGN_DISCOUNT_KEEP.has(course.slug)) return course;
-  const override = CAMPAIGN_PRICE_OVERRIDES[course.slug];
-  if (override) {
-    return {
-      ...course,
-      ...override,
-      discountLabel: null,
-      saleEndShort: null,
-    };
-  }
-  return {
-    ...course,
-    discountPercent: null,
-    discountLabel: null,
-    promoPrice: null,
-    saleEndShort: null,
-  };
-}
 import { startWixCheckout } from '@/lib/checkout';
 import { useUtmParams, formatUtmNote } from '@/hooks/useUtmParams';
 import { trackLead, trackInitiateCheckout, newEventId } from '@/lib/pixel';
@@ -480,51 +448,12 @@ function CampaignContent({ phase }) {
             to see who they'd be learning from before scrolling further. */}
         <IntroVideos />
 
-        {/* Recommended tail: positioned as 'continue exploring' rather
-            than a standalone catalog. Same shared hub components, just
-            wrapped with a softer header so the campaign offer stays the
-            page's primary focus. */}
-        <section
-          className="py-12 md:py-16 bg-akasha-white text-center"
-          aria-labelledby="july-recommended-heading"
-        >
-          <div className="section max-w-2xl">
-            <span className="eyebrow">Recommended for you</span>
-            <h2
-              id="july-recommended-heading"
-              style={{ fontSize: 'clamp(1.7rem, 3.4vw, 2.4rem)', fontWeight: 300 }}
-            >
-              If this resonates, also consider
-            </h2>
-            <span className="gold-rule" />
-            <p className="font-body text-akasha-gray-1 mt-5 text-base md:text-lg leading-relaxed">
-              The rest of the Akasha catalog, kept here in case a different
-              path calls. Each one stands on its own.
-            </p>
-          </div>
-        </section>
+        {/* Sidebar-style recommendation list. Every other Akasha course
+            except Essential and the Yin add-on already in the bundle,
+            rendered as a quiet compact grid so it reads as 'other things
+            you might like later', not a second catalog. */}
+        <RecommendationList />
 
-        <MainProducts
-          premiumOverride={stripCampaignDiscount(courses.find((c) => c.slug === '200h-premium'))}
-        />
-
-        <CategorySection
-          id="advanced"
-          eyebrow="For Certified Teachers"
-          heading="Advanced Courses"
-          intro="Specialized modules to continue your path after the 200-Hour Certification."
-          courses={getCoursesByCategory(CATEGORIES.ADVANCED).map(stripCampaignDiscount)}
-          bg="bg-akasha-gray-4/30"
-        />
-
-        <CategorySection
-          id="other"
-          eyebrow="Open to All"
-          heading="Other Courses & On-Site"
-          intro="Workshops and retreats open to everyone, no prior yoga training required."
-          courses={getCoursesByCategory(CATEGORIES.OTHER).map(stripCampaignDiscount)}
-          bg="bg-akasha-white"
-        />
 
         {/* Tracking hook placeholder. When Wira sends the post-pay tracking
             snippet, drop it inside this div so it only ever runs on the
@@ -872,6 +801,94 @@ const WHY_CHOOSE = [
       "At Akasha Yoga Academy, you'll be part of a worldwide family of yoga practitioners, learning from diverse experiences and cultures. Our program includes interactive online training with direct communication with teachers and peers. You'll get real-time guidance and participate in daily live sessions, addressing all your questions. This supportive environment not only helps you learn yoga but also connects you with friends globally. It prepares you with the skills and confidence to teach yoga anywhere in the world.",
   },
 ];
+
+function RecommendationList() {
+  // Every course except the two the campaign already sells (Essential
+  // and 80hr Yin, both live in the bundle offer above). No promo badges,
+  // no big product cards, just a quiet inline list so the campaign
+  // stays the star of the page.
+  const items = courses
+    .filter((c) => !CAMPAIGN_DISCOUNT_KEEP.has(c.slug))
+    .map((c) => ({
+      slug: c.slug,
+      title: c.title,
+      short: c.shortDescription,
+      href: c.href,
+      isInternal: c.isInternal,
+      image: c.image,
+    }));
+
+  if (!items.length) return null;
+
+  return (
+    <section
+      className="py-14 md:py-16 bg-akasha-gray-4/30"
+      aria-labelledby="july-recommendation-heading"
+    >
+      <div className="section max-w-5xl">
+        <header className="text-center max-w-xl mx-auto mb-8 md:mb-10">
+          <span className="eyebrow">Also from Akasha</span>
+          <h2
+            id="july-recommendation-heading"
+            className="font-heading text-akasha-black"
+            style={{
+              fontSize: 'clamp(1.3rem, 2.4vw, 1.7rem)',
+              fontWeight: 400,
+            }}
+          >
+            Other paths, whenever you are ready
+          </h2>
+        </header>
+
+        <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+          {items.map((it) => {
+            const external = !it.isInternal;
+            return (
+              <li key={it.slug}>
+                <a
+                  href={it.href}
+                  {...(external
+                    ? { target: '_blank', rel: 'noopener noreferrer' }
+                    : {})}
+                  className="group flex items-center gap-3 md:gap-4 bg-akasha-white border border-akasha-gray-4 rounded-sm px-4 py-3 md:px-5 md:py-4 hover:border-akasha-gold hover:shadow-sm transition-all"
+                >
+                  <span className="flex-none w-14 h-14 md:w-16 md:h-16 overflow-hidden rounded-sm bg-akasha-gray-4">
+                    {it.image ? (
+                      <img
+                        src={it.image}
+                        alt=""
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    ) : null}
+                  </span>
+                  <span className="flex-1 min-w-0">
+                    <span
+                      className="block font-heading text-akasha-black text-[13px] md:text-[14px] leading-snug truncate"
+                      style={{ fontWeight: 400 }}
+                    >
+                      {it.title}
+                    </span>
+                    <span className="block font-body text-akasha-gray-1 text-[11.5px] md:text-xs leading-snug mt-0.5 line-clamp-2">
+                      {it.short}
+                    </span>
+                  </span>
+                  <span
+                    className="flex-none text-akasha-gray-2 group-hover:text-akasha-orange transition-colors text-sm"
+                    aria-hidden="true"
+                  >
+                    →
+                  </span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </section>
+  );
+}
 
 function WhyChooseAkasha() {
   const [openCard, setOpenCard] = useState(null);
