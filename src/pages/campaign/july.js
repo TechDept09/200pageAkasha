@@ -835,13 +835,13 @@ const WHY_CHOOSE = [
 function FeaturedIn() {
   return (
     <section
-      className="py-12 md:py-16 bg-akasha-gray-4/40"
+      className="py-12 md:py-16 bg-akasha-black"
       aria-labelledby="july-featured-in-heading"
     >
       <div className="section max-w-5xl">
         <p
           id="july-featured-in-heading"
-          className="text-center text-[12px] md:text-[13px] font-body uppercase tracking-[0.32em] text-akasha-gray-1 mb-8 md:mb-10"
+          className="text-center text-[12px] md:text-[13px] font-body uppercase tracking-[0.32em] text-akasha-gold mb-8 md:mb-10"
           style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600 }}
         >
           As Featured In
