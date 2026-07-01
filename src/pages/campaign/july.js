@@ -11,6 +11,54 @@ import { courses } from '@/lib/courses';
 // so they are not shown again in the recommendation list at the bottom.
 const CAMPAIGN_DISCOUNT_KEEP = new Set(['200h-essential', '80h-yin']);
 
+// Verbatim from akashayogaacademy.com/200hr-yoga-teacher-training-online
+// and akashayogaacademy.com/80hr-yin-ytt-enroll-now. Bonuses list the
+// same US$ values Akasha publishes on those pages.
+const WHAT_YOU_GET = {
+  '200hr': {
+    title: '200-Hour Yoga Teacher Training',
+    intro:
+      'Sign-up for our Yoga Alliance certified 200-Hour Online Yoga Teacher Training today, and immediately access:',
+    courseContent: [
+      { section: 'PRACTICE', items: ['60 Hours of Asana', '20 Hours of Pranayama', '15 Hours of Meditation'] },
+      { section: 'THEORY', items: ['40 Hours of Yoga Anatomy & Posture Study', '50 Hours of Lectures on Applied Philosophy & History', 'Teaching Techniques & Instructor Skills'] },
+      { section: 'TEACHER EDUCATION', items: ['Personally Supervised Practicum Assignments', 'Guided Prep, Video Recording & One-on-One Feedback', 'Marketing, Networking & How to Get Started'] },
+      { section: 'PERSONAL GUIDANCE & FUN', items: ['Daily Live Q&As', 'Community Forums, Private Facebook Group & Chats', 'Bhajan Chanting & so much more'] },
+    ],
+    bonuses: [
+      { n: '1', name: 'How to Teach Yoga Online', value: 299, desc: 'In this course Akasha Yoga shares their first-hand experience of how to bring your Yoga classes online. Receive all the audio, lighting, and camera tricks and tips to make your offerings online a successful experience.' },
+      { n: '2', name: 'Journey Through the 7 Chakras', value: 199, desc: 'In this introduction workshop, we present the system of the famous 7 Chakras. You will receive a clear understanding of the classical roots and modern interpretations. In this comprehensive overview, you will learn about energetic aspects, corresponding emotions, and psychological attributes.' },
+      { n: '3', name: 'Holistic Well-Being Workshop', value: 229, desc: 'In this eye-opening workshop, we introduce the yogic system of the 5 Bodies. You will benefit a lot from this ancient holistic description of the human being, formulated 2500 years ago, yet fully relevant in our modern times. You will walk away with a clear & practical understanding of the different layers & aspects of our being.' },
+      { n: '4', name: 'Asana Study Flashcards', value: 35, desc: "These Asana study flashcards were made especially for you to memorize the teaching cues. The Asanas in this card deck are part of Akasha's 200-Hour Teacher Training." },
+      { n: '5', name: 'Sanskrit Study Flashcards', value: 35, desc: "These Sanskrit study flashcards were made especially for you to memorize the Sanskrit names of the Asanas. The cards in this deck are part of Akasha's 200-Hour Teacher Training." },
+      { n: '6', name: 'Poster Asana Poses', value: 69, desc: "Poster with all the Asana's covered in our 200-Hr Yoga TTC in high image quality. Perfect to showcase at home or your Yoga studio." },
+      { n: '7', name: 'The Art & Science of Teaching', value: 108, desc: 'Unite ancient wisdom with modern methods. Elevate your teaching with a fusion of yogic artistry and evidence-based science. Perfect for aspiring and seasoned instructors.' },
+      { n: '8', name: 'Yoga in Daily Life', value: 86, desc: "Discover 'Yoga in Daily Life': our bonus book delving into Yama & Niyama, yoga's ethical foundations. Learn to integrate these virtues into everyday life & practice." },
+    ],
+  },
+  '80yin': {
+    title: '80-Hour Yin Yoga Teacher Training',
+    intro:
+      "Explore your mind and body at a depth you've only imagined with Akasha's 80-hour Yin Yoga Teacher Training. In this course you will get:",
+    items: [
+      'Rich and interactive curriculum that meets and exceeds official requirements',
+      'Professional teachings based on decades of committed research, study & practice',
+      'Immediate access once you sign up',
+      'Interactive connection with a worldwide community of Yoga practitioners & teachers',
+      'Lifetime access to all videos, manuals & training materials',
+      'Live Bhajans with the Akasha Family',
+      'Loving support and expert guidance from seasoned teachers',
+    ],
+    bonuses: [
+      { n: '1', name: 'Yin Yang Pranayama Masterclass', value: 99, desc: 'In this Pranayama Masterclass, we explore pranayama as a doorway into the peace of meditation. This class helps you to deepen your self-practice, while exploring breath-work as a potent tool to deepen experience deep stillness within.' },
+      { n: '2', name: 'Breath-Based Alignment Workshop', value: 55, desc: "This eye-opening presentation provides a provocative perspective: It doesn't really matter how our posture looks from outside. Instead of fitting our body into a standardized outer shape, we allow our breath to guide us from within." },
+      { n: '3', name: 'Yin Yoga Sequences', value: 25, desc: 'This is a complete collection of ready-made Yin Yoga classes. The useful summaries will make it easy for you to teach smooth 60-minute sessions. You will receive a beautiful visual map of all poses, descriptions and benefits, empowering you to instruct skillfully.' },
+      { n: '4', name: 'Yin Yoga Poster', value: 50, desc: 'An appealing poster with all the Asanas you will learn in our 80-Hour Yin Yoga Teacher Training. Due to the high-resolution image quality you can print this poster in bill-board size. This allows you to showcase the full sequence at home or in your Yoga studio.' },
+      { n: '5', name: 'Yin Yoga Music', value: 35, desc: 'This is a collection of amazing heart-opening music. We exclusively produced these awesome sets with guest artists in our Baliwood Studios. The high-vibe sounds will take you & your students to deeper states within.' },
+    ],
+  },
+};
+
 // All 12 'Featured in:' logos lifted verbatim from the
 // akashayogaacademy.com homepage (including Music Of Wisdom and the
 // YouTube channel mark). Akasha ships them all white-on-transparent
@@ -142,13 +190,13 @@ function CampaignContent({ phase }) {
   const bundle = phase.bundle;
   const standalone = phase.standalone;
   const isBackup = phase.key === 'backup';
-  // Bundle drives whether the two-card layout + comparison block show.
-  // Without a bundle (phase2 simplified to Essential-only, backup mode)
-  // the page collapses to a single centred Standalone card.
   const hasBundle = !!bundle;
-  // showWellnessNote is now legacy, kept only because BundleCard reads
-  // it; with phase2 dropping the bundle, this never evaluates true.
   const showWellnessNote = phase.key === 'phase2' && hasBundle;
+
+  // Which 'What will you get?' modal is open, if any. 'bundle' shows
+  // both the 200hr and 80hr Yin content; 'standalone' shows the 200hr
+  // block only. null keeps the modal closed.
+  const [whatModal, setWhatModal] = useState(null);
 
   return (
     <>
@@ -362,12 +410,22 @@ function CampaignContent({ phase }) {
 
             {hasBundle ? (
               <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto items-stretch">
-                <BundleCard phase={phase} showWellnessNote={showWellnessNote} />
-                <StandaloneCard phase={phase} />
+                <BundleCard
+                  phase={phase}
+                  showWellnessNote={showWellnessNote}
+                  onWhatYouGet={() => setWhatModal('bundle')}
+                />
+                <StandaloneCard
+                  phase={phase}
+                  onWhatYouGet={() => setWhatModal('standalone')}
+                />
               </div>
             ) : (
               <div className="max-w-xl mx-auto">
-                <StandaloneCard phase={phase} />
+                <StandaloneCard
+                  phase={phase}
+                  onWhatYouGet={() => setWhatModal('standalone')}
+                />
               </div>
             )}
           </div>
@@ -506,11 +564,18 @@ function CampaignContent({ phase }) {
           carries the price + live countdown, and links straight back to
           the checkout block. Dismissable so it never blocks reading. */}
       <CampaignStickyCTA phase={phase} />
+
+      {whatModal ? (
+        <WhatYouGetModal
+          variant={whatModal}
+          onClose={() => setWhatModal(null)}
+        />
+      ) : null}
     </>
   );
 }
 
-function BundleCard({ phase, showWellnessNote }) {
+function BundleCard({ phase, showWellnessNote, onWhatYouGet }) {
   const bundle = phase.bundle;
   const utm = useUtmParams();
   const [form, setForm] = useState({ firstName: '', lastName: '', email: '' });
@@ -684,6 +749,18 @@ function BundleCard({ phase, showWellnessNote }) {
           >
             {loading ? 'Preparing your checkout…' : `Enroll in Bundle, US$${bundle.total}`}
           </button>
+          {onWhatYouGet ? (
+            <button
+              type="button"
+              onClick={onWhatYouGet}
+              className="mt-3 w-full text-center text-[11px] font-body uppercase tracking-[0.25em] text-akasha-orange hover:text-akasha-orange-dark transition-colors inline-flex items-center justify-center gap-2"
+              style={{ fontFamily: 'Inter, sans-serif' }}
+              aria-haspopup="dialog"
+            >
+              What will you get?
+              <span aria-hidden="true">→</span>
+            </button>
+          ) : null}
           {error && (
             <p className="text-xs text-akasha-orange-dark mt-3 font-body text-center">
               {error}
@@ -840,6 +917,168 @@ const WHY_CHOOSE = [
       "At Akasha Yoga Academy, you'll be part of a worldwide family of yoga practitioners, learning from diverse experiences and cultures. Our program includes interactive online training with direct communication with teachers and peers. You'll get real-time guidance and participate in daily live sessions, addressing all your questions. This supportive environment not only helps you learn yoga but also connects you with friends globally. It prepares you with the skills and confidence to teach yoga anywhere in the world.",
   },
 ];
+
+function WhatYouGetSection({ data, showCourseContent }) {
+  return (
+    <div className="mb-8 last:mb-0">
+      <h4
+        className="font-heading text-akasha-black text-lg md:text-xl mb-3 leading-snug"
+        style={{ fontWeight: 400 }}
+      >
+        {data.title}
+      </h4>
+      <p className="font-body text-akasha-gray-1 text-[13px] md:text-sm leading-relaxed mb-5">
+        {data.intro}
+      </p>
+
+      {showCourseContent && data.courseContent ? (
+        <div className="grid sm:grid-cols-2 gap-3 mb-6">
+          {data.courseContent.map((block) => (
+            <div
+              key={block.section}
+              className="bg-akasha-gray-4/40 border border-akasha-gray-4 rounded-sm p-4"
+            >
+              <p
+                className="text-[10px] font-body uppercase tracking-[0.22em] text-akasha-orange mb-2"
+                style={{ fontFamily: 'Inter, sans-serif' }}
+              >
+                {block.section}
+              </p>
+              <ul className="space-y-1.5 font-body text-akasha-gray-1 text-[13px] leading-relaxed">
+                {block.items.map((it) => (
+                  <li key={it} className="flex items-start gap-2">
+                    <span className="text-akasha-green mt-0.5 flex-none">✓</span>
+                    <span>{it}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      ) : null}
+
+      {data.items ? (
+        <ul className="space-y-2 font-body text-akasha-gray-1 text-[13px] md:text-sm leading-relaxed mb-6">
+          {data.items.map((it) => (
+            <li key={it} className="flex items-start gap-3">
+              <span className="text-akasha-green mt-0.5 flex-none">✓</span>
+              <span>{it}</span>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+
+      {data.bonuses?.length ? (
+        <>
+          <p
+            className="text-[11px] font-body uppercase tracking-[0.25em] text-akasha-orange mb-3"
+            style={{ fontFamily: 'Inter, sans-serif' }}
+          >
+            Bonuses Included
+          </p>
+          <div className="space-y-3">
+            {data.bonuses.map((b) => (
+              <div
+                key={b.n}
+                className="border border-akasha-gray-4 rounded-sm p-4 bg-akasha-white"
+              >
+                <div className="flex items-baseline justify-between gap-3 mb-1.5">
+                  <p
+                    className="font-heading text-akasha-black text-[15px] leading-snug"
+                    style={{ fontWeight: 400 }}
+                  >
+                    Bonus #{b.n}: {b.name}
+                  </p>
+                  <span
+                    className="text-[11px] font-body text-akasha-orange whitespace-nowrap"
+                    style={{ fontFamily: 'Inter, sans-serif' }}
+                  >
+                    US${b.value} value
+                  </span>
+                </div>
+                <p className="font-body text-akasha-gray-1 text-[12.5px] leading-relaxed">
+                  {b.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </>
+      ) : null}
+    </div>
+  );
+}
+
+function WhatYouGetModal({ variant, onClose }) {
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [onClose]);
+
+  const heading =
+    variant === 'bundle'
+      ? 'Everything included in the bundle'
+      : 'Everything included in the 200hr Essential';
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-start md:items-center justify-center px-4 py-10 bg-black/60 backdrop-blur-sm animate-[fadeIn_0.2s_ease] overflow-y-auto"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="what-you-get-modal-title"
+      onClick={onClose}
+    >
+      <div
+        className="bg-akasha-white rounded-sm shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-7 md:p-10 relative"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close"
+          className="sticky top-0 float-right w-9 h-9 flex items-center justify-center rounded-full text-akasha-gray-2 hover:text-akasha-black hover:bg-akasha-gray-4 transition-colors text-2xl leading-none z-10 bg-akasha-white/90 backdrop-blur-sm"
+          style={{ marginRight: '-0.5rem' }}
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+        <span
+          className="block text-[11px] font-body uppercase tracking-[0.3em] text-akasha-orange mb-3"
+          style={{ fontFamily: 'Inter, sans-serif' }}
+        >
+          What will you get
+        </span>
+        <h3
+          id="what-you-get-modal-title"
+          className="font-heading text-akasha-black text-2xl md:text-3xl mb-4 leading-snug pr-8"
+          style={{ fontWeight: 400 }}
+        >
+          {heading}
+        </h3>
+        <span className="gold-rule mb-6" />
+
+        <WhatYouGetSection data={WHAT_YOU_GET['200hr']} showCourseContent />
+
+        {variant === 'bundle' ? (
+          <>
+            <div className="my-8 border-t border-akasha-gray-4" />
+            <WhatYouGetSection data={WHAT_YOU_GET['80yin']} />
+          </>
+        ) : null}
+
+        <p className="text-[11px] font-body italic text-akasha-gray-2 mt-4 text-center">
+          {WHAT_YOU_GET['200hr'].footnote || '*Mentor Support only Available with Our Premium Plan'}
+        </p>
+      </div>
+    </div>
+  );
+}
 
 function FeaturedIn() {
   return (
@@ -1284,7 +1523,7 @@ function TestimonialCarousel() {
   );
 }
 
-function StandaloneCard({ phase }) {
+function StandaloneCard({ phase, onWhatYouGet }) {
   const utm = useUtmParams();
   const [form, setForm] = useState({ firstName: '', lastName: '', email: '' });
   const [loading, setLoading] = useState(false);
@@ -1438,6 +1677,18 @@ function StandaloneCard({ phase }) {
         >
           {loading ? 'Preparing your checkout…' : `Enroll in 200hr Only, US$${displayPrice}`}
         </button>
+        {onWhatYouGet ? (
+          <button
+            type="button"
+            onClick={onWhatYouGet}
+            className="mt-3 w-full text-center text-[11px] font-body uppercase tracking-[0.25em] text-akasha-black/70 hover:text-akasha-black transition-colors inline-flex items-center justify-center gap-2"
+            style={{ fontFamily: 'Inter, sans-serif' }}
+            aria-haspopup="dialog"
+          >
+            What will you get?
+            <span aria-hidden="true">→</span>
+          </button>
+        ) : null}
         {error && (
           <p className="text-xs text-akasha-orange-dark mt-3 font-body text-center">
             {error}
