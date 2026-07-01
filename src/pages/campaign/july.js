@@ -11,6 +11,18 @@ import { courses } from '@/lib/courses';
 // so they are not shown again in the recommendation list at the bottom.
 const CAMPAIGN_DISCOUNT_KEEP = new Set(['200h-essential', '80h-yin']);
 
+// 'Featured in:' logos lifted verbatim from the akashayogaacademy.com
+// homepage. Akasha does not label the individual outlets, so we ship
+// the same six logo URLs and let the marks speak for themselves.
+const FEATURED_LOGOS = [
+  'https://static.wixstatic.com/media/cd7168_9448b8294b484bd5a83a58718a812af2~mv2.png/v1/crop/x_0,y_35,w_825,h_289/fill/w_324,h_114,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/featured-1.png',
+  'https://static.wixstatic.com/media/cd7168_258e64fb744d4f68936b4804ab32e905~mv2.png/v1/crop/x_401,y_389,w_279,h_302/fill/w_212,h_232,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/featured-2.png',
+  'https://static.wixstatic.com/media/cd7168_132cc4ccf1534e66b6e3c538e4cd3e9d~mv2.png/v1/crop/x_0,y_12,w_972,h_227/fill/w_488,h_114,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/featured-3.png',
+  'https://static.wixstatic.com/media/cd7168_55ec72a6c7004ff684a6d4531fd56639~mv2.png/v1/fill/w_336,h_74,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/featured-4.png',
+  'https://static.wixstatic.com/media/cd7168_80ec49ce8ae24442ba75c38abc2e79db~mv2.png/v1/fill/w_124,h_80,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/featured-5.png',
+  'https://static.wixstatic.com/media/cd7168_dd6899c84b144cd8afdc4cc99789c5a4~mv2.png/v1/crop/x_131,y_445,w_810,h_196/fill/w_306,h_74,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/featured-6.png',
+];
+
 // Prices shown next to each recommendation card. Mirrors what Akasha
 // displays year-round on the live catalog (33% markdown baked in for
 // 300H and the 80hr trio; Premium and Kundalini shown at the regular
@@ -297,6 +309,11 @@ function CampaignContent({ phase }) {
             }
           `}</style>
         </section>
+
+        {/* Featured in: press/media logos lifted from the Akasha
+            homepage so the buyer sees third-party trust the moment
+            they scroll past the hero. */}
+        <FeaturedIn />
 
         {/* Why this training: Akasha's own 'Why Choose Our Yoga Academy'
             block, verbatim from the live 200hr page. */}
@@ -814,6 +831,39 @@ const WHY_CHOOSE = [
       "At Akasha Yoga Academy, you'll be part of a worldwide family of yoga practitioners, learning from diverse experiences and cultures. Our program includes interactive online training with direct communication with teachers and peers. You'll get real-time guidance and participate in daily live sessions, addressing all your questions. This supportive environment not only helps you learn yoga but also connects you with friends globally. It prepares you with the skills and confidence to teach yoga anywhere in the world.",
   },
 ];
+
+function FeaturedIn() {
+  return (
+    <section
+      className="py-10 md:py-14 bg-akasha-white border-t border-akasha-gray-4"
+      aria-labelledby="july-featured-in-heading"
+    >
+      <div className="section max-w-5xl">
+        <p
+          id="july-featured-in-heading"
+          className="text-center text-[11px] md:text-[12px] font-body uppercase tracking-[0.3em] text-akasha-gray-1 mb-6 md:mb-8"
+          style={{ fontFamily: 'Inter, sans-serif' }}
+        >
+          Featured in
+        </p>
+        <ul className="flex flex-wrap items-center justify-center gap-x-8 gap-y-5 md:gap-x-12 md:gap-y-6">
+          {FEATURED_LOGOS.map((src, i) => (
+            <li key={src} className="flex items-center">
+              <img
+                src={src}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                className="h-8 md:h-10 w-auto opacity-70 hover:opacity-100 transition-opacity"
+                style={{ maxHeight: '48px' }}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
 
 function RecommendationList() {
   // Every course except the two the campaign already sells (Essential
