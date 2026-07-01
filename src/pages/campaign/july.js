@@ -242,8 +242,11 @@ function CampaignContent({ phase }) {
       <HubNav />
 
       {/* pb gives the sticky CTA room to sit above the footer without
-          overlapping the last paragraph. */}
-      <main className="bg-akasha-white pb-24 md:pb-20">
+          overlapping the last paragraph. overflow-x-hidden clips any child
+          that accidentally pokes past the viewport (rotated hero
+          animations, absolutely positioned badges, etc.) so mobile can
+          never side-scroll no matter what a child does. */}
+      <main className="bg-akasha-white pb-24 md:pb-20 overflow-x-hidden">
         {/* Hero with a Wix-hosted MP4 looping in the background. HTML5
             video gives us no third-party branding (vs YouTube iframe)
             and lets us truly mute + autoplay + loop with a one-liner.
@@ -1072,7 +1075,7 @@ function WhatYouGetModal({ variant, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-start md:items-center justify-center px-4 py-10 bg-black/60 backdrop-blur-sm animate-[fadeIn_0.2s_ease] overflow-y-auto"
+      className="fixed inset-0 z-50 flex items-start md:items-center justify-center px-4 py-10 bg-black/60 backdrop-blur-sm animate-[fadeIn_0.2s_ease] overflow-x-hidden overflow-y-auto"
       role="dialog"
       aria-modal="true"
       aria-labelledby="what-you-get-modal-title"
@@ -1086,8 +1089,7 @@ function WhatYouGetModal({ variant, onClose }) {
           type="button"
           onClick={onClose}
           aria-label="Close"
-          className="sticky top-0 float-right w-9 h-9 flex items-center justify-center rounded-full text-akasha-gray-2 hover:text-akasha-black hover:bg-akasha-gray-4 transition-colors text-2xl leading-none z-10 bg-akasha-white/90 backdrop-blur-sm"
-          style={{ marginRight: '-0.5rem' }}
+          className="absolute top-4 right-4 w-9 h-9 flex items-center justify-center rounded-full text-akasha-gray-2 hover:text-akasha-black hover:bg-akasha-gray-4 transition-colors text-2xl leading-none z-10 bg-akasha-white/90 backdrop-blur-sm"
         >
           <span aria-hidden="true">×</span>
         </button>
@@ -1428,7 +1430,7 @@ function WhyChooseAkasha() {
 
       {openCard ? (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center px-4 py-8 bg-black/60 backdrop-blur-sm animate-[fadeIn_0.2s_ease]"
+          className="fixed inset-0 z-50 flex items-center justify-center px-4 py-8 bg-black/60 backdrop-blur-sm animate-[fadeIn_0.2s_ease] overflow-x-hidden overflow-y-auto"
           role="dialog"
           aria-modal="true"
           aria-labelledby="why-choose-modal-title"

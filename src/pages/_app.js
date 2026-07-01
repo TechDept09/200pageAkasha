@@ -1,6 +1,7 @@
 import '@/styles/globals.css';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 import Script from 'next/script';
 import { Inter, Jost, Allura } from 'next/font/google';
 import { pageview } from '@/lib/pixel';
@@ -47,6 +48,17 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
+      <Head>
+        {/* Ships with the SSR HTML so mobile browsers render at device
+            width from first paint. Without this, Next.js falls back to
+            'width=device-width' only, and pages that render null on the
+            server (mounted-gate pattern) show up unscaled on iOS Safari. */}
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, viewport-fit=cover"
+        />
+      </Head>
+
       <style jsx global>{`
         html {
           --font-inter: ${inter.style.fontFamily};
