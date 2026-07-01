@@ -1286,7 +1286,7 @@ function CertifiedTeacherIntro() {
       aria-labelledby="july-certified-heading"
     >
       <div className="section max-w-5xl">
-        <div className="grid md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-8 md:gap-14 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-8 md:gap-14 items-center">
           {/* Portrait photo, from the 200hr Essential hero (Akasha's own
               certified graduate mark on the source page). Constrained
               to a max width so it reads as a supporting portrait, not
