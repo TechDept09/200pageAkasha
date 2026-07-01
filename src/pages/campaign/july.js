@@ -844,18 +844,53 @@ const WHY_CHOOSE = [
 function FeaturedIn() {
   return (
     <section
-      className="py-12 md:py-16 bg-akasha-black"
+      className="relative py-16 md:py-24 overflow-hidden"
       aria-labelledby="july-featured-in-heading"
+      style={{
+        background:
+          'linear-gradient(180deg, #211d18 0%, #14110d 55%, #211d18 100%)',
+      }}
     >
-      <div className="section max-w-5xl">
-        <p
-          id="july-featured-in-heading"
-          className="text-center text-[12px] md:text-[13px] font-body uppercase tracking-[0.32em] text-akasha-gold mb-8 md:mb-10"
-          style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600 }}
-        >
-          As Featured In
-        </p>
-        <ul className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 md:gap-x-14 md:gap-y-8">
+      {/* Warm center glow so the section feels like a lit stage
+          instead of a flat dark block. */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        aria-hidden="true"
+        style={{
+          background:
+            'radial-gradient(ellipse at center, rgba(237, 88, 41, 0.09) 0%, rgba(231, 188, 93, 0.05) 30%, transparent 65%)',
+        }}
+      />
+      {/* Hairline gold rule on top for a soft handoff from the section above. */}
+      <div
+        className="absolute top-0 inset-x-0 h-px pointer-events-none"
+        aria-hidden="true"
+        style={{
+          background:
+            'linear-gradient(90deg, transparent 0%, rgba(231,188,93,0.35) 50%, transparent 100%)',
+        }}
+      />
+
+      <div className="relative section max-w-5xl">
+        <div className="text-center mb-10 md:mb-14">
+          <span
+            id="july-featured-in-heading"
+            className="inline-block text-[12px] md:text-[13px] font-body uppercase tracking-[0.32em] text-akasha-gold"
+            style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600 }}
+          >
+            As Featured In
+          </span>
+          <span
+            className="block mx-auto mt-4 h-px w-14"
+            aria-hidden="true"
+            style={{
+              background:
+                'linear-gradient(90deg, transparent 0%, rgba(231,188,93,0.7) 50%, transparent 100%)',
+            }}
+          />
+        </div>
+
+        <ul className="flex flex-wrap items-center justify-center gap-x-8 gap-y-7 md:gap-x-12 md:gap-y-10">
           {FEATURED_LOGOS.map((src) => (
             <li key={src} className="flex items-center">
               <img
@@ -863,8 +898,8 @@ function FeaturedIn() {
                 alt="Media outlet Akasha Yoga Academy has been featured in"
                 loading="lazy"
                 decoding="async"
-                className="h-10 md:h-12 w-auto opacity-90 hover:opacity-100 transition-opacity"
-                style={{ maxHeight: '56px' }}
+                className="h-9 md:h-11 w-auto opacity-85 hover:opacity-100 transition-opacity duration-300"
+                style={{ maxHeight: '52px' }}
               />
             </li>
           ))}
