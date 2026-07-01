@@ -1677,31 +1677,10 @@ function StandaloneCard({ phase, onWhatYouGet }) {
         </span>
       </div>
       <p className="text-[11px] font-body uppercase tracking-[0.2em] text-akasha-gray-1 mb-6">
-        {voucherPrice
-          ? `Voucher ${phase.couponCode} auto-applied`
-          : phase.standalone.couponCode
-            ? `Voucher ${phase.standalone.couponCode} auto-applied`
-            : phase.standalone.originalPrice
-              ? 'Voucher applied at checkout'
-              : 'Summer Self-Care price'}
+        {voucherPrice || phase.standalone.couponCode || phase.standalone.originalPrice
+          ? 'Voucher applied at checkout'
+          : 'Summer Self-Care price'}
       </p>
-
-      {phase.standalone.couponCode ? (
-        <div className="border border-akasha-black/15 bg-akasha-gray-4/40 rounded-sm p-3 mb-5">
-          <p
-            className="text-[10px] font-body uppercase tracking-[0.2em] text-akasha-gray-1 mb-1"
-            style={{ fontFamily: 'Inter, sans-serif' }}
-          >
-            Auto-applied at checkout
-          </p>
-          <p className="font-heading text-akasha-black text-lg" style={{ fontWeight: 400 }}>
-            {phase.standalone.couponCode}
-          </p>
-          <p className="text-[11px] font-body text-akasha-gray-1 leading-snug mt-1">
-            Pre-applied automatically, no manual code entry required.
-          </p>
-        </div>
-      ) : null}
 
       <form onSubmit={handleBuy} className="mt-auto" noValidate>
         <div className="grid grid-cols-2 gap-3 mb-3">
