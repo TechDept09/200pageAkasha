@@ -1532,6 +1532,15 @@ function StandaloneCard({ phase, onWhatYouGet }) {
   // otherwise the base Essential price. Tracking + Wix line item still
   // reference the base price so the cart matches the live product.
   const displayPrice = voucherPrice || phase.standalone.essential;
+  // Strikethrough anchor: prefer originalPrice (Phase 1 shows US$320
+  // struck through to US$290). Otherwise fall back to the pre-voucher
+  // essential price (Phase 2 / Backup: US$290 struck through to voucher
+  // US$249), or to the legacy Yoga Day anchor US$1,190.
+  const strikethroughPrice = phase.standalone.originalPrice
+    ? phase.standalone.originalPrice.toLocaleString('en-US')
+    : voucherPrice
+      ? phase.standalone.essential
+      : '1,190';
 
   useEffect(() => {
     const onShow = (e) => {
@@ -1621,7 +1630,7 @@ function StandaloneCard({ phase, onWhatYouGet }) {
 
       <div className="flex items-baseline gap-3 mb-2">
         <span className="text-akasha-gray-2 line-through font-body text-base">
-          US${voucherPrice ? phase.standalone.essential : '1,190'}
+          US${strikethroughPrice}
         </span>
         <span
           className="font-heading text-akasha-black text-3xl md:text-4xl"
@@ -1633,7 +1642,9 @@ function StandaloneCard({ phase, onWhatYouGet }) {
       <p className="text-[11px] font-body uppercase tracking-[0.2em] text-akasha-gray-1 mb-6">
         {voucherPrice
           ? `Voucher ${phase.couponCode} auto-applied`
-          : 'Summer Self-Care price'}
+          : phase.standalone.originalPrice
+            ? 'Voucher applied at checkout'
+            : 'Summer Self-Care price'}
       </p>
 
       <form onSubmit={handleBuy} className="mt-auto" noValidate>
