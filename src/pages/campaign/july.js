@@ -844,18 +844,24 @@ const WHY_CHOOSE = [
 function FeaturedIn() {
   return (
     <section
-      className="relative py-16 md:py-24 bg-akasha-white overflow-hidden"
+      className="relative py-16 md:py-24 overflow-hidden"
       aria-labelledby="july-featured-in-heading"
+      style={{
+        // akasha-gray-1 (#6E6E6D) mid-tone, dark enough for the
+        // white-on-transparent Akasha logos to read clearly without
+        // the harsh contrast of pure black.
+        background:
+          'linear-gradient(180deg, #6E6E6D 0%, #5A5A59 50%, #6E6E6D 100%)',
+      }}
     >
-      {/* Subtle warm wash so the section reads as its own band rather
-          than an empty stretch of white between the testimonials and
-          the checkout. */}
+      {/* Warm accent wash so the middle of the strip feels touched by
+          Akasha's palette instead of reading as neutral corporate grey. */}
       <div
         className="absolute inset-0 pointer-events-none"
         aria-hidden="true"
         style={{
           background:
-            'radial-gradient(ellipse at center, rgba(231,188,93,0.08) 0%, rgba(237,88,41,0.04) 40%, transparent 75%)',
+            'radial-gradient(ellipse at center, rgba(231,188,93,0.10) 0%, rgba(237,88,41,0.05) 40%, transparent 75%)',
         }}
       />
 
@@ -863,19 +869,24 @@ function FeaturedIn() {
         <div className="text-center mb-10 md:mb-14">
           <span
             id="july-featured-in-heading"
-            className="inline-block text-[12px] md:text-[13px] font-body uppercase tracking-[0.32em] text-akasha-orange"
+            className="inline-block text-[12px] md:text-[13px] font-body uppercase tracking-[0.32em] text-akasha-gold"
             style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600 }}
           >
             As Featured In
           </span>
-          <span className="gold-rule" />
+          <span
+            className="block mx-auto mt-4 h-px w-14"
+            aria-hidden="true"
+            style={{
+              background:
+                'linear-gradient(90deg, transparent 0%, rgba(231,188,93,0.75) 50%, transparent 100%)',
+            }}
+          />
         </div>
 
-        {/* Fixed-slot grid so every logo gets the same visual weight
-            regardless of native aspect ratio. Akasha ships all the
-            marks as white-on-transparent for their dark homepage
-            section, so we filter them to black + tint them slightly
-            toward orange-deep to sit properly on white. */}
+        {/* Fixed-slot grid keeps each of the twelve marks at the same
+            visual weight, and the mid-grey lets Akasha's original
+            white-on-transparent logos read without any filter. */}
         <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-4 gap-y-6 md:gap-x-6 md:gap-y-8 place-items-center">
           {FEATURED_LOGOS.map((src) => (
             <li
@@ -887,15 +898,7 @@ function FeaturedIn() {
                 alt="Media outlet Akasha Yoga Academy has been featured in"
                 loading="lazy"
                 decoding="async"
-                className="max-h-full max-w-full object-contain opacity-70 hover:opacity-100 transition-opacity duration-300"
-                style={{
-                  // brightness(0) collapses the white pixels to pure
-                  // black without touching the alpha channel, then a
-                  // very light warm sepia (via drop-shadow-less
-                  // saturate + hue-rotate) leaves them a hair warm
-                  // instead of fully monochrome.
-                  filter: 'brightness(0) saturate(100%)',
-                }}
+                className="max-h-full max-w-full object-contain opacity-95 hover:opacity-100 transition-opacity duration-300"
               />
             </li>
           ))}
