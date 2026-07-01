@@ -844,33 +844,18 @@ const WHY_CHOOSE = [
 function FeaturedIn() {
   return (
     <section
-      className="relative py-16 md:py-24 overflow-hidden"
+      className="relative py-16 md:py-24 bg-akasha-white overflow-hidden"
       aria-labelledby="july-featured-in-heading"
-      style={{
-        // Both stops use only real Akasha palette colours:
-        // top/bottom = akasha-orange-deep (#4F1D0E) blended toward black
-        // for warmth; centre falls to akasha-black (#000000).
-        background:
-          'linear-gradient(180deg, #2A0F07 0%, #000000 55%, #2A0F07 100%)',
-      }}
     >
-      {/* Warm center glow so the section feels like a lit stage
-          instead of a flat dark block. */}
+      {/* Subtle warm wash so the section reads as its own band rather
+          than an empty stretch of white between the testimonials and
+          the checkout. */}
       <div
         className="absolute inset-0 pointer-events-none"
         aria-hidden="true"
         style={{
           background:
-            'radial-gradient(ellipse at center, rgba(237, 88, 41, 0.09) 0%, rgba(231, 188, 93, 0.05) 30%, transparent 65%)',
-        }}
-      />
-      {/* Hairline gold rule on top for a soft handoff from the section above. */}
-      <div
-        className="absolute top-0 inset-x-0 h-px pointer-events-none"
-        aria-hidden="true"
-        style={{
-          background:
-            'linear-gradient(90deg, transparent 0%, rgba(231,188,93,0.35) 50%, transparent 100%)',
+            'radial-gradient(ellipse at center, rgba(231,188,93,0.08) 0%, rgba(237,88,41,0.04) 40%, transparent 75%)',
         }}
       />
 
@@ -878,25 +863,19 @@ function FeaturedIn() {
         <div className="text-center mb-10 md:mb-14">
           <span
             id="july-featured-in-heading"
-            className="inline-block text-[12px] md:text-[13px] font-body uppercase tracking-[0.32em] text-akasha-gold"
+            className="inline-block text-[12px] md:text-[13px] font-body uppercase tracking-[0.32em] text-akasha-orange"
             style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600 }}
           >
             As Featured In
           </span>
-          <span
-            className="block mx-auto mt-4 h-px w-14"
-            aria-hidden="true"
-            style={{
-              background:
-                'linear-gradient(90deg, transparent 0%, rgba(231,188,93,0.7) 50%, transparent 100%)',
-            }}
-          />
+          <span className="gold-rule" />
         </div>
 
         {/* Fixed-slot grid so every logo gets the same visual weight
-            regardless of native aspect ratio. Each cell is 128x44 on
-            mobile and 160x56 on desktop; object-contain scales each
-            mark inside its box, keeping the whole strip visually even. */}
+            regardless of native aspect ratio. Akasha ships all the
+            marks as white-on-transparent for their dark homepage
+            section, so we filter them to black + tint them slightly
+            toward orange-deep to sit properly on white. */}
         <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-4 gap-y-6 md:gap-x-6 md:gap-y-8 place-items-center">
           {FEATURED_LOGOS.map((src) => (
             <li
@@ -908,7 +887,15 @@ function FeaturedIn() {
                 alt="Media outlet Akasha Yoga Academy has been featured in"
                 loading="lazy"
                 decoding="async"
-                className="max-h-full max-w-full object-contain opacity-85 hover:opacity-100 transition-opacity duration-300"
+                className="max-h-full max-w-full object-contain opacity-70 hover:opacity-100 transition-opacity duration-300"
+                style={{
+                  // brightness(0) collapses the white pixels to pure
+                  // black without touching the alpha channel, then a
+                  // very light warm sepia (via drop-shadow-less
+                  // saturate + hue-rotate) leaves them a hair warm
+                  // instead of fully monochrome.
+                  filter: 'brightness(0) saturate(100%)',
+                }}
               />
             </li>
           ))}
