@@ -11,16 +11,24 @@ import { courses } from '@/lib/courses';
 // so they are not shown again in the recommendation list at the bottom.
 const CAMPAIGN_DISCOUNT_KEEP = new Set(['200h-essential', '80h-yin']);
 
-// 'Featured in:' logos lifted verbatim from the akashayogaacademy.com
-// homepage. Akasha does not label the individual outlets, so we ship
-// the same six logo URLs and let the marks speak for themselves.
+// All 12 'Featured in:' logos lifted verbatim from the
+// akashayogaacademy.com homepage (including Music Of Wisdom and the
+// YouTube channel mark). Akasha ships them all white-on-transparent
+// and does not name the individual outlets, so the marks below are
+// unlabelled in aria-text too. Order matches the homepage flow.
 const FEATURED_LOGOS = [
   'https://static.wixstatic.com/media/cd7168_9448b8294b484bd5a83a58718a812af2~mv2.png/v1/crop/x_0,y_35,w_825,h_289/fill/w_324,h_114,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/featured-1.png',
   'https://static.wixstatic.com/media/cd7168_258e64fb744d4f68936b4804ab32e905~mv2.png/v1/crop/x_401,y_389,w_279,h_302/fill/w_212,h_232,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/featured-2.png',
   'https://static.wixstatic.com/media/cd7168_132cc4ccf1534e66b6e3c538e4cd3e9d~mv2.png/v1/crop/x_0,y_12,w_972,h_227/fill/w_488,h_114,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/featured-3.png',
   'https://static.wixstatic.com/media/cd7168_55ec72a6c7004ff684a6d4531fd56639~mv2.png/v1/fill/w_336,h_74,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/featured-4.png',
-  'https://static.wixstatic.com/media/cd7168_80ec49ce8ae24442ba75c38abc2e79db~mv2.png/v1/fill/w_124,h_80,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/featured-5.png',
-  'https://static.wixstatic.com/media/cd7168_dd6899c84b144cd8afdc4cc99789c5a4~mv2.png/v1/crop/x_131,y_445,w_810,h_196/fill/w_306,h_74,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/featured-6.png',
+  'https://static.wixstatic.com/media/cd7168_80ec49ce8ae24442ba75c38abc2e79db~mv2.png/v1/fill/w_248,h_160,al_c,lg_1,q_85,enc_avif,quality_auto/featured-5.png',
+  'https://static.wixstatic.com/media/cd7168_dd6899c84b144cd8afdc4cc99789c5a4~mv2.png/v1/crop/x_131,y_445,w_810,h_196/fill/w_612,h_148,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/featured-6.png',
+  'https://static.wixstatic.com/media/cd7168_70e29283a8894528a9856c4ee0ac71cf~mv2.png/v1/crop/x_0,y_12,w_907,h_171/fill/w_604,h_114,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/featured-7.png',
+  'https://static.wixstatic.com/media/cd7168_c889be6400e84084ba44abff25c91ea1~mv2.png/v1/crop/x_24,y_0,w_760,h_332/fill/w_306,h_134,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/featured-8.png',
+  'https://static.wixstatic.com/media/cd7168_f035bfb483374f0b9fb19f4b26753849~mv2.png/v1/crop/x_180,y_427,w_742,h_229/fill/w_550,h_170,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/featured-9.png',
+  'https://static.wixstatic.com/media/cd7168_80b69beb7bd54641b24cfc8433ef5a40~mv2.png/v1/crop/x_120,y_0,w_840,h_187/fill/w_602,h_134,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/featured-10.png',
+  'https://static.wixstatic.com/media/cd7168_2e1c48f28d4f48a59bbf67bbbf1706d7~mv2.png/v1/crop/x_0,y_17,w_1079,h_298/fill/w_688,h_190,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/featured-11.png',
+  'https://static.wixstatic.com/media/cd7168_79417c88a75f4208b408888923d4b611~mv2.png/v1/fill/w_672,h_148,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/featured-12.png',
 ];
 
 // Prices shown next to each recommendation card. Mirrors what Akasha
