@@ -30,6 +30,7 @@ export const JULY_PHASES = {
       // set for this drop handles the delta automatically.
       essential: 290,
       originalPrice: 320,
+      couponCode: 'CARE30',
     },
   },
   phase2: {
