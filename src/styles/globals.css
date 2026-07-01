@@ -13,6 +13,11 @@
     font-weight: 400;
     font-size: 15px;
     line-height: 1.7;
+    /* Defensive: clip any element that accidentally extends past the
+       viewport so the whole page can't be swiped left/right on mobile.
+       overflow-x: clip is preferred over hidden because it doesn't
+       create a scroll container that would break position: sticky. */
+    overflow-x: clip;
   }
 
   h1, h2, h3, h4 {
