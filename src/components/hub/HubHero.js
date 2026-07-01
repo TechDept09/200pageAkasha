@@ -114,16 +114,6 @@ function JulyCountdown() {
         ))}
       </div>
 
-      <span
-        className="font-body text-akasha-gray-1"
-        style={{
-          fontSize: 'clamp(0.72rem, 1.1vw, 0.82rem)',
-          letterSpacing: '0.2em',
-          textTransform: 'uppercase',
-        }}
-      >
-        July 2 · 12:00 WITA
-      </span>
     </div>
   );
 }
