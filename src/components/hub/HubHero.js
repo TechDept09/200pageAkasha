@@ -130,17 +130,7 @@ function JulyCountdown() {
 
 function UrgencyCta() {
   return (
-    <a
-      href="#essential"
-      className="inline-flex items-center gap-2 text-akasha-orange hover:text-akasha-orange-dark transition-colors mb-8"
-      style={{
-        fontFamily: 'Inter, sans-serif',
-        fontSize: 'clamp(0.72rem, 1.1vw, 0.82rem)',
-        fontWeight: 600,
-        letterSpacing: '0.24em',
-        textTransform: 'uppercase',
-      }}
-    >
+    <a href="#essential" className="btn-primary gap-2 mb-8 shadow-md hover:shadow-lg">
       Enroll before the door closes
       <span aria-hidden="true">→</span>
     </a>
