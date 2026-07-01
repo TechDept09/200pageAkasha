@@ -55,7 +55,7 @@ function JulyCountdown() {
         }}
       >
         <span aria-hidden="true">✧</span>
-        Something new is coming
+        A new promo drops in
         <span aria-hidden="true">✧</span>
       </span>
 
