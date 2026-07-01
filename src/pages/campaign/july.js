@@ -418,7 +418,7 @@ function CampaignContent({ phase }) {
             </div>
 
             {hasBundle ? (
-              <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto items-stretch">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto items-stretch">
                 <BundleCard
                   phase={phase}
                   showWellnessNote={showWellnessNote}
@@ -494,7 +494,7 @@ function CampaignContent({ phase }) {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="bg-akasha-gray-4/40 border border-akasha-gray-4 rounded-sm p-6 md:p-7 flex flex-col">
                 <p className="text-[11px] font-body uppercase tracking-[0.22em] text-akasha-gray-1 mb-4">
                   Buying separately
@@ -978,7 +978,7 @@ function WhatYouGetSection({ data, showCourseContent }) {
       </p>
 
       {showCourseContent && data.courseContent ? (
-        <div className="grid sm:grid-cols-2 gap-3 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
           {data.courseContent.map((block) => (
             <div
               key={block.section}
@@ -1227,7 +1227,7 @@ function RecommendationList() {
           </h2>
         </header>
 
-        <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
           {items.map((it) => {
             const external = !it.isInternal;
             return (
@@ -1388,7 +1388,7 @@ function WhyChooseAkasha() {
             <span className="gold-rule" />
           </header>
 
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {WHY_CHOOSE.map((c) => (
               <article
                 key={c.title}
@@ -1581,7 +1581,7 @@ function TestimonialCarousel() {
                 }}
                 className="bg-akasha-white border border-akasha-gray-4 rounded-sm p-8 md:p-12 shadow-sm"
               >
-                <div className="grid md:grid-cols-[260px,1fr] gap-8 md:gap-12 items-center">
+                <div className="grid grid-cols-1 md:grid-cols-[260px,1fr] gap-8 md:gap-12 items-center">
                   <div className="aspect-square overflow-hidden rounded-sm bg-akasha-gray-4 mx-auto md:mx-0 max-w-[260px] w-full shadow-sm">
                     <img
                       src={t.photo}
