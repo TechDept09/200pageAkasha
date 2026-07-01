@@ -835,27 +835,27 @@ const WHY_CHOOSE = [
 function FeaturedIn() {
   return (
     <section
-      className="py-10 md:py-14 bg-akasha-white border-t border-akasha-gray-4"
+      className="py-12 md:py-16 bg-akasha-gray-4/40"
       aria-labelledby="july-featured-in-heading"
     >
       <div className="section max-w-5xl">
         <p
           id="july-featured-in-heading"
-          className="text-center text-[11px] md:text-[12px] font-body uppercase tracking-[0.3em] text-akasha-gray-1 mb-6 md:mb-8"
-          style={{ fontFamily: 'Inter, sans-serif' }}
+          className="text-center text-[12px] md:text-[13px] font-body uppercase tracking-[0.32em] text-akasha-gray-1 mb-8 md:mb-10"
+          style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600 }}
         >
-          Featured in
+          As Featured In
         </p>
-        <ul className="flex flex-wrap items-center justify-center gap-x-8 gap-y-5 md:gap-x-12 md:gap-y-6">
-          {FEATURED_LOGOS.map((src, i) => (
+        <ul className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 md:gap-x-14 md:gap-y-8">
+          {FEATURED_LOGOS.map((src) => (
             <li key={src} className="flex items-center">
               <img
                 src={src}
-                alt=""
+                alt="Media outlet Akasha Yoga Academy has been featured in"
                 loading="lazy"
                 decoding="async"
-                className="h-8 md:h-10 w-auto opacity-70 hover:opacity-100 transition-opacity"
-                style={{ maxHeight: '48px' }}
+                className="h-10 md:h-12 w-auto opacity-90 hover:opacity-100 transition-opacity"
+                style={{ maxHeight: '56px' }}
               />
             </li>
           ))}
