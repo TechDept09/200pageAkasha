@@ -10,6 +10,19 @@ import { courses } from '@/lib/courses';
 // Essential and 80hr Yin sit inside the Summer Self-Care bundle offer,
 // so they are not shown again in the recommendation list at the bottom.
 const CAMPAIGN_DISCOUNT_KEEP = new Set(['200h-essential', '80h-yin']);
+
+// Prices shown next to each recommendation card. Mirrors what Akasha
+// displays year-round on the live catalog (33% markdown baked in for
+// 300H and the 80hr trio; Premium and Kundalini shown at the regular
+// tag; Feminine at its regular US$229 rate).
+const RECOMMENDATION_PRICE = {
+  '200h-premium': 1490,
+  '300h-ytt': 1190,
+  '80h-hatha-pranayama': 239,
+  '80h-meditation': 239,
+  'feminine-wisdom': 229,
+  'kundalini-india': 2999,
+};
 import { startWixCheckout } from '@/lib/checkout';
 import { useUtmParams, formatUtmNote } from '@/hooks/useUtmParams';
 import { trackLead, trackInitiateCheckout, newEventId } from '@/lib/pixel';
@@ -812,7 +825,8 @@ function RecommendationList() {
     .map((c) => ({
       slug: c.slug,
       title: c.title,
-      short: c.shortDescription,
+      price: RECOMMENDATION_PRICE[c.slug] ?? c.regularPrice,
+      currency: c.currency || 'USD',
       href: c.href,
       isInternal: c.isInternal,
       image: c.image,
@@ -870,9 +884,15 @@ function RecommendationList() {
                     >
                       {it.title}
                     </span>
-                    <span className="block font-body text-akasha-gray-1 text-[11.5px] md:text-xs leading-snug mt-0.5 line-clamp-2">
-                      {it.short}
-                    </span>
+                    {it.price ? (
+                      <span
+                        className="block font-body text-akasha-orange text-[12px] md:text-[13px] mt-0.5"
+                        style={{ fontFamily: 'Inter, sans-serif', fontWeight: 500 }}
+                      >
+                        {it.currency === 'USD' ? 'US$' : it.currency}
+                        {it.price.toLocaleString('en-US')}
+                      </span>
+                    ) : null}
                   </span>
                   <span
                     className="flex-none text-akasha-gray-2 group-hover:text-akasha-orange transition-colors text-sm"
