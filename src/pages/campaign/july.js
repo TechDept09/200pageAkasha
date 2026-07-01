@@ -140,6 +140,7 @@ export default function JulyCampaign() {
       <>
         <Head>
           <title>Confidential, Akasha Yoga Academy</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="robots" content="noindex, nofollow" />
         </Head>
         <HubNav />
@@ -203,6 +204,7 @@ function CampaignContent({ phase }) {
       <Head>
         <title>{phase.headline}, Akasha Yoga Academy</title>
         <meta name="description" content={phase.intro} />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* Stays gated while it's a confidential preview. Drop the
             noindex when marketing decides to take this page public. */}
         <meta name="robots" content="noindex, nofollow" />
