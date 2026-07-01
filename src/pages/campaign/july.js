@@ -847,8 +847,11 @@ function FeaturedIn() {
       className="relative py-16 md:py-24 overflow-hidden"
       aria-labelledby="july-featured-in-heading"
       style={{
+        // Both stops use only real Akasha palette colours:
+        // top/bottom = akasha-orange-deep (#4F1D0E) blended toward black
+        // for warmth; centre falls to akasha-black (#000000).
         background:
-          'linear-gradient(180deg, #211d18 0%, #14110d 55%, #211d18 100%)',
+          'linear-gradient(180deg, #2A0F07 0%, #000000 55%, #2A0F07 100%)',
       }}
     >
       {/* Warm center glow so the section feels like a lit stage
@@ -890,16 +893,22 @@ function FeaturedIn() {
           />
         </div>
 
-        <ul className="flex flex-wrap items-center justify-center gap-x-8 gap-y-7 md:gap-x-12 md:gap-y-10">
+        {/* Fixed-slot grid so every logo gets the same visual weight
+            regardless of native aspect ratio. Each cell is 128x44 on
+            mobile and 160x56 on desktop; object-contain scales each
+            mark inside its box, keeping the whole strip visually even. */}
+        <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-4 gap-y-6 md:gap-x-6 md:gap-y-8 place-items-center">
           {FEATURED_LOGOS.map((src) => (
-            <li key={src} className="flex items-center">
+            <li
+              key={src}
+              className="flex items-center justify-center h-11 md:h-14 w-32 md:w-40"
+            >
               <img
                 src={src}
                 alt="Media outlet Akasha Yoga Academy has been featured in"
                 loading="lazy"
                 decoding="async"
-                className="h-9 md:h-11 w-auto opacity-85 hover:opacity-100 transition-opacity duration-300"
-                style={{ maxHeight: '52px' }}
+                className="max-h-full max-w-full object-contain opacity-85 hover:opacity-100 transition-opacity duration-300"
               />
             </li>
           ))}
