@@ -1696,6 +1696,11 @@ function StandaloneCard({ phase, onWhatYouGet }) {
           </span>
         ) : null}
       </div>
+      {phase.standalone.regularPrice ? (
+        <p className="text-[11px] font-body uppercase tracking-[0.22em] text-akasha-orange mb-2">
+          Save US${(phase.standalone.regularPrice - displayPrice).toLocaleString('en-US')}
+        </p>
+      ) : null}
       <p className="text-[11px] font-body uppercase tracking-[0.2em] text-akasha-gray-1 mb-6">
         {voucherPrice || phase.standalone.couponCode || phase.standalone.originalPrice
           ? 'Voucher applied at checkout'
