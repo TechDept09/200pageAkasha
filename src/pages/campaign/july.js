@@ -8,7 +8,7 @@ import CertifiedTeacherIntro from '@/components/CertifiedTeacherIntro';
 import Footer from '@/components/Footer';
 import { courses } from '@/lib/courses';
 
-// Essential and 80hr Yin sit inside the Summer Self-Care bundle offer,
+// Essential and Yin (YACEP) Bonus sit inside the Summer Self-Care bundle offer,
 // so they are not shown again in the recommendation list at the bottom.
 const CAMPAIGN_DISCOUNT_KEEP = new Set(['200h-essential', '80h-yin']);
 
@@ -196,7 +196,7 @@ function CampaignContent({ phase }) {
   const showWellnessNote = phase.key === 'phase2' && hasBundle;
 
   // Which 'What will you get?' modal is open, if any. 'bundle' shows
-  // both the 200hr and 80hr Yin content; 'standalone' shows the 200hr
+  // both the 200hr and Yin (YACEP) Bonus content; 'standalone' shows the 200hr
   // block only. null keeps the modal closed.
   const [whatModal, setWhatModal] = useState(null);
 
@@ -406,15 +406,15 @@ function CampaignContent({ phase }) {
               <h2 style={{ fontSize: 'clamp(1.8rem, 3.6vw, 2.6rem)', fontWeight: 300 }}>
                 {hasBundle
                   ? 'Two ways to step in this summer'
-                  : 'Step into the 200hr Essential'}
+                  : 'Step into the 200-Hour Essential'}
               </h2>
               <span className="gold-rule" />
               <p className="font-body text-akasha-gray-1 mt-6 text-base md:text-lg leading-relaxed">
                 {isBackup
-                  ? 'This is a final, quiet offer for the 200hr Essential. The voucher below brings the price to US$249 at checkout, no manual code entry required.'
+                  ? 'This is a final, quiet offer for the 200-Hour Essential. The voucher below brings the price to US$249 at checkout, no manual code entry required.'
                   : hasBundle
-                    ? 'This summer, self-care can become your new path. Begin with the 200hr Essential, or open the journey deeper with the 80hr Yin. Choose the path that calls.'
-                    : 'A focused way in. The 200hr Essential Yoga Teacher Training at our summer rate, with the voucher applied automatically at checkout.'}
+                    ? 'This summer, self-care can become your new path. Begin with the 200-Hour Essential, or open the journey deeper with the Yin (YACEP) Bonus. Choose the path that calls.'
+                    : 'A focused way in. The 200-Hour Yoga Teacher Training (Essential Path) at our summer rate, with the voucher applied automatically at checkout.'}
               </p>
             </div>
 
@@ -455,10 +455,9 @@ function CampaignContent({ phase }) {
                   href="/200h-essential"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-akasha-black text-akasha-black hover:bg-akasha-black hover:text-akasha-white text-[11.5px] font-medium uppercase tracking-[0.22em] transition-colors"
-                  style={{ fontFamily: 'Inter, sans-serif' }}
+                  className="btn-ghost gap-2"
                 >
-                  More on 200hr Essential
+                  More on 200-Hour Essential
                   <span aria-hidden="true">↗</span>
                 </a>
                 {hasBundle ? (
@@ -466,10 +465,9 @@ function CampaignContent({ phase }) {
                     href="/80h-yin"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-akasha-black text-akasha-black hover:bg-akasha-black hover:text-akasha-white text-[11.5px] font-medium uppercase tracking-[0.22em] transition-colors"
-                    style={{ fontFamily: 'Inter, sans-serif' }}
+                    className="btn-ghost gap-2"
                   >
-                    More on 80hr Yin
+                    More on Yin (YACEP) Bonus
                     <span aria-hidden="true">↗</span>
                   </a>
                 ) : null}
@@ -489,7 +487,7 @@ function CampaignContent({ phase }) {
               </h2>
               <span className="gold-rule" />
               <p className="font-body text-akasha-gray-1 mt-5 text-base md:text-lg leading-relaxed">
-                Step into the 200hr Essential and 80hr Yin together this
+                Step into the 200-Hour Essential and Yin (YACEP) Bonus together this
                 summer. The numbers below show how the bundle holds both
                 certifications, gently, with breathing room to spare.
               </p>
@@ -502,11 +500,11 @@ function CampaignContent({ phase }) {
                 </p>
                 <ul className="space-y-2 font-body text-akasha-gray-1 text-[15px] leading-relaxed flex-1">
                   <li className="flex justify-between">
-                    <span>200hr Essential</span>
+                    <span>200-Hour Essential</span>
                     <span className="text-akasha-black line-through">US$1,190</span>
                   </li>
                   <li className="flex justify-between">
-                    <span>80hr Yin Training</span>
+                    <span>Yin Yoga (YACEP) Bonus course</span>
                     <span className="text-akasha-black line-through">US$600</span>
                   </li>
                 </ul>
@@ -532,11 +530,11 @@ function CampaignContent({ phase }) {
                 </p>
                 <ul className="space-y-2 font-body text-akasha-gray-1 text-[15px] leading-relaxed flex-1">
                   <li className="flex justify-between">
-                    <span>200hr Essential</span>
+                    <span>200-Hour Essential</span>
                     <span className="text-akasha-black">US${bundle.essential}</span>
                   </li>
                   <li className="flex justify-between">
-                    <span>80hr Yin Training</span>
+                    <span>Yin Yoga (YACEP) Bonus course</span>
                     <span className="text-akasha-black">US${bundle.yin}</span>
                   </li>
                 </ul>
@@ -711,11 +709,12 @@ function BundleCard({ phase, showWellnessNote, onWhatYouGet }) {
         className="font-heading text-akasha-black text-xl md:text-2xl mb-3"
         style={{ fontWeight: 400 }}
       >
-        200hr Essential + 80hr Yin
+        200-Hour Essential + Yin (YACEP) Bonus
       </h3>
       <p className="font-body text-akasha-gray-1 text-sm leading-relaxed mb-5">
-        Begin your certification and deepen your practice with the Yin Yoga
-        add-on. Stack both for the full Summer Self-Care path.
+        Begin your 200-Hour certification and deepen your practice with the
+        Yin Yoga (YACEP) Bonus course. Stack both for the full Summer
+        Self-Care path.
       </p>
 
       <div className="flex items-baseline gap-3 mb-2">
@@ -735,11 +734,11 @@ function BundleCard({ phase, showWellnessNote, onWhatYouGet }) {
 
       <ul className="space-y-2 text-sm font-body text-akasha-gray-1 mb-6">
         <li className="flex justify-between">
-          <span>200hr Essential Training</span>
+          <span>200-Hour Yoga Teacher Training (Essential Path)</span>
           <span className="text-akasha-black">US${bundle.essential}</span>
         </li>
         <li className="flex justify-between">
-          <span>80hr Yin Yoga Add-On</span>
+          <span>Yin Yoga (YACEP) Bonus course</span>
           <span className="text-akasha-black">US${bundle.yin}</span>
         </li>
       </ul>
@@ -1072,7 +1071,7 @@ function WhatYouGetModal({ variant, onClose }) {
   const heading =
     variant === 'bundle'
       ? 'Everything included in the bundle'
-      : 'Everything included in the 200hr Essential';
+      : 'Everything included in the 200-Hour Essential';
 
   return (
     <div
@@ -1191,7 +1190,7 @@ function FeaturedIn() {
 
 function RecommendationList() {
   // Every course except the two the campaign already sells (Essential
-  // and 80hr Yin, both live in the bundle offer above). No promo badges,
+  // and Yin (YACEP) Bonus, both live in the bundle offer above). No promo badges,
   // no big product cards, just a quiet inline list so the campaign
   // stays the star of the page.
   const items = courses
@@ -1661,18 +1660,18 @@ function StandaloneCard({ phase, onWhatYouGet }) {
         className="text-[11px] font-body uppercase tracking-[0.25em] text-akasha-gold mb-2"
         style={{ fontFamily: 'Inter, sans-serif' }}
       >
-        {isBackup ? 'Final Offer' : '200hr Only'}
+        {isBackup ? 'Final Offer' : '200-Hour Only'}
       </p>
       <h3
         className="font-heading text-akasha-black text-xl md:text-2xl mb-3"
         style={{ fontWeight: 400 }}
       >
-        200hr Essential Training
+        200-Hour Yoga Teacher Training (Essential Path)
       </h3>
       <p className="font-body text-akasha-gray-1 text-sm leading-relaxed mb-5">
         {isBackup
-          ? 'The 200hr Essential at its closing summer price, voucher applied automatically at checkout.'
-          : 'Prefer to begin with the 200hr Essential alone? Same training, same promotional rate, no coupon required.'}
+          ? 'The 200-Hour Essential at its closing summer price, voucher applied automatically at checkout.'
+          : 'Prefer to begin with the 200-Hour Essential alone? Same training, same promotional rate, no coupon required.'}
       </p>
 
       <div className="flex items-baseline gap-3 mb-2">
@@ -1727,7 +1726,7 @@ function StandaloneCard({ phase, onWhatYouGet }) {
           }`}
           style={{ fontFamily: 'Inter, sans-serif' }}
         >
-          {loading ? 'Preparing your checkout…' : `Enroll in 200hr Only, US$${displayPrice}`}
+          {loading ? 'Preparing your checkout…' : `Enroll in 200-Hour Only, US$${displayPrice}`}
         </button>
         {onWhatYouGet ? (
           <button

@@ -62,13 +62,17 @@
     font-family: var(--font-inter), 'Inter', sans-serif;
   }
 
+  /* btn-ghost is now the compact orange filled variant that matches
+     the hub's 'Browse Courses' CTA. The old black-border/white style
+     was reading as an outdated 'secondary' button and the team asked
+     for orange consistency across the site. Buttons on dark
+     backgrounds should still use btn-primary for the fuller shape. */
   .btn-ghost {
     @apply inline-flex items-center justify-center
-           bg-transparent text-akasha-black
-           px-10 py-4 rounded-full
-           text-[12px] font-medium uppercase tracking-[0.2em]
-           border border-akasha-black
-           hover:bg-akasha-black hover:text-akasha-white
+           bg-akasha-orange text-akasha-white
+           px-6 py-3 rounded-full
+           text-[11.5px] font-medium uppercase tracking-[0.18em]
+           hover:bg-akasha-orange-dark hover:shadow-md
            transition-all duration-300;
     font-family: var(--font-inter), 'Inter', sans-serif;
   }

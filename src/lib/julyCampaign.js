@@ -24,7 +24,7 @@ export const JULY_PHASES = {
     sub: 'Save over 70% on 200hr Essential this July',
     scriptTagline: 'This summer, choose yourself',
     intro:
-      'Begin your 200hr Yoga Teacher Training and unlock a special Yin Yoga add-on to deepen your practice.',
+      'Begin your 200-Hour Yoga Teacher Training and unlock our Yin Yoga (YACEP) Bonus course to deepen your practice and teaching toolkit.',
     couponCode: 'CARE320',
     couponNote: 'Use coupon CARE320 for the bundle savings.',
     bundle: {
@@ -53,7 +53,7 @@ export const JULY_PHASES = {
     sub: 'Final July offer: save over 70% on 200hr Essential',
     scriptTagline: 'Before July ends, reset your journey',
     intro:
-      'Transform your practice this summer with our 200hr Essential Yoga Teacher Training.',
+      'Transform your practice this summer with our 200-Hour Yoga Teacher Training (Essential Path).',
     couponCode: 'WELLNESS50',
     couponNote: 'Use coupon WELLNESS50 for an additional US$41 off, bringing the Essential to US$249 at checkout.',
     // Phase 2 simplifies to Essential only at US$290, with WELLNESS50
@@ -83,7 +83,7 @@ JULY_PHASES.backup = {
   headline: 'Last chance, 200hr Essential',
   scriptTagline: 'A quiet, final invitation',
   intro:
-    'A final way in. The 200hr Essential Yoga Teacher Training at an exclusive closing price, for those who feel the call now.',
+    'A final way in. The 200-Hour Yoga Teacher Training (Essential Path) at an exclusive closing price, for those who feel the call now.',
   couponCode: BACKUP_COUPON,
   couponNote: `Use voucher ${BACKUP_COUPON} for an additional US$41 off, bringing the Essential to US$249 at checkout.`,
   bundle: null,

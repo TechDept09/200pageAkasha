@@ -94,24 +94,45 @@ export default function JulyLaunchHome() {
 
             <a
               href="/200h-essential"
-              className="inline-flex items-center justify-center bg-akasha-orange text-akasha-white px-10 py-4 rounded-full text-[13px] md:text-[14px] font-semibold uppercase tracking-[0.2em] hover:bg-akasha-orange-dark transition-colors shadow-lg"
+              className="julyhome-cta inline-flex items-center justify-center gap-3 bg-akasha-orange text-akasha-white px-12 md:px-16 py-5 md:py-6 rounded-full text-[14px] md:text-[16px] font-semibold uppercase tracking-[0.22em] hover:bg-akasha-orange-dark transition-all duration-300 shadow-2xl hover:shadow-[0_20px_60px_rgba(237,88,41,0.55)]"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
-              See the offer, US$290
+              Step into the offer, US$290
+              <span aria-hidden="true">→</span>
             </a>
           </div>
+
+          {/* Gentle attention pulse on the CTA, respects reduced motion. */}
+          <style jsx>{`
+            .julyhome-cta {
+              animation: julyhomeCtaPulse 2.6s ease-in-out infinite;
+            }
+            @keyframes julyhomeCtaPulse {
+              0%, 100% {
+                transform: translateY(0);
+                box-shadow: 0 12px 40px rgba(237, 88, 41, 0.35);
+              }
+              50% {
+                transform: translateY(-3px);
+                box-shadow: 0 20px 60px rgba(237, 88, 41, 0.55);
+              }
+            }
+            @media (prefers-reduced-motion: reduce) {
+              .julyhome-cta { animation: none; }
+            }
+          `}</style>
         </section>
 
         <section className="py-16 md:py-24 bg-akasha-white">
           <div className="section text-center max-w-3xl">
             <span className="eyebrow text-akasha-orange">This summer</span>
             <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 300 }}>
-              200hr Essential Yoga Teacher Training
+              200-Hour Yoga Teacher Training (Essential Path)
             </h2>
             <span className="gold-rule" />
             <p className="font-body text-akasha-gray-1 mt-6 mb-8 text-base md:text-lg leading-relaxed">
-              Begin your Yoga Alliance certified journey with the 200hr
-              Essential training. The July voucher applies automatically at
+              Begin your Yoga Alliance certified journey with the 200-Hour
+              Essential Path. The July voucher applies automatically at
               checkout, no coupon code needed.
             </p>
 

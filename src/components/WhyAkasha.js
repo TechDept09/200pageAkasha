@@ -42,7 +42,7 @@ export default function WhyAkasha() {
     },
     {
       t: 'Bring Bali Home',
-      d: 'Video lessons filmed in our exclusive BALIWOOD studio, paired with live Zoom classes. Practice with us from anywhere.',
+      d: 'Video lessons filmed in our exclusive BALIWOOD studio, paired with Live Zoom Sessions. Practice with us from anywhere.',
     },
     {
       t: 'Tuition with Purpose',

@@ -138,7 +138,7 @@ export default function MainProducts({
           </h2>
           <span className="gold-rule" />
           <p className="font-body text-akasha-gray-1 mt-5 text-base md:text-lg leading-relaxed">
-            Self-guided or mentored, both lead to Yoga Alliance certification.
+            Self-paced or mentored, both lead to Yoga Alliance certification.
             Pick the format that fits your season of life.
           </p>
         </div>

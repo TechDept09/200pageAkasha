@@ -114,8 +114,7 @@ export default function CourseGridCard({ course }) {
         <a
           href={href}
           {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-          className="inline-flex items-center justify-center bg-transparent text-akasha-black border border-akasha-black px-5 py-2.5 rounded-full text-[10.5px] font-medium uppercase tracking-[0.2em] hover:bg-akasha-black hover:text-akasha-white transition-all duration-300 mt-auto"
-          style={{ fontFamily: 'Inter, sans-serif' }}
+          className="btn-ghost mt-auto"
         >
           Learn More
         </a>

@@ -51,8 +51,8 @@ export const courses = [
     promoPrice: 290,
     currency: 'USD',
     shortDescription:
-      'Self-paced online RYT-200 with Live Zoom classes, 200+ Bali studio videos, and a global yoga community. Full Yoga Alliance certification.',
-    usp: 'Self-guided, 6-month access',
+      'Self-paced online with 200+ Bali studio videos, 3 Live Zoom Sessions per week, and a global yoga community. Full Yoga Alliance certification (RYT-200).',
+    usp: 'Self-paced, 6-months access & certification window',
     image:
       'https://static.wixstatic.com/media/c15a18_5d357dab7cec43c4879c3f12090081ce~mv2.jpg/v1/fill/w_1200,h_630,al_c,q_85,enc_avif,quality_auto/Certified-Yoga-Instructor---Bali---Akash.jpg',
     href: '/200h-essential',
@@ -74,8 +74,8 @@ export const courses = [
     promoPrice: 590,
     currency: 'USD',
     shortDescription:
-      'Everything in Essential, plus 1-on-1 mentorship, alignment coaching, individual feedback, the WhatsApp community, and 12 months of Live Zoom access.',
-    usp: 'Personal mentorship, 12-month Zoom access, monthly payments',
+      'Everything as in Essential plus more. 12 months access to the online platform, unlimited Live Zoom Sessions, and a 6-months Support Program with 1:1 mentorship, alignment coaching, and personalized feedback.',
+    usp: '12-months access, 6-months Support Program, unlimited Zoom Sessions',
     image:
       'https://static.wixstatic.com/media/cd7168_eea3bf63d06a4260b9e04f7bc00a255c~mv2.jpeg/v1/fill/w_900,h_563,al_c,q_85,enc_avif,quality_auto/AYA300-Dean%20Raphael-67.jpeg',
     href: '/200h-premium',
