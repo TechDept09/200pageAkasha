@@ -2,17 +2,22 @@
 
 import { useState } from 'react';
 
-export default function FAQ() {
+// hasMBG defaults to true so the FAQ stays complete on the Premium
+// page, but Essential passes false since it does not include a
+// money-back guarantee.
+export default function FAQ({ hasMBG = true }) {
   const faqs = [
     { q: 'Do I need prior yoga experience?', a: 'No formal experience is required, but a regular personal practice will help you absorb the material more deeply. We welcome students from absolute beginners to seasoned practitioners.' },
     { q: 'Is the 200-hour certification internationally recognized?', a: 'Yes. Upon completion you are eligible to register as an RYT-200 with Yoga Alliance. Akasha is a Registered Yoga School (Registry ID 87485) since 2012, recognized worldwide.' },
     { q: 'How long do I have access to the materials?', a: 'As soon as you enroll, you get immediate access to our entire online platform for 6 months.' },
     { q: 'What if I can’t finish in a few months?', a: 'You have 6 months of access to the course, so you can move at your own pace, pause when life gets full, and come back when you’re ready.\n\nNo pressure. No race. Your path can breathe.' },
-    { q: 'Is there a money-back guarantee?', a: 'Yes, a 14-Day Money-Back Guarantee. If the program doesn’t meet your expectations, you’re entitled to a full refund within the first 14 days.' },
+    hasMBG
+      ? { q: 'Is there a money-back guarantee?', a: 'Yes, a 14-Day Money-Back Guarantee. If the program doesn’t meet your expectations, you’re entitled to a full refund within the first 14 days.' }
+      : null,
     { q: 'Can I do this on my phone or tablet?', a: 'Yes. The entire platform (video lessons, training materials, and Live Zoom Sessions) works on phone, tablet, laptop, or desktop. All you need is a stable internet connection.' },
     { q: 'What technical setup do I need?', a: 'A modern web browser and a reliable internet connection. For Live Zoom Sessions, a working camera and microphone are recommended so you can participate fully. No special equipment is required for the practice itself.' },
     { q: 'Do I keep access to the videos after I finish?', a: 'You get immediate access to the online platform as soon as you enroll. For details about platform access after your 6-month access window, please contact our team before enrolling.' },
-  ];
+  ].filter(Boolean);
 
   const [open, setOpen] = useState(0);
 

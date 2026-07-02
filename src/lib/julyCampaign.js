@@ -28,24 +28,22 @@ export const JULY_PHASES = {
     couponCode: 'CARE320',
     couponNote: 'Use coupon CARE320 for the bundle savings.',
     bundle: {
-      // Essential portion of the bundle now shows as a clean 75% off
-      // the regular US$1,190. Yin bonus stays at US$199 (base US$600).
-      // Team wanted the '75%' framing on the Essential line because
-      // buyers were reading US$320 as an arbitrary number.
-      essential: 290,
-      essentialRegular: 1190,
-      essentialDiscountPercent: 75,
+      essential: 320,
       yin: 199,
-      yinRegular: 600,
-      total: 489, // 290 + 199
-      savings: 1301, // 1790 regular total minus 489 bundle
+      total: 519,
+      savings: 1271, // regular total 1790, bundle 519
     },
     standalone: {
       // Voucher-based: original standalone is US$320, campaign voucher
       // brings it down to US$290 at checkout. The Wix coupon Wira
       // set for this drop handles the delta automatically.
+      // Team also wants the '75% off' frame here (regular US$1,190
+      // crossed against US$290), because buyers were misreading the
+      // US$320 anchor as the promo price instead of the voucher gate.
       essential: 290,
       originalPrice: 320,
+      regularPrice: 1190,
+      discountPercent: 75,
       couponCode: 'CARE30',
     },
   },

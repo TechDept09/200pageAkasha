@@ -11,7 +11,6 @@ import Steps from '@/components/Steps';
 import TrustStrip from '@/components/TrustStrip';
 import YogaAllianceCertified from '@/components/YogaAllianceCertified';
 import Pricing from '@/components/Pricing';
-import Bonuses from '@/components/Bonuses';
 import Testimonials from '@/components/Testimonials';
 import FAQ from '@/components/FAQ';
 import CTA from '@/components/CTA';
@@ -124,7 +123,6 @@ export default function EssentialPage() {
         <Steps />
         <Testimonials />
         <Pricing />
-        <Bonuses />
         <FAQ />
         <CTA />
         <Footer />

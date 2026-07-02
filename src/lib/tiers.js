@@ -17,8 +17,8 @@ const ESSENTIAL_BULLETS = [
   'Superb training materials',
   'Full-fledged Yoga Alliance certificate (RYT-200)',
   'Connection to a global yoga community',
-  '14 Day Money Back Guarantee',
-  '14 exclusive bonuses & career starter kit',
+  // MBG and Bonuses removed at team's request: Essential does not
+  // include either. Both perks belong to Premium only.
 ];
 
 const PREMIUM_BULLETS = [
@@ -67,7 +67,7 @@ export const TIERS = {
     metaTitle:
       '200-Hour Online Yoga Teacher Training, Akasha Yoga Academy | Your Path to Purpose & Joy',
     metaDescription:
-      "Become Yoga Alliance certified with Akasha Yoga Academy's 200-Hour Online YTT. US$290 (was US$1190). 3 Live Zoom Sessions per week, 200+ Bali studio videos, 14-day money-back guarantee. 1,100+ graduates on 6 continents.",
+      "Become Yoga Alliance certified with Akasha Yoga Academy's 200-Hour Online YTT. US$290 (was US$1190). 3 Live Zoom Sessions per week, 200+ Bali studio videos, 1,100+ graduates on 6 continents.",
     bullets: ESSENTIAL_BULLETS,
     accessNote: 'Self-paced, 6-months access & certification window.',
     heroImage:

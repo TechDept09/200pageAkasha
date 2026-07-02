@@ -528,40 +528,14 @@ function CampaignContent({ phase }) {
                 <p className="text-[11px] font-body uppercase tracking-[0.22em] text-akasha-orange mb-4 mt-1">
                   Summer Self-Care bundle
                 </p>
-                <ul className="space-y-3 font-body text-akasha-gray-1 text-[15px] leading-relaxed flex-1">
-                  <li className="flex items-start justify-between gap-3">
-                    <div className="flex flex-col">
-                      <span>200-Hour Essential</span>
-                      {bundle.essentialDiscountPercent ? (
-                        <span
-                          className="inline-block mt-1 self-start text-[10px] font-body font-semibold uppercase tracking-[0.18em] text-akasha-orange bg-akasha-orange/10 rounded-full px-2 py-0.5"
-                          style={{ fontFamily: 'Inter, sans-serif' }}
-                        >
-                          {bundle.essentialDiscountPercent}% off
-                        </span>
-                      ) : null}
-                    </div>
-                    <div className="text-right">
-                      {bundle.essentialRegular ? (
-                        <span className="block text-akasha-gray-2 text-xs line-through">
-                          US${bundle.essentialRegular.toLocaleString('en-US')}
-                        </span>
-                      ) : null}
-                      <span className="text-akasha-black">US${bundle.essential}</span>
-                    </div>
+                <ul className="space-y-2 font-body text-akasha-gray-1 text-[15px] leading-relaxed flex-1">
+                  <li className="flex justify-between">
+                    <span>200-Hour Essential</span>
+                    <span className="text-akasha-black">US${bundle.essential}</span>
                   </li>
-                  <li className="flex items-start justify-between gap-3">
-                    <div className="flex flex-col">
-                      <span>Yin Yoga (YACEP) Bonus course</span>
-                    </div>
-                    <div className="text-right">
-                      {bundle.yinRegular ? (
-                        <span className="block text-akasha-gray-2 text-xs line-through">
-                          US${bundle.yinRegular}
-                        </span>
-                      ) : null}
-                      <span className="text-akasha-black">US${bundle.yin}</span>
-                    </div>
+                  <li className="flex justify-between">
+                    <span>Yin Yoga (YACEP) Bonus course</span>
+                    <span className="text-akasha-black">US${bundle.yin}</span>
                   </li>
                 </ul>
                 <p className="mt-5 pt-4 border-t border-akasha-orange/30 font-body flex justify-between">
@@ -758,42 +732,14 @@ function BundleCard({ phase, showWellnessNote, onWhatYouGet }) {
         Save US${bundle.savings}
       </p>
 
-      <ul className="space-y-3 text-sm font-body text-akasha-gray-1 mb-6">
-        <li className="flex items-start justify-between gap-4">
-          <div className="flex-1 min-w-0">
-            <p className="text-akasha-black">
-              200-Hour Yoga Teacher Training (Essential Path)
-            </p>
-            {bundle.essentialDiscountPercent ? (
-              <span
-                className="inline-block mt-1 text-[10px] font-body font-semibold uppercase tracking-[0.18em] text-akasha-orange bg-akasha-orange/10 rounded-full px-2 py-0.5"
-                style={{ fontFamily: 'Inter, sans-serif' }}
-              >
-                {bundle.essentialDiscountPercent}% off
-              </span>
-            ) : null}
-          </div>
-          <div className="text-right flex-none">
-            {bundle.essentialRegular ? (
-              <span className="block text-akasha-gray-2 text-xs line-through">
-                US${bundle.essentialRegular.toLocaleString('en-US')}
-              </span>
-            ) : null}
-            <span className="text-akasha-black">US${bundle.essential}</span>
-          </div>
+      <ul className="space-y-2 text-sm font-body text-akasha-gray-1 mb-6">
+        <li className="flex justify-between">
+          <span>200-Hour Yoga Teacher Training (Essential Path)</span>
+          <span className="text-akasha-black">US${bundle.essential}</span>
         </li>
-        <li className="flex items-start justify-between gap-4">
-          <div className="flex-1 min-w-0">
-            <p className="text-akasha-black">Yin Yoga (YACEP) Bonus course</p>
-          </div>
-          <div className="text-right flex-none">
-            {bundle.yinRegular ? (
-              <span className="block text-akasha-gray-2 text-xs line-through">
-                US${bundle.yinRegular}
-              </span>
-            ) : null}
-            <span className="text-akasha-black">US${bundle.yin}</span>
-          </div>
+        <li className="flex justify-between">
+          <span>Yin Yoga (YACEP) Bonus course</span>
+          <span className="text-akasha-black">US${bundle.yin}</span>
         </li>
       </ul>
 
@@ -1632,15 +1578,18 @@ function StandaloneCard({ phase, onWhatYouGet }) {
   // otherwise the base Essential price. Tracking + Wix line item still
   // reference the base price so the cart matches the live product.
   const displayPrice = voucherPrice || phase.standalone.essential;
-  // Strikethrough anchor: prefer originalPrice (Phase 1 shows US$320
-  // struck through to US$290). Otherwise fall back to the pre-voucher
-  // essential price (Phase 2 / Backup: US$290 struck through to voucher
-  // US$249), or to the legacy Yoga Day anchor US$1,190.
-  const strikethroughPrice = phase.standalone.originalPrice
-    ? phase.standalone.originalPrice.toLocaleString('en-US')
-    : voucherPrice
-      ? phase.standalone.essential
-      : '1,190';
+  // Strikethrough anchor: prefer regularPrice (US$1,190) so the row
+  // reads as a clean 75% off, then fall back to the older Phase 1
+  // originalPrice (US$320), then Phase 2 voucher framing (US$290 to
+  // US$249), then the legacy Yoga Day US$1,190 anchor for backup.
+  const strikethroughPrice = phase.standalone.regularPrice
+    ? phase.standalone.regularPrice.toLocaleString('en-US')
+    : phase.standalone.originalPrice
+      ? phase.standalone.originalPrice.toLocaleString('en-US')
+      : voucherPrice
+        ? phase.standalone.essential
+        : '1,190';
+  const discountPercent = phase.standalone.discountPercent;
 
   useEffect(() => {
     const onShow = (e) => {
@@ -1728,7 +1677,7 @@ function StandaloneCard({ phase, onWhatYouGet }) {
           : 'Prefer to begin with the 200-Hour Essential alone? Same training, same promotional rate, no coupon required.'}
       </p>
 
-      <div className="flex items-baseline gap-3 mb-2">
+      <div className="flex items-baseline flex-wrap gap-3 mb-2">
         <span className="text-akasha-gray-2 line-through font-body text-base">
           US${strikethroughPrice}
         </span>
@@ -1738,6 +1687,14 @@ function StandaloneCard({ phase, onWhatYouGet }) {
         >
           US${displayPrice}
         </span>
+        {discountPercent ? (
+          <span
+            className="inline-block text-[10px] font-body font-semibold uppercase tracking-[0.18em] text-akasha-orange bg-akasha-orange/10 rounded-full px-2.5 py-1"
+            style={{ fontFamily: 'Inter, sans-serif' }}
+          >
+            {discountPercent}% off
+          </span>
+        ) : null}
       </div>
       <p className="text-[11px] font-body uppercase tracking-[0.2em] text-akasha-gray-1 mb-6">
         {voucherPrice || phase.standalone.couponCode || phase.standalone.originalPrice
