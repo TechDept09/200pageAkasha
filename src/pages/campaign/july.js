@@ -332,10 +332,11 @@ export function CampaignContent({ phase }) {
             </p>
             <a
               href="#enroll"
-              className="july-hero-anim inline-flex items-center justify-center bg-akasha-orange text-akasha-white px-10 py-4 rounded-full text-[13px] font-semibold uppercase tracking-[0.2em] hover:bg-akasha-orange-dark transition-colors shadow-lg"
+              className="july-hero-anim july-hero-cta inline-flex items-center justify-center gap-3 bg-akasha-orange text-akasha-white px-12 md:px-16 py-5 md:py-6 rounded-full text-[14px] md:text-[16px] font-semibold uppercase tracking-[0.22em] hover:bg-akasha-orange-dark transition-all duration-300 shadow-2xl"
               style={{ fontFamily: 'Inter, sans-serif', animationDelay: '0.95s' }}
             >
-              {phase.bundle ? 'See Your Bundle' : phase.key === 'backup' ? 'Claim the Offer' : 'See the Offer'}
+              Step into the offer
+              <span aria-hidden="true">→</span>
             </a>
           </div>
 
@@ -359,8 +360,25 @@ export function CampaignContent({ phase }) {
                 filter: blur(0);
               }
             }
+            /* Attention pulse on the hero CTA once the entry
+               animation settles. Skipped when the user prefers
+               reduced motion. */
+            .july-hero-cta {
+              animation: julyFadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards, julyHeroCtaPulse 2.6s ease-in-out 1.6s infinite;
+            }
+            @keyframes julyHeroCtaPulse {
+              0%, 100% {
+                transform: translateY(0);
+                box-shadow: 0 12px 40px rgba(237, 88, 41, 0.35);
+              }
+              50% {
+                transform: translateY(-3px);
+                box-shadow: 0 20px 60px rgba(237, 88, 41, 0.55);
+              }
+            }
             @media (prefers-reduced-motion: reduce) {
-              .july-hero-anim {
+              .july-hero-anim,
+              .july-hero-cta {
                 opacity: 1;
                 animation: none;
                 transform: none;
