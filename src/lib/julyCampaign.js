@@ -3,10 +3,19 @@
 // pricing is not discoverable until marketing wants it public. Phase
 // windows match the PDF brief.
 
+// Launch moment for the July drop. The hub landing swaps to the July
+// campaign landing at this exact instant, the pre-launch countdown
+// self-hides, and Phase 1 becomes active. Keep this the single source
+// of truth so hub + campaign preview + phase config never drift.
+export const JULY_LAUNCH_ISO = '2026-07-02T12:00:00+08:00';
+
 export const JULY_PHASES = {
   phase1: {
     key: 'phase1',
-    start: '2026-07-03T00:00:00+08:00',
+    // Phase 1 opens the moment the launch countdown hits zero (2 Jul
+    // 12:00 WITA), not the next calendar day. Removes the awkward
+    // 12-hour gap between 'countdown zero' and 'phase active'.
+    start: JULY_LAUNCH_ISO,
     end: '2026-07-17T23:59:59+08:00', // active through Jul 17 (live until 17th)
     label: 'Summer Self-Care Journey',
     publicName: 'Summer Self-Care',
