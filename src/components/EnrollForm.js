@@ -103,10 +103,15 @@ export default function EnrollForm() {
       }
 
       const productId = getProductId(tier.slug, selectedPlan);
+      // Auto-apply the plan or tier coupon when set. Plan-level wins
+      // (Premium 6-month plan may carry its own), tier is the fallback
+      // (Essential's July CARE30 voucher lives on the tier config).
+      const couponCode = activePlan?.couponCode || tier.couponCode || undefined;
       const url = await startWixCheckout({
         utm,
         utmNote: formatUtmNote(utm),
         productId,
+        couponCode,
         meta: { fbc, fbp, courseSlug: tier.slug, planSlug: selectedPlan, eventId },
         buyer: {
           firstName: form.firstName.trim(),
