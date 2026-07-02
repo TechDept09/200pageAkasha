@@ -44,23 +44,17 @@ export const TIERS = {
     regularPrice: 1190,
     promoPrice: 290,
     discountPercent: 75,
-    discountLabel: '75% Yoga Day Discount',
+    discountLabel: '75% Summer Discount',
     saleWindows: [
-      // Sale windows control when the discount is actually live + drive
-      // the countdown clock target. Phase 1 ends Jun 24 23:59, phase 2
-      // reopens Jun 28 00:00 with a real gap on 25-27 Jun.
-      { start: '2026-06-21T00:00:00+08:00', end: '2026-06-24T23:59:59+08:00' },
-      { start: '2026-06-28T00:00:00+08:00', end: '2026-06-30T23:59:59+08:00' },
+      // July pricelist (from Wira's sheet): pop-up runs from 2 Jul
+      // 12:00 WITA (launch instant) until 17 Jul, aligned with the
+      // JULY_LAUNCH_ISO constant in julyCampaign.js.
+      { start: '2026-07-02T12:00:00+08:00', end: '2026-07-17T23:59:59+08:00' },
     ],
     salePhases: [
-      // Phase labels are display-only and intentionally extend past the
-      // sale window end. Phase 1 dateRange ("21-24 June") keeps showing
-      // through 27 Jun for the "deadline missed" framing; phase 2 takes
-      // over at 28 Jun 00:00 WITA. Mirrors STOREWIDE_PHASES in courses.js.
-      { start: '2026-06-21T00:00:00+08:00', end: '2026-06-27T23:59:59+08:00', dateRange: '21-24 June' },
-      { start: '2026-06-28T00:00:00+08:00', end: '2026-06-30T23:59:59+08:00', dateRange: '28-30 June' },
+      { start: '2026-07-02T12:00:00+08:00', end: '2026-07-17T23:59:59+08:00', dateRange: '2-17 July' },
     ],
-    saleEndShort: 'June 30',
+    saleEndShort: 'July 17',
     ctaShort: 'Enroll US$290',
     ctaLong: 'Enroll Now, US$290',
     selfPaceWindow: 'Self-paced, 6-months access & certification window',
@@ -84,39 +78,30 @@ export const TIERS = {
     heroLine2: 'Yoga Teacher Training',
     tagline: 'Guided, Personal, Yours',
     pricingTagline: 'Premium Path',
+    // July pricelist: Premium is NOT discounted. Sits at regular
+    // US$1,490 full-price with the 6-month plan still active. Sale
+    // window kept empty so useSaleStatus reports 'no active sale' and
+    // discount UI stays hidden.
     regularPrice: 1490,
-    promoPrice: 590,
-    discountPercent: 60,
-    discountLabel: '60% Yoga Day Discount',
-    saleWindows: [
-      // 60% Yoga Day Store-Wide. PDF describes phase 1 (21-24) + phase 2
-      // (28-30) for marketing storytelling, but operationally the discount
-      // stays on the entire 21-30 stretch, so a single continuous window
-      // is what the runtime should use.
-      { start: '2026-06-21T00:00:00+08:00', end: '2026-06-30T23:59:59+08:00' },
-    ],
-    // Phase labels switch the date range shown to the buyer while the
-    // underlying discount keeps running. Phase 1 (21-24) is displayed
-    // through 27 Jun for the "deadline missed" framing, then phase 2
-    // (28-30) takes over at 28 Jun 00:00 Bali as the extension.
-    salePhases: [
-      { start: '2026-06-21T00:00:00+08:00', end: '2026-06-27T23:59:59+08:00', dateRange: '21-24 June' },
-      { start: '2026-06-28T00:00:00+08:00', end: '2026-06-30T23:59:59+08:00', dateRange: '28-30 June' },
-    ],
-    saleEndShort: 'June 30',
-    ctaShort: 'Enroll US$590',
-    ctaLong: 'Enroll Now, US$590',
+    promoPrice: 1490,
+    discountPercent: 0,
+    discountLabel: null,
+    saleWindows: [],
+    salePhases: [],
+    saleEndShort: null,
+    ctaShort: 'Enroll US$1,490',
+    ctaLong: 'Enroll Now, US$1,490',
     selfPaceWindow: '12-months access, unlimited Live Zoom Sessions',
     metaTitle:
       '200-Hour Online Yoga Teacher Training Premium, Akasha Yoga Academy | Guided, Personal, Yours',
     metaDescription:
-      "Become Yoga Alliance certified with personal mentorship, alignment coaching, and unlimited Live Zoom Sessions. 200-Hour Premium YTT, US$590 (was US$1490). Available with 6-month payment plan.",
+      "Become Yoga Alliance certified with personal mentorship, alignment coaching, and unlimited Live Zoom Sessions. 200-Hour Premium YTT, US$1,490. Available with 6-month payment plan at US$249/month.",
     bullets: PREMIUM_BULLETS,
     accessNote: '12-months access to the online platform and unlimited Live Zoom Sessions, 6-months Support Program.',
     heroImage:
       'https://static.wixstatic.com/media/cd7168_eea3bf63d06a4260b9e04f7bc00a255c~mv2.jpeg/v1/fill/w_900,h_900,al_c,q_85,enc_avif,quality_auto/AYA300-Dean%20Raphael-67.jpeg',
     plans: [
-      { slug: 'full', label: 'Pay in Full', regularPrice: 1490, price: 590, currency: 'USD', note: 'One-time payment' },
+      { slug: 'full', label: 'Pay in Full', regularPrice: null, price: 1490, currency: 'USD', note: 'One-time payment' },
       {
         slug: 'installment', label: '6-Month Plan', regularPrice: null, price: 249, currency: 'USD',
         note: 'per month, US$1,494 total',

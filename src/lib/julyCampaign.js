@@ -1,4 +1,4 @@
-// July 2026 Summer Self-Care Journey campaign config.
+// July 2026 Summer Self-Care campaign config.
 // Two-phase rollout with a confidential page (password-gated) so the new
 // pricing is not discoverable until marketing wants it public. Phase
 // windows match the PDF brief.
@@ -17,10 +17,10 @@ export const JULY_PHASES = {
     // 12-hour gap between 'countdown zero' and 'phase active'.
     start: JULY_LAUNCH_ISO,
     end: '2026-07-17T23:59:59+08:00', // active through Jul 17 (live until 17th)
-    label: 'Summer Self-Care Journey',
+    label: 'Summer Self-Care',
     publicName: 'Summer Self-Care',
     dateRange: 'Offer until 15th of July',
-    headline: 'Summer Self-Care Journey',
+    headline: 'Summer Self-Care',
     sub: 'Save over 70% on 200hr Essential this July',
     scriptTagline: 'This summer, choose yourself',
     intro:
@@ -28,10 +28,14 @@ export const JULY_PHASES = {
     couponCode: 'CARE320',
     couponNote: 'Use coupon CARE320 for the bundle savings.',
     bundle: {
-      essential: 320,
-      yin: 199,
-      total: 519,
-      savings: 1271, // regular total 1790, bundle 519
+      // July pricelist from Wira's sheet (2 Jul, tab: 200hr + 80hr
+      // Bundle). Essential comes in at 75% off (US$1,190 -> US$290),
+      // Yin (YACEP) Bonus at 33% off (US$600 -> US$399). Bundle total
+      // is the sum, savings vs regular US$1,790.
+      essential: 290,
+      yin: 399,
+      total: 689,
+      savings: 1101,
     },
     standalone: {
       // Voucher-based: original standalone is US$320, campaign voucher

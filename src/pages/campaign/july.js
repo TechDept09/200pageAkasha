@@ -78,13 +78,17 @@ const FEATURED_LOGOS = [
 // displays year-round on the live catalog (33% markdown baked in for
 // 300H and the 80hr trio; Premium and Kundalini shown at the regular
 // tag; Feminine at its regular US$229 rate).
+// Prices per Wira's July sheet (2 Jul). Premium sits at regular
+// US$1,490 (no discount), 80h modules move from US$239 to US$399
+// (33% off from US$600), Kundalini from the previous Yoga Day price
+// to US$1,999 (30% off from US$2,999). Feminine stays at US$229.
 const RECOMMENDATION_PRICE = {
   '200h-premium': 1490,
   '300h-ytt': 1190,
-  '80h-hatha-pranayama': 239,
-  '80h-meditation': 239,
+  '80h-hatha-pranayama': 399,
+  '80h-meditation': 399,
   'feminine-wisdom': 229,
-  'kundalini-india': 2999,
+  'kundalini-india': 1999,
 };
 import { startWixCheckout } from '@/lib/checkout';
 import { useUtmParams, formatUtmNote } from '@/hooks/useUtmParams';

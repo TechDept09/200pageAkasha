@@ -18,25 +18,22 @@ export const CATEGORIES = {
   OTHER: 'other',
 };
 
-// Sale windows for the 60% Yoga Day Store-Wide campaign.
-// PDF tells a "phase 1 + extension" story (21-24, then 28-30) for marketing,
-// but the discount stays on through the gap, so the runtime treats the
-// whole run as one continuous window 21-30 Jun.
+// Sale windows for the July Summer campaign. Pop-up runs 2 Jul 12:00
+// WITA (launch instant) to 17 Jul, matching JULY_LAUNCH_ISO in
+// julyCampaign.js. 300h + all 80h + Kundalini share this same window
+// under the 33% / 30% Summer Discount framing per Wira's July sheet.
 const STOREWIDE_WINDOWS = [
-  { start: '2026-06-21T00:00:00+08:00', end: '2026-06-30T23:59:59+08:00' },
+  { start: '2026-07-02T12:00:00+08:00', end: '2026-07-17T23:59:59+08:00' },
 ];
 
-// Display-only phase labels for the Store-Wide campaign. Phase 1 dates
-// (21-24) are shown to buyers through 27 Jun, then phase 2 (28-30) kicks
-// in at 28 Jun 00:00 Bali as the extension.
 const STOREWIDE_PHASES = [
-  { start: '2026-06-21T00:00:00+08:00', end: '2026-06-27T23:59:59+08:00', dateRange: '21-24 June' },
-  { start: '2026-06-28T00:00:00+08:00', end: '2026-06-30T23:59:59+08:00', dateRange: '28-30 June' },
+  { start: '2026-07-02T12:00:00+08:00', end: '2026-07-17T23:59:59+08:00', dateRange: '2-17 July' },
 ];
 
-// Essential EVERGREEN-2: continuous 17-30 Jun.
+// Essential runs the same July window so /200h-essential and the
+// campaign hub stay in sync.
 const ESSENTIAL_WINDOWS = [
-  { start: '2026-06-17T00:00:00+08:00', end: '2026-06-30T23:59:59+08:00' },
+  { start: '2026-07-02T12:00:00+08:00', end: '2026-07-17T23:59:59+08:00' },
 ];
 
 export const courses = [
@@ -67,11 +64,13 @@ export const courses = [
     priority: 2,
     title: '200-Hour Premium Yoga Teacher Training',
     badge: 'With Mentorship',
-    discountPercent: 60,
-    discountLabel: '60% Yoga Day Discount',
-    saleEndShort: 'June 30',
+    // July pricelist: Premium sits at regular US$1,490 (no discount).
+    // 6-month payment plan stays live at US$249/month.
+    discountPercent: 0,
+    discountLabel: null,
+    saleEndShort: null,
     regularPrice: 1490,
-    promoPrice: 590,
+    promoPrice: 1490,
     currency: 'USD',
     shortDescription:
       'Everything as in Essential plus more. 12 months access to the online platform, unlimited Live Zoom Sessions, and a 6-months Support Program with 1:1 mentorship, alignment coaching, and personalized feedback.',
@@ -84,7 +83,7 @@ export const courses = [
     saleWindows: STOREWIDE_WINDOWS,
     salePhases: STOREWIDE_PHASES,
     plans: [
-      { slug: 'full', label: 'Pay in Full', regularPrice: 1490, price: 590, currency: 'USD', note: 'One-time payment' },
+      { slug: 'full', label: 'Pay in Full', regularPrice: null, price: 1490, currency: 'USD', note: 'One-time payment' },
       {
         slug: 'installment', label: '6-Month Plan', regularPrice: null, price: 249, currency: 'USD',
         note: 'per month, US$1,494 total', confirmed: false,
@@ -99,11 +98,12 @@ export const courses = [
     priority: 1,
     title: '300-Hour Advanced Yoga Teacher Training',
     tagline: 'A Life-Changing Yogic Immersion',
-    discountPercent: 60,
-    discountLabel: '60% Yoga Day Discount',
-    saleEndShort: 'June 30',
+    // July pricelist: 300h at 33% off (US$1,800 -> US$1,190).
+    discountPercent: 33,
+    discountLabel: '33% Summer Discount',
+    saleEndShort: 'July 17',
     regularPrice: 1800,
-    promoPrice: 699,
+    promoPrice: 1190,
     currency: 'USD',
     shortDescription:
       'Three 100-hour modules across Hatha, Pranayama, Yin Yoga, and Spiritual Heart Meditation. Stepping stone to your RYT-500.',
@@ -117,10 +117,10 @@ export const courses = [
     saleWindows: STOREWIDE_WINDOWS,
     salePhases: STOREWIDE_PHASES,
     plans: [
-      { slug: 'full', label: 'Pay in Full', regularPrice: 1800, price: 699, currency: 'USD', note: 'One-time payment' },
+      { slug: 'full', label: 'Pay in Full', regularPrice: 1800, price: 1190, currency: 'USD', note: 'One-time payment' },
       {
-        slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 259, currency: 'USD',
-        note: 'per month, US$777 total',
+        slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 399, currency: 'USD',
+        note: 'per month, US$1,197 total',
         wixProductPageUrl: 'https://www.akashayogaacademy.com/product-page/300-hour-advanced-yoga-teacher-training',
       },
     ],
@@ -177,11 +177,11 @@ export const courses = [
     priority: 2,
     title: '80-Hour Yin Yoga Teacher Training',
     tagline: 'Expand Your Awareness',
-    discountPercent: 60,
-    discountLabel: '60% Yoga Day Discount',
-    saleEndShort: 'June 30',
+    discountPercent: 33,
+    discountLabel: '33% Summer Discount',
+    saleEndShort: 'July 17',
     regularPrice: 600,
-    promoPrice: 239,
+    promoPrice: 399,
     currency: 'USD',
     shortDescription:
       'Yin postures, functional anatomy, meridian theory, and Self Inquiry. Lifetime access to recordings, monthly live Zoom with instructors.',
@@ -195,10 +195,10 @@ export const courses = [
     saleWindows: STOREWIDE_WINDOWS,
     salePhases: STOREWIDE_PHASES,
     plans: [
-      { slug: 'full', label: 'Pay in Full', regularPrice: 600, price: 239, currency: 'USD', note: 'One-time payment' },
+      { slug: 'full', label: 'Pay in Full', regularPrice: 600, price: 399, currency: 'USD', note: 'One-time payment' },
       {
-        slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 89, currency: 'USD',
-        note: 'per month, US$267 total',
+        slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 139, currency: 'USD',
+        note: 'per month, US$417 total',
         wixProductPageUrl: 'https://www.akashayogaacademy.com/product-page/80-hour-yin-yoga-ttc-pp',
       },
     ],
@@ -243,11 +243,11 @@ export const courses = [
     priority: 3,
     title: '80-Hour Advanced Hatha & Pranayama Teacher Training',
     tagline: 'Transform Your Practice',
-    discountPercent: 60,
-    discountLabel: '60% Yoga Day Discount',
-    saleEndShort: 'June 30',
+    discountPercent: 33,
+    discountLabel: '33% Summer Discount',
+    saleEndShort: 'July 17',
     regularPrice: 600,
-    promoPrice: 239,
+    promoPrice: 399,
     currency: 'USD',
     shortDescription:
       'Breath-integrated Hatha, advanced Pranayama, arm balances, and bandhas. Rooted in the Hatha Yoga Pradipika, taught by E-RYT-500 teachers.',
@@ -261,10 +261,10 @@ export const courses = [
     saleWindows: STOREWIDE_WINDOWS,
     salePhases: STOREWIDE_PHASES,
     plans: [
-      { slug: 'full', label: 'Pay in Full', regularPrice: 600, price: 239, currency: 'USD', note: 'One-time payment' },
+      { slug: 'full', label: 'Pay in Full', regularPrice: 600, price: 399, currency: 'USD', note: 'One-time payment' },
       {
-        slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 89, currency: 'USD',
-        note: 'per month, US$267 total',
+        slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 139, currency: 'USD',
+        note: 'per month, US$417 total',
         wixProductPageUrl: 'https://www.akashayogaacademy.com/product-page/80-hour-adv-hatha-pranayama-ttc-pp',
       },
     ],
@@ -304,11 +304,11 @@ export const courses = [
     priority: 4,
     title: '80-Hour Meditation Teacher Training',
     tagline: 'Find Stillness',
-    discountPercent: 60,
-    discountLabel: '60% Yoga Day Discount',
-    saleEndShort: 'June 30',
+    discountPercent: 33,
+    discountLabel: '33% Summer Discount',
+    saleEndShort: 'July 17',
     regularPrice: 600,
-    promoPrice: 239,
+    promoPrice: 399,
     currency: 'USD',
     shortDescription:
       'Spiritual Heart Meditation, mantra practice, and Eastern wisdom traditions. YACEP certified, suitable for beginners and experienced practitioners.',
@@ -322,10 +322,10 @@ export const courses = [
     saleWindows: STOREWIDE_WINDOWS,
     salePhases: STOREWIDE_PHASES,
     plans: [
-      { slug: 'full', label: 'Pay in Full', regularPrice: 600, price: 239, currency: 'USD', note: 'One-time payment' },
+      { slug: 'full', label: 'Pay in Full', regularPrice: 600, price: 399, currency: 'USD', note: 'One-time payment' },
       {
-        slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 89, currency: 'USD',
-        note: 'per month, US$267 total',
+        slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 139, currency: 'USD',
+        note: 'per month, US$417 total',
         wixProductPageUrl: 'https://www.akashayogaacademy.com/product-page/80-hour-meditation-ttc',
       },
     ],
@@ -369,11 +369,13 @@ export const courses = [
     priority: 1,
     title: 'Feminine Wisdom for Holistic Wellbeing',
     tagline: 'Move with Your Rhythms',
-    discountPercent: 60,
-    discountLabel: '60% Yoga Day Discount',
-    saleEndShort: 'June 30',
+    // July pricelist: Feminine Wisdom stays at regular US$229 (no
+    // discount).
+    discountPercent: 0,
+    discountLabel: null,
+    saleEndShort: null,
     regularPrice: 229,
-    promoPrice: 89,
+    promoPrice: 229,
     currency: 'USD',
     shortDescription:
       'Ayurveda, embodiment, and feminine cycles. 10 YACEP hours, taught by Astrid van Zon, Amanda Noga, and Ashley Apple.',
@@ -387,7 +389,7 @@ export const courses = [
     saleWindows: STOREWIDE_WINDOWS,
     salePhases: STOREWIDE_PHASES,
     plans: [
-      { slug: 'full', label: 'Pay in Full', regularPrice: 229, price: 89, currency: 'USD', note: 'One-time payment' },
+      { slug: 'full', label: 'Pay in Full', regularPrice: null, price: 229, currency: 'USD', note: 'One-time payment' },
     ],
     instructors: ['Astrid van Zon', 'Amanda Noga', 'Ashley Apple'],
     longDescription: [
@@ -421,11 +423,13 @@ export const courses = [
     priority: 2,
     title: 'Kundalini Awakening Retreat, India',
     tagline: 'Awaken Your Soul in India',
-    discountPercent: 60,
-    discountLabel: '60% Yoga Day Discount',
-    saleEndShort: 'June 30',
+    // July pricelist: Kundalini retreat at 30% off (US$2,999 ->
+    // US$1,999). 3-month plan at US$699/month = US$2,097 total.
+    discountPercent: 30,
+    discountLabel: '30% Summer Discount',
+    saleEndShort: 'July 17',
     regularPrice: 2999,
-    promoPrice: 1199,
+    promoPrice: 1999,
     currency: 'USD',
     shortDescription:
       '11 days in Rishikesh, 21 February to 3 March 2027. Hatha, pranayama, mudras, and Kundalini practices on the banks of the Ganga.',
@@ -439,10 +443,10 @@ export const courses = [
     saleWindows: STOREWIDE_WINDOWS,
     salePhases: STOREWIDE_PHASES,
     plans: [
-      { slug: 'full', label: 'Pay in Full', regularPrice: 2999, price: 1199, currency: 'USD', note: 'One-time payment' },
+      { slug: 'full', label: 'Pay in Full', regularPrice: 2999, price: 1999, currency: 'USD', note: 'One-time payment' },
       {
-        slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 399, currency: 'USD',
-        note: 'per month, US$1,197 total',
+        slug: 'installment', label: '3-Month Plan', regularPrice: null, price: 699, currency: 'USD',
+        note: 'per month, US$2,097 total',
         wixProductPageUrl: 'https://www.akashayogaacademy.com/product-page/kundalini-awakening-retreat-payment-plan',
       },
     ],
