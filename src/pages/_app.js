@@ -7,7 +7,12 @@ import { Inter, Jost, Allura } from 'next/font/google';
 import { pageview } from '@/lib/pixel';
 
 const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || '1349360126835158';
+// Standalone GA4 stays on the original property for historical
+// continuity. GTM is added alongside so marketing's tag stack
+// (Google Ads conversions + their own GA4 setup) fires from the
+// same container without touching this property.
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-L76KTFBEBG';
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-M9GPNL6';
 
 // Self-hosted Google Fonts via next/font: the font files ship from the
 // same origin as the rest of the bundle, so there's no render-blocking
@@ -38,8 +43,15 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     const handleRouteChange = (url) => {
       pageview();
+      // Existing GA4 property gets a direct gtag pageview.
       if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
         window.gtag('config', GA_ID, { page_path: url });
+      }
+      // GTM also gets the SPA pageview signal via dataLayer so
+      // marketing's tags fire on client-side route changes too.
+      if (typeof window !== 'undefined') {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: 'pageview', page_path: url });
       }
     };
     router.events.on('routeChangeComplete', handleRouteChange);
@@ -86,6 +98,8 @@ export default function App({ Component, pageProps }) {
         }}
       />
 
+      {/* Existing GA4 tracking on the original property. Keeps
+          historical continuity, unchanged. */}
       <Script
         id="ga-loader"
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
@@ -100,6 +114,23 @@ export default function App({ Component, pageProps }) {
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', '${GA_ID}');
+          `,
+        }}
+      />
+
+      {/* Google Tag Manager container. Marketing owns this stack:
+          Google Ads conversion tags, their GA4 property, and any
+          future tags fire from GTM without touching this repo. */}
+      <Script
+        id="gtm-loader"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','${GTM_ID}');
           `,
         }}
       />
