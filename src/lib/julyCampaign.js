@@ -28,14 +28,13 @@ export const JULY_PHASES = {
     couponCode: 'CARE320',
     couponNote: 'Use coupon CARE320 for the bundle savings.',
     bundle: {
-      // July pricelist from Wira's sheet (2 Jul, tab: 200hr + 80hr
-      // Bundle). Essential comes in at 75% off (US$1,190 -> US$290),
-      // Yin (YACEP) Bonus at 33% off (US$600 -> US$399). Bundle total
-      // is the sum, savings vs regular US$1,790.
-      essential: 290,
-      yin: 399,
-      total: 689,
-      savings: 1101,
+      // Bundle-specific allocation, DO NOT sync to standalone Essential
+      // (US$290). Bundle keeps its own Essential portion at US$320 with
+      // Yin at US$199, total US$519, save US$1,271 vs regular US$1,790.
+      essential: 320,
+      yin: 199,
+      total: 519,
+      savings: 1271,
     },
     standalone: {
       // Voucher-based: original standalone is US$320, campaign voucher
