@@ -17,10 +17,10 @@ export const JULY_PHASES = {
     // 12-hour gap between 'countdown zero' and 'phase active'.
     start: JULY_LAUNCH_ISO,
     end: '2026-07-17T23:59:59+08:00', // active through Jul 17 (live until 17th)
-    label: 'Summer Self-Care',
+    label: 'Summer Self-Care Journey',
     publicName: 'Summer Self-Care',
     dateRange: 'Offer until 15th of July',
-    headline: 'Summer Self-Care',
+    headline: 'Summer Self-Care Journey',
     sub: 'Save over 70% on 200hr Essential this July',
     scriptTagline: 'This summer, choose yourself',
     intro:
