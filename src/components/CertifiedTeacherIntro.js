@@ -29,6 +29,17 @@ export default function CertifiedTeacherIntro({
             </div>
 
             <div className="order-1 md:order-2 text-center md:text-left">
+              {/* RYS-200 badge stays as the credibility stamp above the
+                  eyebrow whether or not the portrait column is showing. */}
+              <div className="flex justify-center md:justify-start mb-6 md:mb-8">
+                <img
+                  src="https://static.wixstatic.com/media/cd7168_977ee408f17b46a29edd503ef69e6617~mv2.png/v1/fill/w_308,h_300,al_c,q_85,enc_avif,quality_auto/RYS-200-Yoga-Alliance.png"
+                  alt="Yoga Alliance Registered School RYS-200"
+                  loading="lazy"
+                  decoding="async"
+                  className="h-24 md:h-28 w-auto"
+                />
+              </div>
               <span className="eyebrow text-akasha-orange">Akasha's Courses</span>
               <h2
                 id={headingId}
