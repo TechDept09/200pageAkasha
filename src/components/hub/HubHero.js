@@ -1,11 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-
-// New July campaign goes live at 2 July 2026, 12:00 WITA (UTC+8).
-// Keep this in sync with the real launch time so the hero countdown
-// matches what marketing announces on social.
-const JULY_LAUNCH_ISO = '2026-07-02T12:00:00+08:00';
+// Single source of truth for the launch instant. Also used by
+// useJulyLaunched (whole-page swap) and Phase 1 config (offer live
+// state), so this const cannot drift without breaking all three.
+import { JULY_LAUNCH_ISO } from '@/lib/julyCampaign';
 
 function useCountdown(targetIso) {
   const [now, setNow] = useState(null);
