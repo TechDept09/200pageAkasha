@@ -470,20 +470,18 @@ export function CampaignContent({ phase }) {
                   href="https://www.akashayogaacademy.com/200hr-yoga-teacher-training-online"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-ghost gap-2"
+                  className="btn-ghost"
                 >
                   More on 200-Hour Essential
-                  <span aria-hidden="true">↗</span>
                 </a>
                 {hasBundle ? (
                   <a
                     href="https://www.akashayogaacademy.com/80-hr-online-yin-yoga-teacher-training"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-ghost gap-2"
+                    className="btn-ghost"
                   >
                     More on Yin (YACEP) Bonus
-                    <span aria-hidden="true">↗</span>
                   </a>
                 ) : null}
               </div>
@@ -819,7 +817,6 @@ function BundleCard({ phase, showWellnessNote, onWhatYouGet }) {
               aria-haspopup="dialog"
             >
               What will you get?
-              <span aria-hidden="true">→</span>
             </button>
           ) : null}
           {error && (
@@ -1281,12 +1278,6 @@ function RecommendationList() {
                       </span>
                     ) : null}
                   </span>
-                  <span
-                    className="flex-none text-akasha-gray-2 group-hover:text-akasha-orange transition-colors text-sm"
-                    aria-hidden="true"
-                  >
-                    →
-                  </span>
                 </a>
               </li>
             );
@@ -1366,7 +1357,6 @@ function WhyChooseAkasha() {
                   aria-label={`Read more about ${c.title}`}
                 >
                   Read more
-                  <span aria-hidden="true">→</span>
                 </button>
               </article>
             ))}
@@ -1767,7 +1757,6 @@ function StandaloneCard({ phase, onWhatYouGet }) {
             aria-haspopup="dialog"
           >
             What will you get?
-            <span aria-hidden="true">→</span>
           </button>
         ) : null}
         {error && (

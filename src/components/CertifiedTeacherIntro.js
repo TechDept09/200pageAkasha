@@ -59,10 +59,9 @@ export default function CertifiedTeacherIntro({
                   href="https://www.akashayogaacademy.com/200hr-yoga-teacher-training-online"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-primary gap-2"
+                  className="btn-primary"
                 >
                   Learn more
-                  <span aria-hidden="true">↗</span>
                 </a>
               </div>
             </div>
@@ -100,10 +99,9 @@ export default function CertifiedTeacherIntro({
                 href="https://www.akashayogaacademy.com/200hr-yoga-teacher-training-online"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary gap-2"
+                className="btn-primary"
               >
                 Learn more
-                <span aria-hidden="true">↗</span>
               </a>
             </div>
           </div>
