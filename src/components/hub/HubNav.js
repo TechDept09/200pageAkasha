@@ -45,7 +45,9 @@ export default function HubNav() {
         </nav>
 
         <a
-          href="#essential"
+          href="https://www.akashayogaacademy.com"
+          target="_blank"
+          rel="noopener noreferrer"
           className="hidden lg:inline-flex items-center bg-akasha-orange text-white text-[11px] font-medium tracking-[0.12em] uppercase px-5 py-2.5 rounded-full hover:bg-akasha-orange-dark transition-colors"
           style={{ fontFamily: 'Inter, sans-serif' }}
         >
@@ -81,7 +83,9 @@ export default function HubNav() {
             </a>
           ))}
           <a
-            href="#essential"
+            href="https://www.akashayogaacademy.com"
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() => setOpen(false)}
             className="mt-2 bg-akasha-orange text-white text-center text-xs font-medium tracking-[0.12em] uppercase px-5 py-3 rounded-full"
           >
