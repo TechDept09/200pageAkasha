@@ -26,16 +26,10 @@ const WHAT_YOU_GET = {
       { section: 'TEACHER EDUCATION', items: ['Personally Supervised Practicum Assignments', 'Guided Prep, Video Recording & One-on-One Feedback', 'Marketing, Networking & How to Get Started'] },
       { section: 'PERSONAL GUIDANCE & FUN', items: ['Daily Live Q&As', 'Community Forums, Private Facebook Group & Chats', 'Bhajan Chanting & so much more'] },
     ],
-    bonuses: [
-      { n: '1', name: 'How to Teach Yoga Online', value: 299, desc: 'In this course Akasha Yoga shares their first-hand experience of how to bring your Yoga classes online. Receive all the audio, lighting, and camera tricks and tips to make your offerings online a successful experience.' },
-      { n: '2', name: 'Journey Through the 7 Chakras', value: 199, desc: 'In this introduction workshop, we present the system of the famous 7 Chakras. You will receive a clear understanding of the classical roots and modern interpretations. In this comprehensive overview, you will learn about energetic aspects, corresponding emotions, and psychological attributes.' },
-      { n: '3', name: 'Holistic Well-Being Workshop', value: 229, desc: 'In this eye-opening workshop, we introduce the yogic system of the 5 Bodies. You will benefit a lot from this ancient holistic description of the human being, formulated 2500 years ago, yet fully relevant in our modern times. You will walk away with a clear & practical understanding of the different layers & aspects of our being.' },
-      { n: '4', name: 'Asana Study Flashcards', value: 35, desc: "These Asana study flashcards were made especially for you to memorize the teaching cues. The Asanas in this card deck are part of Akasha's 200-Hour Teacher Training." },
-      { n: '5', name: 'Sanskrit Study Flashcards', value: 35, desc: "These Sanskrit study flashcards were made especially for you to memorize the Sanskrit names of the Asanas. The cards in this deck are part of Akasha's 200-Hour Teacher Training." },
-      { n: '6', name: 'Poster Asana Poses', value: 69, desc: "Poster with all the Asana's covered in our 200-Hr Yoga TTC in high image quality. Perfect to showcase at home or your Yoga studio." },
-      { n: '7', name: 'The Art & Science of Teaching', value: 108, desc: 'Unite ancient wisdom with modern methods. Elevate your teaching with a fusion of yogic artistry and evidence-based science. Perfect for aspiring and seasoned instructors.' },
-      { n: '8', name: 'Yoga in Daily Life', value: 86, desc: "Discover 'Yoga in Daily Life': our bonus book delving into Yama & Niyama, yoga's ethical foundations. Learn to integrate these virtues into everyday life & practice." },
-    ],
+    // Bonuses list dropped per team's brief: the Essential tier does
+    // not include the 8 bonus courses, only Premium does. The Yin
+    // bonuses below still ship because Yin (YACEP) Bonus course
+    // publishes its own bundle of extras.
   },
   '80yin': {
     title: '80-Hour Yin Yoga Teacher Training',
