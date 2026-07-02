@@ -70,16 +70,29 @@ export default function CertifiedTeacherIntro({
                   className="h-24 md:h-28 w-auto"
                 />
               </li>
-              <li className="flex items-center">
-                <img
-                  src="https://static.wixstatic.com/media/cd7168_b0002e34d2324f19aa47e198f769d01c~mv2.png/v1/fill/w_314,h_300,al_c,q_85,enc_avif,quality_auto/RYS-300-Yoga-Alliance.png"
-                  alt="Yoga Alliance Registered School RYS-300"
-                  loading="lazy"
-                  decoding="async"
-                  className="h-24 md:h-28 w-auto"
-                />
-              </li>
+              {/* RYS-300 badge temporarily removed at team's request.
+                  Restore this <li> when Wira confirms the badge should
+                  return. */}
             </ul>
+
+            <div
+              className={`mt-8 md:mt-10 flex ${
+                showPhoto
+                  ? 'justify-center md:justify-start'
+                  : 'justify-center'
+              }`}
+            >
+              <a
+                href="https://www.akashayogaacademy.com/200hr-yoga-teacher-training-online"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-akasha-black text-akasha-black hover:bg-akasha-black hover:text-akasha-white text-[11.5px] md:text-[12px] font-medium uppercase tracking-[0.22em] transition-colors"
+                style={{ fontFamily: 'Inter, sans-serif' }}
+              >
+                Learn more
+                <span aria-hidden="true">↗</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
