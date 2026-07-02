@@ -452,7 +452,7 @@ function CampaignContent({ phase }) {
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
                 <a
-                  href="/200h-essential"
+                  href="https://www.akashayogaacademy.com/200hr-yoga-teacher-training-online"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-ghost gap-2"
@@ -462,7 +462,7 @@ function CampaignContent({ phase }) {
                 </a>
                 {hasBundle ? (
                   <a
-                    href="/80h-yin"
+                    href="https://www.akashayogaacademy.com/80-hr-online-yin-yoga-teacher-training"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-ghost gap-2"
