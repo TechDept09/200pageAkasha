@@ -5,12 +5,10 @@ import { useEffect, useState } from 'react';
 const LOGO_BLACK =
   'https://static.wixstatic.com/media/c15a18_add3f1d2dd1a4582876f0249d1a2daf3~mv2.png/v1/fill/w_376,h_320,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Akasha-Yoga-Academy-Logo-2020-BLACK-500W.png';
 
-const links = [
-  { href: '#essential', label: 'Essential' },
-  { href: '#premium', label: 'Premium' },
-  { href: '#advanced', label: 'Advanced' },
-  { href: '#other', label: 'Other' },
-];
+// Menu links dropped at team's request. Hub nav keeps just the
+// logo (top-left) and the Browse Courses CTA. Restore this array
+// if the anchor navigation returns.
+const links = [];
 
 export default function HubNav() {
   const [scrolled, setScrolled] = useState(false);
