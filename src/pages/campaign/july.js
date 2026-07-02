@@ -186,7 +186,7 @@ export default function JulyCampaign() {
   return <CampaignContent phase={phase} />;
 }
 
-function CampaignContent({ phase }) {
+export function CampaignContent({ phase }) {
   const bundle = phase.bundle;
   const standalone = phase.standalone;
   const isBackup = phase.key === 'backup';
