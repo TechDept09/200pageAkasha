@@ -123,7 +123,7 @@ export default function EssentialPage() {
         <Steps />
         <Testimonials />
         <Pricing />
-        <FAQ />
+        <FAQ hasMBG={false} />
         <CTA />
         <Footer />
       </main>
