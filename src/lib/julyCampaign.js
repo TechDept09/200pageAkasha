@@ -28,10 +28,17 @@ export const JULY_PHASES = {
     couponCode: 'CARE320',
     couponNote: 'Use coupon CARE320 for the bundle savings.',
     bundle: {
-      essential: 320,
+      // Essential portion of the bundle now shows as a clean 75% off
+      // the regular US$1,190. Yin bonus stays at US$199 (base US$600).
+      // Team wanted the '75%' framing on the Essential line because
+      // buyers were reading US$320 as an arbitrary number.
+      essential: 290,
+      essentialRegular: 1190,
+      essentialDiscountPercent: 75,
       yin: 199,
-      total: 519,
-      savings: 1271, // regular total 1790, bundle 519
+      yinRegular: 600,
+      total: 489, // 290 + 199
+      savings: 1301, // 1790 regular total minus 489 bundle
     },
     standalone: {
       // Voucher-based: original standalone is US$320, campaign voucher
