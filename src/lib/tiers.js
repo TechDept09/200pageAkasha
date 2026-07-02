@@ -44,18 +44,18 @@ export const TIERS = {
     regularPrice: 1190,
     promoPrice: 290,
     discountPercent: 75,
-    discountLabel: '75% Yoga Day Discount',
-    // Hold the Yoga Day sale open through the launch instant so
-    // last-minute buyers still see the discount label right up to
-    // 2 Jul 12:00 WITA. The 12:00 flip commit rewrites this to the
-    // 2-17 July Summer window.
+    discountLabel: '75% Summer Discount',
+    // July Summer Self-Care Journey window, 2 Jul 12:00 WITA to 17 Jul.
     saleWindows: [
-      { start: '2026-06-21T00:00:00+08:00', end: '2026-07-02T11:59:59+08:00' },
+      { start: '2026-07-02T12:00:00+08:00', end: '2026-07-17T23:59:59+08:00' },
     ],
     salePhases: [
-      { start: '2026-06-21T00:00:00+08:00', end: '2026-07-02T11:59:59+08:00', dateRange: 'Ends 2 July, 12:00 WITA' },
+      { start: '2026-07-02T12:00:00+08:00', end: '2026-07-17T23:59:59+08:00', dateRange: '2-17 July' },
     ],
-    saleEndShort: 'July 2',
+    saleEndShort: 'July 17',
+    // Auto-applied at Wix checkout by EnrollForm. Voucher takes the
+    // Essential from US$298 (75% off) down to US$290 flat.
+    couponCode: 'CARE30',
     ctaShort: 'Enroll US$290',
     ctaLong: 'Enroll Now, US$290',
     selfPaceWindow: 'Self-paced, 6-months access & certification window',
@@ -79,33 +79,28 @@ export const TIERS = {
     heroLine2: 'Yoga Teacher Training',
     tagline: 'Guided, Personal, Yours',
     pricingTagline: 'Premium Path',
-    // Yoga Day pricing holds until 2 Jul 12:00 WITA so last-minute
-    // buyers can still checkout at US$590 / 60% off. The July flip
-    // commit swaps to full US$1,490 with no discount.
+    // July pricelist: Premium sits at regular US$1,490 (no discount).
+    // 6-month payment plan stays live at US$249/month.
     regularPrice: 1490,
-    promoPrice: 590,
-    discountPercent: 60,
-    discountLabel: '60% Yoga Day Discount',
-    saleWindows: [
-      { start: '2026-06-21T00:00:00+08:00', end: '2026-07-02T11:59:59+08:00' },
-    ],
-    salePhases: [
-      { start: '2026-06-21T00:00:00+08:00', end: '2026-07-02T11:59:59+08:00', dateRange: 'Ends 2 July, 12:00 WITA' },
-    ],
-    saleEndShort: 'July 2',
-    ctaShort: 'Enroll US$590',
-    ctaLong: 'Enroll Now, US$590',
+    promoPrice: 1490,
+    discountPercent: 0,
+    discountLabel: null,
+    saleWindows: [],
+    salePhases: [],
+    saleEndShort: null,
+    ctaShort: 'Enroll US$1,490',
+    ctaLong: 'Enroll Now, US$1,490',
     selfPaceWindow: '12-months access, unlimited Live Zoom Sessions',
     metaTitle:
       '200-Hour Online Yoga Teacher Training Premium, Akasha Yoga Academy | Guided, Personal, Yours',
     metaDescription:
-      "Become Yoga Alliance certified with personal mentorship, alignment coaching, and unlimited Live Zoom Sessions. 200-Hour Premium YTT, US$590 (was US$1490). Available with 6-month payment plan.",
+      "Become Yoga Alliance certified with personal mentorship, alignment coaching, and unlimited Live Zoom Sessions. 200-Hour Premium YTT, US$1,490. Available with 6-month payment plan at US$249/month.",
     bullets: PREMIUM_BULLETS,
     accessNote: '12-months access to the online platform and unlimited Live Zoom Sessions, 6-months Support Program.',
     heroImage:
       'https://static.wixstatic.com/media/cd7168_eea3bf63d06a4260b9e04f7bc00a255c~mv2.jpeg/v1/fill/w_900,h_900,al_c,q_85,enc_avif,quality_auto/AYA300-Dean%20Raphael-67.jpeg',
     plans: [
-      { slug: 'full', label: 'Pay in Full', regularPrice: 1490, price: 590, currency: 'USD', note: 'One-time payment' },
+      { slug: 'full', label: 'Pay in Full', regularPrice: null, price: 1490, currency: 'USD', note: 'One-time payment' },
       {
         slug: 'installment', label: '6-Month Plan', regularPrice: null, price: 249, currency: 'USD',
         note: 'per month, US$1,494 total',
