@@ -336,7 +336,6 @@ export function CampaignContent({ phase }) {
               style={{ fontFamily: 'Inter, sans-serif', animationDelay: '0.95s' }}
             >
               Step into the offer
-              <span aria-hidden="true">→</span>
             </a>
           </div>
 
@@ -952,7 +951,6 @@ function SoftEnrollNudge({ label = 'Ready when you are' }) {
         style={{ fontFamily: 'Inter, sans-serif' }}
       >
         Step into the offer
-        <span aria-hidden="true">↓</span>
       </a>
     </div>
   );
