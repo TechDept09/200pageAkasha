@@ -942,17 +942,17 @@ function CampaignStickyCTA({ phase }) {
 
 function SoftEnrollNudge({ label = 'Ready when you are' }) {
   return (
-    <div className="text-center py-10 md:py-12 bg-akasha-white">
-      <p className="text-[11px] font-body uppercase tracking-[0.28em] text-akasha-gray-1 mb-3">
+    <div className="text-center py-10 md:py-14 bg-akasha-white">
+      <p className="text-[11px] font-body uppercase tracking-[0.28em] text-akasha-gray-1 mb-5">
         {label}
       </p>
       <a
         href="#enroll"
-        className="inline-flex items-center text-akasha-orange hover:text-akasha-orange-dark transition-colors font-heading text-lg md:text-xl gap-2"
-        style={{ fontWeight: 400 }}
+        className="inline-flex items-center justify-center gap-2 bg-akasha-orange text-akasha-white px-8 md:px-10 py-3.5 md:py-4 rounded-full text-[12px] md:text-[13px] font-semibold uppercase tracking-[0.22em] hover:bg-akasha-orange-dark transition-colors shadow-md hover:shadow-lg"
+        style={{ fontFamily: 'Inter, sans-serif' }}
       >
         Step into the offer
-        <span aria-hidden="true" className="text-base">↓</span>
+        <span aria-hidden="true">↓</span>
       </a>
     </div>
   );
