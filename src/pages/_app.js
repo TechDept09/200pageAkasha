@@ -7,11 +7,16 @@ import { Inter, Jost, Allura } from 'next/font/google';
 import { pageview } from '@/lib/pixel';
 
 const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || '1349360126835158';
-// Standalone GA4 stays on the original property for historical
-// continuity. GTM is added alongside so marketing's tag stack
-// (Google Ads conversions + their own GA4 setup) fires from the
-// same container without touching this property.
+// Two GA4 properties fire in parallel from this codebase:
+// - GA_ID (G-L76KTFBEBG): original property, historical continuity.
+// - GA_ID_MARKETING (G-TGN09D50HK): marketing's property, used for
+//   Google Ads conversion attribution and their existing reporting.
+// gtag.js is loaded once, then two gtag('config', ...) calls target
+// each property. Each property gets its own _ga_<id> cookie, so
+// they don't collide.
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-L76KTFBEBG';
+const GA_ID_MARKETING =
+  process.env.NEXT_PUBLIC_GA_ID_MARKETING || 'G-TGN09D50HK';
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-M9GPNL6';
 
 // Self-hosted Google Fonts via next/font: the font files ship from the
@@ -43,12 +48,14 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     const handleRouteChange = (url) => {
       pageview();
-      // Existing GA4 property gets a direct gtag pageview.
+      // Both GA4 properties get a direct gtag pageview so client-side
+      // route changes (Next.js router.push) are attributed correctly.
       if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
         window.gtag('config', GA_ID, { page_path: url });
+        window.gtag('config', GA_ID_MARKETING, { page_path: url });
       }
-      // GTM also gets the SPA pageview signal via dataLayer so
-      // marketing's tags fire on client-side route changes too.
+      // GTM also gets the SPA pageview signal via dataLayer for any
+      // non-GA4 tags marketing wires into the container.
       if (typeof window !== 'undefined') {
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({ event: 'pageview', page_path: url });
@@ -114,6 +121,7 @@ export default function App({ Component, pageProps }) {
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', '${GA_ID}');
+            gtag('config', '${GA_ID_MARKETING}');
           `,
         }}
       />
