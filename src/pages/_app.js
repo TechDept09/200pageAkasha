@@ -18,6 +18,11 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-L76KTFBEBG';
 const GA_ID_MARKETING =
   process.env.NEXT_PUBLIC_GA_ID_MARKETING || 'G-TGN09D50HK';
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-M9GPNL6';
+// Second GTM container. Marketing wired an additional container
+// alongside the primary one; both listen on the same dataLayer so
+// every push routes to both containers without extra plumbing.
+const GTM_ID_MARKETING =
+  process.env.NEXT_PUBLIC_GTM_ID_MARKETING || 'GTM-5F5NHG99';
 
 // Self-hosted Google Fonts via next/font: the font files ship from the
 // same origin as the rest of the bundle, so there's no render-blocking
@@ -126,9 +131,7 @@ export default function App({ Component, pageProps }) {
         }}
       />
 
-      {/* Google Tag Manager container. Marketing owns this stack:
-          Google Ads conversion tags, their GA4 property, and any
-          future tags fire from GTM without touching this repo. */}
+      {/* Primary Google Tag Manager container. */}
       <Script
         id="gtm-loader"
         strategy="afterInteractive"
@@ -139,6 +142,21 @@ export default function App({ Component, pageProps }) {
             j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','${GTM_ID}');
+          `,
+        }}
+      />
+
+      {/* Second GTM container from marketing, loaded in parallel. */}
+      <Script
+        id="gtm-loader-marketing"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','${GTM_ID_MARKETING}');
           `,
         }}
       />

@@ -1,6 +1,8 @@
 import { Html, Head, Main, NextScript } from 'next/document';
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-M9GPNL6';
+const GTM_ID_MARKETING =
+  process.env.NEXT_PUBLIC_GTM_ID_MARKETING || 'GTM-5F5NHG99';
 
 export default function Document() {
   return (
@@ -15,9 +17,8 @@ export default function Document() {
         <link rel="dns-prefetch" href="https://connect.facebook.net" />
       </Head>
       <body>
-        {/* GTM noscript fallback. Loads the container in a hidden iframe
-            when JavaScript is disabled so server-side hit logging still
-            fires for the ~1% of visitors without JS. */}
+        {/* GTM noscript fallbacks. Both containers load in hidden
+            iframes when JavaScript is disabled. */}
         <noscript>
           <iframe
             src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
@@ -25,6 +26,13 @@ export default function Document() {
             width="0"
             style={{ display: 'none', visibility: 'hidden' }}
             title="Google Tag Manager"
+          />
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID_MARKETING}`}
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+            title="Google Tag Manager (marketing)"
           />
         </noscript>
         <Main />
