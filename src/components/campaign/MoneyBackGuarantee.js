@@ -10,54 +10,19 @@ export default function MoneyBackGuarantee() {
     >
       <div className="section max-w-5xl">
         <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)] gap-10 md:gap-16 items-center">
-          {/* Seal badge, orange filled circle stacking the guarantee
-              wording. Renders as the visual anchor of the section. */}
+          {/* Gold Money Back Guarantee seal, source asset in /public. */}
           <div className="flex justify-center md:justify-start">
-            <div
-              className="relative flex flex-col items-center justify-center text-center bg-akasha-orange text-akasha-white rounded-full shadow-xl"
+            <img
+              src="/money-back-guarantee.png"
+              alt="100% Money Back Guarantee seal"
+              loading="lazy"
+              decoding="async"
+              className="w-auto h-auto"
               style={{
-                width: 'clamp(220px, 28vw, 280px)',
-                height: 'clamp(220px, 28vw, 280px)',
+                maxWidth: 'clamp(220px, 28vw, 300px)',
+                filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.15))',
               }}
-              aria-hidden="true"
-            >
-              <span
-                className="absolute inset-2 rounded-full border border-akasha-white/40"
-                aria-hidden="true"
-              />
-              <span
-                className="uppercase"
-                style={{
-                  fontFamily: 'Inter, sans-serif',
-                  fontSize: 'clamp(0.7rem, 1vw, 0.8rem)',
-                  letterSpacing: '0.32em',
-                  fontWeight: 600,
-                }}
-              >
-                14-Day
-              </span>
-              <span
-                className="script text-akasha-white mt-1"
-                style={{
-                  fontSize: 'clamp(2.4rem, 4.4vw, 3rem)',
-                  lineHeight: 1,
-                  color: '#FFFFFF',
-                }}
-              >
-                Money-Back
-              </span>
-              <span
-                className="uppercase mt-2"
-                style={{
-                  fontFamily: 'Inter, sans-serif',
-                  fontSize: 'clamp(0.9rem, 1.4vw, 1.05rem)',
-                  letterSpacing: '0.28em',
-                  fontWeight: 500,
-                }}
-              >
-                Guarantee
-              </span>
-            </div>
+            />
           </div>
 
           {/* Copy column, verbatim */}
@@ -95,10 +60,6 @@ export default function MoneyBackGuarantee() {
               </p>
             </div>
 
-            <p className="mt-6 text-[11px] md:text-xs font-body text-akasha-gray-2 italic leading-relaxed">
-              *MBG is available with the Essential program until July
-              15th, as part of the Bring Bali Home special promo.
-            </p>
           </div>
         </div>
       </div>
