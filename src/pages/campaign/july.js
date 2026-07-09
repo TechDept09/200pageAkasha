@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import HubNav from '@/components/hub/HubNav';
 import TrustStrip from '@/components/TrustStrip';
 import CertifiedTeacherIntro from '@/components/CertifiedTeacherIntro';
+import UserSessionCountdown from '@/components/campaign/UserSessionCountdown';
 import Footer from '@/components/Footer';
 import { courses } from '@/lib/courses';
 
@@ -344,6 +345,16 @@ export function CampaignContent({ phase }) {
             >
               {phase.intro}
             </p>
+            {/* Per-user 24h urgency countdown. Stamps localStorage on
+                first visit and ticks against that deadline on every
+                subsequent load. Sits above the hero CTA so the timer
+                is the last thing the buyer reads before clicking. */}
+            <div
+              className="july-hero-anim"
+              style={{ animationDelay: '0.85s' }}
+            >
+              <UserSessionCountdown />
+            </div>
             <a
               href="#enroll"
               className="july-hero-anim july-hero-cta inline-flex items-center justify-center gap-3 bg-akasha-orange text-akasha-white px-12 md:px-16 py-5 md:py-6 rounded-full text-[14px] md:text-[16px] font-semibold uppercase tracking-[0.22em] hover:bg-akasha-orange-dark transition-all duration-300 shadow-2xl"
