@@ -345,22 +345,19 @@ export function CampaignContent({ phase }) {
             >
               {phase.intro}
             </p>
-            {/* Per-user 24h urgency countdown. Stamps localStorage on
-                first visit and ticks against that deadline on every
-                subsequent load. Sits above the hero CTA so the timer
-                is the last thing the buyer reads before clicking. */}
-            <div
-              className="july-hero-anim"
-              style={{ animationDelay: '0.85s' }}
-            >
-              <UserSessionCountdown
-                label={
-                  isBackup
-                    ? 'Only for the next 24 hours'
-                    : 'Your offer expires in'
-                }
-              />
-            </div>
+            {/* Per-user 24h urgency countdown, backup phase only.
+                Phase 1 and Phase 2 use a calendar deadline (Jul 17
+                / Aug 2), so a per-user 24h clock would misrepresent
+                the offer. Backup is the last-chance drop where the
+                24h narrative fits. */}
+            {isBackup ? (
+              <div
+                className="july-hero-anim"
+                style={{ animationDelay: '0.85s' }}
+              >
+                <UserSessionCountdown label="Only for the next 24 hours" />
+              </div>
+            ) : null}
             <a
               href="#enroll"
               className="july-hero-anim july-hero-cta inline-flex items-center justify-center gap-3 bg-akasha-orange text-akasha-white px-12 md:px-16 py-5 md:py-6 rounded-full text-[14px] md:text-[16px] font-semibold uppercase tracking-[0.22em] hover:bg-akasha-orange-dark transition-all duration-300 shadow-2xl"
