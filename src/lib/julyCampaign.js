@@ -91,8 +91,8 @@ JULY_PHASES.backup = {
   label: 'Final Self-Care Offer',
   publicName: 'Final Self-Care',
   dateRange: 'Only for the next 24 hours',
-  headline: 'Last chance, 200-Hour Essential',
-  scriptTagline: 'A quiet, final invitation',
+  headline: 'Summer Self-Care Journey',
+  scriptTagline: 'This summer, choose yourself',
   intro:
     'A final way in. The 200-Hour Yoga Teacher Training (Essential Path) at an exclusive 24-hour price, for those who feel the call now.',
   couponCode: BACKUP_COUPON,
