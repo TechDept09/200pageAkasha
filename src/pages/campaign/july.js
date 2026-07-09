@@ -101,6 +101,7 @@ import { useUtmParams, formatUtmNote } from '@/hooks/useUtmParams';
 import { trackLead, trackInitiateCheckout, newEventId } from '@/lib/pixel';
 import { getMetaCookies } from '@/lib/fbCookies';
 import { pushBeginCheckout } from '@/lib/gtmEcommerce';
+import { useUrgencyCountdown } from '@/hooks/useUrgencyCountdown';
 import {
   JULY_ACCESS_KEY,
   getActiveJulyPhase,
@@ -911,7 +912,12 @@ function CampaignStickyCTA({ phase }) {
   const [visible, setVisible] = useState(false);
   const [dismissed, setDismissed] = useState(false);
   const isBackup = phase.key === 'backup';
-  const countdown = useCountdownTo(isBackup ? null : phase.end);
+  const calendarCountdown = useCountdownTo(isBackup ? null : phase.end);
+  // Backup phase reads the same per-user 24h stamp the hero uses,
+  // so the sticky ticker stays in sync with the hero timer as the
+  // buyer scrolls the page.
+  const urgency = useUrgencyCountdown();
+  const countdown = isBackup ? null : calendarCountdown;
 
   useEffect(() => {
     const onScroll = () => {
@@ -953,6 +959,16 @@ function CampaignStickyCTA({ phase }) {
                   · ends in {countdown.days}d {countdown.hours}h {countdown.minutes}m
                 </span>
               ) : null}
+              {isBackup && urgency && !urgency.expired ? (
+                <span
+                  className="hidden sm:inline text-akasha-white/80 normal-case tracking-normal ml-2"
+                  style={{ fontVariantNumeric: 'tabular-nums' }}
+                >
+                  · {String(urgency.hours).padStart(2, '0')}:
+                  {String(urgency.minutes).padStart(2, '0')}:
+                  {String(urgency.seconds).padStart(2, '0')} left
+                </span>
+              ) : null}
             </p>
             <p
               className="hidden sm:block text-xs md:text-sm font-heading text-akasha-white leading-snug truncate"
@@ -963,6 +979,16 @@ function CampaignStickyCTA({ phase }) {
             {countdown && !countdown.expired ? (
               <p className="sm:hidden text-[10px] font-body text-akasha-white/70 leading-tight mt-0.5">
                 ends in {countdown.days}d {countdown.hours}h
+              </p>
+            ) : null}
+            {isBackup && urgency && !urgency.expired ? (
+              <p
+                className="sm:hidden text-[10px] font-body text-akasha-white/80 leading-tight mt-0.5"
+                style={{ fontVariantNumeric: 'tabular-nums' }}
+              >
+                {String(urgency.hours).padStart(2, '0')}:
+                {String(urgency.minutes).padStart(2, '0')}:
+                {String(urgency.seconds).padStart(2, '0')} left
               </p>
             ) : null}
           </div>

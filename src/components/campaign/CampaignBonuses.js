@@ -1,7 +1,16 @@
+'use client';
+
 // 'Enroll Today & Get 14 Free Bonuses' grid. Bonus content is
 // verbatim from akashayogaacademy.com/200hr-yoga-teacher-training-online:
 // 'Design Your Schedule' as the intro item + 13 numbered bonuses.
 // Total value US$1,130 comes directly from the source header.
+//
+// Descriptions are collapsed by default on mobile, tap the row to
+// expand. Desktop (md+) always shows the description, so the
+// grid stays scannable while cold traffic on mobile can still
+// dig deeper when they want to.
+
+import { useState } from 'react';
 
 const BONUSES = [
   {
@@ -111,6 +120,8 @@ const BONUSES = [
 const TOTAL_VALUE_LABEL = 'US$1,130';
 
 export default function CampaignBonuses() {
+  const [openId, setOpenId] = useState(null);
+
   return (
     <section
       className="py-16 md:py-24 bg-akasha-black text-akasha-white"
@@ -152,45 +163,71 @@ export default function CampaignBonuses() {
           </p>
         </header>
 
-        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-          {BONUSES.map((b) => (
-            <li key={b.n} className="flex items-start gap-4">
-              <span
-                aria-hidden="true"
-                className="flex-none w-11 h-11 rounded-full border border-akasha-orange/70 bg-akasha-orange/10 text-akasha-orange flex items-center justify-center font-heading text-lg"
-                style={{ fontWeight: 400 }}
-              >
-                {b.n}
-              </span>
-              <div className="flex-1 min-w-0">
-                <p
-                  className="font-heading text-akasha-white leading-snug"
-                  style={{
-                    fontSize: 'clamp(0.95rem, 1.4vw, 1.05rem)',
-                    fontWeight: 400,
-                  }}
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+          {BONUSES.map((b) => {
+            const isOpen = openId === b.n;
+            return (
+              <li key={b.n}>
+                <button
+                  type="button"
+                  onClick={() => setOpenId(isOpen ? null : b.n)}
+                  aria-expanded={isOpen}
+                  className="w-full text-left flex items-start gap-4 md:cursor-default md:pointer-events-none"
                 >
-                  {b.name}{' '}
                   <span
-                    className="text-akasha-gold"
-                    style={{
-                      fontFamily: 'Inter, sans-serif',
-                      fontSize: 'clamp(0.72rem, 1vw, 0.8rem)',
-                      fontWeight: 500,
-                      letterSpacing: '0.05em',
-                    }}
+                    aria-hidden="true"
+                    className="flex-none w-11 h-11 rounded-full border border-akasha-orange/70 bg-akasha-orange/10 text-akasha-orange flex items-center justify-center font-heading text-lg"
+                    style={{ fontWeight: 400 }}
                   >
-                    (US${b.value} value)
+                    {b.n}
                   </span>
-                </p>
-                {b.desc ? (
-                  <p className="mt-1.5 text-[13px] md:text-sm font-body text-akasha-white/70 leading-relaxed">
-                    {b.desc}
-                  </p>
-                ) : null}
-              </div>
-            </li>
-          ))}
+                  <div className="flex-1 min-w-0">
+                    <p
+                      className="font-heading text-akasha-white leading-snug flex items-start justify-between gap-2"
+                      style={{
+                        fontSize: 'clamp(0.95rem, 1.4vw, 1.05rem)',
+                        fontWeight: 400,
+                      }}
+                    >
+                      <span className="flex-1">
+                        {b.name}{' '}
+                        <span
+                          className="text-akasha-gold whitespace-nowrap"
+                          style={{
+                            fontFamily: 'Inter, sans-serif',
+                            fontSize: 'clamp(0.72rem, 1vw, 0.8rem)',
+                            fontWeight: 500,
+                            letterSpacing: '0.05em',
+                          }}
+                        >
+                          (US${b.value} value)
+                        </span>
+                      </span>
+                      {b.desc ? (
+                        <span
+                          aria-hidden="true"
+                          className={`md:hidden flex-none mt-1 text-akasha-orange transition-transform duration-200 ${
+                            isOpen ? 'rotate-45' : ''
+                          }`}
+                        >
+                          +
+                        </span>
+                      ) : null}
+                    </p>
+                    {b.desc ? (
+                      <p
+                        className={`mt-1.5 text-[13px] md:text-sm font-body text-akasha-white/70 leading-relaxed ${
+                          isOpen ? 'block' : 'hidden'
+                        } md:block`}
+                      >
+                        {b.desc}
+                      </p>
+                    ) : null}
+                  </div>
+                </button>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </section>

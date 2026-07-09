@@ -8,10 +8,7 @@
 // Style is the Hostinger-style dark tile with big monospace digits.
 // Sits inside the campaign hero, right above the CTA.
 
-import { useEffect, useState } from 'react';
-
-const START_KEY = 'akasha_urgency_start';
-const WINDOW_MS = 24 * 60 * 60 * 1000; // 24 hours
+import { useUrgencyCountdown } from '@/hooks/useUrgencyCountdown';
 
 function pad(n) {
   return String(n).padStart(2, '0');
@@ -21,38 +18,11 @@ export default function UserSessionCountdown({
   label = 'Your offer expires in',
   compact = false,
 }) {
-  const [remaining, setRemaining] = useState(null);
+  const t = useUrgencyCountdown();
+  if (!t) return null;
+  if (t.expired) return null;
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return undefined;
-
-    let start = Number(window.localStorage.getItem(START_KEY));
-    if (!start || Number.isNaN(start) || start > Date.now()) {
-      start = Date.now();
-      try {
-        window.localStorage.setItem(START_KEY, String(start));
-      } catch (_) {
-        // Private mode or quota: fall back to session-only, timer
-        // will restart on next reload but still applies urgency now.
-      }
-    }
-    const endsAt = start + WINDOW_MS;
-
-    const tick = () => {
-      const diff = Math.max(0, endsAt - Date.now());
-      setRemaining(diff);
-    };
-    tick();
-    const id = setInterval(tick, 1000);
-    return () => clearInterval(id);
-  }, []);
-
-  if (remaining === null) return null;
-  if (remaining === 0) return null;
-
-  const hours = Math.floor(remaining / 3600000);
-  const minutes = Math.floor((remaining % 3600000) / 60000);
-  const seconds = Math.floor((remaining % 60000) / 1000);
+  const { hours, minutes, seconds } = t;
 
   const digitStyle = {
     fontFamily: 'Inter, sans-serif',
