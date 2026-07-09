@@ -77,32 +77,31 @@ export const JULY_PHASES = {
 // Emergency Reset / Backup plan from the brief, deployed manually if
 // Phase 1 underperforms in the first week. Only Essential goes live;
 // Yin is dropped, bundle is dropped, and a single voucher coupon takes
-// the Essential price down to US$249 at the Wix checkout. The coupon
-// code is env-tunable so marketing can rotate the voucher name without
-// a redeploy.
+// Backup phase = 24h urgency drop. Public / anchor stays at US$320,
+// the CARE249 voucher takes it to US$249 for the final 24 hours the
+// buyer sees. Timer in the hero drives the rush; no percent-off
+// chip is needed because the scarcity is time-based, not
+// discount-based. Voucher code is env-tunable so marketing can
+// rotate the name without a redeploy.
 const BACKUP_COUPON =
-  process.env.NEXT_PUBLIC_JULY_BACKUP_COUPON || 'FINAL41';
+  process.env.NEXT_PUBLIC_JULY_BACKUP_COUPON || 'CARE249';
 
 JULY_PHASES.backup = {
   key: 'backup',
   label: 'Final Self-Care Offer',
   publicName: 'Final Self-Care',
-  dateRange: 'Final offer',
+  dateRange: 'Only for the next 24 hours',
   headline: 'Last chance, 200-Hour Essential',
   scriptTagline: 'A quiet, final invitation',
   intro:
-    'A final way in. The 200-Hour Yoga Teacher Training (Essential Path) at an exclusive closing price, for those who feel the call now.',
+    'A final way in. The 200-Hour Yoga Teacher Training (Essential Path) at an exclusive 24-hour price, for those who feel the call now.',
   couponCode: BACKUP_COUPON,
-  couponNote: `Use voucher ${BACKUP_COUPON} for an additional US$41 off, bringing the Essential to US$249 at checkout.`,
+  couponNote: `Voucher ${BACKUP_COUPON} auto-applied at checkout, brings the Essential from US$320 to US$249.`,
   bundle: null,
   standalone: {
-    essential: 290,
+    essential: 320,
     voucherPrice: 249,
-    // Regular anchor + discount % so StandaloneCard shows the same
-    // strike-through + chip treatment as Phase 1. 1190 -> 249 is
-    // ~79% off but marketing rounded the chip to a clean 79%.
-    regularPrice: 1190,
-    discountPercent: 79,
+    couponCode: BACKUP_COUPON,
   },
 };
 

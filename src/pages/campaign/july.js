@@ -353,7 +353,13 @@ export function CampaignContent({ phase }) {
               className="july-hero-anim"
               style={{ animationDelay: '0.85s' }}
             >
-              <UserSessionCountdown />
+              <UserSessionCountdown
+                label={
+                  isBackup
+                    ? 'Only for the next 24 hours'
+                    : 'Your offer expires in'
+                }
+              />
             </div>
             <a
               href="#enroll"
