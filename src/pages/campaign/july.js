@@ -7,6 +7,7 @@ import HubNav from '@/components/hub/HubNav';
 import TrustStrip from '@/components/TrustStrip';
 import CertifiedTeacherIntro from '@/components/CertifiedTeacherIntro';
 import UserSessionCountdown from '@/components/campaign/UserSessionCountdown';
+import CampaignBonuses from '@/components/campaign/CampaignBonuses';
 import Footer from '@/components/Footer';
 import { courses } from '@/lib/courses';
 
@@ -516,6 +517,12 @@ export function CampaignContent({ phase }) {
             </div>
           </div>
         </section>
+
+        {/* Bonuses grid, backup phase only. Sits right after the
+            checkout card so the value-stack reads immediately after
+            the price. Content is verbatim from
+            akashayogaacademy.com/200hr-yoga-teacher-training-online. */}
+        {isBackup ? <CampaignBonuses /> : null}
 
         {/* Side-by-side comparison only when a bundle exists. */}
         {hasBundle ? (
