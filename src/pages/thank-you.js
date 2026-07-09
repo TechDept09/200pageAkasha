@@ -4,6 +4,7 @@ import Head from 'next/head';
 import HubNav from '@/components/hub/HubNav';
 import Footer from '@/components/Footer';
 import { trackPurchase } from '@/lib/pixel';
+import { firePurchaseFromUrl } from '@/lib/gtmEcommerce';
 
 // Two hour ceiling on stale Purchase data, in case the buyer abandoned
 // mid-checkout and only revisited this URL much later.
@@ -15,7 +16,14 @@ export default function ThankYou() {
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    // Refresh-proof: never fire Purchase twice in the same tab session.
+
+    // GA4 / GTM purchase event. Reads orderId from the URL that Wix
+    // appended on redirect + the sessionStorage stashed by
+    // pushBeginCheckout. Idempotent (sessionStorage cleared on fire),
+    // so a refresh does not re-fire. Runs independent of Meta below.
+    firePurchaseFromUrl();
+
+    // Refresh-proof: never fire Meta Purchase twice in the same tab.
     if (sessionStorage.getItem('purchase_fired')) return;
 
     let courseName, courseId, price, eventId, timestamp;

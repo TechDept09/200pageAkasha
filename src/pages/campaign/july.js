@@ -94,6 +94,7 @@ import { startWixCheckout } from '@/lib/checkout';
 import { useUtmParams, formatUtmNote } from '@/hooks/useUtmParams';
 import { trackLead, trackInitiateCheckout, newEventId } from '@/lib/pixel';
 import { getMetaCookies } from '@/lib/fbCookies';
+import { pushBeginCheckout } from '@/lib/gtmEcommerce';
 import {
   JULY_ACCESS_KEY,
   getActiveJulyPhase,
@@ -681,6 +682,14 @@ function BundleCard({ phase, showWellnessNote, onWhatYouGet }) {
         localStorage.setItem('pendingPurchase_eventId', eventId);
         localStorage.setItem('pendingPurchase_timestamp', Date.now().toString());
       } catch (_) {}
+
+      // GA4 / GTM begin_checkout push; thank-you page reads the
+      // stashed order once Wix returns with orderId in the URL.
+      pushBeginCheckout({
+        course_name: courseLabel,
+        value: bundle.total,
+        currency: 'USD',
+      });
 
       const url = await startWixCheckout({
         utm,
@@ -1633,6 +1642,14 @@ function StandaloneCard({ phase, onWhatYouGet }) {
         localStorage.setItem('pendingPurchase_eventId', eventId);
         localStorage.setItem('pendingPurchase_timestamp', Date.now().toString());
       } catch (_) {}
+
+      // GA4 / GTM begin_checkout push; thank-you page reads the
+      // stashed order once Wix returns with orderId in the URL.
+      pushBeginCheckout({
+        course_name: courseLabel,
+        value: displayPrice,
+        currency: 'USD',
+      });
 
       const url = await startWixCheckout({
         utm,

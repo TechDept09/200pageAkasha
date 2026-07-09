@@ -6,6 +6,7 @@ import { useUtmParams, formatUtmNote } from '@/hooks/useUtmParams';
 import { useTier } from '@/lib/TierContext';
 import { trackLead, trackInitiateCheckout, newEventId } from '@/lib/pixel';
 import { getMetaCookies } from '@/lib/fbCookies';
+import { pushBeginCheckout } from '@/lib/gtmEcommerce';
 
 function price(n, currency) {
   if (!n) return null;
@@ -87,6 +88,15 @@ export default function EnrollForm() {
         // Private mode or quota: continue without browser-side Purchase,
         // CAPI still tracks the order via the Wix Order Paid webhook.
       }
+
+      // GA4 / GTM ecommerce push: fires begin_checkout and stashes
+      // the order so /thank-you can push the purchase event once
+      // Wix sends the buyer back with an orderId in the URL.
+      pushBeginCheckout({
+        course_name: courseLabel,
+        value: activePlan?.price || 0,
+        currency: activePlan?.currency || 'USD',
+      });
 
       // Subscription/Payment-Plan variants are dropped by the Wix headless
       // SDK, so the plan declares a wixProductPageUrl and we redirect the
