@@ -88,7 +88,7 @@ JULY_PHASES.backup = {
   label: 'Final Self-Care Offer',
   publicName: 'Final Self-Care',
   dateRange: 'Final offer',
-  headline: 'Last chance, 200hr Essential',
+  headline: 'Last chance, 200-Hour Essential',
   scriptTagline: 'A quiet, final invitation',
   intro:
     'A final way in. The 200-Hour Yoga Teacher Training (Essential Path) at an exclusive closing price, for those who feel the call now.',
@@ -98,6 +98,11 @@ JULY_PHASES.backup = {
   standalone: {
     essential: 290,
     voucherPrice: 249,
+    // Regular anchor + discount % so StandaloneCard shows the same
+    // strike-through + chip treatment as Phase 1. 1190 -> 249 is
+    // ~79% off but marketing rounded the chip to a clean 79%.
+    regularPrice: 1190,
+    discountPercent: 79,
   },
 };
 

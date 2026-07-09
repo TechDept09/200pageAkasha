@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import HubNav from '@/components/hub/HubNav';
 import TrustStrip from '@/components/TrustStrip';
 import CertifiedTeacherIntro from '@/components/CertifiedTeacherIntro';
@@ -108,6 +109,7 @@ import {
 const STORAGE_KEY = 'akasha_july_2026_access';
 
 export default function JulyCampaign() {
+  const router = useRouter();
   const [authorized, setAuthorized] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [code, setCode] = useState('');
@@ -119,8 +121,19 @@ export default function JulyCampaign() {
     if (typeof window !== 'undefined' && sessionStorage.getItem(STORAGE_KEY) === 'true') {
       setAuthorized(true);
     }
-    setPhase(getActiveJulyPhase() || JULY_PHASES.phase1);
-  }, []);
+    // Preview override via ?phase= query. Values: phase1, phase2, backup.
+    // Falls back to the calendar-active phase (Phase 1 currently).
+    // Only affects this gated preview URL; the live hub still uses
+    // getActiveJulyPhase() through useJulyLaunched + JulyLaunchHome.
+    const overrideKey = typeof router.query.phase === 'string'
+      ? router.query.phase.toLowerCase()
+      : null;
+    const overridePhase =
+      overrideKey && JULY_PHASES[overrideKey]
+        ? JULY_PHASES[overrideKey]
+        : null;
+    setPhase(overridePhase || getActiveJulyPhase() || JULY_PHASES.phase1);
+  }, [router.query.phase]);
 
   const submit = (e) => {
     e.preventDefault();
