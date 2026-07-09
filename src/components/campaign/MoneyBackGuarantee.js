@@ -76,7 +76,7 @@ export default function MoneyBackGuarantee() {
               <p>Your genuine satisfaction really matters to us.</p>
               <p>
                 That's why we offer an unconditional Money-Back Guarantee.
-                If our premium program doesn't meet your expectations,
+                If our Essential program doesn't meet your expectations,
                 you're entitled to get an immediate, full refund.
               </p>
               <p>
@@ -84,7 +84,7 @@ export default function MoneyBackGuarantee() {
                 flexibility to explore freely for 2 weeks.
               </p>
               <p>
-                This premium program is designed to exceed expectations.
+                This Essential program is designed to exceed expectations.
                 We're fully dedicated to supporting you on every step of
                 this life-changing journey.
               </p>
@@ -96,8 +96,8 @@ export default function MoneyBackGuarantee() {
             </div>
 
             <p className="mt-6 text-[11px] md:text-xs font-body text-akasha-gray-2 italic leading-relaxed">
-              *MBG is available with Premium Plans until July 15th, as
-              part of the Bring Bali Home special promo.
+              *MBG is available with the Essential program until July
+              15th, as part of the Bring Bali Home special promo.
             </p>
           </div>
         </div>
