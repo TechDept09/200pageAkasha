@@ -1,69 +1,114 @@
-// 'Enroll Today & Get X Free Bonuses' grid. Bonus content is verbatim
-// from akashayogaacademy.com/200hr-yoga-teacher-training-online (the
-// same set that sits inside the 'What will you get?' modal). Layout
-// mirrors the reference: three columns on desktop, one on mobile,
-// each item a circle number tag + title + value line.
+// 'Enroll Today & Get 14 Free Bonuses' grid. Bonus content is
+// verbatim from akashayogaacademy.com/200hr-yoga-teacher-training-online:
+// 'Design Your Schedule' as the intro item + 13 numbered bonuses.
+// Total value US$1,130 comes directly from the source header.
 
 const BONUSES = [
   {
     n: 1,
-    name: 'How to Teach Yoga Online',
-    value: 299,
+    name: 'Design Your Schedule',
+    value: 99,
     desc:
-      'First-hand experience from Akasha Yoga on how to bring your Yoga classes online: audio, lighting, and camera tricks and tips.',
+      'Receive a tailor-made, personalized schedule. Get empowered to complete this course successfully. This helpful customization service allows you to fit our flexible course into your daily life.',
   },
   {
     n: 2,
-    name: 'Journey Through the 7 Chakras',
-    value: 199,
+    name: 'How to Teach Yoga Online',
+    value: 299,
     desc:
-      'Introductory workshop on the classical roots and modern interpretations of the 7 Chakras, energetic aspects, and corresponding emotions.',
+      'In this course Akasha Yoga shares their first-hand experience of how to bring your Yoga classes online. Receive all the audio, lighting, and camera tricks and tips to make your offerings online a successful experience.',
   },
   {
     n: 3,
-    name: 'Holistic Well-Being Workshop',
-    value: 229,
+    name: 'Journey Through the 7 Chakras',
+    value: 199,
     desc:
-      'The yogic system of the 5 Bodies, an ancient holistic description of the human being formulated 2500 years ago.',
+      'In this introduction workshop, we present the system of the famous 7 Chakras. You will receive a clear understanding of the classical roots and modern interpretations. In this comprehensive overview, you will learn about energetic aspects, corresponding emotions, and psychological attributes.',
   },
   {
     n: 4,
-    name: 'Asana Study Flashcards',
-    value: 35,
+    name: 'Holistic Well-Being Workshop',
+    value: 229,
     desc:
-      'Made especially for you to memorise the teaching cues. Covers the Asanas from the 200-Hour Teacher Training.',
+      "In this eye-opening workshop, we introduce the yogic system of the 5 Bodies. You will benefit a lot from this ancient holistic description of the human being, formulated 2500 years ago, yet fully relevant in our modern times. You will walk away with a clear & practical understanding of the different layers & aspects of our being, ready to apply this wisdom into your daily life.",
   },
   {
     n: 5,
-    name: 'Sanskrit Study Flashcards',
+    name: 'Asana Study Flashcards',
     value: 35,
     desc:
-      'Made especially for you to memorise the Sanskrit names of the Asanas from the 200-Hour Teacher Training.',
+      "These Asana study flashcards were made especially for you to memorize the teaching cues. The Asanas in this card deck are part of Akasha's 200-Hour Teacher Training.",
   },
   {
     n: 6,
-    name: 'Poster Asana Poses',
-    value: 69,
+    name: 'Sanskrit Study Flashcards',
+    value: 35,
     desc:
-      'Every Asana covered in the 200-Hour Yoga TTC in high image quality, ready to showcase at home or in your Yoga studio.',
+      "These Sanskrit study flashcards were made especially for you to memorize the Sanskrit names of the Asanas. The cards in this deck are part of Akasha's 200-Hour Teacher Training.",
   },
   {
     n: 7,
-    name: 'The Art & Science of Teaching',
-    value: 108,
+    name: 'Poster Asana Poses',
+    value: 69,
     desc:
-      'Ancient wisdom paired with modern methods. Yogic artistry meets evidence-based science.',
+      "Poster with all the Asana's covered in our 200-Hr Yoga TTC in high image quality. Perfect to show case at home or your Yoga studio.",
   },
   {
     n: 8,
+    name: 'The Art & Science of Teaching',
+    value: 108,
+    desc:
+      'Unite ancient wisdom with modern methods. Elevate your teaching with a fusion of yogic artistry and evidence-based science. Perfect for aspiring and seasoned instructors.',
+  },
+  {
+    n: 9,
     name: 'Yoga in Daily Life',
     value: 86,
     desc:
-      "Bonus book on Yama & Niyama, yoga's ethical foundations. Integrate these virtues into everyday life & practice.",
+      "Discover 'Yoga in Daily Life': our bonus book delving into Yama & Niyama, yoga's ethical foundations. Learn to integrate these virtues into everyday life & practice.",
+  },
+  {
+    n: 10,
+    name: 'Scripture Studies Book',
+    value: 39,
+    desc:
+      'Explore timeless pearls of wisdom in our Scripture Studies Book.',
+  },
+  {
+    n: 11,
+    name: 'Yoga Liability Waiver',
+    value: 29,
+    desc:
+      'This waiver template is an essential document for any Yoga teacher that informs the students of the risks involved in practice and can also protect you and your business from any legal issues.',
+  },
+  {
+    n: 12,
+    name: 'Resume Yoga Teacher (CV)',
+    value: 19,
+    desc:
+      'An important and helpful component in seeking yoga teaching opportunities is a professional resume. A resume helps to give potential employers a snapshot of your background and mission statement to help you get your foot in the door for an interview or audition.',
+  },
+  {
+    n: 13,
+    name: 'Cover Letter Yoga Teacher',
+    value: 19,
+    desc:
+      'A well-written cover letter will show potential yoga employers that you are organized and professional. It will also help them understand why you are a good fit for the position. Cover letters allow potential employers to understand who you are and encourage them to read your resume.',
+  },
+  {
+    n: 14,
+    name: 'Intake Form New Clients',
+    value: 35,
+    desc:
+      'You can use this sample New Yoga Client Intake and Health History Form to learn about their health history background. It is recommended to have a complete health history so you can address key issues and make sure you focus on what matters to your students.',
   },
 ];
 
-const TOTAL_VALUE = BONUSES.reduce((sum, b) => sum + b.value, 0);
+// Verbatim from the source header on
+// akashayogaacademy.com/200hr-yoga-teacher-training-online. Not a
+// sum of the item values so it stays aligned with what marketing
+// already publishes on the live page.
+const TOTAL_VALUE_LABEL = 'US$1,130';
 
 export default function CampaignBonuses() {
   return (
@@ -103,7 +148,7 @@ export default function CampaignBonuses() {
               lineHeight: 1.1,
             }}
           >
-            Over US${TOTAL_VALUE.toLocaleString('en-US')} value
+            Over {TOTAL_VALUE_LABEL} value
           </p>
         </header>
 
