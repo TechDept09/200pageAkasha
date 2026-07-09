@@ -8,6 +8,7 @@ import TrustStrip from '@/components/TrustStrip';
 import CertifiedTeacherIntro from '@/components/CertifiedTeacherIntro';
 import UserSessionCountdown from '@/components/campaign/UserSessionCountdown';
 import CampaignBonuses from '@/components/campaign/CampaignBonuses';
+import MoneyBackGuarantee from '@/components/campaign/MoneyBackGuarantee';
 import Footer from '@/components/Footer';
 import { courses } from '@/lib/courses';
 
@@ -523,6 +524,11 @@ export function CampaignContent({ phase }) {
             the price. Content is verbatim from
             akashayogaacademy.com/200hr-yoga-teacher-training-online. */}
         {isBackup ? <CampaignBonuses /> : null}
+
+        {/* Risk-reversal section, backup phase only. Sits right after
+            the bonuses value stack so buyers see the safety net
+            before scrolling further. */}
+        {isBackup ? <MoneyBackGuarantee /> : null}
 
         {/* Side-by-side comparison only when a bundle exists. */}
         {hasBundle ? (
