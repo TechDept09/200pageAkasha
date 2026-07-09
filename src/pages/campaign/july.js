@@ -345,6 +345,66 @@ export function CampaignContent({ phase }) {
             >
               {phase.intro}
             </p>
+
+            {/* Backup phase gets a big price statement in the hero so
+                the offer reads as a hard number, not just a coupon.
+                Was US$320, today US$249. Timer below reinforces the
+                24h window. */}
+            {isBackup ? (
+              <div
+                className="july-hero-anim mb-6 flex flex-col items-center gap-1"
+                style={{ animationDelay: '0.8s' }}
+              >
+                <span
+                  className="text-akasha-gold uppercase"
+                  style={{
+                    fontFamily: 'Inter, sans-serif',
+                    fontSize: 'clamp(0.7rem, 1.1vw, 0.82rem)',
+                    letterSpacing: '0.32em',
+                    fontWeight: 600,
+                    textShadow: '0 1px 8px rgba(0,0,0,0.55)',
+                  }}
+                >
+                  Today only
+                </span>
+                <div className="flex items-baseline gap-3">
+                  <span
+                    className="text-akasha-white/60 line-through font-body"
+                    style={{
+                      fontSize: 'clamp(1.1rem, 2.2vw, 1.4rem)',
+                      textShadow: '0 1px 6px rgba(0,0,0,0.5)',
+                    }}
+                  >
+                    US$320
+                  </span>
+                  <span
+                    className="text-akasha-white font-heading"
+                    style={{
+                      fontSize: 'clamp(3.4rem, 8vw, 5.4rem)',
+                      fontWeight: 400,
+                      lineHeight: 1,
+                      letterSpacing: '-0.01em',
+                      textShadow: '0 2px 18px rgba(0,0,0,0.6)',
+                    }}
+                  >
+                    US$249
+                  </span>
+                </div>
+                <span
+                  className="text-akasha-orange uppercase"
+                  style={{
+                    fontFamily: 'Inter, sans-serif',
+                    fontSize: 'clamp(0.7rem, 1.1vw, 0.82rem)',
+                    letterSpacing: '0.3em',
+                    fontWeight: 600,
+                    textShadow: '0 1px 8px rgba(0,0,0,0.55)',
+                  }}
+                >
+                  Voucher CARE249 auto-applied at checkout
+                </span>
+              </div>
+            ) : null}
+
             {/* Per-user 24h urgency countdown, backup phase only.
                 Phase 1 and Phase 2 use a calendar deadline (Jul 17
                 / Aug 2), so a per-user 24h clock would misrepresent
@@ -353,7 +413,7 @@ export function CampaignContent({ phase }) {
             {isBackup ? (
               <div
                 className="july-hero-anim"
-                style={{ animationDelay: '0.85s' }}
+                style={{ animationDelay: '0.9s' }}
               >
                 <UserSessionCountdown label="Only for the next 24 hours" />
               </div>
