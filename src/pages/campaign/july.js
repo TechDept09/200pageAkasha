@@ -8,6 +8,8 @@ import TrustStrip from '@/components/TrustStrip';
 import CertifiedTeacherIntro from '@/components/CertifiedTeacherIntro';
 import UserSessionCountdown from '@/components/campaign/UserSessionCountdown';
 import CampaignBonuses from '@/components/campaign/CampaignBonuses';
+import CampaignBenefits from '@/components/campaign/CampaignBenefits';
+import CampaignCurriculum from '@/components/campaign/CampaignCurriculum';
 import MoneyBackGuarantee from '@/components/campaign/MoneyBackGuarantee';
 import Footer from '@/components/Footer';
 import { courses } from '@/lib/courses';
@@ -421,25 +423,27 @@ export function CampaignContent({ phase }) {
             copy + RYS-200 + RYS-300 badges from akashayogaacademy.com. */}
         <CertifiedTeacherIntro headingId="july-certified-heading" />
 
-        {/* Why this training: Akasha's own 'Why Choose Our Yoga Academy'
-            block, verbatim from the live 200hr page. */}
-        <WhyChooseAkasha />
-
-        {/* Testimonials, social proof before the checkout. */}
-        <TestimonialCarousel />
-
-        {/* Featured in: press/media logos lifted from the Akasha
-            homepage. Sits right after the testimonials so the trust
-            cluster reads real graduates -> real media coverage before
-            the checkout ask. */}
-        <FeaturedIn />
-
-        {/* Soft nudge so a buyer convinced by the social proof has a clear
-            way down without scrolling past the trust strip first. */}
-        <SoftEnrollNudge label="Their journey could be yours" />
-
-        {/* Certified badges so the credibility signal sits next to the offer. */}
-        <TrustStrip />
+        {/* Backup phase: value stack goes BEFORE the price.
+            Benefits + Curriculum tell cold traffic what they will
+            learn and get; Bonuses + MBG cover extras + safety. Then
+            checkout arrives, buyer already convinced. */}
+        {isBackup ? (
+          <>
+            <CampaignBenefits />
+            <CampaignCurriculum />
+            <CampaignBonuses />
+            <MoneyBackGuarantee />
+          </>
+        ) : (
+          <>
+            {/* Phase 1 / Phase 2 flow: trust wall before the ask. */}
+            <WhyChooseAkasha />
+            <TestimonialCarousel />
+            <FeaturedIn />
+            <SoftEnrollNudge label="Their journey could be yours" />
+            <TrustStrip />
+          </>
+        )}
 
         {/* Checkout block: two cards normally, one centred card in backup mode */}
         <section className="py-14 md:py-20 bg-akasha-gray-4/30 scroll-mt-24" id="enroll">
@@ -484,51 +488,41 @@ export function CampaignContent({ phase }) {
               </div>
             )}
 
-            {/* Reassurance links: for the buyer who's still hesitating,
-                a soft prompt to read the full Akasha detail page in a
-                new tab. Bundle phases show both trainings; single-card
-                phases show 200hr only. */}
-            <div className="mt-12 md:mt-16 text-center max-w-2xl mx-auto">
-              <p className="text-[11px] md:text-[12px] font-body uppercase tracking-[0.28em] text-akasha-gray-1 mb-4">
-                Still on the fence?
-              </p>
-              <p className="font-body text-akasha-gray-1 mb-6 text-sm md:text-base leading-relaxed">
-                Read the full details of each training on Akasha's site.
-              </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
-                <a
-                  href="https://www.akashayogaacademy.com/200hr-yoga-teacher-training-online"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-ghost"
-                >
-                  More on 200-Hour Essential
-                </a>
-                {hasBundle ? (
+            {/* Reassurance links only for non-backup phases. Backup
+                skips these so the 24h timer doesn't compete with
+                tab-away Wix redirects. */}
+            {!isBackup ? (
+              <div className="mt-12 md:mt-16 text-center max-w-2xl mx-auto">
+                <p className="text-[11px] md:text-[12px] font-body uppercase tracking-[0.28em] text-akasha-gray-1 mb-4">
+                  Still on the fence?
+                </p>
+                <p className="font-body text-akasha-gray-1 mb-6 text-sm md:text-base leading-relaxed">
+                  Read the full details of each training on Akasha's site.
+                </p>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
                   <a
-                    href="https://www.akashayogaacademy.com/80-hr-online-yin-yoga-teacher-training"
+                    href="https://www.akashayogaacademy.com/200hr-yoga-teacher-training-online"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-ghost"
                   >
-                    More on Yin (YACEP) Bonus
+                    More on 200-Hour Essential
                   </a>
-                ) : null}
+                  {hasBundle ? (
+                    <a
+                      href="https://www.akashayogaacademy.com/80-hr-online-yin-yoga-teacher-training"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-ghost"
+                    >
+                      More on Yin (YACEP) Bonus
+                    </a>
+                  ) : null}
+                </div>
               </div>
-            </div>
+            ) : null}
           </div>
         </section>
-
-        {/* Bonuses grid, backup phase only. Sits right after the
-            checkout card so the value-stack reads immediately after
-            the price. Content is verbatim from
-            akashayogaacademy.com/200hr-yoga-teacher-training-online. */}
-        {isBackup ? <CampaignBonuses /> : null}
-
-        {/* Risk-reversal section, backup phase only. Sits right after
-            the bonuses value stack so buyers see the safety net
-            before scrolling further. */}
-        {isBackup ? <MoneyBackGuarantee /> : null}
 
         {/* Side-by-side comparison only when a bundle exists. */}
         {hasBundle ? (
@@ -639,16 +633,24 @@ export function CampaignContent({ phase }) {
           <SoftEnrollNudge label="The numbers led you here" />
         ) : null}
 
-        {/* Meet Akasha videos sit after the math instead of between the
-            hero and the ask. By this point, the on-the-fence buyer wants
-            to see who they'd be learning from before scrolling further. */}
-        <IntroVideos />
-
-        {/* Sidebar-style recommendation list. Every other Akasha course
-            except Essential and the Yin add-on already in the bundle,
-            rendered as a quiet compact grid so it reads as 'other things
-            you might like later', not a second catalog. */}
-        <RecommendationList />
+        {/* Backup phase: after the ask, roll out the trust cluster so
+            cold traffic that scrolled past the offer still has proof
+            and depth waiting. */}
+        {isBackup ? (
+          <>
+            <TestimonialCarousel />
+            <FeaturedIn />
+            <WhyChooseAkasha />
+            <TrustStrip />
+            <IntroVideos />
+          </>
+        ) : (
+          <>
+            {/* Non-backup: Meet Akasha videos + recommendation catalog. */}
+            <IntroVideos />
+            <RecommendationList />
+          </>
+        )}
 
 
         {/* Tracking hook placeholder. When Wira sends the post-pay tracking
