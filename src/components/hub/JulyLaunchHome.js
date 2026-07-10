@@ -2,13 +2,14 @@
 
 // Post-launch hub landing = the full campaign preview content. Same
 // CampaignContent tree that renders under /campaign/july, wired to
-// Phase 1 (Summer Self-Care Journey). Keeps the buyer's journey
-// identical whether they land on the hub or the campaign URL.
+// the backup phase (Summer Self-Care Journey, 24h US$249 drop) as
+// the current public campaign. Swap back to phase1 if the wider
+// Summer offer needs to resume on the hub.
 
 import { CampaignContent } from '@/pages/campaign/july';
 import { JULY_PHASES } from '@/lib/julyCampaign';
 
-const phase = JULY_PHASES.phase1;
+const phase = JULY_PHASES.backup;
 
 export default function JulyLaunchHome() {
   return <CampaignContent phase={phase} />;
