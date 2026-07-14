@@ -78,13 +78,13 @@ export const JULY_PHASES = {
 // Phase 1 underperforms in the first week. Only Essential goes live;
 // Yin is dropped, bundle is dropped, and a single voucher coupon takes
 // Backup phase = 24h urgency drop. Public / anchor stays at US$320,
-// the CARE249 voucher takes it to US$249 for the final 24 hours the
+// the SELFCARE249 voucher takes it to US$249 for the final 24 hours the
 // buyer sees. Timer in the hero drives the rush; no percent-off
 // chip is needed because the scarcity is time-based, not
 // discount-based. Voucher code is env-tunable so marketing can
 // rotate the name without a redeploy.
 const BACKUP_COUPON =
-  process.env.NEXT_PUBLIC_JULY_BACKUP_COUPON || 'CARE249';
+  process.env.NEXT_PUBLIC_JULY_BACKUP_COUPON || 'SELFCARE249';
 
 JULY_PHASES.backup = {
   key: 'backup',
