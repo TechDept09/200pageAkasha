@@ -1763,7 +1763,9 @@ function StandaloneCard({ phase, onWhatYouGet }) {
       <p className="font-body text-akasha-gray-1 text-sm leading-relaxed mb-5">
         {isBackup
           ? 'The 200-Hour Essential at its closing summer price, voucher applied automatically at checkout.'
-          : 'Prefer to begin with the 200-Hour Essential alone? Same training, same promotional rate, no coupon required.'}
+          : phase.key === 'phase2'
+            ? 'Begin the 200-Hour Essential this July, voucher applied automatically at checkout.'
+            : 'Prefer to begin with the 200-Hour Essential alone? Same training, same promotional rate, no coupon required.'}
       </p>
 
       <div className="flex items-baseline flex-wrap gap-3 mb-2">

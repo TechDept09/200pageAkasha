@@ -53,7 +53,9 @@ export const JULY_PHASES = {
   phase2: {
     key: 'phase2',
     start: '2026-07-16T00:00:00+08:00',
-    end: '2026-08-02T23:59:59+08:00', // active through Aug 2 (live until 2 Aug)
+    // Align phase.end to the public "until 31st of July" copy so the
+    // hero countdown and marketing headline stop drifting apart.
+    end: '2026-07-31T23:59:59+08:00',
     label: 'Summer Wellness Discount',
     publicName: 'Summer Wellness',
     dateRange: 'Offer until 31st of July',
@@ -64,12 +66,17 @@ export const JULY_PHASES = {
       'Transform your practice this summer with our 200-Hour Yoga Teacher Training (Essential Path).',
     couponCode: 'WELLNESS50',
     couponNote: 'Use coupon WELLNESS50 for an additional US$41 off, bringing the Essential to US$249 at checkout.',
-    // Phase 2 simplifies to Essential only at US$290, with WELLNESS50
-    // bringing it to US$249 at checkout. No bundle in this phase.
+    // Phase 2 simplifies to Essential only. Base is US$290, WELLNESS50
+    // brings it to US$249 at checkout. Anchor stays at the regular
+    // US$1,190 so the card reads as a clean ~79% off instead of the
+    // shallow US$290 to US$249 delta, matching the "over 70% off"
+    // frame in the hero headline. No bundle in this phase.
     bundle: null,
     standalone: {
       essential: 290,
       voucherPrice: 249,
+      regularPrice: 1190,
+      discountPercent: 79,
     },
   },
 };
