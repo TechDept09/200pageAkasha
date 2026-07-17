@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 import HubNav from '@/components/hub/HubNav';
 import TrustStrip from '@/components/TrustStrip';
 import CertifiedTeacherIntro from '@/components/CertifiedTeacherIntro';
-import UserSessionCountdown from '@/components/campaign/UserSessionCountdown';
 import CampaignBonuses from '@/components/campaign/CampaignBonuses';
 import CampaignBenefits from '@/components/campaign/CampaignBenefits';
 import CampaignCurriculum from '@/components/campaign/CampaignCurriculum';
@@ -101,7 +100,6 @@ import { useUtmParams, formatUtmNote } from '@/hooks/useUtmParams';
 import { trackLead, trackInitiateCheckout, newEventId } from '@/lib/pixel';
 import { getMetaCookies } from '@/lib/fbCookies';
 import { pushBeginCheckout } from '@/lib/gtmEcommerce';
-import { useUrgencyCountdown } from '@/hooks/useUrgencyCountdown';
 import {
   JULY_ACCESS_KEY,
   getActiveJulyPhase,
@@ -350,17 +348,18 @@ export function CampaignContent({ phase }) {
             >
               {phase.intro}
             </p>
-            {/* Per-user 24h urgency countdown, backup phase only.
-                Phase 1 and Phase 2 use a calendar deadline (Jul 17
-                / Aug 2), so a per-user 24h clock would misrepresent
-                the offer. Backup is the last-chance drop where the
-                24h narrative fits. */}
-            {isBackup ? (
+            {/* Hero countdown: ticks toward phase.end (calendar target)
+                for every phase that publishes one, so Phase 1, Phase 2,
+                and backup all get a visible ticker in the hero. */}
+            {phase.end ? (
               <div
                 className="july-hero-anim"
                 style={{ animationDelay: '0.85s' }}
               >
-                <UserSessionCountdown label="Only for the next 24 hours" />
+                <HeroCalendarCountdown
+                  target={phase.end}
+                  label={phase.dateRange || 'Offer ends soon'}
+                />
               </div>
             ) : null}
             <a
@@ -438,11 +437,16 @@ export function CampaignContent({ phase }) {
           </>
         ) : (
           <>
-            {/* Phase 1 / Phase 2 flow: trust wall before the ask. */}
+            {/* Phase 1 / Phase 2 flow: trust wall before the ask, then
+                value stack (bonuses + MBG) so the buyer arrives at
+                the checkout already knowing what is inside and why
+                it is safe to try. */}
             <WhyChooseAkasha />
             <CompetitiveComparison phase={phase} />
             <TestimonialCarousel />
             <FeaturedIn />
+            <CampaignBonuses />
+            <MoneyBackGuarantee />
             <SoftEnrollNudge label="Their journey could be yours" />
             <TrustStrip />
           </>
@@ -907,19 +911,90 @@ function useCountdownTo(endIso) {
   const days = Math.floor(diff / 86400000);
   const hours = Math.floor((diff % 86400000) / 3600000);
   const minutes = Math.floor((diff % 3600000) / 60000);
-  return { days, hours, minutes, expired: diff === 0 };
+  const seconds = Math.floor((diff % 60000) / 1000);
+  return { days, hours, minutes, seconds, expired: diff === 0 };
+}
+
+// Hero-scale calendar countdown used above the CTA. Mirrors the
+// UserSessionCountdown visual so the hero keeps a consistent look
+// across phases, but ticks toward a fixed calendar target instead of
+// the per-user 24h stamp.
+function HeroCalendarCountdown({ target, label }) {
+  const t = useCountdownTo(target);
+  if (!t || t.expired) return null;
+  const pad2 = (n) => String(n).padStart(2, '0');
+  const digitStyle = {
+    fontFamily: 'Inter, sans-serif',
+    fontVariantNumeric: 'tabular-nums',
+    fontWeight: 600,
+  };
+  const units = [
+    { v: t.days, l: 'D' },
+    { v: t.hours, l: 'H' },
+    { v: t.minutes, l: 'M' },
+    { v: t.seconds, l: 'S' },
+  ];
+  return (
+    <div
+      className="inline-flex flex-col items-center gap-2 mb-6"
+      role="timer"
+      aria-live="polite"
+      aria-label={`Offer ends in ${t.days} days ${t.hours} hours ${t.minutes} minutes ${t.seconds} seconds`}
+    >
+      <span
+        className="text-akasha-white/70 uppercase"
+        style={{
+          fontFamily: 'Inter, sans-serif',
+          fontSize: 'clamp(0.68rem, 1vw, 0.78rem)',
+          letterSpacing: '0.32em',
+          fontWeight: 600,
+          textShadow: '0 1px 6px rgba(0,0,0,0.5)',
+        }}
+      >
+        {label}
+      </span>
+      <div
+        className="inline-flex items-center gap-2 md:gap-3 bg-black/45 border border-akasha-orange/70 rounded-full px-5 py-2.5 md:px-6 md:py-3 shadow-lg"
+        style={{ backdropFilter: 'blur(6px)' }}
+      >
+        {units.map((u, i) => (
+          <span key={u.l} className="inline-flex items-baseline">
+            <span
+              className="text-akasha-white text-xl md:text-2xl"
+              style={digitStyle}
+            >
+              {pad2(u.v)}
+            </span>
+            <span
+              className="ml-1 text-akasha-orange text-[10px] md:text-xs"
+              style={{ ...digitStyle, letterSpacing: '0.1em' }}
+            >
+              {u.l}
+            </span>
+            {i < units.length - 1 ? (
+              <span
+                className="mx-2 text-akasha-white/40"
+                style={digitStyle}
+                aria-hidden="true"
+              >
+                :
+              </span>
+            ) : null}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 function CampaignStickyCTA({ phase }) {
   const [visible, setVisible] = useState(false);
   const [dismissed, setDismissed] = useState(false);
   const isBackup = phase.key === 'backup';
-  const calendarCountdown = useCountdownTo(isBackup ? null : phase.end);
-  // Backup phase reads the same per-user 24h stamp the hero uses,
-  // so the sticky ticker stays in sync with the hero timer as the
-  // buyer scrolls the page.
-  const urgency = useUrgencyCountdown();
-  const countdown = isBackup ? null : calendarCountdown;
+  // Every phase now publishes phase.end, so the sticky countdown is
+  // just the calendar delta. Backup used to fall back to a per-user
+  // 24h stamp; that path is gone.
+  const countdown = useCountdownTo(phase.end);
 
   useEffect(() => {
     const onScroll = () => {
@@ -961,16 +1036,6 @@ function CampaignStickyCTA({ phase }) {
                   · ends in {countdown.days}d {countdown.hours}h {countdown.minutes}m
                 </span>
               ) : null}
-              {isBackup && urgency && !urgency.expired ? (
-                <span
-                  className="hidden sm:inline text-akasha-white/80 normal-case tracking-normal ml-2"
-                  style={{ fontVariantNumeric: 'tabular-nums' }}
-                >
-                  · {String(urgency.hours).padStart(2, '0')}:
-                  {String(urgency.minutes).padStart(2, '0')}:
-                  {String(urgency.seconds).padStart(2, '0')} left
-                </span>
-              ) : null}
             </p>
             <p
               className="hidden sm:block text-xs md:text-sm font-heading text-akasha-white leading-snug truncate"
@@ -981,16 +1046,6 @@ function CampaignStickyCTA({ phase }) {
             {countdown && !countdown.expired ? (
               <p className="sm:hidden text-[10px] font-body text-akasha-white/70 leading-tight mt-0.5">
                 ends in {countdown.days}d {countdown.hours}h
-              </p>
-            ) : null}
-            {isBackup && urgency && !urgency.expired ? (
-              <p
-                className="sm:hidden text-[10px] font-body text-akasha-white/80 leading-tight mt-0.5"
-                style={{ fontVariantNumeric: 'tabular-nums' }}
-              >
-                {String(urgency.hours).padStart(2, '0')}:
-                {String(urgency.minutes).padStart(2, '0')}:
-                {String(urgency.seconds).padStart(2, '0')} left
               </p>
             ) : null}
           </div>

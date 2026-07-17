@@ -96,19 +96,27 @@ const BACKUP_COUPON =
 
 JULY_PHASES.backup = {
   key: 'backup',
-  label: 'Final Self-Care Offer',
-  publicName: 'Final Self-Care',
-  dateRange: 'Only for the next 24 hours',
-  headline: 'Summer Self-Care Journey',
-  scriptTagline: 'This summer, choose yourself',
+  // Backup now inherits the Phase 2 "Summer Wellness Discount"
+  // frame, ticks toward the same Jul 31 calendar deadline, and
+  // shows the same anchor pricing. It stays in the config as a
+  // safety net so the campaign page always has a valid phase to
+  // render even if getActiveJulyPhase() returns nothing.
+  label: 'Summer Wellness Discount',
+  publicName: 'Summer Wellness',
+  dateRange: 'Offer until 31st of July',
+  end: '2026-07-31T23:59:59+08:00',
+  headline: 'Summer Wellness Discount',
+  scriptTagline: 'save over 70% on 200hr Essential',
   intro:
-    'A final way in. The 200-Hour Yoga Teacher Training (Essential Path) at an exclusive 24-hour price, for those who feel the call now.',
+    'Transform your practice this summer with our 200-Hour Yoga Teacher Training (Essential Path).',
   couponCode: BACKUP_COUPON,
-  couponNote: `Voucher ${BACKUP_COUPON} auto-applied at checkout, brings the Essential from US$320 to US$249.`,
+  couponNote: `Voucher ${BACKUP_COUPON} auto-applied at checkout, brings the Essential from US$299 to US$249.`,
   bundle: null,
   standalone: {
-    essential: 320,
+    essential: 299,
     voucherPrice: 249,
+    regularPrice: 1190,
+    discountPercent: 79,
     couponCode: BACKUP_COUPON,
   },
 };
