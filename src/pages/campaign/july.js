@@ -1510,7 +1510,7 @@ function CompetitiveComparison({ phase }) {
     ['You save vs regular price', `US$${savings}`, 'US$0', 'US$0', 'US$210 to 310', 'US$0'],
     ['Combined teacher experience', '65+ years', '20+ years', '15+ years', 'N/A', '20+ years'],
     ['Filmed in Bali studio', 'Yes', 'No', 'No', 'Yes', 'No'],
-    ['Teachers based in Bali', 'Yes', 'No', 'No', 'Yes', 'No'],
+    ['Rooted in classical tradition', 'Yes', 'Partial', 'Partial', 'Partial', 'Partial'],
   ];
   return (
     <section
