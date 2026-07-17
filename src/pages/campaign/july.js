@@ -439,6 +439,7 @@ export function CampaignContent({ phase }) {
           <>
             {/* Phase 1 / Phase 2 flow: trust wall before the ask. */}
             <WhyChooseAkasha />
+            <CompetitiveComparison phase={phase} />
             <TestimonialCarousel />
             <FeaturedIn />
             <SoftEnrollNudge label="Their journey could be yours" />
@@ -1492,6 +1493,91 @@ function WhyChooseAkasha() {
   );
 }
 
+// Compact 5-way comparison against the other top online 200-hour YTT
+// programs. Numbers sourced from marketing's July 2026 competitor
+// analysis (Akasha-Competitor-Analysis.pdf). Kept intentionally short:
+// five rows, five columns, meant to reinforce Why Akasha, not open
+// a full sales argument.
+function CompetitiveComparison({ phase }) {
+  const price =
+    phase?.standalone?.voucherPrice || phase?.standalone?.essential || 249;
+  const cols = ['Akasha', 'YogaRenew', 'Uplifted', 'House of Om', 'Yoga Medicine'];
+  const rows = [
+    ['Price (200hr)', `US$${price}`, 'US$347', 'US$2,850', 'US$390 to 490', 'US$2,290'],
+    ['Origin', 'Bali, Indonesia', 'USA', 'USA', 'Bali, Indonesia', 'USA'],
+    ['Krishnamacharya lineage', 'Yes', 'No', 'No', 'No', 'No'],
+    ['Lead teacher credential', 'E-RYT 500', 'E-RYT 500', 'E-RYT 200', 'Mixed', 'E-RYT 500'],
+    ['Rating', '4.93 / 5', '4.8 to 4.9', '4.9+', '5.0', '4.7+'],
+  ];
+  return (
+    <section
+      className="py-14 md:py-20 bg-akasha-white"
+      aria-labelledby="july-compare-heading"
+    >
+      <div className="section max-w-4xl">
+        <header className="text-center max-w-2xl mx-auto mb-8 md:mb-10">
+          <span className="eyebrow">At a glance</span>
+          <h2
+            id="july-compare-heading"
+            style={{ fontSize: 'clamp(1.6rem, 3.2vw, 2.2rem)', fontWeight: 300 }}
+          >
+            How we compare
+          </h2>
+          <span className="gold-rule" />
+          <p className="font-body text-akasha-gray-1 text-sm md:text-[15px] leading-relaxed mt-5">
+            A quick look next to the other top online 200-Hour Yoga Teacher
+            Training programs.
+          </p>
+        </header>
+        <div className="overflow-x-auto rounded-sm border border-akasha-gray-4 bg-akasha-white">
+          <table className="w-full text-[11px] md:text-[13px] font-body">
+            <thead>
+              <tr className="bg-akasha-gray-4/40 text-left">
+                <th className="p-3 md:p-4 font-medium uppercase tracking-[0.14em] text-[10px] text-akasha-gray-1" />
+                {cols.map((c, i) => (
+                  <th
+                    key={c}
+                    className={`p-3 md:p-4 font-medium uppercase tracking-[0.14em] text-[10px] whitespace-nowrap ${
+                      i === 0
+                        ? 'text-akasha-orange bg-akasha-orange/5'
+                        : 'text-akasha-gray-1'
+                    }`}
+                  >
+                    {c}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map(([label, ...cells]) => (
+                <tr key={label} className="border-t border-akasha-gray-4">
+                  <td className="p-3 md:p-4 text-akasha-gray-1 whitespace-nowrap">
+                    {label}
+                  </td>
+                  {cells.map((val, i) => (
+                    <td
+                      key={i}
+                      className={`p-3 md:p-4 whitespace-nowrap ${
+                        i === 0
+                          ? 'text-akasha-orange font-medium bg-akasha-orange/5'
+                          : 'text-akasha-black'
+                      }`}
+                    >
+                      {val}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="font-body text-akasha-gray-2 text-[11px] md:text-xs text-center mt-4">
+          Based on published information from each school, July 2026.
+        </p>
+      </div>
+    </section>
+  );
+}
 
 function IntroVideos() {
   if (!JULY_INTRO_VIDEOS?.length) return null;
