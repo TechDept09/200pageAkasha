@@ -65,15 +65,16 @@ export const JULY_PHASES = {
     intro:
       'Transform your practice this summer with our 200-Hour Yoga Teacher Training (Essential Path).',
     couponCode: 'WELLNESS50',
-    couponNote: 'Use coupon WELLNESS50 for an additional US$41 off, bringing the Essential to US$249 at checkout.',
-    // Phase 2 simplifies to Essential only. Base is US$290, WELLNESS50
-    // brings it to US$249 at checkout. Anchor stays at the regular
-    // US$1,190 so the card reads as a clean ~79% off instead of the
-    // shallow US$290 to US$249 delta, matching the "over 70% off"
-    // frame in the hero headline. No bundle in this phase.
+    couponNote: 'Use coupon WELLNESS50 for an extra US$50 off, bringing the Essential from US$299 to US$249 at checkout.',
+    // Phase 2 simplifies to Essential only. Base is already discounted
+    // to US$299, WELLNESS50 takes another US$50 off and lands the
+    // buyer at US$249 at checkout. Anchor stays at the regular US$1,190
+    // so the card reads as a clean ~79% off instead of the shallow
+    // US$299 to US$249 delta, matching the "over 70% off" frame in
+    // the hero headline. No bundle in this phase.
     bundle: null,
     standalone: {
-      essential: 290,
+      essential: 299,
       voucherPrice: 249,
       regularPrice: 1190,
       discountPercent: 79,
