@@ -434,6 +434,7 @@ export function CampaignContent({ phase }) {
             <CampaignCurriculum />
             <CampaignBonuses />
             <MoneyBackGuarantee />
+            <CompetitiveComparison phase={phase} />
           </>
         ) : (
           <>
