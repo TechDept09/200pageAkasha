@@ -61,7 +61,7 @@ export const JULY_PHASES = {
     dateRange: 'Offer until 31st of July',
     headline: 'Summer Wellness Discount',
     sub: 'Final July offer: save over 70% on 200hr Essential',
-    scriptTagline: 'Before July ends, reset your journey',
+    scriptTagline: 'save over 70% on 200hr Essential',
     intro:
       'Transform your practice this summer with our 200-Hour Yoga Teacher Training (Essential Path).',
     couponCode: 'WELLNESS50',
