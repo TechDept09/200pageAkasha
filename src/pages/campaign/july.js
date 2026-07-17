@@ -1495,19 +1495,18 @@ function WhyChooseAkasha() {
 
 // Compact 5-way comparison against the other top online 200-hour YTT
 // programs. Numbers sourced from marketing's July 2026 competitor
-// analysis (Akasha-Competitor-Analysis.pdf). Kept intentionally short:
-// five rows, five columns, meant to reinforce Why Akasha, not open
-// a full sales argument.
+// analysis (Akasha-Competitor-Analysis.pdf). Rows are pruned to the
+// three points that (a) a cold buyer understands without yoga jargon
+// and (b) Akasha visibly wins on. Lineage rows and rating were dropped
+// because the first is too niche and the second is not a clean win.
 function CompetitiveComparison({ phase }) {
   const price =
     phase?.standalone?.voucherPrice || phase?.standalone?.essential || 249;
   const cols = ['Akasha', 'YogaRenew', 'Uplifted', 'House of Om', 'Yoga Medicine'];
   const rows = [
     ['Price (200hr)', `US$${price}`, 'US$347', 'US$2,850', 'US$390 to 490', 'US$2,290'],
-    ['Origin', 'Bali, Indonesia', 'USA', 'USA', 'Bali, Indonesia', 'USA'],
-    ['Krishnamacharya lineage', 'Yes', 'No', 'No', 'No', 'No'],
-    ['Lead teacher credential', 'E-RYT 500', 'E-RYT 500', 'E-RYT 200', 'Mixed', 'E-RYT 500'],
-    ['Rating', '4.93 / 5', '4.8 to 4.9', '4.9+', '5.0', '4.7+'],
+    ['Combined teacher experience', '65+ years', '20+ years', '15+ years', 'N/A', '20+ years'],
+    ['Filmed in Bali studio', 'Yes', 'No', 'No', 'Yes', 'No'],
   ];
   return (
     <section
