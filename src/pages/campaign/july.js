@@ -1558,15 +1558,15 @@ function WhyChooseAkasha() {
 function CompetitiveComparison({ phase }) {
   const price =
     phase?.standalone?.voucherPrice || phase?.standalone?.essential || 249;
-  const cols = ['Akasha', 'YogaRenew', 'Uplifted', 'House of Om', 'Yoga Medicine'];
+  const cols = ['Akasha', 'YogaRenew', 'Uplifted', 'Yoga Medicine'];
   const regularPrice = phase?.standalone?.regularPrice || 1190;
   const savings = (regularPrice - price).toLocaleString('en-US');
   const rows = [
-    ['Price (200hr)', `US$${price}`, 'US$347', 'US$2,850', 'US$390 to 490', 'US$2,290'],
-    ['You save vs regular price', `US$${savings}`, 'US$0', 'US$0', 'US$210 to 310', 'US$0'],
-    ['Combined teacher experience', '65+ years', '20+ years', '15+ years', 'N/A', '20+ years'],
-    ['Filmed in Bali studio', 'Yes', 'No', 'No', 'Yes', 'No'],
-    ['Rooted in classical tradition', 'Yes', 'Partial', 'Partial', 'Partial', 'Partial'],
+    ['Price (200hr)', `US$${price}`, 'US$347', 'US$2,850', 'US$2,290'],
+    ['You save vs regular price', `US$${savings}`, 'US$0', 'US$0', 'US$0'],
+    ['Combined teacher experience', '65+ years', '20+ years', '15+ years', '20+ years'],
+    ['Filmed in Bali studio', 'Yes', 'No', 'No', 'No'],
+    ['Rooted in classical tradition', 'Yes', 'Partial', 'Partial', 'Partial'],
   ];
   return (
     <section
