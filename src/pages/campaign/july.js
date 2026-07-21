@@ -1008,11 +1008,23 @@ function CampaignStickyCTA({ phase }) {
 
   if (dismissed) return null;
 
-  const price = isBackup
-    ? `US$${phase.standalone.voucherPrice || phase.standalone.essential}`
-    : phase.bundle
-      ? `Bundle US$${phase.bundle.total}`
-      : `US$${phase.standalone.essential}`;
+  // Sticky price mirrors the checkout card: when a voucherPrice is
+  // set, show the base US$ struck through and the voucher price live,
+  // so the persistent bar reads the same as the offer above the fold.
+  const voucherPrice = phase.standalone?.voucherPrice;
+  const essential = phase.standalone?.essential;
+  const priceNode = phase.bundle ? (
+    `Bundle US$${phase.bundle.total}`
+  ) : voucherPrice ? (
+    <>
+      <span className="line-through text-akasha-white/50 mr-1.5">
+        US${essential}
+      </span>
+      US${voucherPrice}
+    </>
+  ) : (
+    `US$${essential}`
+  );
 
   const ctaLabel = isBackup ? 'Claim Voucher' : phase.bundle ? 'Enroll in Bundle' : 'Enroll Now';
 
@@ -1030,7 +1042,7 @@ function CampaignStickyCTA({ phase }) {
               className="text-[10px] md:text-[11px] font-body uppercase tracking-[0.22em] text-akasha-gold leading-tight"
               style={{ fontFamily: 'Inter, sans-serif' }}
             >
-              {price}
+              {priceNode}
               {countdown && !countdown.expired ? (
                 <span className="hidden sm:inline text-akasha-white/70 normal-case tracking-normal ml-2">
                   · ends in {countdown.days}d {countdown.hours}h {countdown.minutes}m
