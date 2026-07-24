@@ -11,15 +11,19 @@ const links = [
   { href: '#why', label: 'Why' },
   { href: '#curriculum', label: 'Curriculum' },
   { href: '#teachers', label: 'Teachers' },
-  { href: '#pricing', label: 'Pricing' },
   { href: '#testimonials', label: 'Reviews' },
   { href: '#faq', label: 'FAQ' },
 ];
 
-export default function SiteNav() {
+// anchorBase lets a page that doesn't own the #why/#curriculum/... sections
+// (e.g. the enroll page) point those nav links back to the main course page
+// instead of leaving them as dead in-page anchors. Defaults to in-page.
+export default function SiteNav({ anchorBase = '' }) {
   const tier = useTier();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const anchorLinks = links.map((l) => ({ ...l, href: `${anchorBase}${l.href}` }));
+  const navLinks = [...anchorLinks.slice(0, 3), { href: tier.ctaHref, label: 'Pricing' }, ...anchorLinks.slice(3)];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -47,7 +51,7 @@ export default function SiteNav() {
           >
             All Courses
           </a>
-          {links.map((l) => (
+          {navLinks.map((l) => (
             <a
               key={l.href}
               href={l.href}
@@ -59,7 +63,7 @@ export default function SiteNav() {
         </nav>
 
         <a
-          href="#pricing"
+          href={tier.ctaHref}
           className="hidden lg:inline-flex items-center bg-akasha-orange text-white text-[11px] font-medium tracking-[0.12em] uppercase px-5 py-2.5 rounded-full hover:bg-akasha-orange-dark transition-colors"
           style={{ fontFamily: 'Inter, sans-serif' }}
         >
@@ -91,7 +95,7 @@ export default function SiteNav() {
           >
             All Courses
           </a>
-          {links.map((l) => (
+          {navLinks.map((l) => (
             <a
               key={l.href}
               href={l.href}
@@ -102,7 +106,7 @@ export default function SiteNav() {
             </a>
           ))}
           <a
-            href="#pricing"
+            href={tier.ctaHref}
             onClick={() => setOpen(false)}
             className="mt-2 bg-akasha-orange text-white text-center text-xs font-medium tracking-[0.12em] uppercase px-5 py-3 rounded-full"
           >

@@ -1,0 +1,10 @@
+{
+  "root": true,
+  "extends": "next/core-web-vitals",
+  "ignorePatterns": ["node_modules/", ".next/", "out/", "scripts/"],
+  "rules": {
+    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
+    "react/no-unescaped-entities": "warn",
+    "@next/next/no-html-link-for-pages": "warn"
+  }
+}

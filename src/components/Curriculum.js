@@ -1,137 +1,123 @@
-'use client';
+import { useTier } from '@/lib/TierContext';
 
-import { useState } from 'react';
+// "A Truly Life-Changing Journey" + "The Curriculum" section, matching the
+// live Wix 200-Hour page: an intro promise block, then the syllabus broken
+// into four parts as stacked text, over the faint lotus watermark, closing
+// with the green CTA. Copy is verbatim from the Wix source.
+const GREEN = '#5FBFA6';
 
-// Curriculum text copied verbatim from
-// akashayogaacademy.com/200-hour-online-curriculum so the page mirrors
-// what Akasha already publishes. Item lists are the same content broken
-// out per line for scannability; the desc field keeps the original
-// comma-separated sentence.
+const LOTUS_WATERMARK =
+  'https://static.wixstatic.com/media/cd7168_4415a77d6ae941eaa45a7317dc90ee65~mv2.png/v1/fill/w_858,h_870,al_c,q_90,enc_avif,quality_auto/flower-only-Light-Dark-orange_edited.png';
+
 const parts = [
   {
-    n: '01',
-    t: 'Practice & Theory',
+    label: 'Practice & Theory',
     desc: 'Asanas & alignment training, cleansing breathwork, heart meditation, practical philosophy, art of living, chakras.',
-    items: [
-      'Asanas & alignment training',
-      'Cleansing breathwork',
-      'Heart meditation',
-      'Practical philosophy',
-      'Art of living',
-      'Chakras',
-    ],
   },
   {
-    n: '02',
-    t: 'Anatomy & Posture',
+    label: 'Anatomy & Posture',
     desc: 'Advanced asanas & pranayama, bandha, applied Yoga anatomy, teaching skills, adjustment training & posture study.',
-    items: [
-      'Advanced asanas & pranayama',
-      'Bandha',
-      'Applied Yoga anatomy',
-      'Teaching skills',
-      'Adjustment training',
-      'Posture study',
-    ],
   },
   {
-    n: '03',
-    t: 'Yoga Physiology',
+    label: 'Yoga Physiology',
     desc: 'Scripture Study: Bhagavad Gita, Yoga Sutras, purification, Yogic diet, sequencing, teaching of own 60-minute Yoga class.',
-    items: [
-      'Scripture Study: Bhagavad Gita',
-      'Scripture Study: Yoga Sutras',
-      'Purification',
-      'Yogic diet',
-      'Sequencing',
-      'Teaching of own 60-minute Yoga class',
-    ],
   },
   {
-    n: '04',
-    t: 'Practicum & How to Get Started',
+    label: 'Practicum & How to Get Started',
     desc: 'History of Yoga, self practice, own teaching of a 90-minute Yoga class, marketing & networking.',
-    items: [
-      'History of Yoga',
-      'Self practice',
-      'Own teaching of a 90-minute Yoga class',
-      'Marketing & networking',
-    ],
   },
 ];
 
-function PartCard({ p, i }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="bg-akasha-white border border-akasha-gray-4 rounded-sm p-8 md:p-10 hover:border-akasha-gold transition-colors duration-300 flex flex-col">
-      <div className="text-center mb-5">
-        <span className="script block mb-1" style={{ fontSize: '1.9rem' }}>
-          Part {i + 1}
-        </span>
-        <h3 className="font-heading text-akasha-black" style={{ fontSize: '1.4rem', fontWeight: 400 }}>
-          {p.t}
-        </h3>
-      </div>
-
-      <ul className="space-y-2.5 max-w-xs mx-auto mb-5">
-        {p.items.map((item, j) => (
-          <li
-            key={j}
-            className="flex items-start gap-3 text-sm font-body text-akasha-gray-1 leading-relaxed"
-          >
-            <span className="text-akasha-green mt-0.5 flex-none">✓</span>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
-
-      <div
-        className={`grid transition-all duration-300 ease-out ${
-          open ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
-        }`}
-      >
-        <div className="overflow-hidden">
-          <p className="text-sm font-body text-akasha-gray-1 leading-relaxed pt-3 border-t border-akasha-gray-4 mt-1">
-            {p.desc}
-          </p>
-        </div>
-      </div>
-
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-        className="mt-auto pt-4 text-[11px] font-body uppercase tracking-[0.25em] text-akasha-orange hover:text-akasha-orange-dark transition-colors self-center"
-      >
-        {open ? 'Show less' : 'Read more'}
-      </button>
-    </div>
-  );
-}
-
 export default function Curriculum() {
+  const tier = useTier();
   return (
-    <section id="curriculum" className="py-20 md:py-28 bg-akasha-white">
-      <div className="section">
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="eyebrow">The Curriculum</span>
-          <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 300 }}>
-            Deepen your Knowledge &amp; Practice
-          </h2>
-          <p className="font-body text-akasha-gray-1 mt-4 leading-relaxed">
-            Learn the essence of breath-based Hatha Yoga in the Vinyasa
-            Krama style of Krishnamacharya. Receive access to this
-            authentic classical approach in our truly systematic syllabus,
-            which is based on decades of committed research, study &amp;
-            practice under reputable masters.
+    <section id="curriculum" className="relative overflow-hidden bg-akasha-white">
+      {/* Faint lotus watermark, bleeding off the left edge */}
+      <img
+        src={LOTUS_WATERMARK}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        decoding="async"
+        className="pointer-events-none select-none absolute left-[-140px] top-1/2 -translate-y-1/2 w-[420px] md:w-[620px] opacity-[0.12]"
+      />
+
+      <div className="section relative z-10 py-16 md:py-24 text-center">
+        {/* Intro promise */}
+        <h2
+          className="font-heading text-akasha-gray-1"
+          style={{ fontSize: 'clamp(1.6rem, 3.4vw, 2.4rem)', fontWeight: 300 }}
+        >
+          A Truly Life-Changing Journey
+        </h2>
+        <div className="max-w-2xl mx-auto mt-6 space-y-4 font-body text-akasha-gray-1 text-base md:text-lg leading-relaxed">
+          <p>
+            Immerse yourself into{' '}
+            <strong className="font-semibold text-akasha-black">
+              classical Hatha &amp; Vinyasa Yoga.
+            </strong>
           </p>
-          <span className="gold-rule" />
+          <p>
+            Get inspired by{' '}
+            <strong className="font-semibold text-akasha-black">sincere Masters</strong>{' '}
+            who sincerely embody{' '}
+            <strong className="font-semibold text-akasha-black">Yogic wisdom.</strong>
+          </p>
+          <p>
+            Receive{' '}
+            <strong className="font-semibold text-akasha-black">abundant support</strong>{' '}
+            from your own personal mentor teacher.
+          </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        {/* The Curriculum */}
+        <h3
+          className="mt-14 md:mt-20 font-heading uppercase text-akasha-gray-1 tracking-[0.18em]"
+          style={{ fontSize: 'clamp(1.5rem, 3.2vw, 2.2rem)', fontWeight: 300 }}
+        >
+          The Curriculum
+        </h3>
+        <p className="max-w-2xl mx-auto mt-6 font-body text-akasha-gray-1 text-base md:text-lg leading-relaxed">
+          Learn the essence of{' '}
+          <strong className="font-semibold text-akasha-black">breath-based Hatha Yoga</strong>{' '}
+          in the Vinyasa Krama style of Krishnamacharya. Receive access to this
+          authentic classical approach in our{' '}
+          <strong className="font-semibold text-akasha-black">
+            truly systematic syllabus
+          </strong>
+          , which is based on decades of committed research, study &amp; practice
+          under reputable masters.
+        </p>
+
+        {/* Parts */}
+        <div className="max-w-2xl mx-auto mt-10 md:mt-12 space-y-7 text-left">
           {parts.map((p, i) => (
-            <PartCard key={i} p={p} i={i} />
+            <div key={p.label}>
+              <p
+                className="font-heading text-akasha-black"
+                style={{ fontSize: '1.05rem', fontWeight: 500 }}
+              >
+                <span className="text-akasha-orange">PART {i + 1}:</span> {p.label}
+              </p>
+              <p className="mt-1 font-body text-akasha-gray-1 leading-relaxed">
+                {p.desc}
+              </p>
+            </div>
           ))}
+        </div>
+
+        {/* Green CTA */}
+        <div className="mt-14 md:mt-16">
+          <a
+            href={tier.ctaHref}
+            className="inline-flex items-center justify-center rounded-full text-akasha-white uppercase tracking-[0.15em] px-10 py-4 font-body hover:shadow-lg transition-all"
+            style={{ backgroundColor: GREEN, fontWeight: 600 }}
+          >
+            Start Your Journey
+          </a>
+          <p className="mt-3 font-body text-xs uppercase tracking-[0.2em] text-akasha-gray-2">
+            Over 70% Off Until July 31st
+          </p>
         </div>
       </div>
     </section>
