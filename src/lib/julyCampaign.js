@@ -127,9 +127,54 @@ JULY_PHASES.backup = {
 export const JULY_BACKUP_MODE =
   process.env.NEXT_PUBLIC_JULY_BACKUP_MODE === 'true';
 
+// August Phase 1, "Grow Through Yoga", 1 to 15 Aug 2026. Fixed
+// price US$299 across the Aug-Oct campaign per Ayu's plan; no
+// voucher-based price drop, just the constant public price against
+// the US$1,190 reference. Marketing must confirm the US$1,190 was
+// regularly charged in the past 30 days to keep the strikethrough
+// and 75%-off frame legally supportable. If not, drop regularPrice
+// and discountPercent from standalone and rely on the plain
+// "August enrollment price: $299" presentation the plan calls out.
+// The coupon code lets Wira attach a Wix coupon so the Wix product
+// resolves to US$299 at checkout without changing the base product
+// price. Env-overridable so marketing can rotate the code name
+// without a redeploy.
+const AUG_PHASE1_COUPON =
+  process.env.NEXT_PUBLIC_AUG_PHASE1_COUPON || 'GROW75';
+
+JULY_PHASES.augphase1 = {
+  key: 'augphase1',
+  start: '2026-08-01T00:00:00+08:00',
+  end: '2026-08-15T23:59:59+08:00',
+  label: 'Grow Through Yoga',
+  publicName: 'Self-Growth',
+  dateRange: 'Offer through 15th of August',
+  headline: 'Grow Through Yoga',
+  scriptTagline: 'Deepen your practice, discover yoga beyond the poses',
+  intro:
+    'Deepen your practice, expand your understanding, and discover yoga beyond the physical poses. A self-paced 200-Hour Yoga Teacher Training you begin this August, Yoga Alliance certified.',
+  couponCode: AUG_PHASE1_COUPON,
+  couponNote: `Voucher ${AUG_PHASE1_COUPON} applied at checkout so the Essential resolves to US$299.`,
+  bundle: null,
+  standalone: {
+    essential: 299,
+    regularPrice: 1190,
+    discountPercent: 75,
+    couponCode: AUG_PHASE1_COUPON,
+  },
+};
+
 export function getActiveJulyPhase(now = new Date()) {
   if (JULY_BACKUP_MODE) return JULY_PHASES.backup;
-  const candidates = [JULY_PHASES.phase1, JULY_PHASES.phase2];
+  // Candidates ordered by calendar sequence. First match wins, so
+  // Phase 1 keeps priority through 17 Jul even though Phase 2 opens
+  // at 16 Jul; Phase 2 takes over on 18 Jul; August Phase 1 takes
+  // over on 1 Aug when Phase 2 expires.
+  const candidates = [
+    JULY_PHASES.phase1,
+    JULY_PHASES.phase2,
+    JULY_PHASES.augphase1,
+  ];
   for (const p of candidates) {
     if (now >= new Date(p.start) && now <= new Date(p.end)) {
       return p;
