@@ -187,7 +187,7 @@ export function getActiveJulyPhase(now = new Date()) {
 // key so the test environment matches production behaviour. Override via
 // NEXT_PUBLIC_JULY_CAMPAIGN_KEY in .env.local for stricter rotation.
 export const JULY_ACCESS_KEY =
-  process.env.NEXT_PUBLIC_JULY_CAMPAIGN_KEY || 'AKASHA-JULY-2026';
+  process.env.NEXT_PUBLIC_JULY_CAMPAIGN_KEY || 'AKASHA-AUG-2026';
 
 // Wix product IDs the campaign checkout will reference.
 // - Essential reuses the existing live product.
