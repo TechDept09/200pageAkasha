@@ -20,7 +20,7 @@ export default function IntroVideo({
     >
       <div className="section max-w-4xl">
         <header className="text-center max-w-2xl mx-auto mb-10 md:mb-12">
-          <span className="eyebrow">{eyebrow}</span>
+          {eyebrow ? <span className="eyebrow">{eyebrow}</span> : null}
           <h2
             id={headingId}
             style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 300 }}

@@ -3,11 +3,17 @@
 // pricing is not discoverable until marketing wants it public. Phase
 // windows match the PDF brief.
 
-// Launch moment for the July drop. The hub landing swaps to the July
-// campaign landing at this exact instant, the pre-launch countdown
-// self-hides, and Phase 1 becomes active. Keep this the single source
-// of truth so hub + campaign preview + phase config never drift.
-export const JULY_LAUNCH_ISO = '2026-07-02T12:00:00+08:00';
+// Campaign dates now live in campaignSchedule.js (single source of truth).
+// Re-export JULY_LAUNCH_ISO so existing importers of it from '@/lib/julyCampaign'
+// (HubHero, useJulyLaunched) keep working unchanged.
+import {
+  JULY_LAUNCH_ISO,
+  JULY_PHASE1_END_ISO,
+  JULY_PHASE2_START_ISO,
+  JULY_PHASE2_END_ISO,
+} from '@/lib/campaignSchedule';
+
+export { JULY_LAUNCH_ISO };
 
 export const JULY_PHASES = {
   phase1: {
@@ -16,7 +22,7 @@ export const JULY_PHASES = {
     // 12:00 WITA), not the next calendar day. Removes the awkward
     // 12-hour gap between 'countdown zero' and 'phase active'.
     start: JULY_LAUNCH_ISO,
-    end: '2026-07-17T23:59:59+08:00', // active through Jul 17 (live until 17th)
+    end: JULY_PHASE1_END_ISO, // active through Jul 17 (live until 17th)
     label: 'Summer Self-Care Journey',
     publicName: 'Summer Self-Care',
     dateRange: 'Offer until 15th of July',
@@ -52,10 +58,10 @@ export const JULY_PHASES = {
   },
   phase2: {
     key: 'phase2',
-    start: '2026-07-16T00:00:00+08:00',
+    start: JULY_PHASE2_START_ISO,
     // Align phase.end to the public "until 31st of July" copy so the
     // hero countdown and marketing headline stop drifting apart.
-    end: '2026-07-31T23:59:59+08:00',
+    end: JULY_PHASE2_END_ISO,
     label: 'Summer Wellness Discount',
     publicName: 'Summer Wellness',
     dateRange: 'Offer until 31st of July',
@@ -104,7 +110,7 @@ JULY_PHASES.backup = {
   label: 'Summer Wellness Discount',
   publicName: 'Summer Wellness',
   dateRange: 'Offer until 31st of July',
-  end: '2026-07-31T23:59:59+08:00',
+  end: JULY_PHASE2_END_ISO,
   headline: 'Summer Wellness Discount',
   scriptTagline: 'save over 70% on 200hr Essential',
   intro:
