@@ -1,29 +1,42 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import UrgencyBanner from './UrgencyBanner';
 import { useTier } from '@/lib/TierContext';
 
 const LOGO_BLACK =
   'https://static.wixstatic.com/media/c15a18_add3f1d2dd1a4582876f0249d1a2daf3~mv2.png/v1/fill/w_376,h_320,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Akasha-Yoga-Academy-Logo-2020-BLACK-500W.png';
 
-const links = [
-  { href: '#why', label: 'Why' },
-  { href: '#curriculum', label: 'Curriculum' },
-  { href: '#teachers', label: 'Teachers' },
-  { href: '#testimonials', label: 'Reviews' },
-  { href: '#faq', label: 'FAQ' },
+// Same primary cross-page nav as HubNav so the site header stays
+// consistent across the hub landing and every individual course
+// page. In-page anchor navigation is dropped from the header at
+// team's request; readers scroll through the course page instead.
+const NAV = [
+  {
+    label: '200-HR TTC',
+    dropdown: [
+      { href: '/200h-essential', label: 'Essential' },
+      { href: '/200h-premium', label: 'Premium' },
+    ],
+  },
+  { href: '/300h-ytt', label: '300-HR TTC' },
+  {
+    label: 'Courses',
+    dropdown: [
+      { href: '/80h-yin', label: 'Yin Yoga' },
+      { href: '/80h-meditation', label: 'Meditation' },
+      { href: '/80h-hatha-pranayama', label: 'Hatha & Pranayama' },
+    ],
+  },
 ];
 
-// anchorBase lets a page that doesn't own the #why/#curriculum/... sections
-// (e.g. the enroll page) point those nav links back to the main course page
-// instead of leaving them as dead in-page anchors. Defaults to in-page.
-export default function SiteNav({ anchorBase = '' }) {
+export default function SiteNav() {
   const tier = useTier();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const anchorLinks = links.map((l) => ({ ...l, href: `${anchorBase}${l.href}` }));
-  const navLinks = [...anchorLinks.slice(0, 3), { href: tier.ctaHref, label: 'Pricing' }, ...anchorLinks.slice(3)];
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const [openMobile, setOpenMobile] = useState(null);
+  const closeTimer = useRef(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -31,6 +44,15 @@ export default function SiteNav({ anchorBase = '' }) {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  const openMenu = (label) => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setOpenDropdown(label);
+  };
+  const scheduleClose = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setOpenDropdown(null), 120);
+  };
 
   return (
     <header
@@ -40,26 +62,64 @@ export default function SiteNav({ anchorBase = '' }) {
     >
       <UrgencyBanner />
       <div className="max-w-6xl mx-auto px-5 md:px-8 h-20 flex items-center justify-between">
-        <a href="/" className="flex items-center" aria-label="Akasha Yoga Academy, all courses">
+        <a href="/" className="flex items-center" aria-label="Akasha Yoga Academy">
           <img src={LOGO_BLACK} alt="Akasha Yoga Academy" className="h-14 w-auto" />
         </a>
 
         <nav className="hidden lg:flex items-center gap-10">
-          <a
-            href="/"
-            className="text-[12px] font-body uppercase tracking-[0.2em] text-akasha-black/70 hover:text-akasha-orange transition-colors"
-          >
-            All Courses
-          </a>
-          {navLinks.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="text-[12px] font-body uppercase tracking-[0.2em] text-akasha-black/70 hover:text-akasha-orange transition-colors"
-            >
-              {l.label}
-            </a>
-          ))}
+          {NAV.map((item) =>
+            item.dropdown ? (
+              <div
+                key={item.label}
+                className="relative"
+                onMouseEnter={() => openMenu(item.label)}
+                onMouseLeave={scheduleClose}
+              >
+                <button
+                  type="button"
+                  className="inline-flex items-center gap-1.5 text-[12px] font-body uppercase tracking-[0.2em] text-akasha-black/70 hover:text-akasha-orange transition-colors"
+                  aria-haspopup="true"
+                  aria-expanded={openDropdown === item.label}
+                >
+                  {item.label}
+                  <svg
+                    width="8"
+                    height="6"
+                    viewBox="0 0 8 6"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    className={`transition-transform ${
+                      openDropdown === item.label ? 'rotate-180' : ''
+                    }`}
+                  >
+                    <path d="M1 1L4 4L7 1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+                {openDropdown === item.label ? (
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 min-w-[210px] bg-akasha-white border border-akasha-gray-4 rounded-sm shadow-lg py-2 z-10">
+                    {item.dropdown.map((sub) => (
+                      <a
+                        key={sub.href}
+                        href={sub.href}
+                        className="block px-5 py-2.5 text-[12px] font-body uppercase tracking-[0.18em] text-akasha-black/80 hover:text-akasha-orange hover:bg-akasha-gray-4/40 transition-colors whitespace-nowrap"
+                      >
+                        {sub.label}
+                      </a>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+            ) : (
+              <a
+                key={item.href}
+                href={item.href}
+                className="text-[12px] font-body uppercase tracking-[0.2em] text-akasha-black/70 hover:text-akasha-orange transition-colors"
+              >
+                {item.label}
+              </a>
+            ),
+          )}
         </nav>
 
         <a
@@ -84,31 +144,68 @@ export default function SiteNav({ anchorBase = '' }) {
 
       <div
         className={`lg:hidden overflow-hidden bg-akasha-white border-t border-akasha-gray-4 transition-all duration-300 ${
-          open ? 'max-h-96' : 'max-h-0'
+          open ? 'max-h-[520px]' : 'max-h-0'
         }`}
       >
-        <nav className="px-5 py-6 flex flex-col gap-5">
-          <a
-            href="/"
-            onClick={() => setOpen(false)}
-            className="text-sm font-body uppercase tracking-[0.2em] text-akasha-black/80 hover:text-akasha-orange"
-          >
-            All Courses
-          </a>
-          {navLinks.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              onClick={() => setOpen(false)}
-              className="text-sm font-body uppercase tracking-[0.2em] text-akasha-black/80 hover:text-akasha-orange"
-            >
-              {l.label}
-            </a>
-          ))}
+        <nav className="px-5 py-6 flex flex-col gap-1">
+          {NAV.map((item) =>
+            item.dropdown ? (
+              <div key={item.label} className="border-b border-akasha-gray-4 last:border-b-0">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setOpenMobile((prev) => (prev === item.label ? null : item.label))
+                  }
+                  className="w-full flex items-center justify-between py-3 text-sm font-body uppercase tracking-[0.2em] text-akasha-black/85"
+                  aria-expanded={openMobile === item.label}
+                >
+                  {item.label}
+                  <svg
+                    width="10"
+                    height="6"
+                    viewBox="0 0 10 6"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    className={`transition-transform ${
+                      openMobile === item.label ? 'rotate-180' : ''
+                    }`}
+                  >
+                    <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+                <div
+                  className={`overflow-hidden transition-all duration-200 ${
+                    openMobile === item.label ? 'max-h-56 pb-3' : 'max-h-0'
+                  }`}
+                >
+                  {item.dropdown.map((sub) => (
+                    <a
+                      key={sub.href}
+                      href={sub.href}
+                      onClick={() => setOpen(false)}
+                      className="block py-2 pl-4 text-[13px] font-body uppercase tracking-[0.18em] text-akasha-black/70 hover:text-akasha-orange"
+                    >
+                      {sub.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className="block py-3 text-sm font-body uppercase tracking-[0.2em] text-akasha-black/85 hover:text-akasha-orange border-b border-akasha-gray-4"
+              >
+                {item.label}
+              </a>
+            ),
+          )}
           <a
             href={tier.ctaHref}
             onClick={() => setOpen(false)}
-            className="mt-2 bg-akasha-orange text-white text-center text-xs font-medium tracking-[0.12em] uppercase px-5 py-3 rounded-full"
+            className="mt-3 bg-akasha-orange text-white text-center text-xs font-medium tracking-[0.12em] uppercase px-5 py-3 rounded-full"
           >
             {tier.ctaShort}
           </a>

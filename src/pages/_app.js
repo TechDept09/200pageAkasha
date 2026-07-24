@@ -1,10 +1,17 @@
 import '@/styles/globals.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Script from 'next/script';
 import { Inter, Jost, Allura, Montserrat } from 'next/font/google';
 import { pageview } from '@/lib/pixel';
+
+// Preview gate. This branch is a private client preview; every page
+// waits behind a shared access code so the URL can be shared without
+// exposing work-in-progress publicly. Same code as /campaign/august
+// so marketing only has to remember one key.
+const PREVIEW_ACCESS_KEY = 'AKASHA-AUG-2026';
+const PREVIEW_STORAGE_KEY = 'akasha_preview_2026_access';
 
 const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || '1349360126835158';
 // Two GA4 properties fire in parallel from this codebase:
@@ -67,10 +74,153 @@ const allura = Allura({
   display: 'swap',
 });
 
+function PreviewGate({ onUnlock }) {
+  const [code, setCode] = useState('');
+  const [error, setError] = useState('');
+
+  const submit = (e) => {
+    e.preventDefault();
+    setError('');
+    if (code.trim().toUpperCase() === PREVIEW_ACCESS_KEY.toUpperCase()) {
+      try {
+        sessionStorage.setItem(PREVIEW_STORAGE_KEY, 'true');
+      } catch (_) {}
+      onUnlock();
+    } else {
+      setError('Invalid access code. Contact marketing for the current key.');
+    }
+  };
+
+  return (
+    <>
+      <Head>
+        <title>Confidential Preview, Akasha Yoga Academy</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+      <main
+        style={{
+          minHeight: '100vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: '#fff',
+          padding: '20px',
+        }}
+      >
+        <div style={{ maxWidth: '420px', width: '100%', textAlign: 'center' }}>
+          <p
+            style={{
+              fontFamily: 'Inter, sans-serif',
+              fontSize: '10px',
+              letterSpacing: '0.25em',
+              color: '#d97a3c',
+              fontWeight: 600,
+              textTransform: 'uppercase',
+              marginBottom: '1rem',
+            }}
+          >
+            Confidential Preview
+          </p>
+          <h1
+            style={{
+              fontSize: 'clamp(1.8rem, 4vw, 2.6rem)',
+              fontWeight: 300,
+              marginBottom: '1.5rem',
+              color: '#1a1a1a',
+            }}
+          >
+            Client Preview
+          </h1>
+          <p
+            style={{
+              color: '#666',
+              lineHeight: 1.6,
+              marginBottom: '2rem',
+              fontFamily: 'system-ui, sans-serif',
+            }}
+          >
+            This site is a private preview and is not yet public. Enter
+            the access code to view.
+          </p>
+          <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <input
+              type="text"
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+              placeholder="Access code"
+              autoComplete="off"
+              spellCheck="false"
+              style={{
+                width: '100%',
+                border: '1px solid #d0d0d0',
+                borderRadius: '999px',
+                padding: '12px 20px',
+                fontSize: '14px',
+                textAlign: 'center',
+                letterSpacing: '0.18em',
+                textTransform: 'uppercase',
+                outline: 'none',
+              }}
+            />
+            {error ? (
+              <p style={{ fontSize: '12px', color: '#c05a1a' }}>{error}</p>
+            ) : null}
+            <button
+              type="submit"
+              style={{
+                width: '100%',
+                background: '#d97a3c',
+                color: '#fff',
+                fontSize: '11px',
+                fontWeight: 600,
+                textTransform: 'uppercase',
+                letterSpacing: '0.2em',
+                padding: '14px 28px',
+                borderRadius: '999px',
+                border: 'none',
+                cursor: 'pointer',
+                fontFamily: 'Inter, sans-serif',
+              }}
+            >
+              Unlock Preview
+            </button>
+          </form>
+          <p
+            style={{
+              fontSize: '10px',
+              textTransform: 'uppercase',
+              letterSpacing: '0.25em',
+              color: '#999',
+              marginTop: '2rem',
+              fontFamily: 'Inter, sans-serif',
+            }}
+          >
+            Akasha Internal · Do Not Share
+          </p>
+        </div>
+      </main>
+    </>
+  );
+}
+
 export default function App({ Component, pageProps }) {
   const router = useRouter();
+  const [authorized, setAuthorized] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+    if (
+      typeof window !== 'undefined' &&
+      sessionStorage.getItem(PREVIEW_STORAGE_KEY) === 'true'
+    ) {
+      setAuthorized(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!authorized) return undefined;
     const handleRouteChange = (url) => {
       pageview();
       // Both GA4 properties get a direct gtag pageview so client-side
@@ -90,7 +240,13 @@ export default function App({ Component, pageProps }) {
     };
     router.events.on('routeChangeComplete', handleRouteChange);
     return () => router.events.off('routeChangeComplete', handleRouteChange);
-  }, [router.events]);
+  }, [router.events, authorized]);
+
+  if (!mounted) return null;
+
+  if (!authorized) {
+    return <PreviewGate onUnlock={() => setAuthorized(true)} />;
+  }
 
   return (
     <>
