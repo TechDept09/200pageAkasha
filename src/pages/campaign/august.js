@@ -15,11 +15,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import HubNav from '@/components/hub/HubNav';
 import Footer from '@/components/Footer';
-import {
-  JULY_ACCESS_KEY,
-  JULY_PHASES,
-  getActiveJulyPhase,
-} from '@/lib/julyCampaign';
+import { JULY_ACCESS_KEY, JULY_PHASES } from '@/lib/julyCampaign';
 import { CampaignContent } from './july';
 
 const STORAGE_KEY = 'akasha_aug_2026_access';
@@ -37,9 +33,10 @@ export default function AugustCampaign() {
     if (typeof window !== 'undefined' && sessionStorage.getItem(STORAGE_KEY) === 'true') {
       setAuthorized(true);
     }
-    // Preview override via ?phase= query. Accepts any key in
-    // JULY_PHASES (augphase1 is the default here). Falls back to
-    // the calendar-active phase, then augphase1 as a final default.
+    // This is a preview of the NEXT campaign, so the default is
+    // always augphase1 regardless of what phase the calendar says
+    // is currently active. Marketing can still compare against
+    // other phases via ?phase= (accepts any key in JULY_PHASES).
     const overrideKey = typeof router.query.phase === 'string'
       ? router.query.phase.toLowerCase()
       : null;
@@ -47,9 +44,7 @@ export default function AugustCampaign() {
       overrideKey && JULY_PHASES[overrideKey]
         ? JULY_PHASES[overrideKey]
         : null;
-    setPhase(
-      overridePhase || getActiveJulyPhase() || JULY_PHASES.augphase1,
-    );
+    setPhase(overridePhase || JULY_PHASES.augphase1);
   }, [router.query.phase]);
 
   const submit = (e) => {
