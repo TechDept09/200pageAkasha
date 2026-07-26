@@ -7,6 +7,14 @@ import HubNav from '@/components/hub/HubNav';
 import TrustStrip from '@/components/TrustStrip';
 import CertifiedTeacherIntro from '@/components/CertifiedTeacherIntro';
 import CampaignBonuses from '@/components/campaign/CampaignBonuses';
+import WhatIsYTT from '@/components/campaign/WhatIsYTT';
+import YourPath from '@/components/campaign/YourPath';
+import WhatCanYouDo from '@/components/campaign/WhatCanYouDo';
+import WhyOnlineWhyAkasha from '@/components/campaign/WhyOnlineWhyAkasha';
+import WhoIsThisFor from '@/components/campaign/WhoIsThisFor';
+import HowItWorks from '@/components/campaign/HowItWorks';
+import CampaignFAQ from '@/components/campaign/CampaignFAQ';
+import LeadCapture from '@/components/campaign/LeadCapture';
 import CampaignBenefits from '@/components/campaign/CampaignBenefits';
 import CampaignCurriculum from '@/components/campaign/CampaignCurriculum';
 import MoneyBackGuarantee from '@/components/campaign/MoneyBackGuarantee';
@@ -437,12 +445,20 @@ export function CampaignContent({ phase }) {
           </>
         ) : (
           <>
-            {/* Phase 1 / Phase 2 flow: trust wall before the ask, then
-                value stack (bonuses + MBG) so the buyer arrives at
-                the checkout already knowing what is inside and why
-                it is safe to try. */}
+            {/* Phase 1 / Phase 2 / augphase1 flow, restructured to
+                Wirahadi's CRO blueprint five-phase journey:
+                Awareness → Consideration → Evaluation → Decision →
+                Safety Net. Existing components stay in place where
+                they fit; the new campaign/* components carry
+                blueprint-verbatim copy for the gaps. */}
+            <WhatIsYTT />
+            <YourPath />
+            <WhatCanYouDo />
+            <WhyOnlineWhyAkasha />
             <WhyChooseAkasha />
             <CompetitiveComparison phase={phase} />
+            <WhoIsThisFor />
+            <HowItWorks />
             <TestimonialCarousel />
             <FeaturedIn />
             <CampaignBonuses />
@@ -653,7 +669,12 @@ export function CampaignContent({ phase }) {
           </>
         ) : (
           <>
-            {/* Non-backup: Meet Akasha videos + recommendation catalog. */}
+            {/* Non-backup: FAQ handles last remaining objections after
+                the checkout ask, LeadCapture catches the 95% who do
+                not convert today, then Meet Akasha videos and the
+                recommendation catalog. */}
+            <CampaignFAQ />
+            <LeadCapture />
             <IntroVideos />
             <RecommendationList />
           </>
@@ -1709,16 +1730,26 @@ function IntroVideos() {
 }
 
 function TestimonialCarousel() {
-  const [currentIdx, setCurrentIdx] = useState(0);
+  // Marketing manager asked to surface three testimonials per view
+  // instead of one, so the section reads as a wall of proof rather
+  // than a slow single-quote carousel. We chunk JULY_TESTIMONIALS
+  // into pages of three and cycle between pages.
+  const PER_PAGE = 3;
+  const pages = [];
+  for (let i = 0; i < JULY_TESTIMONIALS.length; i += PER_PAGE) {
+    pages.push(JULY_TESTIMONIALS.slice(i, i + PER_PAGE));
+  }
+
+  const [pageIdx, setPageIdx] = useState(0);
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
-    if (paused) return undefined;
+    if (paused || pages.length <= 1) return undefined;
     const interval = setInterval(() => {
-      setCurrentIdx((i) => (i + 1) % JULY_TESTIMONIALS.length);
+      setPageIdx((i) => (i + 1) % pages.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, [currentIdx, paused]);
+  }, [pageIdx, paused, pages.length]);
 
   return (
     <section
@@ -1737,66 +1768,87 @@ function TestimonialCarousel() {
           <span className="gold-rule" />
         </header>
 
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <div className="grid">
-            {JULY_TESTIMONIALS.map((t, i) => (
-              <article
-                key={t.name}
-                aria-hidden={i !== currentIdx}
+            {pages.map((page, pi) => (
+              <div
+                key={pi}
+                aria-hidden={pi !== pageIdx}
                 style={{
                   gridArea: '1 / 1',
-                  opacity: i === currentIdx ? 1 : 0,
-                  transition: 'opacity 1s ease',
-                  pointerEvents: i === currentIdx ? 'auto' : 'none',
+                  opacity: pi === pageIdx ? 1 : 0,
+                  transition: 'opacity 0.8s ease',
+                  pointerEvents: pi === pageIdx ? 'auto' : 'none',
                 }}
-                className="bg-akasha-white border border-akasha-gray-4 rounded-sm p-8 md:p-12 shadow-sm"
+                className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-7"
               >
-                <div className="grid grid-cols-1 md:grid-cols-[260px,1fr] gap-8 md:gap-12 items-center">
-                  <div className="aspect-square overflow-hidden rounded-sm bg-akasha-gray-4 mx-auto md:mx-0 max-w-[260px] w-full shadow-sm">
-                    <img
-                      src={t.photo}
-                      alt={t.name}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-                  <div>
-                    <span className="text-akasha-gold text-sm tracking-[0.25em] block mb-4">
-                      ★★★★★
-                    </span>
+                {page.map((t) => (
+                  <article
+                    key={t.name}
+                    className="bg-akasha-white border border-akasha-gray-4 rounded-sm p-6 md:p-7 shadow-sm flex flex-col"
+                  >
+                    <div className="flex items-center gap-4 mb-5">
+                      <div className="w-16 h-16 md:w-[72px] md:h-[72px] rounded-full overflow-hidden bg-akasha-gray-4 flex-shrink-0">
+                        <img
+                          src={t.photo}
+                          alt={t.name}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </div>
+                      <div className="min-w-0">
+                        <p
+                          className="font-heading text-akasha-black text-base md:text-lg leading-tight"
+                          style={{ fontWeight: 400 }}
+                        >
+                          {t.name}
+                        </p>
+                        {t.country ? (
+                          <p className="text-[11px] font-body text-akasha-gray-1 uppercase tracking-[0.2em] mt-1">
+                            {t.country}
+                          </p>
+                        ) : null}
+                        <span className="text-akasha-gold text-xs tracking-[0.2em] block mt-1.5">
+                          ★★★★★
+                        </span>
+                      </div>
+                    </div>
                     <blockquote
-                      className="font-heading text-akasha-black text-lg md:text-xl leading-relaxed italic mb-6"
+                      className="font-heading text-akasha-black text-[15px] md:text-base leading-relaxed italic flex-1"
                       style={{ fontWeight: 300 }}
                     >
                       &ldquo;{t.quote}&rdquo;
                     </blockquote>
-                    <p className="text-[12px] font-body text-akasha-gray-1 uppercase tracking-[0.28em]">
-                      {t.name}{t.country ? ` · ${t.country}` : ''}
-                    </p>
-                  </div>
-                </div>
-              </article>
+                  </article>
+                ))}
+              </div>
             ))}
           </div>
 
-          <div className="flex justify-center gap-2 mt-8 md:mt-10" role="tablist" aria-label="Testimonial selector">
-            {JULY_TESTIMONIALS.map((t, i) => (
-              <button
-                key={t.name}
-                type="button"
-                role="tab"
-                aria-selected={i === currentIdx}
-                aria-label={`Show testimonial ${i + 1} of ${JULY_TESTIMONIALS.length}`}
-                onClick={() => setCurrentIdx(i)}
-                className={`h-2 rounded-full transition-all duration-500 ease-out ${
-                  i === currentIdx
-                    ? 'w-10 bg-akasha-orange'
-                    : 'w-2 bg-akasha-gray-3 hover:bg-akasha-gray-2'
-                }`}
-              />
-            ))}
-          </div>
+          {pages.length > 1 ? (
+            <div
+              className="flex justify-center gap-2 mt-8 md:mt-10"
+              role="tablist"
+              aria-label="Testimonial page selector"
+            >
+              {pages.map((_, pi) => (
+                <button
+                  key={pi}
+                  type="button"
+                  role="tab"
+                  aria-selected={pi === pageIdx}
+                  aria-label={`Show testimonials page ${pi + 1} of ${pages.length}`}
+                  onClick={() => setPageIdx(pi)}
+                  className={`h-2 rounded-full transition-all duration-500 ease-out ${
+                    pi === pageIdx
+                      ? 'w-10 bg-akasha-orange'
+                      : 'w-2 bg-akasha-gray-3 hover:bg-akasha-gray-2'
+                  }`}
+                />
+              ))}
+            </div>
+          ) : null}
         </div>
       </div>
     </section>
