@@ -12,25 +12,17 @@
 // (the live Wix checkout). Until we have internal Wix product IDs for these
 // courses, CTAs route to the existing Wix flow.
 
+import { STOREWIDE_WINDOWS, STOREWIDE_PHASES } from '@/lib/campaignSchedule';
+
 export const CATEGORIES = {
   MAIN: 'main',
   ADVANCED: 'advanced',
   OTHER: 'other',
 };
 
-// July Summer campaign window, 2 Jul 12:00 WITA to 17 Jul (matches
-// JULY_LAUNCH_ISO in julyCampaign.js and the tier config).
-const STOREWIDE_WINDOWS = [
-  { start: '2026-07-02T12:00:00+08:00', end: '2026-07-17T23:59:59+08:00' },
-];
-
-const STOREWIDE_PHASES = [
-  { start: '2026-07-02T12:00:00+08:00', end: '2026-07-17T23:59:59+08:00', dateRange: '2-17 July' },
-];
-
-const ESSENTIAL_WINDOWS = [
-  { start: '2026-07-02T12:00:00+08:00', end: '2026-07-17T23:59:59+08:00' },
-];
+// Essential shares the same storewide July window; kept as an alias so the
+// per-course config below reads intentionally.
+const ESSENTIAL_WINDOWS = STOREWIDE_WINDOWS;
 
 export const courses = [
   {
@@ -250,7 +242,8 @@ export const courses = [
     image:
       'https://static.wixstatic.com/media/cd7168_08b4252a1e1a44fbab5f36b9588534b3~mv2.jpg/v1/fill/w_800,h_600,al_c,q_85,enc_avif,quality_auto/AYA300-Dean%20Raphael-W-67.jpg',
     href: '/80h-hatha-pranayama',
-    wixEnrollUrl: 'https://www.akashayogaacademy.com/80-hr-online-hatha-and-pranayama',
+    wixEnrollUrl:
+      'https://www.akashayogaacademy.com/80-hr-online-enroll-now-hatha-and-pranayama',
     isInternal: true,
     prereq: '200-Hour Certification',
     duration: '80 hours, self-paced',
@@ -311,7 +304,8 @@ export const courses = [
     image:
       'https://static.wixstatic.com/media/cd7168_0a05ce77a94a4310b9ef008bd9319cbc~mv2.jpg/v1/fill/w_800,h_600,al_c,q_85,enc_avif,quality_auto/cd7168_0a05ce77a94a4310b9ef008bd9319cbc~mv2.jpg',
     href: '/80h-meditation',
-    wixEnrollUrl: 'https://www.akashayogaacademy.com/80-hr-online-meditation-teacher-training',
+    wixEnrollUrl:
+      'https://www.akashayogaacademy.com/enroll-now-80-hr-online-meditation-teacher-training',
     isInternal: true,
     prereq: '200-Hour Certification',
     duration: '80 hours, self-paced',

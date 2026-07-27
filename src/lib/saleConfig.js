@@ -4,16 +4,14 @@
 // time Bali). Components ask "are we currently in a sale window?" and
 // "when does this window close?" instead of comparing against a single
 // SALE_END value.
-
-export const SALE_END = '2026-07-02T12:00:00+07:00';
-
-export const SALE_REGULAR_PRICE = 1190;
-export const SALE_PROMO_PRICE = 290;
-export const SALE_SAVINGS = SALE_REGULAR_PRICE - SALE_PROMO_PRICE;
+//
+// Campaign dates/prices themselves live in campaignSchedule.js and the
+// tier/course configs; this module only holds the (date-agnostic) helpers.
 
 // Default fallback for tiers/courses that have a single saleEnd only.
+// +08:00 (WITA) matches the canonical campaign timezone in campaignSchedule.js.
 function asWindow(end) {
-  return [{ start: '2020-01-01T00:00:00+07:00', end }];
+  return [{ start: '2020-01-01T00:00:00+08:00', end }];
 }
 
 export function normalizeWindows(input) {

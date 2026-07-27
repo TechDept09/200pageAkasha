@@ -1,0 +1,266 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { startWixCheckout, getProductId } from '@/lib/checkout';
+import { useUtmParams, formatUtmNote } from '@/hooks/useUtmParams';
+import { trackLead, trackInitiateCheckout, newEventId } from '@/lib/pixel';
+import { getMetaCookies } from '@/lib/fbCookies';
+import { pushBeginCheckout } from '@/lib/gtmEcommerce';
+import { savePendingPurchase } from '@/lib/pendingPurchase';
+
+function price(n, currency) {
+  if (!n) return null;
+  return currency === 'USD' ? `US$${n}` : `${currency}${n}`;
+}
+
+// Shared enroll/checkout form for both the 200h tier landings and the
+// individual course landings. Callers pass a normalized shape so the two
+// entry points (EnrollForm for tiers, CourseEnrollForm for courses) share
+// one implementation, validation, tracking, localStorage staging, and JSX.
+//
+// Props:
+// - title:            display + tracking label for the offer
+// - slug:             course/tier slug, used for productId + content_id
+// - plans:            [{ slug, label, price, currency, note, wixProductPageUrl?, couponCode? }]
+// - fallbackCouponCode: coupon applied when the selected plan has none (tier-level)
+// - trackGtm:         also push GA4/GTM begin_checkout (tier flow does; course flow does not)
+// - emptyStateMessage: shown instead of the form when there are no plans
+// - source:           label used to namespace console errors
+export default function CheckoutForm({
+  title,
+  slug,
+  plans = [],
+  fallbackCouponCode,
+  trackGtm = false,
+  emptyStateMessage,
+  source = 'CheckoutForm',
+}) {
+  const utm = useUtmParams();
+
+  const [selectedPlan, setSelectedPlan] = useState(plans[0]?.slug || 'full');
+  const [form, setForm] = useState({ firstName: '', lastName: '', email: '' });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
+  const activePlan = plans.find((p) => p.slug === selectedPlan) || plans[0];
+
+  const skipBuyerForm = !!activePlan?.wixProductPageUrl;
+
+  // BB: if the buyer hits Back from the Wix checkout, the browser restores
+  // this page from bfcache with loading still true and the submit button
+  // permanently disabled. Reset on pageshow when persisted is true.
+  useEffect(() => {
+    const onShow = (e) => {
+      if (e.persisted) {
+        setLoading(false);
+        setError(null);
+      }
+    };
+    window.addEventListener('pageshow', onShow);
+    return () => window.removeEventListener('pageshow', onShow);
+  }, []);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setError(null);
+
+    // Pay-in-Full needs name + email to pre-fill the Wix checkout. Payment-Plan
+    // routes the buyer to the native Wix product page which collects those
+    // fields itself, so we skip validation when wixProductPageUrl is set.
+    if (!skipBuyerForm) {
+      if (!form.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+        setError('Please enter a valid email address.');
+        return;
+      }
+      if (!form.firstName.trim()) {
+        setError('Please enter your first name.');
+        return;
+      }
+    }
+
+    setLoading(true);
+    trackLead(title, activePlan?.price);
+
+    try {
+      trackInitiateCheckout(title, activePlan?.price, `${slug}|${selectedPlan}`);
+
+      const { fbc, fbp } = getMetaCookies();
+
+      // Pre-stage browser Purchase event data. The thank-you redirect from
+      // Wix lands with no query context, so /thank-you reads these back to
+      // fire Purchase. eventId is shared with the CAPI side via a Wix
+      // customField so Meta dedupes both hits.
+      const eventId = newEventId();
+      const contentId = `${slug}|${selectedPlan}`;
+      savePendingPurchase({
+        courseName: title,
+        courseId: contentId,
+        price: activePlan?.price || 0,
+        eventId,
+      });
+
+      // GA4 / GTM ecommerce push: fires begin_checkout and stashes the order
+      // so /thank-you can push the purchase event once Wix returns with an
+      // orderId. Tier flow opts in; course flow historically does not.
+      if (trackGtm) {
+        pushBeginCheckout({
+          course_name: title,
+          value: activePlan?.price || 0,
+          currency: activePlan?.currency || 'USD',
+        });
+      }
+
+      // Subscription/Payment-Plan variants are dropped by the Wix headless
+      // SDK, so the plan declares a wixProductPageUrl and we redirect the
+      // buyer to the native Wix product page. UTM + fb cookies travel as
+      // query params so Wix-side analytics still see attribution.
+      if (activePlan?.wixProductPageUrl) {
+        const u = new URL(activePlan.wixProductPageUrl);
+        ['utm_source', 'utm_medium', 'utm_campaign'].forEach((k) => {
+          if (utm[k]) u.searchParams.set(k, utm[k]);
+        });
+        if (fbc) u.searchParams.set('fbc', fbc);
+        if (fbp) u.searchParams.set('fbp', fbp);
+        if (form.email) u.searchParams.set('email', form.email.trim());
+        window.location.href = u.toString();
+        return;
+      }
+
+      const productId = getProductId(slug, selectedPlan);
+      // Auto-apply the plan coupon when set, else the offer-level fallback
+      // (e.g. Essential's July CARE30 voucher lives on the tier config).
+      const couponCode = activePlan?.couponCode || fallbackCouponCode || undefined;
+      const url = await startWixCheckout({
+        utm,
+        utmNote: formatUtmNote(utm),
+        productId,
+        couponCode,
+        meta: { fbc, fbp, courseSlug: slug, planSlug: selectedPlan, eventId },
+        buyer: {
+          firstName: form.firstName.trim(),
+          lastName: form.lastName.trim(),
+          email: form.email.trim(),
+        },
+      });
+
+      const finalUrl = new URL(url);
+      if (fbc) finalUrl.searchParams.set('fbc', fbc);
+      if (fbp) finalUrl.searchParams.set('fbp', fbp);
+      window.location.href = finalUrl.toString();
+    } catch (err) {
+      console.error(`[${source}] failed:`, err);
+      setError(err?.message || 'Could not start checkout. Please try again.');
+      setLoading(false);
+    }
+  }
+
+  const inputCls =
+    'w-full border border-akasha-gray-3 rounded-full px-5 py-3 text-sm font-body text-akasha-black placeholder:text-akasha-gray-2 focus:outline-none focus:border-akasha-orange transition-colors bg-akasha-white';
+
+  if (!plans.length) {
+    if (emptyStateMessage) {
+      return (
+        <p className="text-xs font-body text-akasha-gray-1 text-center">
+          {emptyStateMessage}
+        </p>
+      );
+    }
+    return null;
+  }
+
+  return (
+    <form onSubmit={handleSubmit} noValidate>
+      {plans.length > 1 ? (
+        <div className="grid grid-cols-2 gap-2 mb-5">
+          {plans.map((p) => {
+            const isActive = p.slug === selectedPlan;
+            return (
+              <button
+                key={p.slug}
+                type="button"
+                onClick={() => setSelectedPlan(p.slug)}
+                className={`text-left p-3 rounded-sm border transition-colors ${
+                  isActive
+                    ? 'border-akasha-orange bg-akasha-orange/5'
+                    : 'border-akasha-gray-4 bg-akasha-white hover:border-akasha-gray-2'
+                }`}
+              >
+                <p
+                  className="text-[10px] font-body uppercase tracking-[0.18em] text-akasha-gray-1 mb-1"
+                  style={{ fontFamily: 'Inter, sans-serif' }}
+                >
+                  {p.label}
+                </p>
+                <p
+                  className="font-heading text-akasha-black text-xl leading-none"
+                  style={{ fontWeight: 400 }}
+                >
+                  {price(p.price, p.currency)}
+                </p>
+                {p.note ? (
+                  <p className="text-[10px] font-body text-akasha-gray-1 mt-1 leading-tight">
+                    {p.note}
+                  </p>
+                ) : null}
+              </button>
+            );
+          })}
+        </div>
+      ) : null}
+
+      {skipBuyerForm ? null : (
+        <>
+          <div className="grid grid-cols-2 gap-3 mb-3">
+            <input
+              type="text"
+              autoComplete="given-name"
+              placeholder="First name *"
+              value={form.firstName}
+              onChange={set('firstName')}
+              className={inputCls}
+            />
+            <input
+              type="text"
+              autoComplete="family-name"
+              placeholder="Last name"
+              value={form.lastName}
+              onChange={set('lastName')}
+              className={inputCls}
+            />
+          </div>
+          <input
+            type="email"
+            autoComplete="email"
+            placeholder="Email address *"
+            value={form.email}
+            onChange={set('email')}
+            className={`${inputCls} mb-4`}
+          />
+        </>
+      )}
+
+      <button
+        type="submit"
+        disabled={loading}
+        className={`btn-action w-full ${loading ? 'opacity-70 cursor-wait' : ''}`}
+      >
+        {loading
+          ? 'Preparing your checkout…'
+          : skipBuyerForm
+            ? `Continue to ${activePlan?.label || 'Checkout'}`
+            : `Enroll Now, ${price(activePlan?.price, activePlan?.currency)}`}
+      </button>
+
+      {error && (
+        <p className="text-xs text-akasha-orange-dark mt-3 font-body text-center">
+          {error}
+        </p>
+      )}
+
+      <p className="text-[10px] font-body text-akasha-gray-1 mt-3 tracking-[0.2em] uppercase text-center">
+        Secure checkout · Powered by Wix
+      </p>
+    </form>
+  );
+}

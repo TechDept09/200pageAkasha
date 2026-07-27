@@ -41,8 +41,10 @@ module.exports = {
         // The CSS variables below resolve to the locally-served font with
         // a system fallback if it hasn't downloaded yet.
         heading: ['var(--font-jost)', '"Futura LT W01 Light"', 'Futura', 'sans-serif'],
-        body:    ['var(--font-inter)', '"Proxima Nova"', 'Helvetica Neue', 'sans-serif'],
+        body:    ['var(--font-montserrat)', '"Proxima Nova"', 'Helvetica Neue', 'sans-serif'],
         script:  ['var(--font-allura)', 'Georgia', 'serif'],
+        // Small UI labels / eyebrows — substitute for the site's DIN Next.
+        label:   ['var(--font-inter)', '"DIN Next"', 'Helvetica Neue', 'sans-serif'],
       },
       letterSpacing: {
         wide: '0.05em',

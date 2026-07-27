@@ -1,17 +1,16 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import Head from 'next/head';
 import HubNav from '@/components/hub/HubNav';
 import Footer from '@/components/Footer';
 import { trackPurchase } from '@/lib/pixel';
 import { firePurchaseFromUrl } from '@/lib/gtmEcommerce';
-
-// Two hour ceiling on stale Purchase data, in case the buyer abandoned
-// mid-checkout and only revisited this URL much later.
-const PENDING_TTL_MS = 2 * 60 * 60 * 1000;
+import {
+  readPendingPurchase,
+  clearPendingPurchase,
+  PENDING_PURCHASE_TTL_MS,
+} from '@/lib/pendingPurchase';
 
 export default function ThankYou() {
-  const router = useRouter();
   const [orderName, setOrderName] = useState('');
 
   useEffect(() => {
@@ -26,18 +25,15 @@ export default function ThankYou() {
     // Refresh-proof: never fire Meta Purchase twice in the same tab.
     if (sessionStorage.getItem('purchase_fired')) return;
 
-    let courseName, courseId, price, eventId, timestamp;
-    try {
-      courseName = localStorage.getItem('pendingPurchase_courseName') || 'Course Enrollment';
-      courseId = localStorage.getItem('pendingPurchase_courseId') || 'unknown_course';
-      price = localStorage.getItem('pendingPurchase_price') || '0';
-      eventId = localStorage.getItem('pendingPurchase_eventId') || null;
-      timestamp = localStorage.getItem('pendingPurchase_timestamp');
-    } catch (_) {
-      return;
-    }
+    const pending = readPendingPurchase();
+    if (!pending) return;
+    const courseName = pending.courseName || 'Course Enrollment';
+    const courseId = pending.courseId || 'unknown_course';
+    const price = pending.price || '0';
+    const eventId = pending.eventId || null;
+    const timestamp = pending.timestamp;
 
-    if (timestamp && Date.now() - parseInt(timestamp, 10) > PENDING_TTL_MS) {
+    if (timestamp && Date.now() - parseInt(timestamp, 10) > PENDING_PURCHASE_TTL_MS) {
       return;
     }
 
@@ -53,13 +49,7 @@ export default function ThankYou() {
         clearInterval(interval);
         trackPurchase(courseName, price, courseId, eventId);
         sessionStorage.setItem('purchase_fired', 'true');
-        try {
-          localStorage.removeItem('pendingPurchase_courseName');
-          localStorage.removeItem('pendingPurchase_courseId');
-          localStorage.removeItem('pendingPurchase_price');
-          localStorage.removeItem('pendingPurchase_eventId');
-          localStorage.removeItem('pendingPurchase_timestamp');
-        } catch (_) {}
+        clearPendingPurchase();
       } else if (attempts > 25) {
         clearInterval(interval);
       }

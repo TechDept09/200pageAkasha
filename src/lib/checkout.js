@@ -1,32 +1,9 @@
 import { wixClient, WIX_STORES_APP_ID } from '@/lib/wixClient';
 
-const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign'];
-
-// Wix createRedirectSession returns a session-cookie wrapper URL whose query
-// params are dropped on the hop through; UTM must also be injected into the
-// inner `redirectUrl` so attribution survives.
-export function attachUtmToWixRedirect(fullUrl, utm) {
-  const outer = new URL(fullUrl);
-
-  const innerStr = outer.searchParams.get('redirectUrl');
-  if (innerStr) {
-    try {
-      const inner = new URL(innerStr);
-      UTM_KEYS.forEach((k) => {
-        if (utm[k]) inner.searchParams.set(k, utm[k]);
-      });
-      outer.searchParams.set('redirectUrl', inner.toString());
-    } catch {
-      // inner is not a parseable URL, leave it alone
-    }
-  }
-
-  UTM_KEYS.forEach((k) => {
-    if (utm[k]) outer.searchParams.set(k, utm[k]);
-  });
-
-  return outer.toString();
-}
+// The implementation now lives in the SDK-free '@/lib/utm' module; re-export it
+// here so existing importers of attachUtmToWixRedirect from '@/lib/checkout' keep working.
+import { attachUtmToWixRedirect } from '@/lib/utm';
+export { attachUtmToWixRedirect };
 
 // Static registry, Next.js needs literal process.env.NAME references at
 // build time. Add a new entry when a course gets its Wix Product ID.

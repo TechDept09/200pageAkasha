@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import SaleCountdown from './SaleCountdown';
 import { useTier } from '@/lib/TierContext';
 import { useSaleStatus } from '@/hooks/useSaleStatus';
@@ -38,7 +39,7 @@ export default function Hero() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-6">
-              <a href="#pricing" className="btn-primary text-center">
+              <a href={tier.ctaHref} className="btn-primary text-center">
                 Enroll Now
               </a>
               <a href="#curriculum" className="btn-ghost">
@@ -67,11 +68,14 @@ export default function Hero() {
           </div>
 
           <div className="relative">
-            <div className="aspect-[4/5] overflow-hidden rounded-sm">
-              <img
+            <div className="relative aspect-[4/5] overflow-hidden rounded-sm">
+              <Image
                 src={tier.heroImage}
                 alt={tier.title}
-                className="w-full h-full object-cover"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 45vw"
+                className="object-cover"
               />
             </div>
 

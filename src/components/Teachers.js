@@ -1,87 +1,91 @@
+import Image from 'next/image';
+
+// "Meet Your Teachers" section, matching the live Wix 200-Hour page: three
+// circular portraits with a gold ring, a script name, and a short graduate
+// quote beneath each, over the faint lotus watermark.
+const LOTUS_WATERMARK =
+  'https://static.wixstatic.com/media/cd7168_4415a77d6ae941eaa45a7317dc90ee65~mv2.png/v1/fill/w_858,h_870,al_c,q_90,enc_avif,quality_auto/flower-only-Light-Dark-orange_edited.png';
+
+const teachers = [
+  {
+    name: 'Burkhard',
+    photo:
+      'https://static.wixstatic.com/media/cd7168_241779a0b2e94455a8c7fe10e05530c7~mv2.jpg/v1/fill/w_492,h_486,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Akasha-Yoga-Academy-Bali-300-Hour-2019--.jpg',
+    quote:
+      'The depth of his practice is brilliant. He really holds the space well, and opens from the Heart consistently.',
+    attr: 'Zoran from Canada',
+  },
+  {
+    name: 'Kirsten',
+    photo:
+      'https://static.wixstatic.com/media/c15a18_c3d07047d6e04f11ab181a9a82faff92~mv2.jpg/v1/crop/x_53,y_56,w_394,h_390/fill/w_494,h_486,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/KIRSTEN.jpg',
+    quote:
+      'Kirsten is super clear & precise. She is motherly, but not patronizing, kind & compassionate.',
+    attr: 'Anastasia from Germany',
+  },
+  {
+    name: 'Devdas',
+    photo:
+      'https://static.wixstatic.com/media/cd7168_c55633f6fdc4442b8a354b77fab9d68f~mv2.jpg/v1/fill/w_492,h_486,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/DEVDAS.jpg',
+    quote:
+      'The way Devdas holds space is amazing. I feel blessed to have had the opportunity to learn from him.',
+    attr: 'Rebecca from the US',
+  },
+];
+
 export default function Teachers() {
-  const teachers = [
-    {
-      name: 'Burkhard',
-      role: 'Founder · Lead Teacher',
-      cred: 'E-RYT-500',
-      photo:
-        'https://static.wixstatic.com/media/cd7168_241779a0b2e94455a8c7fe10e05530c7~mv2.jpg/v1/fill/w_246,h_243,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Akasha-Yoga-Academy-Bali-300-Hour-2019--.jpg',
-      bio: 'Master’s in Psychology from the Free University of Berlin. Over 5,000 hours of yogic study since 2001, living year-round in Asia since 2007, including a 49-day solitary meditation retreat.',
-      quote: 'The depth of his practice is brilliant. He really holds the space well, and opens from the Heart consistently.',
-      attr: 'Zoran, Canada',
-    },
-    {
-      name: 'Kirsten',
-      role: 'Co-Founder · Lead Teacher',
-      cred: 'E-RYT-500',
-      photo:
-        'https://static.wixstatic.com/media/c15a18_c3d07047d6e04f11ab181a9a82faff92~mv2.jpg/v1/crop/x_53,y_56,w_394,h_390/fill/w_247,h_243,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/KIRSTEN.jpg',
-      bio: 'From architecture & art history to fifteen-plus years of travel through India & Southeast Asia, devoted to classical breath-based Hatha, Yin Yoga, pranayama, and meditation.',
-      quote: 'Kirsten is super clear & precise. She is motherly, but not patronizing, kind & compassionate.',
-      attr: 'Anastasia, Germany',
-    },
-    {
-      name: 'Devdas',
-      role: 'Lead Teacher',
-      cred: 'E-RYT-500',
-      photo:
-        'https://static.wixstatic.com/media/cd7168_c55633f6fdc4442b8a354b77fab9d68f~mv2.jpg/v1/fill/w_246,h_243,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/DEVDAS.jpg',
-      bio: 'Found Hatha Yoga at 16, then spent 12 years teaching meditation in India under Swami Jnanananda and Sri Mooji. Has taught across America, Europe, Bali, Thailand, and Mexico.',
-      quote: 'The way Devdas holds space is amazing. I feel blessed to have had the opportunity to learn from him.',
-      attr: 'Rebecca, United States',
-    },
-  ];
-
   return (
-    <section id="teachers" className="py-20 md:py-28 bg-akasha-gray-4/30">
-      <div className="section">
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="eyebrow">Meet Your Teachers</span>
-          <h2 style={{ fontSize: 'clamp(1.9rem, 3.8vw, 2.8rem)', fontWeight: 300 }}>
-            65 Years of Combined Experience
-          </h2>
-          <p className="font-body text-akasha-gray-1 mt-4 leading-relaxed">
-            Heart-centered teachers who actually embody the teachings, and
-            share their wisdom in a relatable way.
-          </p>
-          <span className="gold-rule" />
-        </div>
+    <section id="teachers" className="relative overflow-hidden bg-akasha-white">
+      {/* Faint lotus watermark, bleeding off the left edge */}
+      <img
+        src={LOTUS_WATERMARK}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        decoding="async"
+        className="pointer-events-none select-none absolute left-[-140px] top-1/2 -translate-y-1/2 w-[420px] md:w-[620px] opacity-[0.12]"
+      />
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {teachers.map((t, i) => (
-            <article
-              key={i}
-              className="bg-akasha-white border border-akasha-gray-4 rounded-sm p-8 text-center flex flex-col"
-            >
-              <div className="w-28 h-28 mx-auto mb-5 rounded-full overflow-hidden border border-akasha-gray-4 bg-akasha-gray-4/40">
-                <img
-                  src={t.photo}
-                  alt={`${t.name}, Akasha Yoga Academy lead teacher`}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                  decoding="async"
-                />
+      <div className="section relative z-10 py-16 md:py-24">
+        <h2
+          className="font-heading uppercase text-akasha-gray-1 tracking-[0.18em] text-center"
+          style={{ fontSize: 'clamp(1.5rem, 3.2vw, 2.2rem)', fontWeight: 300 }}
+        >
+          Meet Your Teachers
+        </h2>
+
+        <div className="mt-12 md:mt-16 grid grid-cols-1 sm:grid-cols-3 gap-10 md:gap-8 max-w-4xl mx-auto">
+          {teachers.map((t) => (
+            <div key={t.name} className="text-center flex flex-col items-center">
+              <div
+                className="rounded-full p-[3px]"
+                style={{ background: 'linear-gradient(135deg, #E7BC5D 0%, #b8892f 55%, #E7BC5D 100%)' }}
+              >
+                <div className="relative w-36 h-36 md:w-44 md:h-44 rounded-full overflow-hidden bg-akasha-gray-4">
+                  <Image
+                    src={t.photo}
+                    alt={`${t.name}, Akasha Yoga Academy lead teacher`}
+                    fill
+                    sizes="176px"
+                    className="object-cover"
+                  />
+                </div>
               </div>
-              <span className="script block mb-2" style={{ fontSize: '2.4rem' }}>
+
+              <span
+                className="font-script text-akasha-orange mt-4"
+                style={{ fontSize: 'clamp(1.8rem, 3vw, 2.4rem)' }}
+              >
                 {t.name}
               </span>
-              <p className="text-[10px] font-body text-akasha-gray-1 uppercase tracking-[0.25em] mb-6">
-                {t.role} · {t.cred}
-              </p>
 
-              <p className="text-sm font-body text-akasha-gray-1 leading-relaxed mb-7 flex-1">
-                {t.bio}
+              <p className="mt-2 max-w-[15rem] font-body italic text-akasha-gray-1 text-sm leading-relaxed">
+                &ldquo;{t.quote}&rdquo;
               </p>
-
-              <div className="pt-6 border-t border-akasha-gray-4">
-                <p className="font-heading text-akasha-black/85 text-[15px] leading-relaxed mb-3" style={{ fontWeight: 300 }}>
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-                <cite className="not-italic text-[10px] font-body text-akasha-gray-1 uppercase tracking-[0.25em]">
-                  {t.attr}
-                </cite>
-              </div>
-            </article>
+              <cite className="mt-2 not-italic font-script text-akasha-gray-1" style={{ fontSize: '1rem' }}>
+                {t.attr}
+              </cite>
+            </div>
           ))}
         </div>
       </div>

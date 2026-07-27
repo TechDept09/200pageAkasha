@@ -100,6 +100,7 @@ import { useUtmParams, formatUtmNote } from '@/hooks/useUtmParams';
 import { trackLead, trackInitiateCheckout, newEventId } from '@/lib/pixel';
 import { getMetaCookies } from '@/lib/fbCookies';
 import { pushBeginCheckout } from '@/lib/gtmEcommerce';
+import { savePendingPurchase } from '@/lib/pendingPurchase';
 import {
   JULY_ACCESS_KEY,
   getActiveJulyPhase,
@@ -724,13 +725,7 @@ function BundleCard({ phase, showWellnessNote, onWhatYouGet }) {
       trackInitiateCheckout(courseLabel, bundle.total, contentId);
       const { fbc, fbp } = getMetaCookies();
       const eventId = newEventId();
-      try {
-        localStorage.setItem('pendingPurchase_courseName', courseLabel);
-        localStorage.setItem('pendingPurchase_courseId', contentId);
-        localStorage.setItem('pendingPurchase_price', String(bundle.total));
-        localStorage.setItem('pendingPurchase_eventId', eventId);
-        localStorage.setItem('pendingPurchase_timestamp', Date.now().toString());
-      } catch (_) {}
+      savePendingPurchase({ courseName: courseLabel, courseId: contentId, price: bundle.total, eventId });
 
       // GA4 / GTM begin_checkout push; thank-you page reads the
       // stashed order once Wix returns with orderId in the URL.
@@ -1860,13 +1855,7 @@ function StandaloneCard({ phase, onWhatYouGet }) {
       trackInitiateCheckout(courseLabel, displayPrice, contentId);
       const { fbc, fbp } = getMetaCookies();
       const eventId = newEventId();
-      try {
-        localStorage.setItem('pendingPurchase_courseName', courseLabel);
-        localStorage.setItem('pendingPurchase_courseId', contentId);
-        localStorage.setItem('pendingPurchase_price', String(displayPrice));
-        localStorage.setItem('pendingPurchase_eventId', eventId);
-        localStorage.setItem('pendingPurchase_timestamp', Date.now().toString());
-      } catch (_) {}
+      savePendingPurchase({ courseName: courseLabel, courseId: contentId, price: displayPrice, eventId });
 
       // GA4 / GTM begin_checkout push; thank-you page reads the
       // stashed order once Wix returns with orderId in the URL.
