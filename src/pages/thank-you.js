@@ -75,10 +75,20 @@ export default function ThankYou() {
         <meta name="robots" content="noindex" />
       </Head>
 
-      <HubNav />
+      <HubNav ctaText="My Courses" ctaHref="/courses" />
 
       <main className="min-h-[70vh] flex items-center justify-center bg-akasha-white pt-28 md:pt-36 pb-16">
         <div className="section text-center max-w-2xl">
+          {/* Checkmark animation */}
+          <div className="mb-6 flex justify-center">
+            <div className="w-16 h-16 rounded-full bg-akasha-green/10 flex items-center justify-center animate-fade-in-scale">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" className="text-akasha-green">
+                <circle cx="16" cy="16" r="15" stroke="currentColor" strokeWidth="2" />
+                <path d="M9 16L14 21L23 11" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+          </div>
+
           <span className="eyebrow text-akasha-orange">Order Confirmed</span>
 
           <h1
@@ -130,7 +140,7 @@ export default function ThankYou() {
             </ul>
           </div>
 
-          <a href="/" className="btn-primary">
+          <a href="/courses" className="btn-primary">
             Browse More Courses
           </a>
         </div>

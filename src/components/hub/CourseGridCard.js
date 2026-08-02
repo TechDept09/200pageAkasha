@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export default function CourseGridCard({ course }) {
   const {
     title,
@@ -19,20 +21,20 @@ export default function CourseGridCard({ course }) {
   const hasPrice = regularPrice && !promoPrice;
 
   return (
-    <article className="flex flex-col bg-akasha-white border border-akasha-gray-4 rounded-sm overflow-hidden hover:shadow-md transition-shadow duration-300">
+    <article className="flex flex-col bg-akasha-white border border-akasha-gray-4 rounded-md overflow-hidden shadow-card hover:shadow-card-hover hover:-translate-y-1 transition-all duration-400 group">
       <a
         href={href}
         {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-        className="relative aspect-[4/3] bg-akasha-gray-4 block group"
+        className="relative aspect-[4/3] bg-akasha-gray-4 block overflow-hidden"
         aria-label={`Learn more about ${title}`}
       >
         {image ? (
-          <img
+          <Image
             src={image}
             alt={title}
-            className="w-full h-full object-cover group-hover:opacity-95 transition-opacity"
-            loading="lazy"
-            decoding="async"
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover transition-all duration-500 group-hover:scale-105 group-hover:opacity-90"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-akasha-gray-2 font-body text-[11px]">
@@ -40,9 +42,12 @@ export default function CourseGridCard({ course }) {
           </div>
         )}
 
+        {/* Subtle overlay on hover */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
+
         {discountPercent ? (
           <span
-            className="absolute top-2.5 left-2.5 bg-akasha-orange text-akasha-white text-[12px] md:text-[13px] font-semibold tracking-[0.15em] uppercase px-3 py-1.5 rounded-sm shadow-md"
+            className="absolute top-2.5 left-2.5 bg-akasha-orange text-akasha-white text-[12px] md:text-[13px] font-semibold tracking-[0.15em] uppercase px-3 py-1.5 rounded-sm shadow-md badge-glow z-10"
             style={{ fontFamily: 'Inter, sans-serif' }}
           >
             {discountPercent}% off
@@ -52,7 +57,7 @@ export default function CourseGridCard({ course }) {
 
       <div className="flex flex-col flex-1 p-5">
         <h3
-          className="font-heading text-akasha-black text-base md:text-[17px] mb-2 leading-snug"
+          className="font-heading text-akasha-black text-base md:text-[17px] mb-2 leading-snug group-hover:text-akasha-orange transition-colors duration-300"
           style={{ fontWeight: 400 }}
         >
           {title}

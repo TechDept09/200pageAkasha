@@ -3,8 +3,9 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Script from 'next/script';
-import { Inter, Jost, Allura } from 'next/font/google';
+import { Inter, Jost, Allura, Montserrat } from 'next/font/google';
 import { pageview } from '@/lib/pixel';
+import { ORGANIZATION_SCHEMA, jsonLd } from '@/lib/seo';
 
 const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || '1349360126835158';
 // Two GA4 properties fire in parallel from this codebase:
@@ -24,6 +25,17 @@ const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-M9GPNL6';
 const GTM_ID_MARKETING =
   process.env.NEXT_PUBLIC_GTM_ID_MARKETING || 'GTM-5F5NHG99';
 
+// The secondary marketing GA4 property and GTM container exist for
+// historical reasons, not technical necessity. They load by default
+// (unchanged behavior); set NEXT_PUBLIC_ENABLE_GA_MARKETING=false or
+// NEXT_PUBLIC_ENABLE_GTM_MARKETING=false to drop one from every page
+// (less third-party JS) without a code change, once marketing confirms
+// it is no longer monitored.
+const GA_MARKETING_ENABLED =
+  process.env.NEXT_PUBLIC_ENABLE_GA_MARKETING !== 'false';
+const GTM_MARKETING_ENABLED =
+  process.env.NEXT_PUBLIC_ENABLE_GTM_MARKETING !== 'false';
+
 // Self-hosted Google Fonts via next/font: the font files ship from the
 // same origin as the rest of the bundle, so there's no render-blocking
 // request to fonts.googleapis.com and the cross-origin DNS hop is gone.
@@ -32,6 +44,15 @@ const inter = Inter({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600'],
   variable: '--font-inter',
+  display: 'swap',
+});
+// Body text substitute for Wix's Proxima Nova (proxima-n-w01-reg). Montserrat
+// is the closest free geometric-humanist match; Inter stays for small UI
+// labels (mirrors the site's separate DIN Next small-label font).
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600'],
+  variable: '--font-montserrat',
   display: 'swap',
 });
 const jost = Jost({
@@ -57,7 +78,9 @@ export default function App({ Component, pageProps }) {
       // route changes (Next.js router.push) are attributed correctly.
       if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
         window.gtag('config', GA_ID, { page_path: url });
-        window.gtag('config', GA_ID_MARKETING, { page_path: url });
+        if (GA_MARKETING_ENABLED) {
+          window.gtag('config', GA_ID_MARKETING, { page_path: url });
+        }
       }
       // GTM also gets the SPA pageview signal via dataLayer for any
       // non-GA4 tags marketing wires into the container.
@@ -81,11 +104,19 @@ export default function App({ Component, pageProps }) {
           name="viewport"
           content="width=device-width, initial-scale=1, viewport-fit=cover"
         />
+        {/* Inform Google the site was published in 2015; helps EEAT signals */}
+        <meta property="article:published_time" content="2015-01-01T00:00:00+00:00" />
+        {/* Organization structured data — site-wide, Google Knowledge Graph */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={jsonLd(ORGANIZATION_SCHEMA)}
+        />
       </Head>
 
       <style jsx global>{`
         html {
           --font-inter: ${inter.style.fontFamily};
+          --font-montserrat: ${montserrat.style.fontFamily};
           --font-jost: ${jost.style.fontFamily};
           --font-allura: ${allura.style.fontFamily};
         }
@@ -126,7 +157,7 @@ export default function App({ Component, pageProps }) {
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', '${GA_ID}');
-            gtag('config', '${GA_ID_MARKETING}');
+            ${GA_MARKETING_ENABLED ? `gtag('config', '${GA_ID_MARKETING}');` : ''}
           `,
         }}
       />
@@ -146,22 +177,27 @@ export default function App({ Component, pageProps }) {
         }}
       />
 
-      {/* Second GTM container from marketing, loaded in parallel. */}
-      <Script
-        id="gtm-loader-marketing"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
+      {/* Second GTM container from marketing, loaded in parallel.
+          Gated so it can be dropped via NEXT_PUBLIC_ENABLE_GTM_MARKETING=false. */}
+      {GTM_MARKETING_ENABLED && (
+        <Script
+          id="gtm-loader-marketing"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
             j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','${GTM_ID_MARKETING}');
           `,
-        }}
-      />
+          }}
+        />
+      )}
 
-      <div className={`${inter.variable} ${jost.variable} ${allura.variable}`}>
+      <div
+        className={`${inter.variable} ${montserrat.variable} ${jost.variable} ${allura.variable}`}
+      >
         <Component {...pageProps} />
       </div>
     </>

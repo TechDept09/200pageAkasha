@@ -12,6 +12,7 @@ import WhyAkasha from '../WhyAkasha';
 import TrustStrip from '../TrustStrip';
 import Footer from '../Footer';
 import { useSaleStatus } from '@/hooks/useSaleStatus';
+import { CanonicalLink, buildCourseSchema, buildBreadcrumbSchema, jsonLd } from '@/lib/seo';
 
 function price(n, currency) {
   if (!n) return null;
@@ -51,6 +52,21 @@ export default function CourseLanding({ course }) {
   const saleStatus = useSaleStatus(course.saleWindows, course.salePhases);
   const dateText = saleStatus.phase?.dateRange || (saleEndShort ? `Ends in ${saleEndShort}` : null);
 
+  // SEO structured data
+  const courseUrl = `/${course.slug}`;
+  const courseSchemaObj = buildCourseSchema({
+    name: title,
+    description: shortDescription,
+    price: promoPrice || regularPrice,
+    category: course.category || 'Course',
+    ...(prereq ? { prereq } : {}),
+  });
+  const breadcrumbSchemaObj = buildBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Courses', url: '/courses' },
+    { name: title, url: courseUrl },
+  ]);
+
   return (
     <>
       <Head>
@@ -61,12 +77,28 @@ export default function CourseLanding({ course }) {
         <meta property="og:type" content="website" />
         <meta property="og:title" content={metaTitle} />
         <meta property="og:description" content={metaDescription} />
-        {image ? <meta property="og:image" content={image} /> : null}
+        {image ? (
+          <>
+            <meta property="og:image" content={image} />
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="630" />
+          </>
+        ) : null}
         <meta property="og:site_name" content="Akasha Yoga Academy" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={metaTitle} />
         <meta name="twitter:description" content={metaDescription} />
         {image ? <meta name="twitter:image" content={image} /> : null}
+        {CanonicalLink(courseUrl)}
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={jsonLd(courseSchemaObj)}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={jsonLd(breadcrumbSchemaObj)}
+        />
       </Head>
 
       <CourseNav ctaLabel={ctaShort} />
@@ -78,7 +110,7 @@ export default function CourseLanding({ course }) {
             <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
               <div className="text-center lg:text-left">
                 <a
-                  href="/"
+                  href="/courses"
                   className="inline-block eyebrow text-akasha-gray-1 hover:text-akasha-orange transition-colors mb-3"
                 >
                   ← All Courses
@@ -263,7 +295,7 @@ export default function CourseLanding({ course }) {
               <span className="gold-rule" />
             </div>
 
-            <div className="max-w-xl mx-auto bg-akasha-white border border-akasha-gray-4 rounded-sm overflow-hidden">
+            <div className="max-w-xl mx-auto bg-akasha-white border border-akasha-gray-4 rounded-md overflow-hidden shadow-lg">
               <div className="text-center pt-10 pb-8 px-8 border-b border-akasha-gray-4">
                 {tagline ? (
                   <span className="script block mb-3" style={{ fontSize: '2rem' }}>

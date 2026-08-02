@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { CanonicalLink, buildBreadcrumbSchema, buildFAQSchema, jsonLd } from '@/lib/seo';
 import SiteNav from '@/components/SiteNav';
 import Hero from '@/components/Hero';
 import QuoteBreak from '@/components/QuoteBreak';
@@ -10,7 +11,7 @@ import TrustStrip from '@/components/TrustStrip';
 import Pricing from '@/components/Pricing';
 import Bonuses from '@/components/Bonuses';
 import Testimonials from '@/components/Testimonials';
-import FAQ from '@/components/FAQ';
+import FAQ, { FAQS } from '@/components/FAQ';
 import CTA from '@/components/CTA';
 import Footer from '@/components/Footer';
 import StickyCTA from '@/components/StickyCTA';
@@ -67,11 +68,26 @@ export default function PremiumPage() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={tier.metaTitle} />
         <meta name="twitter:description" content={tier.metaDescription} />
+        {CanonicalLink('/200h-premium')}
         <meta name="twitter:image" content={OG_IMAGE} />
+
+        <meta name="robots" content="index, follow" />
 
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={jsonLd(buildFAQSchema(FAQS))}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={jsonLd(buildBreadcrumbSchema([
+            { name: 'Home', url: '/' },
+            { name: 'Courses', url: '/courses' },
+            { name: '200-Hour Premium YTT', url: '/200h-premium' },
+          ]))}
         />
       </Head>
 

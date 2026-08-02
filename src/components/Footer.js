@@ -33,7 +33,10 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-akasha-black text-akasha-white/75 pb-24 lg:pb-0">
+    <footer className="bg-akasha-black text-akasha-white/75 pb-12 lg:pb-0">
+      {/* Subtle warm gradient top border */}
+      <div className="h-[2px] bg-gradient-to-r from-transparent via-akasha-gold/40 to-transparent" />
+
       <div className="section py-16">
         <div className="grid md:grid-cols-[1.5fr_1fr_1fr_1fr] gap-10 mb-12">
           <div>
@@ -82,7 +85,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={s.n}
-                  className="w-9 h-9 flex items-center justify-center border border-akasha-white/15 text-akasha-white/50 hover:text-akasha-gold hover:border-akasha-gold transition-colors"
+                  className="w-9 h-9 flex items-center justify-center border border-akasha-white/15 text-akasha-white/50 rounded-md hover:text-akasha-gold hover:border-akasha-gold hover:shadow-[0_0_12px_rgba(231,188,93,0.15)] hover:scale-110 active:scale-95 transition-all duration-300"
                 >
                   {s.i}
                 </a>

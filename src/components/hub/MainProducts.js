@@ -19,19 +19,19 @@ function ProductCard({ course, accent, badge }) {
 
   return (
     <article
-      className={`flex flex-col bg-akasha-white border ${accent.border} rounded-sm overflow-hidden hover:shadow-xl transition-shadow duration-300 h-full`}
+      className={`flex flex-col bg-akasha-white border ${accent.border} rounded-md overflow-hidden shadow-card hover:shadow-card-hover hover:-translate-y-1 transition-all duration-400 h-full`}
     >
       <a
         href={href}
         {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-        className="relative aspect-[16/10] bg-akasha-gray-4 block group"
+        className="relative aspect-[16/10] bg-akasha-gray-4 block group overflow-hidden"
         aria-label={`Explore ${title}`}
       >
         {image ? (
           <img
             src={image}
             alt={title}
-            className="w-full h-full object-cover group-hover:opacity-95 transition-opacity"
+            className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:opacity-90"
             loading="lazy"
             decoding="async"
           />
@@ -41,8 +41,11 @@ function ProductCard({ course, accent, badge }) {
           </div>
         )}
 
+        {/* Gradient overlay on hover */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
+
         {discountPercent ? (
-          <div className={`absolute top-3 left-3 ${accent.badgeBg} ${accent.badgeText} px-4 py-2 rounded-sm shadow-md`}>
+          <div className={`absolute top-3 left-3 ${accent.badgeBg} ${accent.badgeText} px-4 py-2 rounded-sm shadow-md badge-glow`}>
             <span
               className="text-[13px] md:text-[14px] font-semibold uppercase tracking-[0.18em]"
               style={{ fontFamily: 'Inter, sans-serif' }}
@@ -54,7 +57,7 @@ function ProductCard({ course, accent, badge }) {
 
         {badge ? (
           <span
-            className={`absolute top-3 right-3 bg-akasha-white ${accent.text} text-[11px] md:text-[12px] font-semibold tracking-[0.18em] uppercase px-3.5 py-1.5 rounded-sm border ${accent.border}`}
+            className={`absolute top-3 right-3 bg-akasha-white/90 backdrop-blur-sm ${accent.text} text-[11px] md:text-[12px] font-semibold tracking-[0.18em] uppercase px-3.5 py-1.5 rounded-sm border ${accent.border} shadow-sm`}
             style={{ fontFamily: 'Inter, sans-serif' }}
           >
             {badge}
@@ -109,10 +112,10 @@ function ProductCard({ course, accent, badge }) {
         <a
           href={href}
           {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-          className={`mt-auto inline-flex items-center justify-center ${accent.btnBg} ${accent.btnText} ${accent.btnHover} px-8 py-3.5 rounded-full text-[11px] font-medium uppercase tracking-[0.2em] transition-all duration-300`}
+          className={`mt-auto inline-flex items-center justify-center ${accent.btnBg} ${accent.btnText} ${accent.btnHover} px-8 py-3.5 rounded-full text-[11px] font-medium uppercase tracking-[0.2em] shadow-sm hover:shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all duration-300`}
           style={{ fontFamily: 'Inter, sans-serif' }}
         >
-          Explore {course.slug === '200h-essential' ? 'Essential' : 'Premium'}
+          Explore {course.slug === '200h-essential' ? 'Essential' : course.slug === '200h-premium' ? 'Premium' : 'Course'}
         </a>
       </div>
     </article>
@@ -149,7 +152,7 @@ export default function MainProducts({
               course={essential}
               badge="Most Popular"
               accent={{
-                border: 'border-akasha-orange/40',
+                border: 'border-akasha-orange/30',
                 badgeBg: 'bg-akasha-orange',
                 badgeText: 'text-akasha-white',
                 text: 'text-akasha-orange',
@@ -164,7 +167,7 @@ export default function MainProducts({
               course={premium}
               badge="With Mentorship"
               accent={{
-                border: 'border-akasha-gold/50',
+                border: 'border-akasha-gold/40',
                 badgeBg: 'bg-akasha-black',
                 badgeText: 'text-akasha-white',
                 text: 'text-akasha-gold',
