@@ -65,7 +65,7 @@ export default function JourneyNow300() {
         </p>
 
         <p className="font-body mt-3 text-sm" style={{ color: ORANGE }}>
-          * Offer until July 31.
+          * Offer until August 15.
         </p>
 
         <div className="mt-8">

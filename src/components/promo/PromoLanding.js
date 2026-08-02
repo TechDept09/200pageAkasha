@@ -211,7 +211,7 @@ export default function PromoLanding({ phase }) {
             object-cover keeps it cropped to the section regardless of
             viewport ratio. pointer-events:none means taps still hit the
             CTA overlay above. */}
-        <section className="relative overflow-hidden bg-akasha-black min-h-[88vh] flex items-center">
+        <section className="relative overflow-hidden bg-akasha-black min-h-[88vh] flex items-center pt-24 md:pt-0">
           {JULY_BG_VIDEO ? (
             <video
               src={JULY_BG_VIDEO}

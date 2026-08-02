@@ -121,7 +121,7 @@ export default function FaqJourney80Hatha() {
         </p>
 
         <p className="font-body mt-3 text-sm" style={{ color: TEXT }}>
-          * Offer until July 31.
+          * Offer until August 15.
         </p>
 
         <div className="mt-10">

@@ -238,7 +238,7 @@ export default function Bonuses300() {
             Start today for only US$399
           </p>
           <p className="font-body mt-3 text-sm" style={{ color: ORANGE }}>
-            * Offer until July 31.
+            * Offer until August 15.
           </p>
           <p className="font-body text-akasha-gray-1 mt-6 text-base md:text-lg leading-relaxed">
             All bonuses are currently FREE, and included in the 300-Hour Online Yoga

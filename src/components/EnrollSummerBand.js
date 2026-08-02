@@ -44,7 +44,7 @@ export default function EnrollSummerBand({ buttonColor = 'orange', showBonusLine
 
         {showBonusLine && (
           <p className="font-heading text-akasha-white/80 max-w-2xl mx-auto mt-8 leading-snug" style={{ fontSize: 'clamp(1.1rem, 2.4vw, 1.5rem)', fontWeight: 300 }}>
-            Until July 31st, all the bonuses are FREE and included in Essential &amp;
+            Until August 15th, all the bonuses are FREE and included in Essential &amp;
             Premium Version. Total Value US$1130
           </p>
         )}

@@ -203,7 +203,7 @@ export default function Bonuses80Yin() {
             Start today for only US$399
           </p>
           <p className="font-body mt-3 text-sm" style={{ color: ORANGE }}>
-            * Offer until July 31.
+            * Offer until August 15.
           </p>
           <div className="mt-8">
             <a

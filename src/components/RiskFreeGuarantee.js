@@ -65,7 +65,7 @@ export default function RiskFreeGuarantee({ theme = 'light', onEnroll }) {
                 flexibility to explore freely for 2 weeks.
               </p>
               <p className={`text-sm italic ${subCls}`}>
-                *MBG is available with Essential &amp; Premium Plans until July
+                *MBG is available with Essential &amp; Premium Plans until August
                 31st, as part of the Bring Bali Home special promo.
               </p>
             </div>
