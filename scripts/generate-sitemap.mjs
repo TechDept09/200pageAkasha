@@ -12,6 +12,23 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+// Load .env.local so NEXT_PUBLIC_SITE_URL is picked up
+const envPath = resolve(__dirname, '..', '.env.local');
+if (existsSync(envPath)) {
+  const envContent = readFileSync(envPath, 'utf8');
+  for (const line of envContent.split('\n')) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    const eq = trimmed.indexOf('=');
+    if (eq === -1) continue;
+    const key = trimmed.slice(0, eq).trim();
+    const val = trimmed.slice(eq + 1).trim();
+    if (key && val && !process.env[key]) {
+      process.env[key] = val;
+    }
+  }
+}
+
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || 'https://www.akashayogaacademy.com';
 

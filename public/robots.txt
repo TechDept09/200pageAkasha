@@ -23,4 +23,4 @@ Disallow: /
 User-agent: FacebookBot
 Disallow: /
 
-Sitemap: https://www.akashayogaacademy.com/sitemap.xml
+Sitemap: https://course.akashayogaacademy.com/sitemap.xml
