@@ -295,7 +295,7 @@ export default function CourseLanding({ course }) {
               <span className="gold-rule" />
             </div>
 
-            <div className="max-w-xl mx-auto bg-akasha-white border border-akasha-gray-4 rounded-md overflow-hidden shadow-lg">
+            <div className="max-w-xl mx-auto bg-akasha-white border border-akasha-gray-4 rounded-md overflow-hidden shadow-lg shadow-akasha-orange/5">
               <div className="text-center pt-10 pb-8 px-8 border-b border-akasha-gray-4">
                 {tagline ? (
                   <span className="script block mb-3" style={{ fontSize: '2rem' }}>

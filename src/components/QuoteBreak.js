@@ -1,20 +1,28 @@
-import Image from 'next/image';
-
 export default function QuoteBreak({ text, author, country, dark = false, image = null, className = '' }) {
   // Full-bleed image variant: a graduate photo with the quote overlaid at
   // the bottom, matching the live Wix testimonial banners.
   if (image) {
     return (
       <section className={`relative w-full min-h-[260px] md:min-h-[340px] flex items-end justify-center overflow-hidden ${className}`}>
-        <Image
+        <img
           src={image}
           alt=""
-          fill
-          sizes="100vw"
-          className="object-cover transition-transform duration-700 hover:scale-105"
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 w-full h-full object-cover"
         />
         {/* Warmer gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-transparent" />
+
+        {/* Decorative giant quote mark behind text */}
+        <span
+          aria-hidden="true"
+          className="absolute left-1/2 -translate-x-1/2 top-[10%] md:top-[5%] font-heading text-white/[0.06] pointer-events-none select-none leading-none"
+          style={{ fontSize: 'clamp(8rem, 16vw, 14rem)' }}
+        >
+          &ldquo;
+        </span>
+
         <div className="section relative z-10 max-w-3xl text-center pb-8 md:pb-12 animate-fade-up">
           <blockquote
             className="font-heading text-akasha-white"
@@ -48,12 +56,21 @@ export default function QuoteBreak({ text, author, country, dark = false, image 
         dark ? 'bg-akasha-black text-akasha-white' : 'bg-akasha-white'
       }`}
     >
-      <div className="section max-w-3xl text-center">
-        <span className="text-akasha-gold tracking-[0.25em] text-sm block mb-6 animate-fade-in">
+      <div className="section max-w-3xl text-center relative">
+        {/* Decorative giant quote mark */}
+        <span
+          aria-hidden="true"
+          className="absolute left-1/2 -translate-x-1/2 -top-[0.3em] font-heading text-akasha-orange/[0.07] pointer-events-none select-none leading-none"
+          style={{ fontSize: 'clamp(6rem, 12vw, 10rem)' }}
+        >
+          &ldquo;
+        </span>
+
+        <span className="text-akasha-gold tracking-[0.25em] text-sm block mb-6 animate-fade-in relative">
           ★★★★★
         </span>
         <blockquote
-          className={`font-heading mb-6 ${
+          className={`font-heading mb-6 relative ${
             dark ? 'text-akasha-white' : 'text-akasha-black'
           }`}
           style={{

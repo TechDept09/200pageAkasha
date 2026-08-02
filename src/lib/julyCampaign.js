@@ -153,7 +153,7 @@ JULY_PHASES.augphase1 = {
   scriptTagline:
     'Deepen your practice, expand your understanding, and discover yoga beyond the physical poses.',
   intro:
-    'Deepen your practice, expand your understanding, and discover yoga beyond the physical poses. A self-paced 200-Hour Yoga Teacher Training you begin this August, Yoga Alliance certified. Self-paced independent study — personal mentorship and individualized coaching are not included.',
+    'A self-paced 200-Hour Yoga Teacher Training you begin this August, Yoga Alliance certified. Self-paced independent study — personal mentorship and individualized coaching are not included.',
   couponCode: AUG_PHASE1_COUPON,
   couponNote: `Voucher ${AUG_PHASE1_COUPON} applied at checkout so the Essential resolves to US$299.`,
   bundle: null,
