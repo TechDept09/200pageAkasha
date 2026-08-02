@@ -13,6 +13,7 @@ export default function Document() {
             Fonts is gone from here, the fonts now self-host via next/font
             in src/pages/_app.js. */}
         <link rel="preconnect" href="https://static.wixstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://video.wixstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://connect.facebook.net" />
       </Head>

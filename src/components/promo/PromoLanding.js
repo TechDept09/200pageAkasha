@@ -191,7 +191,7 @@ export default function PromoLanding({ phase }) {
         <img
           src="https://static.wixstatic.com/media/cd7168_4415a77d6ae941eaa45a7317dc90ee65~mv2.png/v1/fill/w_858,h_870,al_c,q_90,enc_avif,quality_auto/flower-only-Light-Dark-orange_edited.png"
           alt=""
-          loading="eager"
+          loading="lazy"
           decoding="async"
           className="absolute left-[-140px] top-1/2 -translate-y-1/2 w-[420px] md:w-[620px] opacity-[0.2]"
         />
@@ -210,7 +210,16 @@ export default function PromoLanding({ phase }) {
             and lets us truly mute + autoplay + loop with a one-liner.
             object-cover keeps it cropped to the section regardless of
             viewport ratio. pointer-events:none means taps still hit the
-            CTA overlay above. */}
+            CTA overlay above.
+
+            preload="metadata" instead of "auto": the browser only fetches
+            the video header (dimensions, duration, first frame) instead of
+            downloading the full MP4 before first paint. A full 480p MP4
+            can be 2-8 MB — pulling that into the critical path blocks LCP
+            for 1-2 seconds. The two dark overlays above the video mean the
+            user never sees a bare frame anyway, so the poster image is
+            omitted; the black section background (`bg-akasha-black`) fills
+            the space until the first video frame decodes. */}
         <section className="relative overflow-hidden bg-akasha-black min-h-[88vh] md:min-h-[70vh] lg:min-h-[45vh] flex items-center pt-24 md:pt-0">
           {JULY_BG_VIDEO ? (
             <video
@@ -219,7 +228,7 @@ export default function PromoLanding({ phase }) {
               muted
               loop
               playsInline
-              preload="auto"
+              preload="metadata"
               aria-hidden="true"
               className="absolute inset-0 w-full h-full object-cover pointer-events-none"
             />

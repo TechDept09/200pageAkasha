@@ -1,10 +1,9 @@
-# Akasha Yoga Academy — Online Yoga Teacher Training
-# Yoga Alliance certified courses since 2015. 1,100+ graduates across 6 continents.
-# 200-Hour, 300-Hour, Yin, Meditation, Hatha & Pranayama teacher trainings.
+# Akasha Yoga Academy
+> Online Yoga Teacher Training — Yoga Alliance certified since 2015.
+> 1,100+ graduates across 6 continents. 200-Hour, 300-Hour, Yin, Meditation, Hatha & Pranayama.
 
-# Core pages for AI context
-https://course.akashayogaacademy.com/: Akasha Yoga Academy homepage — currently active yoga teacher training campaign
-https://course.akashayogaacademy.com/courses: Full course catalog — 200h, 300h, 80h Yin, 80h Meditation, 80h Hatha & Pranayama, Feminine Wisdom, Kundalini Retreat
+https://course.akashayogaacademy.com/: Homepage — currently active yoga teacher training campaign
+https://course.akashayogaacademy.com/courses: Full course catalog — 200h, 300h, 80h modules, Feminine Wisdom, Kundalini Retreat
 https://course.akashayogaacademy.com/200h-essential: 200-Hour Essential Yoga Teacher Training — self-paced, Yoga Alliance RYT-200, US$290
 https://course.akashayogaacademy.com/200h-premium: 200-Hour Premium Yoga Teacher Training — with 1-on-1 mentorship, US$1,490
 https://course.akashayogaacademy.com/300h-ytt: 300-Hour Advanced Yoga Teacher Training — RYT-500 pathway, US$1,190
@@ -14,13 +13,13 @@ https://course.akashayogaacademy.com/80h-hatha-pranayama: 80-Hour Advanced Hatha
 https://course.akashayogaacademy.com/feminine-wisdom: Feminine Wisdom for Holistic Wellbeing — 10 YACEP hours, US$229
 https://course.akashayogaacademy.com/kundalini-india: Kundalini Awakening Retreat in Rishikesh, India — 11 days, US$1,999
 
-# About
+## About
 Akasha Yoga Academy offers internationally accredited online yoga teacher trainings
 rooted in classical Hatha Yoga, Pranayama, Meditation, and Yin Yoga. All courses
 are Yoga Alliance certified. Programs combine 200+ Bali studio videos with live
 Zoom sessions and supportive global community.
 
-# Key facts
+## Key facts
 - Founded: 2015
 - Graduates: 1,100+ across 6 continents
 - Rating: 4.93 / 5 from 359+ reviews
