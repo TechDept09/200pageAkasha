@@ -70,9 +70,7 @@ export default function CertifiedIntroBanner() {
             className="text-white/90"
             style={{ fontSize: 'clamp(1.8rem, 4vw, 2.9rem)', fontWeight: 300, lineHeight: 1.2 }}
           >
-            Over 70% Summer Wellness Discount!
-            <br />
-            Until July 31st.
+            75% Self-Growth Discount!
           </h2>
 
           <p className="mt-8 mb-5 text-[12px] md:text-[13px] font-body uppercase tracking-[0.3em] text-white/80">

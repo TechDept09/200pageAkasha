@@ -56,9 +56,7 @@ export default function CertifiedTeacherIntro({
 
               <div className="flex justify-center md:justify-start">
                 <a
-                  href="https://www.akashayogaacademy.com/200hr-yoga-teacher-training-online"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/200h-essential"
                   className="btn-primary"
                 >
                   Learn more
@@ -96,9 +94,7 @@ export default function CertifiedTeacherIntro({
 
             <div className="flex justify-center">
               <a
-                href="https://www.akashayogaacademy.com/200hr-yoga-teacher-training-online"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/200h-essential"
                 className="btn-primary"
               >
                 Learn more

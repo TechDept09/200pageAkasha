@@ -229,7 +229,7 @@ export default function Bonuses300() {
             className="font-heading text-akasha-gray-1"
             style={{ fontSize: 'clamp(1.35rem, 3vw, 2rem)', fontWeight: 400 }}
           >
-            33% Summer Wellness Discount
+            33% Self-Growth Discount
           </p>
           <p
             className="font-heading mt-3"

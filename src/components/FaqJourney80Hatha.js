@@ -106,7 +106,7 @@ export default function FaqJourney80Hatha() {
             fontWeight: 400,
           }}
         >
-          33% Summer Wellness Discount
+          33% Self-Growth Discount
         </p>
 
         <p

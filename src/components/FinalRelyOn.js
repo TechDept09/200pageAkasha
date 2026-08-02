@@ -97,7 +97,7 @@ export default function FinalRelyOn() {
             className="font-heading text-akasha-gray-1"
             style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 300 }}
           >
-            Over 70% Summer Wellness Discount
+            75% Self-Growth Discount
           </p>
           <p
             className="font-heading text-akasha-orange mt-3"

@@ -2,7 +2,7 @@
 
 import { TIERS } from '@/lib/tiers';
 
-// Recurring "Over 70% Summer Wellness Discount" offer block from the live Wix
+// Recurring "Over 70% Self-Growth Discount" offer block from the live Wix
 // /enroll-now page, rendered transparently over the page's warm-gray canvas.
 // Copy is verbatim from the live source.
 const ORANGE = '#E5771E';
@@ -25,7 +25,7 @@ export default function EnrollSummerBand({ buttonColor = 'orange', showBonusLine
     <section className="scroll-mt-24">
       <div className="section py-12 md:py-16 text-center">
         <h2 className="font-heading text-akasha-white/90" style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 300 }}>
-          Over 70% Summer Wellness Discount
+          75% Self-Growth Discount
         </h2>
         <p className="font-heading mt-3" style={{ color: ORANGE, fontSize: 'clamp(1.2rem, 2.4vw, 1.6rem)', fontWeight: 400 }}>
           Start for only

@@ -431,7 +431,7 @@ export default function PromoLanding({ phase }) {
                   ? 'This is a final, quiet offer for the 200-Hour Essential. The voucher below brings the price to US$249 at checkout, no manual code entry required.'
                   : hasBundle
                     ? 'This summer, self-care can become your new path. Begin with the 200-Hour Essential, or open the journey deeper with the Yin (YACEP) Bonus. Choose the path that calls.'
-                    : 'A focused way in. The 200-Hour Yoga Teacher Training (Essential Path) at our summer rate, with the voucher applied automatically at checkout.'}
+                    : 'A focused way in. The 200-Hour Yoga Teacher Training (Essential Path) at the current promotional rate.'}
               </p>
             </div>
 
@@ -476,9 +476,7 @@ export default function PromoLanding({ phase }) {
                   </a>
                   {hasBundle ? (
                     <a
-                      href="https://www.akashayogaacademy.com/80-hr-online-yin-yoga-teacher-training"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="/80h-yin"
                       className="btn-ghost"
                     >
                       More on Yin (YACEP) Bonus
@@ -1972,7 +1970,7 @@ function StandaloneCard({ phase, onWhatYouGet }) {
           ? 'The 200-Hour Essential at its closing summer price, voucher applied automatically at checkout.'
           : phase.key === 'phase2'
             ? 'Begin the 200-Hour Essential this July, voucher applied automatically at checkout.'
-            : 'Prefer to begin with the 200-Hour Essential alone? Same training, same promotional rate, no coupon required.'}
+            : 'The 200-Hour Yoga Teacher Training (Essential Path). Self-paced, Yoga Alliance certified, at the current promotional rate.'}
       </p>
 
       <div className="flex items-baseline flex-wrap gap-3 mb-2">
@@ -2000,9 +1998,11 @@ function StandaloneCard({ phase, onWhatYouGet }) {
         </p>
       ) : null}
       <p className="text-[11px] font-body uppercase tracking-[0.2em] text-akasha-gray-1 mb-6">
-        {voucherPrice || phase.standalone.couponCode || phase.standalone.originalPrice
+        {voucherPrice
           ? 'Voucher applied at checkout'
-          : 'Summer Self-Care price'}
+          : phase.standalone.discountPercent
+            ? `${phase.standalone.discountPercent}% off`
+            : 'Limited time offer'}
       </p>
 
       {USE_THRIVECART ? (

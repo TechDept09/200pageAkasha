@@ -61,9 +61,7 @@ export default function EnrollHero({ onEnroll }) {
         {/* Summer-offer pill */}
         <div className="mt-12 md:mt-16 inline-flex items-center gap-4 rounded-full bg-black/65 backdrop-blur-sm pl-6 pr-2 py-2">
           <span className="font-body text-akasha-white/90 text-[11px] md:text-xs uppercase tracking-[0.15em] text-left leading-snug">
-            Summer Wellness Discount
-            <br />
-            Until July 31st
+            Self-Growth Discount
           </span>
           <button
             type="button"

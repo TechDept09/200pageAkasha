@@ -90,7 +90,7 @@ export default function Hero80Yin() {
           className="font-body"
           style={{ fontSize: 'clamp(1.05rem, 2.2vw, 1.35rem)', fontWeight: 500 }}
         >
-          33% Summer Wellness Discount!
+          33% Self-Growth Discount!
         </p>
         <p
           className="font-body mt-0.5 opacity-95"

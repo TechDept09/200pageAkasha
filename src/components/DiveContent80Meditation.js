@@ -232,7 +232,7 @@ export default function DiveContent80Meditation() {
               fontWeight: 400,
             }}
           >
-            33% Summer Wellness Discount
+            33% Self-Growth Discount
           </p>
 
           <p

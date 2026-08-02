@@ -46,7 +46,7 @@ export default function SummerOfferBand() {
           className="font-heading text-akasha-white"
           style={{ fontSize: 'clamp(1.5rem, 3.4vw, 2.4rem)', fontWeight: 300 }}
         >
-          Over 70% Summer Wellness Discount
+          75% Self-Growth Discount
         </h2>
 
         <p

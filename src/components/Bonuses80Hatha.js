@@ -181,7 +181,7 @@ export default function Bonuses80Hatha() {
             className="font-heading mt-8"
             style={{ fontSize: 'clamp(1.35rem, 3vw, 2rem)', fontWeight: 400, color: '#6E6E6D' }}
           >
-            33% Summer Wellness Discount
+            33% Self-Growth Discount
           </p>
           <p
             className="font-heading mt-3"

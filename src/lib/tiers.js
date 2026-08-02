@@ -73,7 +73,7 @@ export const TIERS = {
     heroImage:
       'https://static.wixstatic.com/media/c15a18_5d357dab7cec43c4879c3f12090081ce~mv2.jpg/v1/crop/x_328,y_0,w_1345,h_1334/fill/w_838,h_792,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Certified-Yoga-Instructor---Bali---Akash.jpg',
     plans: [
-      { slug: 'full', label: 'Pay in Full', regularPrice: 1190, price: 290, currency: 'USD', note: 'One-time payment' },
+      { slug: 'full', label: 'Pay in Full', regularPrice: 1190, price: 299, currency: 'USD', note: 'One-time payment' },
     ],
   },
   premium: {
@@ -134,7 +134,7 @@ export const TIERS = {
     regularPrice: 1800,
     promoPrice: 1190,
     discountPercent: 33,
-    discountLabel: '33% Summer Wellness Discount',
+    discountLabel: '33% Self-Growth Discount',
     saleWindows: STOREWIDE_WINDOWS,
     salePhases: STOREWIDE_PHASES,
     saleEndShort: SALE_END_SHORT,
@@ -146,7 +146,7 @@ export const TIERS = {
     metaTitle:
       '300-Hour Yoga Teacher Training Online | Akasha Yoga Academy | Meditation, Hatha Yoga & Pranayama, Yin Yoga',
     metaDescription:
-      '300-Hour Advanced Online Yoga & Meditation Teacher Training. Fully certified by Yoga Alliance. 33% Summer Wellness Discount — starting from US$399.',
+      '300-Hour Advanced Online Yoga & Meditation Teacher Training. Fully certified by Yoga Alliance. 33% Self-Growth Discount — starting from US$399.',
     bullets: [
       'Three 100-hour modules: Hatha/Pranayama, Yin Yoga, Meditation',
       '45+ live group Zoom sessions',
@@ -187,7 +187,7 @@ export const TIERS = {
     regularPrice: 600,
     promoPrice: 399,
     discountPercent: 33,
-    discountLabel: '33% Summer Wellness Discount',
+    discountLabel: '33% Self-Growth Discount',
     saleWindows: STOREWIDE_WINDOWS,
     salePhases: STOREWIDE_PHASES,
     saleEndShort: SALE_END_SHORT,
@@ -198,7 +198,7 @@ export const TIERS = {
     metaTitle:
       '80-Hour Yin Yoga Teacher Training Online | Akasha Yoga Academy | Yoga Alliance Certified',
     metaDescription:
-      '80-Hour Online Yin Yoga Teacher Training. Fully certified by Yoga Alliance (YACEP). 33% Summer Wellness Discount — starting from US$399.',
+      '80-Hour Online Yin Yoga Teacher Training. Fully certified by Yoga Alliance (YACEP). 33% Self-Growth Discount — starting from US$399.',
     bullets: [
       'Yin postures, functional anatomy & meridian theory',
       'Self Inquiry contemplative practice',
@@ -238,7 +238,7 @@ export const TIERS = {
     regularPrice: 600,
     promoPrice: 399,
     discountPercent: 33,
-    discountLabel: '33% Summer Wellness Discount',
+    discountLabel: '33% Self-Growth Discount',
     saleWindows: STOREWIDE_WINDOWS,
     salePhases: STOREWIDE_PHASES,
     saleEndShort: SALE_END_SHORT,
@@ -250,7 +250,7 @@ export const TIERS = {
     metaTitle:
       '80-Hour Meditation Teacher Training Online | Akasha Yoga Academy | Yoga Alliance Certified',
     metaDescription:
-      '80-Hour Online Meditation Teacher Training — Spiritual Heart & Mantra Meditation. Fully certified by Yoga Alliance (YACEP). 33% Summer Wellness Discount — starting from US$399.',
+      '80-Hour Online Meditation Teacher Training — Spiritual Heart & Mantra Meditation. Fully certified by Yoga Alliance (YACEP). 33% Self-Growth Discount — starting from US$399.',
     bullets: [
       'Spiritual Heart Meditation & mantra practice',
       'Eastern wisdom traditions & Self Inquiry',
@@ -290,7 +290,7 @@ export const TIERS = {
     regularPrice: 600,
     promoPrice: 399,
     discountPercent: 33,
-    discountLabel: '33% Summer Wellness Discount',
+    discountLabel: '33% Self-Growth Discount',
     saleWindows: STOREWIDE_WINDOWS,
     salePhases: STOREWIDE_PHASES,
     saleEndShort: SALE_END_SHORT,
@@ -302,7 +302,7 @@ export const TIERS = {
     metaTitle:
       '80-Hour Advanced Hatha Yoga & Pranayama Teacher Training | Akasha Yoga Academy',
     metaDescription:
-      '80-Hour Online Advanced Hatha & Pranayama Teacher Training. Fully certified by Yoga Alliance (YACEP). 33% Summer Wellness Discount — starting from US$399.',
+      '80-Hour Online Advanced Hatha & Pranayama Teacher Training. Fully certified by Yoga Alliance (YACEP). 33% Self-Growth Discount — starting from US$399.',
     bullets: [
       'Breath-integrated Hatha & advanced Pranayama',
       'Arm balances, inversions & bandhas',

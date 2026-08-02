@@ -76,7 +76,7 @@ export default function Hero300() {
       {/* Promo strip */}
       <div className="relative text-center text-akasha-white px-5 py-4 md:py-5" style={{ backgroundColor: MINT }}>
         <p className="font-body" style={{ fontSize: 'clamp(1.05rem, 2.2vw, 1.35rem)', fontWeight: 500 }}>
-          33% Summer Wellness Discount!
+          33% Self-Growth Discount!
         </p>
         <p className="font-body mt-0.5 opacity-95" style={{ fontSize: 'clamp(0.85rem, 1.6vw, 1.05rem)' }}>
           Starting From Just US$399. Expires on July 31.

@@ -14,7 +14,7 @@ const NAV = [
   {
     label: '200-HR TTC',
     dropdown: [
-      { href: '/200h-essential', label: 'Essential (US$290)' },
+      { href: '/200h-essential', label: 'Essential (US$299)' },
       { href: '/200h-premium', label: 'Premium (US$1,490)' },
     ],
   },

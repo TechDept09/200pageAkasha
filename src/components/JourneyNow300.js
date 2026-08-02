@@ -54,7 +54,7 @@ export default function JourneyNow300() {
           className="font-heading text-akasha-white mt-8"
           style={{ fontSize: 'clamp(1.35rem, 3vw, 2rem)', fontWeight: 400 }}
         >
-          33% Summer Wellness Discount
+          33% Self-Growth Discount
         </p>
 
         <p

@@ -38,7 +38,7 @@ export default function BringBaliHomeBanner() {
           className="text-white"
           style={{ fontSize: 'clamp(2rem, 4.6vw, 3.4rem)', fontWeight: 300, lineHeight: 1.15 }}
         >
-          Over 70% Summer Wellness
+          75% Self-Growth
           <br />
           Discount
         </h2>
