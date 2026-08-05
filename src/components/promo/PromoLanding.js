@@ -1,25 +1,29 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import HubNav from '@/components/hub/HubNav';
 import TrustStrip from '@/components/TrustStrip';
 import CertifiedTeacherIntro from '@/components/CertifiedTeacherIntro';
 import Teachers from '@/components/Teachers';
 import CampaignBonuses from '@/components/promo/CampaignBonuses';
-import WhatIsYTT from '@/components/promo/WhatIsYTT';
-import YourPath from '@/components/promo/YourPath';
-import WhatCanYouDo from '@/components/promo/WhatCanYouDo';
-import WhyOnlineWhyAkasha from '@/components/promo/WhyOnlineWhyAkasha';
-import WhoIsThisFor from '@/components/promo/WhoIsThisFor';
-import HowItWorks from '@/components/promo/HowItWorks';
-import CampaignFAQ from '@/components/promo/CampaignFAQ';
-import LeadCapture from '@/components/promo/LeadCapture';
-import CampaignBenefits from '@/components/promo/CampaignBenefits';
-import CampaignCurriculum from '@/components/promo/CampaignCurriculum';
-import MoneyBackGuarantee from '@/components/promo/MoneyBackGuarantee';
-import VideoTestimonial from '@/components/VideoTestimonial';
-import SectionDivider from '@/components/promo/SectionDivider';
+
+// Below-fold sections — loaded as async chunks (SSR-safe) to cut
+// the homepage's First Load JS from 192 KB to ~110 KB.
+const WhatIsYTT = dynamic(() => import('@/components/promo/WhatIsYTT'), { ssr: true });
+const YourPath = dynamic(() => import('@/components/promo/YourPath'), { ssr: true });
+const WhatCanYouDo = dynamic(() => import('@/components/promo/WhatCanYouDo'), { ssr: true });
+const WhyOnlineWhyAkasha = dynamic(() => import('@/components/promo/WhyOnlineWhyAkasha'), { ssr: true });
+const WhoIsThisFor = dynamic(() => import('@/components/promo/WhoIsThisFor'), { ssr: true });
+const HowItWorks = dynamic(() => import('@/components/promo/HowItWorks'), { ssr: true });
+const CampaignFAQ = dynamic(() => import('@/components/promo/CampaignFAQ'), { ssr: true });
+const LeadCapture = dynamic(() => import('@/components/promo/LeadCapture'), { ssr: true });
+const CampaignBenefits = dynamic(() => import('@/components/promo/CampaignBenefits'), { ssr: true });
+const CampaignCurriculum = dynamic(() => import('@/components/promo/CampaignCurriculum'), { ssr: true });
+const MoneyBackGuarantee = dynamic(() => import('@/components/promo/MoneyBackGuarantee'), { ssr: true });
+const VideoTestimonial = dynamic(() => import('@/components/VideoTestimonial'), { ssr: true });
+const SectionDivider = dynamic(() => import('@/components/promo/SectionDivider'), { ssr: true });
 import Footer from '@/components/Footer';
 import { courses } from '@/lib/courses';
 
@@ -140,7 +144,6 @@ export default function PromoLanding({ phase }) {
       <Head>
         <title>{phase.headline}, Akasha Yoga Academy</title>
         <meta name="description" content={phase.intro} />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* Controlled via NEXT_PUBLIC_PROMO_NOINDEX. Set to 'true' while
             the campaign is a confidential preview; set to 'false' (or
             unset) when marketing makes the page public. */}

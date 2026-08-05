@@ -1,0 +1,92 @@
+name: Deploy Log → Discord
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy-log:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Gather deploy info
+        id: info
+        run: |
+          # Range: the commits NEW in this push (not yet on remote before push)
+          # GitHub sets GITHUB_SHA as the push tip; we diff against the
+          # previous commit on main (HEAD~1) but account for force-push / first push.
+          BEFORE="${{ github.event.before }}"
+          AFTER="${{ github.event.after }}"
+
+          # If before is all-zeros (first push / new branch), just show HEAD~1..HEAD
+          if [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            RANGE="HEAD~1..HEAD"
+          else
+            RANGE="${BEFORE}..${AFTER}"
+          fi
+
+          COMMIT_COUNT=$(git rev-list --count $RANGE 2>/dev/null || echo "1")
+          COMMITS=$(git log $RANGE --pretty=format:"- %s" 2>/dev/null || git log -1 --pretty=format:"- %s")
+          FILES_CHANGED=$(git diff --stat $RANGE 2>/dev/null | tail -1 || echo "N/A")
+          AUTHOR=$(git log -1 --pretty=format:"%an" $AFTER)
+          TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M UTC")
+          BRANCH="${{ github.ref_name }}"
+          REPO="${{ github.repository }}"
+
+          echo "commit_count=$COMMIT_COUNT" >> $GITHUB_OUTPUT
+          echo "author=$AUTHOR" >> $GITHUB_OUTPUT
+          echo "timestamp=$TIMESTAMP" >> $GITHUB_OUTPUT
+          echo "branch=$BRANCH" >> $GITHUB_OUTPUT
+          echo "repo=$REPO" >> $GITHUB_OUTPUT
+          echo "compare_url=https://github.com/$REPO/compare/${BEFORE}...${AFTER}" >> $GITHUB_OUTPUT
+
+          # Write the body as an env var so we can use it in the payload
+          {
+            echo "COMMITS<<EOF"
+            echo "$COMMITS"
+            echo "EOF"
+            echo "FILES_CHANGED<<EOF"
+            echo "$FILES_CHANGED"
+            echo "EOF"
+          } >> $GITHUB_OUTPUT
+
+      - name: Post to Discord
+        env:
+          WEBHOOK: ${{ secrets.DISCORD_DEPLOY_WEBHOOK }}
+        run: |
+          if [ -z "$WEBHOOK" ]; then
+            echo "DISCORD_DEPLOY_WEBHOOK secret not set — skipping"
+            exit 0
+          fi
+
+          PAYLOAD=$(jq -n \
+            --arg title "Deploy: ${{ github.repository }} @ ${{ github.ref_name }}" \
+            --arg commits "${{ steps.info.outputs.COMMITS }}" \
+            --arg files "${{ steps.info.outputs.FILES_CHANGED }}" \
+            --arg author "${{ steps.info.outputs.author }}" \
+            --arg time "${{ steps.info.outputs.timestamp }}" \
+            --arg count "${{ steps.info.outputs.commit_count }}" \
+            --arg compare "${{ steps.info.outputs.compare_url }}" \
+            --arg sha "${{ github.sha }}" \
+            '{
+              embeds: [{
+                title: $title,
+                color: 4437377,
+                fields: [
+                  { name: "Commits", value: "\($count) commit(s)", inline: true },
+                  { name: "Time", value: $time, inline: true },
+                  { name: "Messages", value: $commits },
+                  { name: "Files Changed", value: $files }
+                ],
+                footer: { text: $sha },
+                url: $compare
+              }]
+            }')
+
+          curl -s -X POST "$WEBHOOK" \
+            -H "Content-Type: application/json" \
+            -d "$PAYLOAD" \
+            -o /dev/null -w "Discord: %{http_code}"

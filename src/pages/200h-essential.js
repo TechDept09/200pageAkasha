@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { CanonicalLink, buildBreadcrumbSchema, jsonLd } from '@/lib/seo';
+import { CanonicalLink, buildBreadcrumbSchema, buildFAQSchema, jsonLd } from '@/lib/seo';
 import SiteNav from '@/components/SiteNav';
 import Hero from '@/components/Hero';
 import QuoteBreak from '@/components/QuoteBreak';
@@ -25,7 +25,7 @@ import Bonuses from '@/components/Bonuses';
 import RiskFreeGuarantee from '@/components/RiskFreeGuarantee';
 import BeYogiInsurance from '@/components/BeYogiInsurance';
 import ValuePackedAdditions from '@/components/ValuePackedAdditions';
-import FaqShineTeaser from '@/components/FaqShineTeaser';
+import FAQ, { FAQS } from '@/components/FAQ';
 import FinalRelyOn from '@/components/FinalRelyOn';
 import Teachers from '@/components/Teachers';
 import Steps from '@/components/Steps';
@@ -71,7 +71,6 @@ export default function EssentialPage() {
       <Head>
         <title>{tier.metaTitle}</title>
         <meta name="description" content={tier.metaDescription} />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
 
         <meta property="og:type" content="website" />
@@ -93,6 +92,10 @@ export default function EssentialPage() {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={jsonLd(buildFAQSchema(FAQS))}
         />
         <script
           type="application/ld+json"
@@ -282,7 +285,7 @@ export default function EssentialPage() {
           country="Jordan"
         />
 
-        <FaqShineTeaser />
+        <FAQ hasMBG={false} />
 
         <QuoteBreak
           image="https://static.wixstatic.com/media/cd7168_f1bc3887e79248ecbf700dc3bda29459~mv2.jpg/v1/fill/w_1920,h_640,al_c,q_85,enc_avif,quality_auto/kelsey.jpg"

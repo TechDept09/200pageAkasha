@@ -48,14 +48,15 @@ function ErrorPage({ statusCode }) {
         style={{
           display: 'inline-block',
           padding: '12px 32px',
-          backgroundColor: '#384AD3',
+          backgroundColor: '#ED5829',
           color: '#FFFFFF',
           textDecoration: 'none',
-          borderRadius: '4px',
-          fontWeight: 500,
-          letterSpacing: '0.1em',
+          borderRadius: '9999px',
+          fontWeight: 600,
+          letterSpacing: '0.12em',
           textTransform: 'uppercase',
           fontSize: '0.875rem',
+          fontFamily: "'Inter', 'Helvetica Neue', sans-serif",
         }}
       >
         Return Home

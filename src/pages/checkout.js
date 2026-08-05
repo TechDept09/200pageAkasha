@@ -55,7 +55,6 @@ export default function CheckoutPage() {
       <Head>
         <title>Secure Checkout, 200-Hour Yoga Teacher Training, Akasha Yoga Academy</title>
         <meta name="description" content="Complete your enrollment for the 200-Hour Yoga Teacher Training." />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="robots" content="noindex, nofollow" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

@@ -25,9 +25,7 @@ export default function CoursesPage() {
           name="description"
           content="Explore Akasha Yoga Academy's online yoga teacher training courses. 200-hour, 300-hour, Yin Yoga, Meditation, Hatha & Pranayama — Yoga Alliance certified."
         />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Yoga Teacher Training Courses | Akasha Yoga Academy" />
         <meta

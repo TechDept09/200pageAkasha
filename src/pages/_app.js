@@ -1,11 +1,13 @@
 import '@/styles/globals.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Script from 'next/script';
 import { Inter, Jost, Allura, Montserrat } from 'next/font/google';
 import { pageview } from '@/lib/pixel';
 import { ORGANIZATION_SCHEMA, jsonLd } from '@/lib/seo';
+import CookieConsent from '@/components/CookieConsent';
+import { getConsent, CONSENT_VALUES } from '@/lib/cookieConsent';
 
 const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || '1349360126835158';
 // Two GA4 properties fire in parallel from this codebase:
@@ -71,6 +73,16 @@ const allura = Allura({
 export default function App({ Component, pageProps }) {
   const router = useRouter();
 
+  // SSR always sees no consent (no document.cookie), so we defer the
+  // real read to client-side hydration via useEffect. Without this the
+  // consent banner reappears after every accept+reload loop because
+  // React hydrates with the server's null state and never re-reads.
+  const [consent, setConsent] = useState(null);
+
+  useEffect(() => {
+    setConsent(getConsent());
+  }, []);
+
   useEffect(() => {
     const handleRouteChange = (url) => {
       pageview();
@@ -122,11 +134,12 @@ export default function App({ Component, pageProps }) {
         }
       `}</style>
 
-      <Script
-        id="meta-pixel"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
+      {consent === CONSENT_VALUES.ACCEPTED && (
+        <Script
+          id="meta-pixel"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
             !function(f,b,e,v,n,t,s)
             {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
             n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -138,32 +151,37 @@ export default function App({ Component, pageProps }) {
             fbq('init', '${PIXEL_ID}');
             fbq('track', 'PageView');
           `,
-        }}
-      />
+          }}
+        />
+      )}
 
       {/* Existing GA4 tracking on the original property. Keeps
           historical continuity, unchanged. */}
-      <Script
-        id="ga-loader"
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-        strategy="afterInteractive"
-      />
-      <Script
-        id="ga-init"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
+      {consent === CONSENT_VALUES.ACCEPTED && (
+        <Script
+          id="ga-loader"
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          strategy="afterInteractive"
+        />
+      )}
+      {consent === CONSENT_VALUES.ACCEPTED && (
+        <Script
+          id="ga-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', '${GA_ID}');
             ${GA_MARKETING_ENABLED ? `gtag('config', '${GA_ID_MARKETING}');` : ''}
           `,
-        }}
-      />
+          }}
+        />
+      )}
 
-      {/* Primary Google Tag Manager container. */}
-      <Script
+      {/* Primary Google Tag Manager container — temporarily disabled. */}
+      {/* <Script
         id="gtm-loader"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
@@ -175,11 +193,11 @@ export default function App({ Component, pageProps }) {
             })(window,document,'script','dataLayer','${GTM_ID}');
           `,
         }}
-      />
+      /> */}
 
       {/* Second GTM container from marketing, loaded in parallel.
           Gated so it can be dropped via NEXT_PUBLIC_ENABLE_GTM_MARKETING=false. */}
-      {GTM_MARKETING_ENABLED && (
+      {GTM_MARKETING_ENABLED && consent === CONSENT_VALUES.ACCEPTED && (
         <Script
           id="gtm-loader-marketing"
           strategy="afterInteractive"
@@ -200,6 +218,10 @@ export default function App({ Component, pageProps }) {
       >
         <Component {...pageProps} />
       </div>
+
+      {/* Cookie consent banner — only shown when no choice has been made.
+          Accepting reloads the page and marketing scripts fire on next render. */}
+      {consent === null && <CookieConsent />}
     </>
   );
 }

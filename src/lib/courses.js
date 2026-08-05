@@ -12,7 +12,8 @@
 // (the live Wix checkout). Until we have internal Wix product IDs for these
 // courses, CTAs route to the existing Wix flow.
 
-import { STOREWIDE_WINDOWS, STOREWIDE_PHASES } from '@/lib/campaignSchedule';
+import { STOREWIDE_WINDOWS, STOREWIDE_PHASES, SALE_END_SHORT } from '@/lib/campaignSchedule';
+import { TIERS } from '@/lib/tiers';
 
 export const CATEGORIES = {
   MAIN: 'main',
@@ -32,6 +33,8 @@ export const courses = [
     title: '200-Hour Essential Yoga Teacher Training',
     badge: 'Most Popular',
     discountPercent: 75,
+    discountLabel: '75% Self-Growth Discount',
+    saleEndShort: SALE_END_SHORT,
     regularPrice: 1190,
     promoPrice: 299,
     currency: 'USD',
@@ -89,7 +92,7 @@ export const courses = [
     // July pricelist: 33% off, US$1,190 (was US$1,800).
     discountPercent: 33,
     discountLabel: '33% Self-Growth Discount',
-    saleEndShort: 'July 17',
+    saleEndShort: SALE_END_SHORT,
     regularPrice: 1800,
     promoPrice: 1190,
     currency: 'USD',
@@ -167,7 +170,7 @@ export const courses = [
     tagline: 'Expand Your Awareness',
     discountPercent: 33,
     discountLabel: '33% Self-Growth Discount',
-    saleEndShort: 'July 17',
+    saleEndShort: SALE_END_SHORT,
     regularPrice: 600,
     promoPrice: 399,
     currency: 'USD',
@@ -233,7 +236,7 @@ export const courses = [
     tagline: 'Transform Your Practice',
     discountPercent: 33,
     discountLabel: '33% Self-Growth Discount',
-    saleEndShort: 'July 17',
+    saleEndShort: SALE_END_SHORT,
     regularPrice: 600,
     promoPrice: 399,
     currency: 'USD',
@@ -295,7 +298,7 @@ export const courses = [
     tagline: 'Find Stillness',
     discountPercent: 33,
     discountLabel: '33% Self-Growth Discount',
-    saleEndShort: 'July 17',
+    saleEndShort: SALE_END_SHORT,
     regularPrice: 600,
     promoPrice: 399,
     currency: 'USD',
@@ -416,7 +419,7 @@ export const courses = [
     // plan US$699/month = US$2,097 total.
     discountPercent: 30,
     discountLabel: '30% Self-Growth Discount',
-    saleEndShort: 'July 17',
+    saleEndShort: SALE_END_SHORT,
     regularPrice: 2999,
     promoPrice: 1999,
     currency: 'USD',
@@ -489,6 +492,19 @@ export const courses = [
     ],
   },
 ];
+
+// Sync pricing from tiers.js (canonical source) so course cards, catalog,
+// and landing pages always display the same prices as checkout. Fallback
+// values in the array above serve as documentation / defaults.
+for (const c of courses) {
+  const tier = TIERS[c.slug];
+  if (tier) {
+    if (tier.regularPrice != null) c.regularPrice = tier.regularPrice;
+    if (tier.promoPrice != null) c.promoPrice = tier.promoPrice;
+    if (tier.discountPercent != null) c.discountPercent = tier.discountPercent;
+    if (tier.discountLabel !== undefined) c.discountLabel = tier.discountLabel;
+  }
+}
 
 export const getCoursesByCategory = (category) =>
   courses
