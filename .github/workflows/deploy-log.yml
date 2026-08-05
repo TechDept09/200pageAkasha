@@ -32,7 +32,7 @@ jobs:
           COMMITS=$(git log $RANGE --pretty=format:"- %s" 2>/dev/null || git log -1 --pretty=format:"- %s")
           FILES_CHANGED=$(git diff --stat $RANGE 2>/dev/null | tail -1 || echo "N/A")
           AUTHOR=$(git log -1 --pretty=format:"%an" $AFTER)
-          TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M UTC")
+          TIMESTAMP=$(TZ='Asia/Makassar' date +"%Y-%m-%d %H:%M WITA")
           BRANCH="${{ github.ref_name }}"
           REPO="${{ github.repository }}"
 
