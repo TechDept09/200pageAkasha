@@ -11,7 +11,7 @@ const CALENDLY_URL =
   'https://calendly.com/akasha-yoga-academy/300-hour-discovery-call';
 
 const LOTUS_WATERMARK =
-  'https://static.wixstatic.com/media/c15a18_5c73f145ca4842c9a23c2f2d8f6c2080~mv2.jpg/v1/fill/w_800,h_800,al_c,q_85,enc_avif,quality_auto/lotus.jpg';
+  'https://static.wixstatic.com/media/cd7168_4415a77d6ae941eaa45a7317dc90ee65~mv2.png/v1/fill/w_858,h_870,al_c,q_90,enc_avif,quality_auto/flower-only-Light-Dark-orange_edited.png';
 
 const TEACHERS_PHOTO =
   'https://static.wixstatic.com/media/cd7168_a7573a60139a43de8c5e8ba03c884642~mv2.jpg/v1/crop/x_0,y_1054,w_4128,h_4085/fill/w_560,h_560,al_c,q_85,enc_avif,quality_auto/teachers.jpg';

@@ -9,7 +9,7 @@ import { useState } from 'react';
 const MINT = '#7CC7B0';
 
 const LOTUS_WATERMARK =
-  'https://static.wixstatic.com/media/c15a18_5c73f145ca4842c9a23c2f2d8f6c2080~mv2.jpg/v1/fill/w_800,h_800,al_c,q_85,enc_avif,quality_auto/lotus.jpg';
+  'https://static.wixstatic.com/media/cd7168_4415a77d6ae941eaa45a7317dc90ee65~mv2.png/v1/fill/w_858,h_870,al_c,q_90,enc_avif,quality_auto/flower-only-Light-Dark-orange_edited.png';
 
 const B = ({ children }) => (
   <strong className="font-semibold text-akasha-black">{children}</strong>
