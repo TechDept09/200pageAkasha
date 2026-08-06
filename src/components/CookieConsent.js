@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { CONSENT_VALUES, setConsent } from '@/lib/cookieConsent';
 
 export default function CookieConsent() {
-  const [visible, setVisible] = useState(true);
   const [exiting, setExiting] = useState(false);
 
   const handleAccept = () => {
@@ -20,8 +19,6 @@ export default function CookieConsent() {
       setConsent(CONSENT_VALUES.ESSENTIAL);
     }, 300);
   };
-
-  if (!visible) return null;
 
   return (
     <div

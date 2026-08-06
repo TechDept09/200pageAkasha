@@ -20,6 +20,11 @@ export function setConsent(value, { reload = true } = {}) {
   }
 }
 
+export function resetConsent() {
+  if (typeof document === 'undefined') return;
+  document.cookie = `${CONSENT_COOKIE}=;max-age=0;path=/;SameSite=Lax`;
+}
+
 export function hasMarketingConsent() {
   return getConsent() === CONSENT_VALUES.ACCEPTED;
 }

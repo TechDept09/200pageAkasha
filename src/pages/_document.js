@@ -1,9 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document';
 
-const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-M9GPNL6';
-const GTM_ID_MARKETING =
-  process.env.NEXT_PUBLIC_GTM_ID_MARKETING || 'GTM-5F5NHG99';
-
 export default function Document() {
   return (
     <Html lang="en">
@@ -18,23 +14,10 @@ export default function Document() {
         <link rel="dns-prefetch" href="https://connect.facebook.net" />
       </Head>
       <body>
-        {/* GTM noscript fallbacks. Primary GTM-M9GPNL6 temporarily disabled. */}
-        <noscript>
-          {/* <iframe
-            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
-            height="0"
-            width="0"
-            style={{ display: 'none', visibility: 'hidden' }}
-            title="Google Tag Manager"
-          /> */}
-          <iframe
-            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID_MARKETING}`}
-            height="0"
-            width="0"
-            style={{ display: 'none', visibility: 'hidden' }}
-            title="Google Tag Manager (marketing)"
-          />
-        </noscript>
+        {/* GTM noscript fallbacks disabled — JS is required for the site to
+            function (Next.js SPA), and consent is managed client-side through
+            the CookieConsent banner. Loading noscript iframes here would
+            bypass the consent gate for users who chose Essential Only. */}
         <Main />
         <NextScript />
       </body>

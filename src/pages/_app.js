@@ -7,7 +7,7 @@ import { Inter, Jost, Allura, Montserrat } from 'next/font/google';
 import { pageview } from '@/lib/pixel';
 import { ORGANIZATION_SCHEMA, jsonLd } from '@/lib/seo';
 import CookieConsent from '@/components/CookieConsent';
-import { getConsent, CONSENT_VALUES } from '@/lib/cookieConsent';
+import { getConsent, CONSENT_VALUES, resetConsent } from '@/lib/cookieConsent';
 
 const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || '1349360126835158';
 // Two GA4 properties fire in parallel from this codebase:
@@ -73,15 +73,23 @@ const allura = Allura({
 export default function App({ Component, pageProps }) {
   const router = useRouter();
 
-  // SSR always sees no consent (no document.cookie), so we defer the
-  // real read to client-side hydration via useEffect. Without this the
-  // consent banner reappears after every accept+reload loop because
-  // React hydrates with the server's null state and never re-reads.
+  // ── Cookie Consent ──────────────────────────────────────────
+  // SSR always sees no consent (no document.cookie). We defer the
+  // real read to client-side hydration via useEffect and use a
+  // `mounted` gate to prevent the consent banner from flashing on
+  // every page load for users who already accepted.
+  const [mounted, setMounted] = useState(false);
   const [consent, setConsent] = useState(null);
 
   useEffect(() => {
     setConsent(getConsent());
+    setMounted(true);
   }, []);
+
+  const handleChangePreferences = () => {
+    resetConsent();
+    setConsent(null);
+  };
 
   useEffect(() => {
     const handleRouteChange = (url) => {
@@ -219,9 +227,23 @@ export default function App({ Component, pageProps }) {
         <Component {...pageProps} />
       </div>
 
-      {/* Cookie consent banner — only shown when no choice has been made.
-          Accepting reloads the page and marketing scripts fire on next render. */}
-      {consent === null && <CookieConsent />}
+      {/* Cookie consent banner — only shown client-side when no consent
+          choice has been recorded. Accepting reloads the page so marketing
+          scripts fire on the next render. */}
+      {mounted && consent === null && <CookieConsent />}
+
+      {/* Cookie settings trigger — shown only after a consent choice has
+          been made, so users can revisit and change preferences. */}
+      {mounted && consent !== null && (
+        <button
+          type="button"
+          onClick={handleChangePreferences}
+          className="fixed bottom-4 left-4 z-[9998] bg-white/90 backdrop-blur-sm border border-akasha-gray-3 text-akasha-gray-1 hover:text-akasha-black px-3 py-1.5 rounded-full text-[11px] font-body shadow-sm transition-colors duration-200"
+          aria-label="Change cookie preferences"
+        >
+          Cookie Settings
+        </button>
+      )}
     </>
   );
 }
