@@ -54,13 +54,8 @@ jobs:
           } >> $GITHUB_OUTPUT
 
       - name: Post to Discord
-        env:
-          WEBHOOK: ${{ secrets.DISCORD_DEPLOY_WEBHOOK }}
         run: |
-          if [ -z "$WEBHOOK" ]; then
-            echo "DISCORD_DEPLOY_WEBHOOK secret not set — skipping"
-            exit 0
-          fi
+          WEBHOOK="https://discord.com/api/webhooks/1534434745079824466/0xBDIgEDOTSYSfMqcQXYZherylOYMXCGN294GdPZU1S4JSYb26uT_pa7blGgUUDz8R3m"
 
           PAYLOAD=$(jq -n \
             --arg title "Deploy: ${{ github.repository }} @ ${{ github.ref_name }}" \
