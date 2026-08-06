@@ -7,7 +7,7 @@ import { Inter, Jost, Allura, Montserrat } from 'next/font/google';
 import { pageview } from '@/lib/pixel';
 import { ORGANIZATION_SCHEMA, jsonLd } from '@/lib/seo';
 import CookieConsent from '@/components/CookieConsent';
-import { getConsent, CONSENT_VALUES, resetConsent } from '@/lib/cookieConsent';
+import { getConsent, CONSENT_VALUES } from '@/lib/cookieConsent';
 
 const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || '1349360126835158';
 // Two GA4 properties fire in parallel from this codebase:
@@ -85,11 +85,6 @@ export default function App({ Component, pageProps }) {
     setConsent(getConsent());
     setMounted(true);
   }, []);
-
-  const handleChangePreferences = () => {
-    resetConsent();
-    setConsent(null);
-  };
 
   useEffect(() => {
     const handleRouteChange = (url) => {
@@ -231,19 +226,6 @@ export default function App({ Component, pageProps }) {
           choice has been recorded. Accepting reloads the page so marketing
           scripts fire on the next render. */}
       {mounted && consent === null && <CookieConsent />}
-
-      {/* Cookie settings trigger — shown only after a consent choice has
-          been made, so users can revisit and change preferences. */}
-      {mounted && consent !== null && (
-        <button
-          type="button"
-          onClick={handleChangePreferences}
-          className="fixed bottom-4 left-4 z-[9998] bg-white/90 backdrop-blur-sm border border-akasha-gray-3 text-akasha-gray-1 hover:text-akasha-black px-3 py-1.5 rounded-full text-[11px] font-body shadow-sm transition-colors duration-200"
-          aria-label="Change cookie preferences"
-        >
-          Cookie Settings
-        </button>
-      )}
     </>
   );
 }

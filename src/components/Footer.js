@@ -1,6 +1,8 @@
 const LOGO_WHITE =
   'https://static.wixstatic.com/media/c15a18_16e6f60ed35f4e3fa50fc7552ddca6be~mv2.png/v1/crop/x_0,y_12,w_1000,h_529/fill/w_624,h_326,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/LOGO-WHITE.png';
 
+import CookieSettingsLink from '@/components/CookieSettingsLink';
+
 export default function Footer() {
   const social = [
     {
@@ -99,6 +101,7 @@ export default function Footer() {
             &copy; Akasha Yoga Academy 2011-{new Date().getFullYear()}
           </p>
           <div className="flex gap-5 text-[11px] font-body text-akasha-white/40">
+            <CookieSettingsLink />
             <a href="https://www.akashayogaacademy.com/privacy-policy-terms-conditions" target="_blank" rel="noreferrer" className="hover:text-akasha-gold transition-colors">
               Privacy
             </a>
