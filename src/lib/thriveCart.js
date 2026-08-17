@@ -1,7 +1,7 @@
-// ThriveCart checkout integration for the 200-Hour Essential promo.
-// Behind a flag (NEXT_PUBLIC_USE_THRIVECART=true) so the existing
-// Wix Headless flow stays the default; flip the env var to swap the
-// destination without a code change or A/B swap.
+// ThriveCart checkout integration. ThriveCart is the live payment
+// gateway across every product with a URL registered below; products
+// without a URL yet (feminine-wisdom, kundalini-india) fall through
+// to the legacy Wix flow via CheckoutForm.
 //
 // The URL builder forwards coupon, UTM, and buyer email as URL
 // params so ThriveCart's own checkout page picks them up (coupon
@@ -11,8 +11,56 @@ export const THRIVECART_URL =
   process.env.NEXT_PUBLIC_THRIVECART_URL ||
   'https://akashayogaacademy.thrivecart.com/200hr-ttc/';
 
-export const USE_THRIVECART =
-  process.env.NEXT_PUBLIC_USE_THRIVECART === 'true';
+// Per-tier ThriveCart product URLs. Keys match the tier / course slugs
+// used across tiers.js and courses.js. Both `essential` and the
+// courses.js alias `200h-essential` map to the same product (same for
+// premium) so either slug resolves correctly.
+// Env-overridable so marketing can rotate individual product links
+// without a redeploy.
+export const THRIVECART_URLS = {
+  essential:
+    process.env.NEXT_PUBLIC_THRIVECART_URL_ESSENTIAL ||
+    'https://akashayogaacademy.thrivecart.com/200hr-ttc/',
+  '200h-essential':
+    process.env.NEXT_PUBLIC_THRIVECART_URL_ESSENTIAL ||
+    'https://akashayogaacademy.thrivecart.com/200hr-ttc/',
+  premium:
+    process.env.NEXT_PUBLIC_THRIVECART_URL_PREMIUM ||
+    'https://akashayogaacademy.thrivecart.com/200hr-premium/',
+  '200h-premium':
+    process.env.NEXT_PUBLIC_THRIVECART_URL_PREMIUM ||
+    'https://akashayogaacademy.thrivecart.com/200hr-premium/',
+  '300h-ytt':
+    process.env.NEXT_PUBLIC_THRIVECART_URL_300H ||
+    'https://akashayogaacademy.thrivecart.com/300hr/',
+  '80h-yin':
+    process.env.NEXT_PUBLIC_THRIVECART_URL_80H_YIN ||
+    'https://akashayogaacademy.thrivecart.com/80hr-yin-ytt/',
+  '80h-meditation':
+    process.env.NEXT_PUBLIC_THRIVECART_URL_80H_MEDITATION ||
+    'https://akashayogaacademy.thrivecart.com/80hr-meditation/',
+  '80h-hatha-pranayama':
+    process.env.NEXT_PUBLIC_THRIVECART_URL_80H_HATHA ||
+    'https://akashayogaacademy.thrivecart.com/80hr-hatha/',
+};
+
+// True when this slug has a live ThriveCart product. Used by
+// CheckoutForm to decide whether to redirect to /checkout (ThriveCart)
+// or fall through to the legacy Wix flow.
+export function hasThriveCartUrl(slug) {
+  return !!(slug && THRIVECART_URLS[slug]);
+}
+
+export function getThriveCartUrl(tierSlug) {
+  return THRIVECART_URLS[tierSlug] || THRIVECART_URL;
+}
+
+// Internal /checkout href for a given tier slug. Falls back to the
+// default (200hr Essential) if the slug is unknown.
+export function getCheckoutHref(tierSlug) {
+  if (!tierSlug || !THRIVECART_URLS[tierSlug]) return '/checkout';
+  return `/checkout?product=${encodeURIComponent(tierSlug)}`;
+}
 
 const UTM_KEYS = [
   'utm_source',
@@ -39,7 +87,6 @@ export function buildThriveCartUrl({ coupon, utm, buyerEmail } = {}) {
   }
 
   if (buyerEmail && typeof buyerEmail === 'string') {
-    // ThriveCart reads `email` as the customer's email pre-fill.
     url.searchParams.set('email', buyerEmail.trim());
   }
 

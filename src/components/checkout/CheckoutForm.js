@@ -7,6 +7,7 @@ import { trackLead, trackInitiateCheckout, newEventId } from '@/lib/pixel';
 import { getMetaCookies } from '@/lib/fbCookies';
 import { pushBeginCheckout } from '@/lib/gtmEcommerce';
 import { savePendingPurchase } from '@/lib/pendingPurchase';
+import { hasThriveCartUrl, getCheckoutHref } from '@/lib/thriveCart';
 
 function price(n, currency) {
   if (!n) return null;
@@ -45,7 +46,11 @@ export default function CheckoutForm({
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
   const activePlan = plans.find((p) => p.slug === selectedPlan) || plans[0];
 
-  const skipBuyerForm = !!activePlan?.wixProductPageUrl;
+  // Slugs registered in THRIVECART_URLS route to /checkout (ThriveCart
+  // iframe). Slugs without a live ThriveCart product (feminine-wisdom,
+  // kundalini-india) fall through to the legacy Wix flow below.
+  const useThriveCart = hasThriveCartUrl(slug);
+  const skipBuyerForm = useThriveCart || !!activePlan?.wixProductPageUrl;
 
   // BB: if the buyer hits Back from the Wix checkout, the browser restores
   // this page from bfcache with loading still true and the submit button
@@ -84,6 +89,28 @@ export default function CheckoutForm({
 
     try {
       trackInitiateCheckout(title, activePlan?.price, `${slug}|${selectedPlan}`);
+
+      // ThriveCart path: route to internal /checkout iframe shell for
+      // this product. Legacy Wix flow (below) still handles slugs that
+      // don't have a ThriveCart URL yet.
+      if (useThriveCart) {
+        if (trackGtm) {
+          pushBeginCheckout({
+            course_name: title,
+            value: activePlan?.price || 0,
+            currency: activePlan?.currency || 'USD',
+          });
+        }
+        const eventId = newEventId();
+        savePendingPurchase({
+          courseName: title,
+          courseId: `${slug}|${selectedPlan}`,
+          price: activePlan?.price || 0,
+          eventId,
+        });
+        window.location.href = getCheckoutHref(slug);
+        return;
+      }
 
       const { fbc, fbp } = getMetaCookies();
 
@@ -247,9 +274,11 @@ export default function CheckoutForm({
       >
         {loading
           ? 'Preparing your checkout…'
-          : skipBuyerForm
-            ? `Continue to ${activePlan?.label || 'Checkout'}`
-            : `Enroll Now, ${price(activePlan?.price, activePlan?.currency)}`}
+          : useThriveCart
+            ? `Continue to Checkout, ${price(activePlan?.price, activePlan?.currency)}`
+            : skipBuyerForm
+              ? `Continue to ${activePlan?.label || 'Checkout'}`
+              : `Enroll Now, ${price(activePlan?.price, activePlan?.currency)}`}
       </button>
 
       {error && (
@@ -259,7 +288,7 @@ export default function CheckoutForm({
       )}
 
       <p className="text-[10px] font-body text-akasha-gray-1 mt-3 tracking-[0.2em] uppercase text-center">
-        Secure checkout · Powered by Wix
+        Secure checkout · Powered by {useThriveCart ? 'ThriveCart' : 'Wix'}
       </p>
     </form>
   );

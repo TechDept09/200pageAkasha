@@ -8,11 +8,13 @@
 
 import HubNav from '@/components/hub/HubNav';
 import { useTier } from '@/lib/TierContext';
-import { USE_THRIVECART } from '@/lib/thriveCart';
+import { getCheckoutHref, hasThriveCartUrl } from '@/lib/thriveCart';
 
 export default function SiteNav() {
   const tier = useTier();
-  const ctaHref = USE_THRIVECART ? '/checkout' : '#pricing';
+  const ctaHref = hasThriveCartUrl(tier.slug)
+    ? getCheckoutHref(tier.slug)
+    : '#pricing';
 
   return (
     <HubNav

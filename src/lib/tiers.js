@@ -10,6 +10,14 @@ import {
   STOREWIDE_PHASES,
   SALE_END_SHORT,
 } from '@/lib/campaignSchedule';
+import { getCheckoutHref, hasThriveCartUrl } from '@/lib/thriveCart';
+
+// Every tier's Enroll CTA routes to the internal /checkout?product=<slug>
+// iframe shell, which resolves to that tier's specific ThriveCart
+// product. Tiers without a registered ThriveCart URL keep their
+// original anchor / Wix href fallback.
+const tcHref = (slug, fallback) =>
+  hasThriveCartUrl(slug) ? getCheckoutHref(slug) : fallback;
 
 // Wording rules per team feedback (2 Jul):
 // - Zoom is 'sessions', never 'classes' (Zoom is discussion time, not
@@ -53,7 +61,7 @@ export const TIERS = {
     regularPrice: 1190,
     promoPrice: 299,
     discountPercent: 75,
-    discountLabel: '75% Self-Growth Discount',
+    discountLabel: '75% Transform Discount',
     // August Phase 1, 1-15 Aug 2026 (GROW75 coupon at Wix checkout).
     saleWindows: STOREWIDE_WINDOWS,
     salePhases: STOREWIDE_PHASES,
@@ -62,7 +70,7 @@ export const TIERS = {
     couponCode: 'GROW75',
     ctaShort: 'Enroll US$299',
     ctaLong: 'Enroll Now, US$299',
-    ctaHref: '/200h-essential/enroll',
+    ctaHref: tcHref('essential', '/200h-essential/enroll'),
     selfPaceWindow: 'Self-paced, 6-months access & certification window',
     metaTitle:
       '200-Hour Online Yoga Teacher Training, Akasha Yoga Academy | Your Path to Purpose & Joy',
@@ -95,7 +103,7 @@ export const TIERS = {
     saleEndShort: null,
     ctaShort: 'Enroll US$1,490',
     ctaLong: 'Enroll Now, US$1,490',
-    ctaHref: '#pricing',
+    ctaHref: tcHref('premium', '#pricing'),
     selfPaceWindow: '12-months access, unlimited Live Zoom Sessions',
     metaTitle:
       '200-Hour Online Yoga Teacher Training Premium, Akasha Yoga Academy | Guided, Personal, Yours',
@@ -134,19 +142,19 @@ export const TIERS = {
     regularPrice: 1800,
     promoPrice: 1190,
     discountPercent: 33,
-    discountLabel: '33% Self-Growth Discount',
+    discountLabel: '33% Transform Discount',
     saleWindows: STOREWIDE_WINDOWS,
     salePhases: STOREWIDE_PHASES,
     saleEndShort: SALE_END_SHORT,
     ctaShort: 'Enroll US$1,190',
     ctaLong: 'Enroll Now, US$1,190',
     // Temporary: Wix hosted enroll until we build /300h-ytt/enroll.
-    ctaHref: 'https://www.akashayogaacademy.com/300-hr-online-enroll-now',
+    ctaHref: tcHref('300h-ytt', 'https://www.akashayogaacademy.com/300-hr-online-enroll-now'),
     selfPaceWindow: '300 hours, self-paced · RYT-500 pathway',
     metaTitle:
       '300-Hour Yoga Teacher Training Online | Akasha Yoga Academy | Meditation, Hatha Yoga & Pranayama, Yin Yoga',
     metaDescription:
-      '300-Hour Advanced Online Yoga & Meditation Teacher Training. Fully certified by Yoga Alliance. 33% Self-Growth Discount — starting from US$399.',
+      '300-Hour Advanced Online Yoga & Meditation Teacher Training. Fully certified by Yoga Alliance. 33% Transform Discount — starting from US$399.',
     bullets: [
       'Three 100-hour modules: Hatha/Pranayama, Yin Yoga, Meditation',
       '45+ live group Zoom sessions',
@@ -187,18 +195,18 @@ export const TIERS = {
     regularPrice: 600,
     promoPrice: 399,
     discountPercent: 33,
-    discountLabel: '33% Self-Growth Discount',
+    discountLabel: '33% Transform Discount',
     saleWindows: STOREWIDE_WINDOWS,
     salePhases: STOREWIDE_PHASES,
     saleEndShort: SALE_END_SHORT,
     ctaShort: 'Enroll US$399',
     ctaLong: 'Enroll Now, US$399',
-    ctaHref: 'https://www.akashayogaacademy.com/80hr-yin-ytt-enroll-now',
+    ctaHref: tcHref('80h-yin', 'https://www.akashayogaacademy.com/80hr-yin-ytt-enroll-now'),
     selfPaceWindow: '80 hours, self-paced · YACEP',
     metaTitle:
       '80-Hour Yin Yoga Teacher Training Online | Akasha Yoga Academy | Yoga Alliance Certified',
     metaDescription:
-      '80-Hour Online Yin Yoga Teacher Training. Fully certified by Yoga Alliance (YACEP). 33% Self-Growth Discount — starting from US$399.',
+      '80-Hour Online Yin Yoga Teacher Training. Fully certified by Yoga Alliance (YACEP). 33% Transform Discount — starting from US$399.',
     bullets: [
       'Yin postures, functional anatomy & meridian theory',
       'Self Inquiry contemplative practice',
@@ -238,19 +246,21 @@ export const TIERS = {
     regularPrice: 600,
     promoPrice: 399,
     discountPercent: 33,
-    discountLabel: '33% Self-Growth Discount',
+    discountLabel: '33% Transform Discount',
     saleWindows: STOREWIDE_WINDOWS,
     salePhases: STOREWIDE_PHASES,
     saleEndShort: SALE_END_SHORT,
     ctaShort: 'Enroll US$399',
     ctaLong: 'Enroll Now, US$399',
-    ctaHref:
-      'https://www.akashayogaacademy.com/enroll-now-80-hr-online-meditation-teacher-training',
+    ctaHref: tcHref(
+      '80h-meditation',
+      'https://www.akashayogaacademy.com/enroll-now-80-hr-online-meditation-teacher-training'
+    ),
     selfPaceWindow: '80 hours, self-paced · YACEP',
     metaTitle:
       '80-Hour Meditation Teacher Training Online | Akasha Yoga Academy | Yoga Alliance Certified',
     metaDescription:
-      '80-Hour Online Meditation Teacher Training — Spiritual Heart & Mantra Meditation. Fully certified by Yoga Alliance (YACEP). 33% Self-Growth Discount — starting from US$399.',
+      '80-Hour Online Meditation Teacher Training — Spiritual Heart & Mantra Meditation. Fully certified by Yoga Alliance (YACEP). 33% Transform Discount — starting from US$399.',
     bullets: [
       'Spiritual Heart Meditation & mantra practice',
       'Eastern wisdom traditions & Self Inquiry',
@@ -290,19 +300,21 @@ export const TIERS = {
     regularPrice: 600,
     promoPrice: 399,
     discountPercent: 33,
-    discountLabel: '33% Self-Growth Discount',
+    discountLabel: '33% Transform Discount',
     saleWindows: STOREWIDE_WINDOWS,
     salePhases: STOREWIDE_PHASES,
     saleEndShort: SALE_END_SHORT,
     ctaShort: 'Enroll US$399',
     ctaLong: 'Enroll Now, US$399',
-    ctaHref:
-      'https://www.akashayogaacademy.com/80-hr-online-enroll-now-hatha-and-pranayama',
+    ctaHref: tcHref(
+      '80h-hatha-pranayama',
+      'https://www.akashayogaacademy.com/80-hr-online-enroll-now-hatha-and-pranayama'
+    ),
     selfPaceWindow: '80 hours, self-paced · YACEP',
     metaTitle:
       '80-Hour Advanced Hatha Yoga & Pranayama Teacher Training | Akasha Yoga Academy',
     metaDescription:
-      '80-Hour Online Advanced Hatha & Pranayama Teacher Training. Fully certified by Yoga Alliance (YACEP). 33% Self-Growth Discount — starting from US$399.',
+      '80-Hour Online Advanced Hatha & Pranayama Teacher Training. Fully certified by Yoga Alliance (YACEP). 33% Transform Discount — starting from US$399.',
     bullets: [
       'Breath-integrated Hatha & advanced Pranayama',
       'Arm balances, inversions & bandhas',

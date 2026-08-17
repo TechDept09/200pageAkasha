@@ -144,14 +144,13 @@ const AUG_PHASE1_COUPON =
 
 JULY_PHASES.augphase1 = {
   key: 'augphase1',
-  start: '2026-08-01T00:00:00+08:00',
-  end: '2026-08-15T23:59:59+08:00',
-  label: '75% Self-Growth Discount',
-  publicName: 'Self-Growth Discount',
-  dateRange: 'Offer through 15th of August',
-  headline: 'Grow Through Yoga',
-  scriptTagline:
-    'Deepen your practice, expand your understanding, and discover yoga beyond the physical poses.',
+  start: '2026-08-16T00:00:00+08:00',
+  end: '2026-08-30T23:59:59+08:00',
+  label: '75% Transform Discount',
+  publicName: 'Transform Discount',
+  dateRange: 'Offer through 30th of August',
+  headline: 'Transform Discount',
+  scriptTagline: 'From Yoga Practice to a Deeper Path.',
   intro:
     'A self-paced 200-Hour Yoga Teacher Training you begin this August, Yoga Alliance certified. Self-paced independent study — personal mentorship and individualized coaching are not included.',
   couponCode: AUG_PHASE1_COUPON,

@@ -2,10 +2,9 @@
 
 import { useEffect, useRef, useState } from 'react';
 import UrgencyBanner from '@/components/UrgencyBanner';
-import { USE_THRIVECART } from '@/lib/thriveCart';
 
 const LOGO_BLACK =
-  'https://static.wixstatic.com/media/c15a18_add3f1d2dd1a4582876f0249d1a2daf3~mv2.png/v1/fill/w_376,h_320,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Akasha-Yoga-Academy-Logo-2020-BLACK-500W.png';
+  '/images/akasha-logo-black.png';
 
 // Primary cross-page navigation shown on the promo landing (/),
 // course hub (/courses), and every product detail page via SiteNav.
@@ -34,8 +33,7 @@ export default function HubNav({
   ctaHref,
   showUrgencyBanner = false,
 }) {
-  const defaultHref = USE_THRIVECART ? '/checkout' : '/200h-essential';
-  const enrollHref = ctaHref || defaultHref;
+  const enrollHref = ctaHref || '/checkout';
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);

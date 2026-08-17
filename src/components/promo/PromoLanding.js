@@ -109,14 +109,9 @@ const RECOMMENDATION_PRICE = {
   'feminine-wisdom': 229,
   'kundalini-india': 1999,
 };
-import { startWixCheckout } from '@/lib/checkout';
-import { USE_THRIVECART, buildThriveCartUrl } from '@/lib/thriveCart';
-import { useUtmParams, formatUtmNote } from '@/hooks/useUtmParams';
 import { trackLead, trackInitiateCheckout, newEventId } from '@/lib/pixel';
-import { getMetaCookies } from '@/lib/fbCookies';
 import { pushBeginCheckout } from '@/lib/gtmEcommerce';
 import {
-  JULY_PRODUCTS,
   JULY_BG_VIDEO,
   JULY_INTRO_VIDEOS,
   JULY_TESTIMONIALS,
@@ -192,8 +187,10 @@ export default function PromoLanding({ phase }) {
         className="pointer-events-none select-none fixed inset-0 z-0 overflow-hidden"
       >
         <img
-          src="https://static.wixstatic.com/media/cd7168_4415a77d6ae941eaa45a7317dc90ee65~mv2.png/v1/fill/w_858,h_870,al_c,q_90,enc_avif,quality_auto/flower-only-Light-Dark-orange_edited.png"
+          src="/images/lotus-flower.png"
           alt=""
+          width={858}
+          height={870}
           loading="lazy"
           decoding="async"
           className="absolute left-[-140px] top-1/2 -translate-y-1/2 w-[420px] md:w-[620px] opacity-[0.2]"
@@ -484,14 +481,14 @@ export default function PromoLanding({ phase }) {
                     href="/200h-essential"
                     className="btn-ghost"
                   >
-                    More on 200-Hour Essential
+                    See 200-Hour Essential course details
                   </a>
                   {hasBundle ? (
                     <a
                       href="/80h-yin"
                       className="btn-ghost"
                     >
-                      More on Yin (YACEP) Bonus
+                      See Yin (YACEP) Bonus course details
                     </a>
                   ) : null}
                 </div>
@@ -659,44 +656,13 @@ export default function PromoLanding({ phase }) {
 
 function BundleCard({ phase, showWellnessNote, onWhatYouGet }) {
   const bundle = phase.bundle;
-  const utm = useUtmParams();
-  const [form, setForm] = useState({ firstName: '', lastName: '', email: '' });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
-  const bundleReady = Boolean(JULY_PRODUCTS.essential && JULY_PRODUCTS.yinAddOn);
-
-  useEffect(() => {
-    const onShow = (e) => {
-      if (e.persisted) {
-        setLoading(false);
-        setError(null);
-      }
-    };
-    window.addEventListener('pageshow', onShow);
-    return () => window.removeEventListener('pageshow', onShow);
-  }, []);
-
-  async function handleBuy(e) {
-    e.preventDefault();
-    setError(null);
-    if (!form.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      setError('Please enter a valid email address.');
-      return;
-    }
-    if (!form.firstName.trim()) {
-      setError('Please enter your first name.');
-      return;
-    }
-
-    setLoading(true);
+  function handleCtaClick() {
     const courseLabel = `July ${phase.label} Bundle`;
     const contentId = `july-${phase.key}|bundle`;
-    trackLead(courseLabel, bundle.total);
     try {
+      trackLead(courseLabel, bundle.total);
       trackInitiateCheckout(courseLabel, bundle.total, contentId);
-      const { fbc, fbp } = getMetaCookies();
       const eventId = newEventId();
       try {
         localStorage.setItem('pendingPurchase_courseName', courseLabel);
@@ -705,42 +671,13 @@ function BundleCard({ phase, showWellnessNote, onWhatYouGet }) {
         localStorage.setItem('pendingPurchase_eventId', eventId);
         localStorage.setItem('pendingPurchase_timestamp', Date.now().toString());
       } catch (_) {}
-
-      // GA4 / GTM begin_checkout push; thank-you page reads the
-      // stashed order once Wix returns with orderId in the URL.
       pushBeginCheckout({
         course_name: courseLabel,
         value: bundle.total,
         currency: 'USD',
       });
-
-      const url = await startWixCheckout({
-        utm,
-        utmNote: formatUtmNote(utm),
-        productId: JULY_PRODUCTS.essential,
-        extraLineItems: [{ productId: JULY_PRODUCTS.yinAddOn, quantity: 1 }],
-        couponCode: phase.couponCode,
-        meta: { fbc, fbp, courseSlug: 'july-bundle', planSlug: phase.key, eventId },
-        buyer: {
-          firstName: form.firstName.trim(),
-          lastName: form.lastName.trim(),
-          email: form.email.trim(),
-        },
-      });
-
-      const finalUrl = new URL(url);
-      if (fbc) finalUrl.searchParams.set('fbc', fbc);
-      if (fbp) finalUrl.searchParams.set('fbp', fbp);
-      window.location.href = finalUrl.toString();
-    } catch (err) {
-      console.error('[JulyBundle] checkout failed:', err);
-      setError(err?.message || 'Could not start checkout. Please try again.');
-      setLoading(false);
-    }
+    } catch (_) {}
   }
-
-  const inputCls =
-    'w-full border border-akasha-gray-3 rounded-full px-5 py-3 text-sm font-body text-akasha-black placeholder:text-akasha-gray-2 focus:outline-none focus:border-akasha-orange transition-colors bg-akasha-white';
 
   return (
     <div className="bg-akasha-white border-2 border-akasha-orange rounded-sm p-7 md:p-8 flex flex-col">
@@ -805,91 +742,26 @@ function BundleCard({ phase, showWellnessNote, onWhatYouGet }) {
         </p>
       </div>
 
-      {bundleReady ? (
-        USE_THRIVECART ? (
-          <div className="mt-auto">
-            <a
-              href="/checkout"
-              className="btn-action w-full inline-flex items-center justify-center"
-            >
-              {`Enroll in Bundle, US$${bundle.total}`}
-            </a>
-            {onWhatYouGet ? (
-              <button
-                type="button"
-                onClick={onWhatYouGet}
-                className="mt-3 w-full text-center text-[11px] font-body uppercase tracking-[0.25em] text-akasha-orange hover:text-akasha-orange-dark transition-colors inline-flex items-center justify-center gap-2"
-                style={{ fontFamily: 'Inter, sans-serif' }}
-                aria-haspopup="dialog"
-              >
-                What will you get?
-              </button>
-            ) : null}
-          </div>
-        ) : (
-          <form onSubmit={handleBuy} className="mt-auto" noValidate>
-            <div className="grid grid-cols-2 gap-3 mb-3">
-              <input
-                type="text"
-                autoComplete="given-name"
-                placeholder="First name *"
-                value={form.firstName}
-                onChange={set('firstName')}
-                className={inputCls}
-              />
-              <input
-                type="text"
-                autoComplete="family-name"
-                placeholder="Last name"
-                value={form.lastName}
-                onChange={set('lastName')}
-                className={inputCls}
-              />
-            </div>
-            <input
-              type="email"
-              autoComplete="email"
-              placeholder="Email address *"
-              value={form.email}
-              onChange={set('email')}
-              className={`${inputCls} mb-4`}
-            />
-            <button
-              type="submit"
-              disabled={loading}
-              className={`btn-action w-full ${loading ? 'opacity-70 cursor-wait' : ''}`}
-            >
-              {loading ? 'Preparing your checkout…' : `Enroll in Bundle, US$${bundle.total}`}
-            </button>
-            {onWhatYouGet ? (
-              <button
-                type="button"
-                onClick={onWhatYouGet}
-                className="mt-3 w-full text-center text-[11px] font-body uppercase tracking-[0.25em] text-akasha-orange hover:text-akasha-orange-dark transition-colors inline-flex items-center justify-center gap-2"
-                style={{ fontFamily: 'Inter, sans-serif' }}
-                aria-haspopup="dialog"
-              >
-                What will you get?
-              </button>
-            ) : null}
-            {error && (
-              <p className="text-xs text-akasha-orange-dark mt-3 font-body text-center">
-                {error}
-              </p>
-            )}
-          </form>
-        )
-      ) : (
-        <div className="mt-auto bg-akasha-gray-4/40 border border-dashed border-akasha-gray-3 rounded-sm p-4">
-          <p className="text-[11px] font-body uppercase tracking-[0.2em] text-akasha-gray-1 mb-1">
-            Bundle checkout pending
-          </p>
-          <p className="text-xs font-body text-akasha-gray-1 leading-relaxed">
-            Waiting on the US$199 Yin Add-on product ID from Wix. Set
-            NEXT_PUBLIC_WIX_PRODUCT_ID_YIN_ADDON in Vercel to unlock.
-          </p>
-        </div>
-      )}
+      <div className="mt-auto">
+        <a
+          href="/checkout?product=essential"
+          onClick={handleCtaClick}
+          className="btn-action w-full inline-flex items-center justify-center"
+        >
+          {`Enroll in Bundle, US$${bundle.total}`}
+        </a>
+        {onWhatYouGet ? (
+          <button
+            type="button"
+            onClick={onWhatYouGet}
+            className="mt-3 w-full text-center text-[11px] font-body uppercase tracking-[0.25em] text-akasha-orange hover:text-akasha-orange-dark transition-colors inline-flex items-center justify-center gap-2"
+            style={{ fontFamily: 'Inter, sans-serif' }}
+            aria-haspopup="dialog"
+          >
+            What will you get?
+          </button>
+        ) : null}
+      </div>
     </div>
   );
 }
@@ -1058,7 +930,7 @@ function CampaignStickyCTA({ phase }) {
             ) : null}
           </div>
           <a
-            href={USE_THRIVECART ? '/checkout' : '#enroll'}
+            href="/checkout?product=essential"
             className="inline-flex items-center bg-akasha-orange text-akasha-white px-5 md:px-7 py-2.5 md:py-3 rounded-full text-[10.5px] md:text-[12px] font-semibold uppercase tracking-[0.2em] hover:bg-akasha-orange-dark transition-colors whitespace-nowrap"
             style={{ fontFamily: 'Inter, sans-serif' }}
           >
@@ -1831,22 +1703,9 @@ function TestimonialCarousel() {
 }
 
 function StandaloneCard({ phase, onWhatYouGet }) {
-  const utm = useUtmParams();
-  const [form, setForm] = useState({ firstName: '', lastName: '', email: '' });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
-
   const isBackup = phase.key === 'backup';
   const voucherPrice = phase.standalone.voucherPrice;
-  // Displayed price = the voucher price when a voucher is configured,
-  // otherwise the base Essential price. Tracking + Wix line item still
-  // reference the base price so the cart matches the live product.
   const displayPrice = voucherPrice || phase.standalone.essential;
-  // Strikethrough anchor: prefer regularPrice (US$1,190) so the row
-  // reads as a clean 75% off, then fall back to the older Phase 1
-  // originalPrice (US$320), then Phase 2 voucher framing (US$290 to
-  // US$249), then the legacy Yoga Day US$1,190 anchor for backup.
   const strikethroughPrice = phase.standalone.regularPrice
     ? phase.standalone.regularPrice.toLocaleString('en-US')
     : phase.standalone.originalPrice
@@ -1856,36 +1715,12 @@ function StandaloneCard({ phase, onWhatYouGet }) {
         : '1,190';
   const discountPercent = phase.standalone.discountPercent;
 
-  useEffect(() => {
-    const onShow = (e) => {
-      if (e.persisted) {
-        setLoading(false);
-        setError(null);
-      }
-    };
-    window.addEventListener('pageshow', onShow);
-    return () => window.removeEventListener('pageshow', onShow);
-  }, []);
-
-  async function handleBuy(e) {
-    e.preventDefault();
-    setError(null);
-    if (!form.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      setError('Please enter a valid email address.');
-      return;
-    }
-    if (!form.firstName.trim()) {
-      setError('Please enter your first name.');
-      return;
-    }
-
-    setLoading(true);
+  function handleCtaClick() {
     const courseLabel = `July ${phase.label} Essential Only`;
     const contentId = `july-${phase.key}|essential-only`;
-    trackLead(courseLabel, displayPrice);
     try {
+      trackLead(courseLabel, displayPrice);
       trackInitiateCheckout(courseLabel, displayPrice, contentId);
-      const { fbc, fbp } = getMetaCookies();
       const eventId = newEventId();
       try {
         localStorage.setItem('pendingPurchase_courseName', courseLabel);
@@ -1894,74 +1729,13 @@ function StandaloneCard({ phase, onWhatYouGet }) {
         localStorage.setItem('pendingPurchase_eventId', eventId);
         localStorage.setItem('pendingPurchase_timestamp', Date.now().toString());
       } catch (_) {}
-
-      // GA4 / GTM begin_checkout push fires for both checkout
-      // destinations. Thank-you page still reads the stashed order.
       pushBeginCheckout({
         course_name: courseLabel,
         value: displayPrice,
         currency: 'USD',
       });
-
-      // Flag-gated checkout destination. When NEXT_PUBLIC_USE_THRIVECART
-      // is 'true', buyers are redirected to ThriveCart's hosted checkout
-      // (coupon + UTM + email pre-filled) instead of the Wix Headless
-      // redirect. Default stays Wix so nothing changes without the flag.
-      const couponForCheckout =
-        phase.standalone.couponCode ||
-        (voucherPrice ? phase.couponCode : undefined);
-
-      if (USE_THRIVECART) {
-        // Route buyers to our own /checkout page, which renders the
-        // ThriveCart iframe inside our shell. UTM + email hitch a ride
-        // via query params so ThriveCart still receives them.
-        // Coupon auto-apply intentionally skipped for the first look;
-        // re-enable by adding `coupon: couponForCheckout` to the params.
-        const params = new URLSearchParams();
-        if (form.email.trim()) params.set('email', form.email.trim());
-        if (fbc) params.set('fbc', fbc);
-        if (fbp) params.set('fbp', fbp);
-        if (utm && typeof utm === 'object') {
-          for (const k of [
-            'utm_source',
-            'utm_medium',
-            'utm_campaign',
-            'utm_term',
-            'utm_content',
-          ]) {
-            if (utm[k]) params.set(k, String(utm[k]));
-          }
-        }
-        window.location.href = `/checkout?${params.toString()}`;
-        return;
-      }
-
-      const url = await startWixCheckout({
-        utm,
-        utmNote: formatUtmNote(utm),
-        productId: JULY_PRODUCTS.essential,
-        couponCode: couponForCheckout,
-        meta: { fbc, fbp, courseSlug: 'july-essential-only', planSlug: phase.key, eventId },
-        buyer: {
-          firstName: form.firstName.trim(),
-          lastName: form.lastName.trim(),
-          email: form.email.trim(),
-        },
-      });
-
-      const finalUrl = new URL(url);
-      if (fbc) finalUrl.searchParams.set('fbc', fbc);
-      if (fbp) finalUrl.searchParams.set('fbp', fbp);
-      window.location.href = finalUrl.toString();
-    } catch (err) {
-      console.error('[JulyStandalone] checkout failed:', err);
-      setError(err?.message || 'Could not start checkout. Please try again.');
-      setLoading(false);
-    }
+    } catch (_) {}
   }
-
-  const inputCls =
-    'w-full border border-akasha-gray-3 rounded-full px-5 py-3 text-sm font-body text-akasha-black placeholder:text-akasha-gray-2 focus:outline-none focus:border-akasha-orange transition-colors bg-akasha-white';
 
   return (
     <div className="bg-akasha-white border border-akasha-gray-4 rounded-sm p-7 md:p-8 flex flex-col">
@@ -2017,83 +1791,27 @@ function StandaloneCard({ phase, onWhatYouGet }) {
             : 'Limited time offer'}
       </p>
 
-      {USE_THRIVECART ? (
-        <div className="mt-auto">
-          <a
-            href="/checkout"
-            className="inline-flex items-center justify-center w-full bg-akasha-black text-akasha-white px-8 py-3.5 rounded-full text-[12px] font-medium uppercase tracking-[0.2em] hover:bg-akasha-gray-1 transition-colors"
-            style={{ fontFamily: 'Inter, sans-serif' }}
-          >
-            {`Enroll in 200-Hour Only, US$${displayPrice}`}
-          </a>
-          {onWhatYouGet ? (
-            <button
-              type="button"
-              onClick={onWhatYouGet}
-              className="mt-3 w-full text-center text-[11px] font-body uppercase tracking-[0.25em] text-akasha-black/70 hover:text-akasha-black transition-colors inline-flex items-center justify-center gap-2"
-              style={{ fontFamily: 'Inter, sans-serif' }}
-              aria-haspopup="dialog"
-            >
-              What will you get?
-            </button>
-          ) : null}
-        </div>
-      ) : (
-        <form onSubmit={handleBuy} className="mt-auto" noValidate>
-          <div className="grid grid-cols-2 gap-3 mb-3">
-            <input
-              type="text"
-              autoComplete="given-name"
-              placeholder="First name *"
-              value={form.firstName}
-              onChange={set('firstName')}
-              className={inputCls}
-            />
-            <input
-              type="text"
-              autoComplete="family-name"
-              placeholder="Last name"
-              value={form.lastName}
-              onChange={set('lastName')}
-              className={inputCls}
-            />
-          </div>
-          <input
-            type="email"
-            autoComplete="email"
-            placeholder="Email address *"
-            value={form.email}
-            onChange={set('email')}
-            className={`${inputCls} mb-4`}
-          />
+      <div className="mt-auto">
+        <a
+          href="/checkout?product=essential"
+          onClick={handleCtaClick}
+          className="inline-flex items-center justify-center w-full bg-akasha-black text-akasha-white px-8 py-3.5 rounded-full text-[12px] font-medium uppercase tracking-[0.2em] hover:bg-akasha-gray-1 transition-colors"
+          style={{ fontFamily: 'Inter, sans-serif' }}
+        >
+          {`Enroll in 200-Hour Only, US$${displayPrice}`}
+        </a>
+        {onWhatYouGet ? (
           <button
-            type="submit"
-            disabled={loading}
-            className={`inline-flex items-center justify-center w-full bg-akasha-black text-akasha-white px-8 py-3.5 rounded-full text-[12px] font-medium uppercase tracking-[0.2em] hover:bg-akasha-gray-1 transition-colors ${
-              loading ? 'opacity-70 cursor-wait' : ''
-            }`}
+            type="button"
+            onClick={onWhatYouGet}
+            className="mt-3 w-full text-center text-[11px] font-body uppercase tracking-[0.25em] text-akasha-black/70 hover:text-akasha-black transition-colors inline-flex items-center justify-center gap-2"
             style={{ fontFamily: 'Inter, sans-serif' }}
+            aria-haspopup="dialog"
           >
-            {loading ? 'Preparing your checkout…' : `Enroll in 200-Hour Only, US$${displayPrice}`}
+            What will you get?
           </button>
-          {onWhatYouGet ? (
-            <button
-              type="button"
-              onClick={onWhatYouGet}
-              className="mt-3 w-full text-center text-[11px] font-body uppercase tracking-[0.25em] text-akasha-black/70 hover:text-akasha-black transition-colors inline-flex items-center justify-center gap-2"
-              style={{ fontFamily: 'Inter, sans-serif' }}
-              aria-haspopup="dialog"
-            >
-              What will you get?
-            </button>
-          ) : null}
-          {error && (
-            <p className="text-xs text-akasha-orange-dark mt-3 font-body text-center">
-              {error}
-            </p>
-          )}
-        </form>
-      )}
+        ) : null}
+      </div>
     </div>
   );
 }
