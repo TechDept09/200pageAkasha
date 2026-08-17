@@ -91,13 +91,13 @@ export default function Hero80Meditation() {
           className="font-body"
           style={{ fontSize: 'clamp(1.05rem, 2.2vw, 1.35rem)', fontWeight: 500 }}
         >
-          33% Self-Growth Discount!
+          33% Transform Discount!
         </p>
         <p
           className="font-body mt-0.5 opacity-95"
           style={{ fontSize: 'clamp(0.85rem, 1.6vw, 1.05rem)' }}
         >
-          Starting From Just US$399. Expires on August 15.
+          Starting From Just US$399. Expires on August 30.
         </p>
       </div>
     </section>

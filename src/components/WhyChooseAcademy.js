@@ -6,9 +6,6 @@ import Image from 'next/image';
 // Copy is verbatim from the live source.
 const GREEN = '#5FBFA6';
 
-const LOTUS_WATERMARK =
-  'https://static.wixstatic.com/media/cd7168_4415a77d6ae941eaa45a7317dc90ee65~mv2.png/v1/fill/w_858,h_870,al_c,q_90,enc_avif,quality_auto/flower-only-Light-Dark-orange_edited.png';
-
 const DEVICES =
   'https://static.wixstatic.com/media/cd7168_5c292400fe7644a5845053e90a361547~mv2.png/v1/crop/x_0,y_226,w_6000,h_3080/fill/w_1382,h_710,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/AKASHADEVICES.png';
 
@@ -33,7 +30,7 @@ export default function WhyChooseAcademy() {
   return (
     <section id="why-choose" className="relative overflow-hidden bg-akasha-white">
       <img
-        src={LOTUS_WATERMARK}
+        src="/images/lotus-flower.png"
         alt=""
         aria-hidden="true"
         loading="lazy"
@@ -118,7 +115,7 @@ export default function WhyChooseAcademy() {
             Enroll Now
           </a>
           <p className="mt-3 font-body text-xs uppercase tracking-[0.2em] text-akasha-gray-2">
-            Over 70% Off Until August 15th
+            Over 70% Off Until August 30th
           </p>
         </div>
       </div>

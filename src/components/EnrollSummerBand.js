@@ -2,7 +2,7 @@
 
 import { TIERS } from '@/lib/tiers';
 
-// Recurring "Over 70% Self-Growth Discount" offer block from the live Wix
+// Recurring "Over 70% Transform Discount" offer block from the live Wix
 // /enroll-now page, rendered transparently over the page's warm-gray canvas.
 // Copy is verbatim from the live source.
 const ORANGE = '#E5771E';
@@ -25,7 +25,7 @@ export default function EnrollSummerBand({ buttonColor = 'orange', showBonusLine
     <section className="scroll-mt-24">
       <div className="section py-12 md:py-16 text-center">
         <h2 className="font-heading text-akasha-white/90" style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 300 }}>
-          75% Self-Growth Discount
+          75% Transform Discount
         </h2>
         <p className="font-heading mt-3" style={{ color: ORANGE, fontSize: 'clamp(1.2rem, 2.4vw, 1.6rem)', fontWeight: 400 }}>
           Start for only
@@ -44,7 +44,7 @@ export default function EnrollSummerBand({ buttonColor = 'orange', showBonusLine
 
         {showBonusLine && (
           <p className="font-heading text-akasha-white/80 max-w-2xl mx-auto mt-8 leading-snug" style={{ fontSize: 'clamp(1.1rem, 2.4vw, 1.5rem)', fontWeight: 300 }}>
-            Until August 15th, all the bonuses are FREE and included in Essential &amp;
+            Until August 30th, all the bonuses are FREE and included in Essential &amp;
             Premium Version. Total Value US$1130
           </p>
         )}

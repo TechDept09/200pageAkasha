@@ -5,9 +5,6 @@ import Image from 'next/image';
 // the faint lotus watermark. Copy is verbatim from the live source.
 const GREEN = '#5FBFA6';
 
-const LOTUS_WATERMARK =
-  'https://static.wixstatic.com/media/cd7168_4415a77d6ae941eaa45a7317dc90ee65~mv2.png/v1/fill/w_858,h_870,al_c,q_90,enc_avif,quality_auto/flower-only-Light-Dark-orange_edited.png';
-
 const PHOTO_JOIN =
   'https://static.wixstatic.com/media/cd7168_a785ceb175ad4f49a97d1f05eb26255c~mv2.jpg/v1/crop/x_0,y_51,w_1667,h_1649/fill/w_360,h_360,al_c,q_85,enc_avif,quality_auto/join.jpg';
 
@@ -64,7 +61,7 @@ export default function StartToday() {
   return (
     <section id="start-today" className="relative overflow-hidden bg-akasha-white">
       <img
-        src={LOTUS_WATERMARK}
+        src="/images/lotus-flower.png"
         alt=""
         aria-hidden="true"
         loading="lazy"
@@ -130,7 +127,7 @@ export default function StartToday() {
             Enroll Now
           </a>
           <p className="mt-3 font-body text-xs uppercase tracking-[0.2em] text-akasha-gray-2">
-            Over 70% Off Until August 15th
+            Over 70% Off Until August 30th
           </p>
         </div>
       </div>

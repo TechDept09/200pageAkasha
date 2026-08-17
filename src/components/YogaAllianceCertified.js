@@ -5,9 +5,6 @@
 // Copy is verbatim from the live source.
 const GREEN = '#5FBFA6';
 
-const LOTUS_WATERMARK =
-  'https://static.wixstatic.com/media/cd7168_4415a77d6ae941eaa45a7317dc90ee65~mv2.png/v1/fill/w_858,h_870,al_c,q_90,enc_avif,quality_auto/flower-only-Light-Dark-orange_edited.png';
-
 // Order and asset IDs match the live source: RYS-200, RYS-300, E-RYT-500,
 // YACEP. Only the first has a labelled filename on Wix; the rest are stored
 // under hash-only names, so alt text stays generic.
@@ -27,7 +24,7 @@ export default function YogaAllianceCertified() {
     >
       {/* Faint lotus watermark, bleeding off the left edge */}
       <img
-        src={LOTUS_WATERMARK}
+        src="/images/lotus-flower.png"
         alt=""
         aria-hidden="true"
         loading="lazy"
@@ -136,7 +133,7 @@ export default function YogaAllianceCertified() {
             Get Certified
           </a>
           <p className="mt-3 font-body text-xs uppercase tracking-[0.2em] text-akasha-gray-2">
-            Over 70% Off Until August 15th
+            Over 70% Off Until August 30th
           </p>
         </div>
       </div>

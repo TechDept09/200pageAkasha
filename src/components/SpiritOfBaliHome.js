@@ -6,9 +6,6 @@
 // lotus watermark, closing with the primary CTA. Asset IDs are pulled
 // verbatim from the Wix source so the logos/stars match one-to-one.
 
-const LOTUS_WATERMARK =
-  'https://static.wixstatic.com/media/cd7168_4415a77d6ae941eaa45a7317dc90ee65~mv2.png/v1/fill/w_858,h_870,al_c,q_90,enc_avif,quality_auto/flower-only-Light-Dark-orange_edited.png';
-
 const AKASHA_LOGO =
   'https://static.wixstatic.com/media/cd7168_9eb241be7f554798a0bcec81b234ede0~mv2.webp/v1/fill/w_254,h_72,al_c,q_85,enc_avif,quality_auto/5.webp';
 const YOGA_ALLIANCE_LOGO =
@@ -26,7 +23,7 @@ export default function SpiritOfBaliHome() {
     <section className="relative overflow-hidden bg-akasha-white">
       {/* Faint lotus watermark, bleeding off the left edge */}
       <img
-        src={LOTUS_WATERMARK}
+        src="/images/lotus-flower.png"
         alt=""
         aria-hidden="true"
         loading="lazy"
@@ -53,7 +50,7 @@ export default function SpiritOfBaliHome() {
         <div className="max-w-2xl mx-auto mt-8 space-y-5 font-body text-akasha-gray-1 text-base md:text-lg leading-relaxed">
           <p>
             200-Hour Online Yoga Teacher Training Essential, now more accessible
-            than ever with a over 70% discount until August 15th!
+            than ever with a over 70% discount until August 30th!
           </p>
           <p>
             Experience state-of-the-art video lessons filmed in our exclusive
@@ -133,7 +130,7 @@ export default function SpiritOfBaliHome() {
             Start Your Journey
           </a>
           <p className="mt-3 font-body text-xs uppercase tracking-[0.2em] text-akasha-gray-2">
-            Over 70% Off Until August 15th
+            Over 70% Off Until August 30th
           </p>
         </div>
       </div>

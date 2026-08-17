@@ -10,9 +10,6 @@ const ENROLL_URL =
 const STUDENT_OFFER_URL =
   'https://www.akashayogaacademy.com/300-hr-online-current-students-payment-plan';
 
-const LOTUS_WATERMARK =
-  'https://static.wixstatic.com/media/cd7168_4415a77d6ae941eaa45a7317dc90ee65~mv2.png/v1/fill/w_858,h_870,al_c,q_90,enc_avif,quality_auto/flower-only-Light-Dark-orange_edited.png';
-
 const BASE = 'https://static.wixstatic.com/media/';
 
 const BONUSES = [
@@ -183,7 +180,7 @@ export default function Bonuses300() {
   return (
     <section className="relative overflow-hidden bg-[#F5F4F1]">
       <img
-        src={LOTUS_WATERMARK}
+        src="/images/lotus-flower.png"
         alt=""
         aria-hidden="true"
         loading="lazy"
@@ -229,7 +226,7 @@ export default function Bonuses300() {
             className="font-heading text-akasha-gray-1"
             style={{ fontSize: 'clamp(1.35rem, 3vw, 2rem)', fontWeight: 400 }}
           >
-            33% Self-Growth Discount
+            33% Transform Discount
           </p>
           <p
             className="font-heading mt-3"
@@ -238,7 +235,7 @@ export default function Bonuses300() {
             Start today for only US$399
           </p>
           <p className="font-body mt-3 text-sm" style={{ color: ORANGE }}>
-            * Offer until August 15.
+            * Offer until August 30.
           </p>
           <p className="font-body text-akasha-gray-1 mt-6 text-base md:text-lg leading-relaxed">
             All bonuses are currently FREE, and included in the 300-Hour Online Yoga

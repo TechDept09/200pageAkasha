@@ -6,9 +6,6 @@ import { useTier } from '@/lib/TierContext';
 // with the green CTA. Copy is verbatim from the Wix source.
 const GREEN = '#5FBFA6';
 
-const LOTUS_WATERMARK =
-  'https://static.wixstatic.com/media/cd7168_4415a77d6ae941eaa45a7317dc90ee65~mv2.png/v1/fill/w_858,h_870,al_c,q_90,enc_avif,quality_auto/flower-only-Light-Dark-orange_edited.png';
-
 const parts = [
   {
     label: 'Practice & Theory',
@@ -34,7 +31,7 @@ export default function Curriculum() {
     <section id="curriculum" className="relative overflow-hidden bg-akasha-white">
       {/* Faint lotus watermark, bleeding off the left edge */}
       <img
-        src={LOTUS_WATERMARK}
+        src="/images/lotus-flower.png"
         alt=""
         aria-hidden="true"
         loading="lazy"
@@ -116,7 +113,7 @@ export default function Curriculum() {
             Start Your Journey
           </a>
           <p className="mt-3 font-body text-xs uppercase tracking-[0.2em] text-akasha-gray-2">
-            Over 70% Off Until August 15th
+            Over 70% Off Until August 30th
           </p>
         </div>
       </div>

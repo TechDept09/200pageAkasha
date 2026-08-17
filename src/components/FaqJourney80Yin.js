@@ -9,7 +9,7 @@ const FAQ_URL = 'https://www.akashayogaacademy.com/80-yin-ytt-faq';
 const ENROLL_URL = 'https://www.akashayogaacademy.com/80hr-yin-ytt-enroll-now';
 
 const LOTUS =
-  'https://static.wixstatic.com/media/cd7168_4415a77d6ae941eaa45a7317dc90ee65~mv2.png/v1/fill/w_500,h_507,al_c,q_90,enc_avif,quality_auto/flower-only-Light-Dark-orange_edited.png';
+  '/images/lotus-flower.png';
 
 export default function FaqJourney80Yin() {
   return (
@@ -97,7 +97,7 @@ export default function FaqJourney80Yin() {
             fontWeight: 400,
           }}
         >
-          33% Self-Growth Discount
+          33% Transform Discount
         </p>
 
         <p
@@ -112,7 +112,7 @@ export default function FaqJourney80Yin() {
         </p>
 
         <p className="font-body mt-3 text-sm" style={{ color: ORANGE }}>
-          * Offer until August 15.
+          * Offer until August 30.
         </p>
 
         <div className="mt-10">
