@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { THRIVECART_URL } from '@/lib/thriveCart';
+import { getThriveCartUrl, getDefaultCoupon } from '@/lib/thriveCart';
 
 // Full-screen checkout shell. Just an Akasha branding strip at the top
 // (logo + close), then a ThriveCart iframe filling the entire rest of
@@ -12,7 +12,7 @@ import { THRIVECART_URL } from '@/lib/thriveCart';
 // forwarded into the iframe URL.
 
 const LOGO_BLACK =
-  'https://static.wixstatic.com/media/c15a18_add3f1d2dd1a4582876f0249d1a2daf3~mv2.png/v1/fill/w_376,h_320,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Akasha-Yoga-Academy-Logo-2020-BLACK-500W.png';
+  '/images/akasha-logo-black.png';
 
 const FORWARD_KEYS = [
   'utm_source',
@@ -32,12 +32,19 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     if (!router.isReady) return;
-    const url = new URL(THRIVECART_URL);
+    const product = typeof router.query.product === 'string' ? router.query.product : null;
+    const url = new URL(getThriveCartUrl(product));
     for (const key of FORWARD_KEYS) {
       const value = router.query[key];
       if (value && typeof value === 'string') {
         url.searchParams.set(key, value);
       }
+    }
+    // Auto-apply the product's default coupon (e.g. TRANSFORM50 for the
+    // 200h Essential) when the buyer didn't bring their own in the query.
+    if (!url.searchParams.get('coupon')) {
+      const defaultCoupon = getDefaultCoupon(product);
+      if (defaultCoupon) url.searchParams.set('coupon', defaultCoupon);
     }
     setIframeUrl(url.toString());
   }, [router.isReady, router.query]);
@@ -49,6 +56,62 @@ export default function CheckoutPage() {
       router.push('/');
     }
   };
+
+  // ── Iframe navigation detection ──────────────────────────────
+  // ThriveCart runs cross-origin so we can't read iframe.location.
+  // Listen for postMessage events that ThriveCart may send for
+  // close / cancel / purchase actions.
+  //
+  // Iframe breakout for Akasha links is handled in _app.js via
+  // window.self !== window.top detection — no need to count iframe
+  // loads here.
+
+  const closeCheckout = () => {
+    if (typeof window !== 'undefined' && window.history.length > 1) {
+      router.back();
+    } else {
+      router.push('/');
+    }
+  };
+
+  // Listen for ThriveCart postMessage events.
+  useEffect(() => {
+    const handleMessage = (event) => {
+      if (!event.origin || !event.origin.includes('thrivecart.com')) return;
+
+      let data = event.data;
+      if (typeof data === 'string') {
+        try { data = JSON.parse(data); } catch { /* plain string */ }
+      }
+
+      const action =
+        (typeof data === 'string' ? data : null) ||
+        data?.action ||
+        data?.event ||
+        data?.type ||
+        data?.message;
+
+      if (
+        action === 'close' ||
+        action === 'cancel' ||
+        action === 'back' ||
+        action === 'navigate_away'
+      ) {
+        closeCheckout();
+      }
+
+      if (
+        action === 'purchase' ||
+        action === 'order_complete' ||
+        action === 'checkout_complete'
+      ) {
+        router.push('/thank-you');
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, [router]);
 
   return (
     <>

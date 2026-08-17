@@ -51,6 +51,22 @@ export function hasThriveCartUrl(slug) {
   return !!(slug && THRIVECART_URLS[slug]);
 }
 
+// Per-product default coupons that auto-apply on the ThriveCart hosted
+// page. Env-overridable so marketing can rotate a code without a
+// redeploy. Both slug aliases (essential + 200h-essential) point to the
+// same env var so either entry point picks up the same coupon.
+const ESSENTIAL_DEFAULT_COUPON =
+  process.env.NEXT_PUBLIC_THRIVECART_COUPON_ESSENTIAL || 'TRANSFORM50';
+
+export const THRIVECART_COUPONS = {
+  essential: ESSENTIAL_DEFAULT_COUPON,
+  '200h-essential': ESSENTIAL_DEFAULT_COUPON,
+};
+
+export function getDefaultCoupon(slug) {
+  return (slug && THRIVECART_COUPONS[slug]) || null;
+}
+
 export function getThriveCartUrl(tierSlug) {
   return THRIVECART_URLS[tierSlug] || THRIVECART_URL;
 }
