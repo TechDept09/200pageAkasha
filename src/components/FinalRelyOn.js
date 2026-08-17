@@ -9,10 +9,7 @@ const GREEN = '#5FBFA6';
 
 // Summer-Wellness display price shown on the Wix band. Kept separate from
 // tier.promoPrice (the post-code checkout price).
-const SUMMER_PRICE = 299;
-
-const LOTUS_WATERMARK =
-  'https://static.wixstatic.com/media/cd7168_4415a77d6ae941eaa45a7317dc90ee65~mv2.png/v1/fill/w_858,h_870,al_c,q_90,enc_avif,quality_auto/flower-only-Light-Dark-orange_edited.png';
+const SUMMER_PRICE = 249;
 
 const RELY_ON = [
   'Experienced Registered Yoga Teachers at the highest level (E-RYT-500)',
@@ -28,7 +25,7 @@ export default function FinalRelyOn() {
   return (
     <section id="enroll" className="relative overflow-hidden bg-akasha-white">
       <img
-        src={LOTUS_WATERMARK}
+        src="/images/lotus-flower.png"
         alt=""
         aria-hidden="true"
         loading="lazy"
@@ -97,7 +94,7 @@ export default function FinalRelyOn() {
             className="font-heading text-akasha-gray-1"
             style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', fontWeight: 300 }}
           >
-            75% Self-Growth Discount
+            75% Transform Discount
           </p>
           <p
             className="font-heading text-akasha-orange mt-3"
@@ -113,7 +110,7 @@ export default function FinalRelyOn() {
               US${SUMMER_PRICE}
             </span>
           </div>
-          <p className="font-body text-akasha-orange text-sm mt-4">* Offer until 31st of July</p>
+          <p className="font-body text-akasha-orange text-sm mt-4">* Offer until 30th of August</p>
           <p
             className="font-heading text-akasha-gray-1 mt-6"
             style={{ fontSize: 'clamp(1.15rem, 2.4vw, 1.5rem)', fontWeight: 300 }}

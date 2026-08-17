@@ -10,10 +10,10 @@ const DARK_BG = '#3a3a3a';
 
 // Summer-Wellness display price shown on the Wix band. Kept separate from
 // tier.promoPrice (US$290, the post-CARE30 checkout price).
-const SUMMER_PRICE = 299;
+const SUMMER_PRICE = 249;
 
 const LOTUS =
-  'https://static.wixstatic.com/media/cd7168_4415a77d6ae941eaa45a7317dc90ee65~mv2.png/v1/fill/w_500,h_507,al_c,q_90,enc_avif,quality_auto/flower-only-Light-Dark-orange_edited.png';
+  '/images/lotus-flower.png';
 
 export default function SummerOfferBand() {
   const tier = useTier();
@@ -46,7 +46,7 @@ export default function SummerOfferBand() {
           className="font-heading text-akasha-white"
           style={{ fontSize: 'clamp(1.5rem, 3.4vw, 2.4rem)', fontWeight: 300 }}
         >
-          75% Self-Growth Discount
+          75% Transform Discount
         </h2>
 
         <p
@@ -66,7 +66,7 @@ export default function SummerOfferBand() {
         </div>
 
         <p className="font-body text-akasha-orange text-sm mt-5">
-          * Offer until 31st of July
+          * Offer until 30th of August
         </p>
 
         <div className="mt-5">

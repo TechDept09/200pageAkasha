@@ -13,7 +13,7 @@ const BG_IMAGE =
 // Headline "Summer Wellness" price shown on the live Wix band. Kept as its
 // own display value because it differs from tier.promoPrice (US$290), which
 // is the post-CARE30-voucher price charged at checkout.
-const SUMMER_PRICE = 299;
+const SUMMER_PRICE = 249;
 
 export default function BringBaliHomeBanner() {
   const tier = useTier();
@@ -38,7 +38,7 @@ export default function BringBaliHomeBanner() {
           className="text-white"
           style={{ fontSize: 'clamp(2rem, 4.6vw, 3.4rem)', fontWeight: 300, lineHeight: 1.15 }}
         >
-          75% Self-Growth
+          75% Transform
           <br />
           Discount
         </h2>
