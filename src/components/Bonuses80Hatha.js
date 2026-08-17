@@ -190,7 +190,7 @@ export default function Bonuses80Hatha() {
             Start today for only US$399
           </p>
           <p className="font-body mt-3 text-sm" style={{ color: ORANGE }}>
-            * Offer until August 30.
+            * Offer until August 31.
           </p>
           <p
             className="font-body mt-6"

@@ -127,7 +127,7 @@ export default function StartToday() {
             Enroll Now
           </a>
           <p className="mt-3 font-body text-xs uppercase tracking-[0.2em] text-akasha-gray-2">
-            Over 70% Off Until August 30th
+            Over 70% Off Until August 31st
           </p>
         </div>
       </div>

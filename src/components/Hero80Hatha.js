@@ -97,7 +97,7 @@ export default function Hero80Hatha() {
           className="font-body mt-0.5 opacity-95"
           style={{ fontSize: 'clamp(0.85rem, 1.6vw, 1.05rem)' }}
         >
-          Starting From Just US$399. Expires on August 30.
+          Starting From Just US$399. Expires on August 31.
         </p>
       </div>
     </section>

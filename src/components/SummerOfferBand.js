@@ -66,7 +66,7 @@ export default function SummerOfferBand() {
         </div>
 
         <p className="font-body text-akasha-orange text-sm mt-5">
-          * Offer until 30th of August
+          * Offer until 31st of August
         </p>
 
         <div className="mt-5">

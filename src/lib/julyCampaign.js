@@ -145,10 +145,10 @@ const AUG_PHASE1_COUPON =
 JULY_PHASES.augphase1 = {
   key: 'augphase1',
   start: '2026-08-16T00:00:00+08:00',
-  end: '2026-08-30T23:59:59+08:00',
+  end: '2026-08-31T23:59:59+08:00',
   label: '75% Transform Discount',
   publicName: 'Transform Discount',
-  dateRange: 'Offer through 30th of August',
+  dateRange: 'Offer through 31st of August',
   headline: 'Transform Discount',
   scriptTagline: 'From Yoga Practice to a Deeper Path.',
   intro:

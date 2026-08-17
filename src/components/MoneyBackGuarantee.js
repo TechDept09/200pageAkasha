@@ -58,7 +58,7 @@ export default function MoneyBackGuarantee() {
               </p>
             </div>
             <p className="font-body text-sm italic text-akasha-gray-2">
-              *MBG is available with Essential &amp; Premium Plans until August 30th,
+              *MBG is available with Essential &amp; Premium Plans until August 31st,
               as part of the Bring Bali Home special promo.
             </p>
           </div>

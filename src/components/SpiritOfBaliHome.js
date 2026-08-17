@@ -50,7 +50,7 @@ export default function SpiritOfBaliHome() {
         <div className="max-w-2xl mx-auto mt-8 space-y-5 font-body text-akasha-gray-1 text-base md:text-lg leading-relaxed">
           <p>
             200-Hour Online Yoga Teacher Training Essential, now more accessible
-            than ever with a over 70% discount until August 30th!
+            than ever with a over 70% discount until August 31st!
           </p>
           <p>
             Experience state-of-the-art video lessons filmed in our exclusive
@@ -130,7 +130,7 @@ export default function SpiritOfBaliHome() {
             Start Your Journey
           </a>
           <p className="mt-3 font-body text-xs uppercase tracking-[0.2em] text-akasha-gray-2">
-            Over 70% Off Until August 30th
+            Over 70% Off Until August 31st
           </p>
         </div>
       </div>

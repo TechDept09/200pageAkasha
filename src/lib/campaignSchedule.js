@@ -12,12 +12,12 @@ export const JULY_PHASE1_END_ISO = '2026-07-17T23:59:59+08:00';
 export const JULY_PHASE2_START_ISO = '2026-07-16T00:00:00+08:00';
 export const JULY_PHASE2_END_ISO = '2026-07-31T23:59:59+08:00';
 
-// --- August 2026 — Transform Discount (Aug 16–30) ---
+// --- August 2026 — Transform Discount (Aug 16–31) ---
 export const AUG_PHASE1_START_ISO = '2026-08-16T00:00:00+08:00';
-export const AUG_PHASE1_END_ISO = '2026-08-30T23:59:59+08:00';
+export const AUG_PHASE1_END_ISO = '2026-08-31T23:59:59+08:00';
 
 // Short human label for "offer ends" / countdown copy.
-export const SALE_END_SHORT = 'August 30';
+export const SALE_END_SHORT = 'August 31';
 
 // The active storewide sale window. Every course/tier that discounts
 // during the current campaign references this window. Updated per phase.
@@ -26,5 +26,5 @@ export const STOREWIDE_WINDOWS = [STOREWIDE_WINDOW];
 
 // Display metadata layered on top of the window (date-range text for
 // countdowns / banners). Phase = window + label.
-export const STOREWIDE_PHASE = { ...STOREWIDE_WINDOW, dateRange: 'Until August 30th' };
+export const STOREWIDE_PHASE = { ...STOREWIDE_WINDOW, dateRange: 'Until August 31st' };
 export const STOREWIDE_PHASES = [STOREWIDE_PHASE];

@@ -297,7 +297,7 @@ export default function Bonuses({ theme = 'light' }) {
             className={`font-heading leading-snug ${headingCls}`}
             style={{ fontSize: 'clamp(1.5rem, 3.2vw, 2.2rem)', fontWeight: 300 }}
           >
-            Until August 30th, all the bonuses are FREE and included in Essential &amp;
+            Until August 31st, all the bonuses are FREE and included in Essential &amp;
             Premium Version.
           </h2>
           <p

@@ -110,7 +110,7 @@ export default function FinalRelyOn() {
               US${SUMMER_PRICE}
             </span>
           </div>
-          <p className="font-body text-akasha-orange text-sm mt-4">* Offer until 30th of August</p>
+          <p className="font-body text-akasha-orange text-sm mt-4">* Offer until 31st of August</p>
           <p
             className="font-heading text-akasha-gray-1 mt-6"
             style={{ fontSize: 'clamp(1.15rem, 2.4vw, 1.5rem)', fontWeight: 300 }}

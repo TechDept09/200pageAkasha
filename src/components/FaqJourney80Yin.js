@@ -112,7 +112,7 @@ export default function FaqJourney80Yin() {
         </p>
 
         <p className="font-body mt-3 text-sm" style={{ color: ORANGE }}>
-          * Offer until August 30.
+          * Offer until August 31.
         </p>
 
         <div className="mt-10">
