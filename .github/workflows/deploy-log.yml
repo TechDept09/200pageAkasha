@@ -54,18 +54,31 @@ jobs:
           } >> $GITHUB_OUTPUT
 
       - name: Post to Discord
+        env:
+          # Route the step outputs through env vars so commit subjects
+          # with double quotes or other shell metacharacters (e.g. `"Enroll Now"`)
+          # don't break jq tokenization — `${{ ... }}` interpolates as raw
+          # text before the shell runs, whereas env vars are safely quoted.
+          TITLE: "Deploy: ${{ github.repository }} @ ${{ github.ref_name }}"
+          COMMITS: ${{ steps.info.outputs.COMMITS }}
+          FILES: ${{ steps.info.outputs.FILES_CHANGED }}
+          AUTHOR: ${{ steps.info.outputs.author }}
+          TIME: ${{ steps.info.outputs.timestamp }}
+          COUNT: ${{ steps.info.outputs.commit_count }}
+          COMPARE: ${{ steps.info.outputs.compare_url }}
+          SHA: ${{ github.sha }}
         run: |
           WEBHOOK="https://discord.com/api/webhooks/1534434745079824466/0xBDIgEDOTSYSfMqcQXYZherylOYMXCGN294GdPZU1S4JSYb26uT_pa7blGgUUDz8R3m"
 
           PAYLOAD=$(jq -n \
-            --arg title "Deploy: ${{ github.repository }} @ ${{ github.ref_name }}" \
-            --arg commits "${{ steps.info.outputs.COMMITS }}" \
-            --arg files "${{ steps.info.outputs.FILES_CHANGED }}" \
-            --arg author "${{ steps.info.outputs.author }}" \
-            --arg time "${{ steps.info.outputs.timestamp }}" \
-            --arg count "${{ steps.info.outputs.commit_count }}" \
-            --arg compare "${{ steps.info.outputs.compare_url }}" \
-            --arg sha "${{ github.sha }}" \
+            --arg title  "$TITLE" \
+            --arg commits "$COMMITS" \
+            --arg files   "$FILES" \
+            --arg author  "$AUTHOR" \
+            --arg time    "$TIME" \
+            --arg count   "$COUNT" \
+            --arg compare "$COMPARE" \
+            --arg sha     "$SHA" \
             '{
               embeds: [{
                 title: $title,
