@@ -51,6 +51,21 @@ export function hasThriveCartUrl(slug) {
   return !!(slug && THRIVECART_URLS[slug]);
 }
 
+// Slugs whose checkout is temporarily closed for maintenance. Buttons
+// pointing at these products are disabled site-wide and /checkout
+// renders a maintenance notice instead of loading the ThriveCart iframe.
+// Marketing can flip this per-slug when a product is ready to reopen.
+export const PAYMENT_DISABLED_SLUGS = new Set([
+  '300h-ytt',
+  '80h-yin',
+  '80h-meditation',
+  '80h-hatha-pranayama',
+]);
+
+export function isPaymentDisabled(slug) {
+  return !!slug && PAYMENT_DISABLED_SLUGS.has(slug);
+}
+
 // Per-product default coupons that auto-apply on the ThriveCart hosted
 // page. Env-overridable so marketing can rotate a code without a
 // redeploy. Both slug aliases (essential + 200h-essential) point to the
@@ -71,10 +86,13 @@ export function getThriveCartUrl(tierSlug) {
   return THRIVECART_URLS[tierSlug] || THRIVECART_URL;
 }
 
-// Internal /checkout href for a given tier slug. Falls back to the
-// default (200hr Essential) if the slug is unknown.
+// Internal /checkout href for a given tier slug. Passes the slug
+// through as `?product=` even when it isn't in THRIVECART_URLS so
+// the checkout page still has context (e.g. to render the maintenance
+// notice for disabled slugs); falls back to the bare /checkout
+// (default Essential) when no slug is provided.
 export function getCheckoutHref(tierSlug) {
-  if (!tierSlug || !THRIVECART_URLS[tierSlug]) return '/checkout';
+  if (!tierSlug) return '/checkout';
   return `/checkout?product=${encodeURIComponent(tierSlug)}`;
 }
 

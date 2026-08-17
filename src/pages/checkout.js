@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { getThriveCartUrl, getDefaultCoupon } from '@/lib/thriveCart';
+import { getThriveCartUrl, getDefaultCoupon, isPaymentDisabled } from '@/lib/thriveCart';
 
 // Full-screen checkout shell. Just an Akasha branding strip at the top
 // (logo + close), then a ThriveCart iframe filling the entire rest of
@@ -29,10 +29,21 @@ const FORWARD_KEYS = [
 export default function CheckoutPage() {
   const router = useRouter();
   const [iframeUrl, setIframeUrl] = useState('');
+  const [maintenance, setMaintenance] = useState(false);
 
   useEffect(() => {
     if (!router.isReady) return;
     const product = typeof router.query.product === 'string' ? router.query.product : null;
+
+    // Payment temporarily closed for this product — skip the ThriveCart
+    // iframe entirely and let the shell render the maintenance card below.
+    if (isPaymentDisabled(product)) {
+      setMaintenance(true);
+      setIframeUrl('');
+      return;
+    }
+    setMaintenance(false);
+
     const url = new URL(getThriveCartUrl(product));
     for (const key of FORWARD_KEYS) {
       const value = router.query[key];
@@ -173,7 +184,45 @@ export default function CheckoutPage() {
           className="flex-1 min-h-0 bg-akasha-white overflow-hidden"
           style={{ WebkitOverflowScrolling: 'touch' }}
         >
-          {iframeUrl ? (
+          {maintenance ? (
+            <div className="w-full h-full flex items-center justify-center px-6">
+              <div className="max-w-md text-center bg-akasha-white border border-akasha-gray-4 rounded-md p-8 md:p-10 shadow-sm">
+                <p
+                  className="text-[10px] font-body uppercase tracking-[0.28em] text-akasha-orange mb-3"
+                  style={{ fontFamily: 'Inter, sans-serif' }}
+                >
+                  Checkout Under Maintenance
+                </p>
+                <h1
+                  className="font-heading text-akasha-black text-2xl md:text-3xl mb-4"
+                  style={{ fontWeight: 400 }}
+                >
+                  Enrollment temporarily unavailable
+                </h1>
+                <p className="font-body text-akasha-gray-1 text-sm md:text-base leading-relaxed mb-6">
+                  We&rsquo;re performing scheduled maintenance on this course&rsquo;s
+                  payment page. Please check back a little later, or reach out to
+                  our team if you&rsquo;d like to reserve your seat right away.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <a
+                    href="/"
+                    className="inline-flex items-center justify-center px-6 py-3 rounded-full text-[12px] font-medium uppercase tracking-[0.18em] bg-akasha-black text-akasha-white hover:bg-akasha-gray-1 transition-colors"
+                    style={{ fontFamily: 'Inter, sans-serif' }}
+                  >
+                    Back to Home
+                  </a>
+                  <a
+                    href="mailto:info@akashayogaacademy.com?subject=Enrollment%20enquiry"
+                    className="inline-flex items-center justify-center px-6 py-3 rounded-full text-[12px] font-medium uppercase tracking-[0.18em] border border-akasha-black text-akasha-black hover:bg-akasha-black hover:text-akasha-white transition-colors"
+                    style={{ fontFamily: 'Inter, sans-serif' }}
+                  >
+                    Contact Us
+                  </a>
+                </div>
+              </div>
+            </div>
+          ) : iframeUrl ? (
             <iframe
               src={iframeUrl}
               title="Secure ThriveCart checkout"

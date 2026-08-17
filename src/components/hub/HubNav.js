@@ -32,8 +32,15 @@ export default function HubNav({
   ctaText = 'Enroll Now',
   ctaHref,
   showUrgencyBanner = false,
+  ctaDisabled = false,
 }) {
   const enrollHref = ctaHref || '/checkout';
+  const disabledCls =
+    'bg-akasha-gray-3 text-akasha-white cursor-not-allowed opacity-80 shadow-none';
+  const activeDesktopCls =
+    'bg-akasha-orange text-white shadow-sm shadow-akasha-orange/20 hover:bg-akasha-orange-dark hover:shadow-md hover:shadow-akasha-orange/25 hover:scale-[1.03] active:scale-[0.98]';
+  const activeMobileCls =
+    'bg-akasha-orange text-white shadow-sm shadow-akasha-orange/20 hover:shadow-md';
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -136,13 +143,23 @@ export default function HubNav({
           )}
         </nav>
 
-        <a
-          href={enrollHref}
-          className="hidden lg:inline-flex items-center bg-akasha-orange text-white text-[11px] font-medium tracking-[0.12em] uppercase px-5 py-2.5 rounded-full shadow-sm shadow-akasha-orange/20 hover:bg-akasha-orange-dark hover:shadow-md hover:shadow-akasha-orange/25 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
-          style={{ fontFamily: 'Inter, sans-serif' }}
-        >
-          {ctaText}
-        </a>
+        {ctaDisabled ? (
+          <span
+            aria-disabled="true"
+            className={`hidden lg:inline-flex items-center text-[11px] font-medium tracking-[0.12em] uppercase px-5 py-2.5 rounded-full transition-all duration-300 ${disabledCls}`}
+            style={{ fontFamily: 'Inter, sans-serif' }}
+          >
+            {ctaText}
+          </span>
+        ) : (
+          <a
+            href={enrollHref}
+            className={`hidden lg:inline-flex items-center text-[11px] font-medium tracking-[0.12em] uppercase px-5 py-2.5 rounded-full transition-all duration-300 ${activeDesktopCls}`}
+            style={{ fontFamily: 'Inter, sans-serif' }}
+          >
+            {ctaText}
+          </a>
+        )}
 
         <button
           onClick={() => setOpen((v) => !v)}
@@ -207,13 +224,22 @@ export default function HubNav({
               </a>
             ),
           )}
-          <a
-            href={enrollHref}
-            onClick={() => setOpen(false)}
-            className="mt-3 bg-akasha-orange text-white text-center text-xs font-medium tracking-[0.12em] uppercase px-5 py-3 rounded-full shadow-sm shadow-akasha-orange/20 hover:shadow-md transition-all duration-300"
-          >
-            {ctaText}
-          </a>
+          {ctaDisabled ? (
+            <span
+              aria-disabled="true"
+              className={`mt-3 text-center text-xs font-medium tracking-[0.12em] uppercase px-5 py-3 rounded-full transition-all duration-300 ${disabledCls}`}
+            >
+              {ctaText}
+            </span>
+          ) : (
+            <a
+              href={enrollHref}
+              onClick={() => setOpen(false)}
+              className={`mt-3 text-center text-xs font-medium tracking-[0.12em] uppercase px-5 py-3 rounded-full transition-all duration-300 ${activeMobileCls}`}
+            >
+              {ctaText}
+            </a>
+          )}
         </nav>
       </div>
     </header>

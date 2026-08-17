@@ -10,14 +10,20 @@ import {
   STOREWIDE_PHASES,
   SALE_END_SHORT,
 } from '@/lib/campaignSchedule';
-import { getCheckoutHref, hasThriveCartUrl } from '@/lib/thriveCart';
+import { getCheckoutHref, hasThriveCartUrl, isPaymentDisabled } from '@/lib/thriveCart';
 
 // Every tier's Enroll CTA routes to the internal /checkout?product=<slug>
 // iframe shell, which resolves to that tier's specific ThriveCart
-// product. Tiers without a registered ThriveCart URL keep their
-// original anchor / Wix href fallback.
+// product. Tiers whose payment is temporarily disabled short-circuit
+// to /checkout (which renders the maintenance notice); tiers without
+// a registered ThriveCart URL keep their original anchor / Wix
+// href fallback.
 const tcHref = (slug, fallback) =>
-  hasThriveCartUrl(slug) ? getCheckoutHref(slug) : fallback;
+  isPaymentDisabled(slug)
+    ? getCheckoutHref(slug)
+    : hasThriveCartUrl(slug)
+      ? getCheckoutHref(slug)
+      : fallback;
 
 // Wording rules per team feedback (2 Jul):
 // - Zoom is 'sessions', never 'classes' (Zoom is discussion time, not

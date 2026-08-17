@@ -8,19 +8,28 @@
 
 import HubNav from '@/components/hub/HubNav';
 import { useTier } from '@/lib/TierContext';
-import { getCheckoutHref, hasThriveCartUrl } from '@/lib/thriveCart';
+import {
+  getCheckoutHref,
+  hasThriveCartUrl,
+  isPaymentDisabled,
+} from '@/lib/thriveCart';
 
 export default function SiteNav() {
   const tier = useTier();
-  const ctaHref = hasThriveCartUrl(tier.slug)
+  const paymentDown = isPaymentDisabled(tier.slug);
+  const ctaHref = paymentDown
     ? getCheckoutHref(tier.slug)
-    : '#pricing';
+    : hasThriveCartUrl(tier.slug)
+      ? getCheckoutHref(tier.slug)
+      : '#pricing';
+  const ctaText = paymentDown ? 'Under Maintenance' : tier.ctaShort;
 
   return (
     <HubNav
-      ctaText={tier.ctaShort}
+      ctaText={ctaText}
       ctaHref={ctaHref}
-      showUrgencyBanner
+      showUrgencyBanner={!paymentDown}
+      ctaDisabled={paymentDown}
     />
   );
 }
