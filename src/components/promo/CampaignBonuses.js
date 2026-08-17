@@ -23,7 +23,7 @@ const BONUSES = [
   {
     n: 2,
     name: 'How to Teach Yoga Online',
-    value: 299,
+    value: 249,
     desc:
       'In this course Akasha Yoga shares their first-hand experience of how to bring your Yoga classes online. Receive all the audio, lighting, and camera tricks and tips to make your offerings online a successful experience.',
   },

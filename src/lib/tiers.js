@@ -59,29 +59,29 @@ export const TIERS = {
     tagline: 'Your Path to Purpose & Joy',
     pricingTagline: 'Essential Path',
     regularPrice: 1190,
-    promoPrice: 299,
+    promoPrice: 249,
     discountPercent: 75,
     discountLabel: '75% Transform Discount',
     // August Phase 1, 1-15 Aug 2026 (GROW75 coupon at Wix checkout).
     saleWindows: STOREWIDE_WINDOWS,
     salePhases: STOREWIDE_PHASES,
     saleEndShort: SALE_END_SHORT,
-    // Auto-applied at Wix checkout. GROW75 takes Essential to US$299.
+    // Auto-applied at Wix checkout. GROW75 takes Essential to US$249.
     couponCode: 'GROW75',
-    ctaShort: 'Enroll US$299',
-    ctaLong: 'Enroll Now, US$299',
+    ctaShort: 'Enroll US$249',
+    ctaLong: 'Enroll Now, US$249',
     ctaHref: tcHref('essential', '/200h-essential/enroll'),
     selfPaceWindow: 'Self-paced, 6-months access & certification window',
     metaTitle:
       '200-Hour Online Yoga Teacher Training, Akasha Yoga Academy | Your Path to Purpose & Joy',
     metaDescription:
-      "Become Yoga Alliance certified with Akasha Yoga Academy's 200-Hour Online YTT. US$299 (was US$1,190). 3 Live Zoom Sessions per week, 200+ Bali studio videos, 1,100+ graduates on 6 continents.",
+      "Become Yoga Alliance certified with Akasha Yoga Academy's 200-Hour Online YTT. US$249 (was US$1,190). 3 Live Zoom Sessions per week, 200+ Bali studio videos, 1,100+ graduates on 6 continents.",
     bullets: ESSENTIAL_BULLETS,
     accessNote: 'Self-paced, 6-months access & certification window.',
     heroImage:
       'https://static.wixstatic.com/media/c15a18_5d357dab7cec43c4879c3f12090081ce~mv2.jpg/v1/crop/x_328,y_0,w_1345,h_1334/fill/w_838,h_792,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Certified-Yoga-Instructor---Bali---Akash.jpg',
     plans: [
-      { slug: 'full', label: 'Pay in Full', regularPrice: 1190, price: 299, currency: 'USD', note: 'One-time payment' },
+      { slug: 'full', label: 'Pay in Full', regularPrice: 1190, price: 249, currency: 'USD', note: 'One-time payment' },
     ],
   },
   premium: {

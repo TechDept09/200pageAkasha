@@ -9,7 +9,7 @@ const ROW_B = '#1f1f1f';
 
 // value can be: true (green check), false/'-' (dash), a string, or a price obj.
 const ROWS = [
-  { label: 'Investment', e: { price: 299 }, p: { price: 1490 } },
+  { label: 'Investment', e: { price: 249 }, p: { price: 1490 } },
   { label: '6-Month Payment Plan', e: '-', p: '-' },
   { label: 'Yoga Alliance Certification', e: true, p: true },
   { label: 'Access to Videos (Extensions Available)', e: '6 Months', p: '12 Months' },

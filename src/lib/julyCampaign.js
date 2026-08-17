@@ -154,10 +154,10 @@ JULY_PHASES.augphase1 = {
   intro:
     'A self-paced 200-Hour Yoga Teacher Training you begin this August, Yoga Alliance certified. Self-paced independent study — personal mentorship and individualized coaching are not included.',
   couponCode: AUG_PHASE1_COUPON,
-  couponNote: `Voucher ${AUG_PHASE1_COUPON} applied at checkout so the Essential resolves to US$299.`,
+  couponNote: `Voucher ${AUG_PHASE1_COUPON} applied at checkout so the Essential resolves to US$249.`,
   bundle: null,
   standalone: {
-    essential: 299,
+    essential: 249,
     regularPrice: 1190,
     discountPercent: 75,
     couponCode: AUG_PHASE1_COUPON,

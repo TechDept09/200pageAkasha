@@ -1740,56 +1740,60 @@ function StandaloneCard({ phase, onWhatYouGet }) {
   return (
     <div className="bg-akasha-white border border-akasha-gray-4 rounded-sm p-7 md:p-8 flex flex-col">
       <p
-        className="text-[11px] font-body uppercase tracking-[0.25em] text-akasha-gold mb-2"
-        style={{ fontFamily: 'Inter, sans-serif' }}
+        className="script text-akasha-gray-1 mb-2"
+        style={{ fontFamily: '"Great Vibes", cursive', fontSize: 'clamp(1rem, 1.6vw, 1.15rem)' }}
       >
-        {isBackup ? 'Final Offer' : '200-Hour Only'}
+        {phase.label || '75% Transform Discount'}
       </p>
       <h3
-        className="font-heading text-akasha-black text-xl md:text-2xl mb-3"
+        className="font-heading text-akasha-black text-2xl md:text-3xl mb-5"
         style={{ fontWeight: 400 }}
       >
-        200-Hour Yoga Teacher Training (Essential Path)
+        Turn Growth Into Action
       </h3>
-      <p className="font-body text-akasha-gray-1 text-sm leading-relaxed mb-5">
-        {isBackup
-          ? 'The 200-Hour Essential at its closing summer price, voucher applied automatically at checkout.'
-          : phase.key === 'phase2'
-            ? 'Begin the 200-Hour Essential this July, voucher applied automatically at checkout.'
-            : 'The 200-Hour Yoga Teacher Training (Essential Path). Self-paced, Yoga Alliance certified, at the current promotional rate.'}
-      </p>
 
-      <div className="flex items-baseline flex-wrap gap-3 mb-2">
-        <span className="text-akasha-gray-2 line-through font-body text-base">
-          US${strikethroughPrice}
-        </span>
-        <span
-          className="font-heading text-akasha-black text-3xl md:text-4xl"
-          style={{ fontWeight: 400 }}
+      <div className="border border-akasha-gray-4 bg-akasha-gray-4/20 rounded-sm px-5 py-4 mb-5">
+        <p
+          className="text-[10px] font-body uppercase tracking-[0.24em] text-akasha-gray-1 mb-1"
+          style={{ fontFamily: 'Inter, sans-serif' }}
         >
-          US${displayPrice}
-        </span>
-        {discountPercent ? (
+          Transform Tuition
+        </p>
+        <div className="flex items-center flex-wrap gap-3">
+          <div className="flex items-baseline gap-2">
+            <span className="text-akasha-gray-2 line-through font-body text-base">
+              US${strikethroughPrice}
+            </span>
+            <span
+              className="font-heading text-akasha-black text-3xl md:text-4xl"
+              style={{ fontWeight: 500 }}
+            >
+              US${displayPrice}
+            </span>
+          </div>
           <span
-            className="inline-block text-[10px] font-body font-semibold uppercase tracking-[0.18em] text-akasha-orange bg-akasha-orange/10 rounded-full px-2.5 py-1"
+            className="ml-auto inline-block text-[10px] font-body font-semibold uppercase tracking-[0.18em] text-akasha-white bg-akasha-black rounded-sm px-3 py-1.5"
             style={{ fontFamily: 'Inter, sans-serif' }}
           >
-            {discountPercent}% off
+            Save US$50
           </span>
-        ) : null}
+        </div>
       </div>
-      {phase.standalone.regularPrice ? (
-        <p className="text-[11px] font-body uppercase tracking-[0.22em] text-akasha-orange mb-2">
-          Save US${(phase.standalone.regularPrice - displayPrice).toLocaleString('en-US')}
-        </p>
-      ) : null}
-      <p className="text-[11px] font-body uppercase tracking-[0.2em] text-akasha-gray-1 mb-6">
-        {voucherPrice
-          ? 'Voucher applied at checkout'
-          : phase.standalone.discountPercent
-            ? `${phase.standalone.discountPercent}% off`
-            : 'Limited time offer'}
-      </p>
+
+      <ul className="space-y-2 text-sm font-body text-akasha-gray-1 mb-6">
+        <li className="flex items-start gap-2">
+          <span aria-hidden="true" className="text-akasha-orange mt-0.5">✓</span>
+          <span><strong className="text-akasha-black">200-Hour</strong> Self-Paced Online Course</span>
+        </li>
+        <li className="flex items-start gap-2">
+          <span aria-hidden="true" className="text-akasha-orange mt-0.5">✓</span>
+          <span>Includes <strong className="text-akasha-black">14 Starter Bonuses</strong></span>
+        </li>
+        <li className="flex items-start gap-2">
+          <span aria-hidden="true" className="text-akasha-orange mt-0.5">✓</span>
+          <span><strong className="text-akasha-black">14-Day</strong> Money-Back Guarantee</span>
+        </li>
+      </ul>
 
       <div className="mt-auto">
         <a
@@ -1798,8 +1802,11 @@ function StandaloneCard({ phase, onWhatYouGet }) {
           className="inline-flex items-center justify-center w-full bg-akasha-black text-akasha-white px-8 py-3.5 rounded-full text-[12px] font-medium uppercase tracking-[0.2em] hover:bg-akasha-gray-1 transition-colors"
           style={{ fontFamily: 'Inter, sans-serif' }}
         >
-          {`Enroll in 200-Hour Only, US$${displayPrice}`}
+          Claim 75% Transform Discount
         </a>
+        <p className="mt-3 text-center text-[10px] font-body text-akasha-gray-1 leading-snug">
+          *Self-paced study. Personal mentorship not included.
+        </p>
         {onWhatYouGet ? (
           <button
             type="button"

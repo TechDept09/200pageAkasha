@@ -13,9 +13,6 @@ const ORANGE = '#C1632B';
 const CARD_BG = '#FFFFFF';
 const BASE = 'https://static.wixstatic.com/media/';
 
-const LOTUS_WATERMARK =
-  'https://static.wixstatic.com/media/cd7168_4415a77d6ae941eaa45a7317dc90ee65~mv2.png/v1/fill/w_858,h_870,al_c,q_90,enc_avif,quality_auto/flower-only-Light-Dark-orange_edited.png';
-
 const BONUSES = [
   {
     title: 'Design Your Schedule',
@@ -34,7 +31,7 @@ const BONUSES = [
   },
   {
     title: 'How to Teach Yoga Online',
-    value: 299,
+    value: 249,
     img: {
       src:
         BASE +
@@ -285,7 +282,7 @@ export default function Bonuses({ theme = 'light' }) {
     <section id="bonuses" className={`relative overflow-hidden ${enroll ? '' : 'bg-akasha-white'}`}>
       {!enroll && (
         <img
-          src={LOTUS_WATERMARK}
+          src="/images/lotus-flower.png"
           alt=""
           aria-hidden="true"
           loading="lazy"
@@ -300,7 +297,7 @@ export default function Bonuses({ theme = 'light' }) {
             className={`font-heading leading-snug ${headingCls}`}
             style={{ fontSize: 'clamp(1.5rem, 3.2vw, 2.2rem)', fontWeight: 300 }}
           >
-            Until August 15th, all the bonuses are FREE and included in Essential &amp;
+            Until August 30th, all the bonuses are FREE and included in Essential &amp;
             Premium Version.
           </h2>
           <p
