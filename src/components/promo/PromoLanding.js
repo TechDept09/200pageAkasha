@@ -1802,7 +1802,7 @@ function StandaloneCard({ phase, onWhatYouGet }) {
           className="inline-flex items-center justify-center w-full bg-akasha-black text-akasha-white px-8 py-3.5 rounded-full text-[12px] font-medium uppercase tracking-[0.2em] hover:bg-akasha-gray-1 transition-colors"
           style={{ fontFamily: 'Inter, sans-serif' }}
         >
-          Claim 75% Transform Discount
+          Enroll Now
         </a>
         <p className="mt-3 text-center text-[10px] font-body text-akasha-gray-1 leading-snug">
           *Self-paced study. Personal mentorship not included.
